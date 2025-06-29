@@ -3,16 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>espacioSM | Arquitectura (Borrador)</title>
+    <title>espacioSM | Arquitectura (Borrador Final)</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
         
+        :root {
+            --text-color: #111;
+            --background-color: #ffffff;
+            --gray-color: #6c757d;
+        }
+
         body, html {
             margin: 0;
             padding: 0;
             font-family: 'Lato', sans-serif;
-            background-color: #ffffff;
-            color: #111;
+            background-color: var(--background-color);
+            color: var(--text-color);
         }
 
         .page-container {
@@ -48,6 +54,7 @@
             justify-content: center;
             position: relative;
             color: white;
+            margin-bottom: 80px;
         }
         
         .hero-section::before {
@@ -66,24 +73,53 @@
             z-index: 1;
             text-align: center;
         }
+
+        .category-links {
+            text-align: center;
+            margin-bottom: 60px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+
+        .category-links a {
+            font-family: 'Lato', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            margin: 0 15px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .category-links a:hover {
+            color: var(--text-color);
+        }
         
         .portfolio-grid {
-            padding: 80px 0;
+            padding-bottom: 80px;
         }
 
         .grid-container {
             display: grid;
-            grid-template-columns: 1.5fr 1fr; 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
         }
         
         .grid-item {
             position: relative;
             overflow: hidden;
+            text-decoration: none;
+            color: white;
         }
         
         .grid-item img {
             width: 100%;
+            height: 100%;
+            object-fit: cover;
             display: block;
             transition: transform 0.4s ease;
         }
@@ -94,24 +130,19 @@
 
         .grid-item .project-name {
             position: absolute;
-            bottom: 20px;
-            left: 20px;
-            color: white;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 25px;
             font-size: 20px;
             font-weight: 700;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            transition: background 0.3s ease;
         }
-        
-        @media (max-width: 768px) {
-            .grid-container {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* --- ESTILOS DEL FOOTER --- */
+
         footer {
             padding: 80px 0;
-            margin-top: 40px;
             background-color: #f8f8f8;
             border-top: 1px solid #eee;
         }
@@ -139,72 +170,6 @@
             text-decoration: none;
             margin-bottom: 10px;
             font-size: 14px;
-            font-weight: 400;
         }
         .footer-column a:hover {
-            color: #000;
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 80px;
-            padding-top: 40px;
-            border-top: 1px solid #eee;
-            color: #888;
-            font-size: 12px;
-        }
-
-    </style>
-</head>
-<body>
-
-    <div class="page-container">
-        <header>
-            <img src="logo.png" alt="Logo espacioSM" class="logo">
-            <div class="menu-icon">☰</div>
-        </header>
-
-        <main>
-            <section class="hero-section" style="background-image: url('nombre-real-de-tu-foto.jpg');">
-                <h1 class="hero-title">Casa de la Montaña</h1>
-            </section>
-
-            <section class="portfolio-grid">
-                <div class="grid-container">
-                    <div class="grid-item">
-                        <img src="proyecto-1.jpg" alt="Proyecto 1">
-                        <div class="project-name">Residencia del Valle</div>
-                    </div>
-                    </div>
-            </section>
-        </main>
-    </div>
-
-    <footer>
-        <div class="footer-container">
-            <div class="footer-column">
-                <h4>Navegación</h4>
-                <a href="#">Proyectos</a>
-                <a href="#">Estudio</a>
-                <a href="#">Proceso</a>
-                <a href="#">Contacto</a>
-            </div>
-            <div class="footer-column">
-                <h4>Contacto</h4>
-                <p>Ciudad de México, México</p>
-                <a href="mailto:contacto@espaciosm.art">contacto@espaciosm.art</a>
-                <a href="tel:+525500000000">+52 55 0000 0000</a>
-            </div>
-            <div class="footer-column">
-                <h4>Social</h4>
-                <a href="#" target="_blank">Instagram</a>
-                <a href="#" target="_blank">LinkedIn</a>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>© espacioSM 2024</p>
-        </div>
-    </footer>
-
-</body>
-</html>
+            color: #000
