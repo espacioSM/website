@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>espacioSM | Arquitectura</title>
+    <style>
+        /* --- Reseteo Básico y Tipografía --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #fff;
+            color: #1a1a1a;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Contenedor Principal con Scroll Snap --- */
+        .scroll-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+        }
+
+        /* --- Secciones a Pantalla Completa --- */
+        .fullscreen-section {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            display: flex;
+            align-items: flex-end; /* Alinea el texto abajo */
+            justify-content: center; /* Centra el texto horizontalmente */
+            background-size: cover;
+            background-position: center center;
+            position: relative;
+        }
+        
+        /* --- Títulos de Proyecto --- */
+        .project-title {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+        /* --- Encabezado Fijo --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            z-index: 100;
+            transition: background-color 0.3s ease;
+        }
+
+        .logo {
+            max-height: 40px; 
+            filter: brightness(0) invert(1); /* Logo en blanco para contraste */
+        }
+        
+        .menu-icon {
+            font-size: 30px;
+            cursor: pointer;
+            color: #fff; /* Icono en blanco */
+            text-shadow: 0px 0px 5px rgba(0,0,0,0.5); /* Sombra para legibilidad */
+        }
+
+        /* --- Menú Overlay --- */
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-overlay a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 32px;
+            font-weight: 300;
+            margin: 20px 0;
+            transition: color 0.3s;
+        }
+        
+        .nav-overlay a:hover {
+            color: #aaa;
+        }
+        
+        .close-icon {
+            position: absolute;
+            top: 25px;
+            right: 40px;
+            font-size: 40px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="logo.png" alt="Logo espacioSM">
+        <div class="menu-icon" onclick="toggleNav()">☰</div>
+    </header>
+
+    <nav class="nav-overlay" id="nav-overlay">
+        <div class="close-icon" onclick="toggleNav()">×</div>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#">Despacho</a>
+        <a href="#">Contacto</a>
+    </nav>
+
+    <main class="scroll-container">
+        <section class="fullscreen-section" style="background-image: url('hero1.jpg');">
+            <div class="project-title">Casa de la Montaña</div>
+        </section>
+        
+        <section id="proyectos" class="fullscreen-section" style="background-image: url('casa-huitzilac.jpg');">
+            <div class="project-title">Loft Urbano</div>
+        </section>
+        
+        <section class="fullscreen-section" style="background-image: url('casa -jardín.jpg');">
+            <div class="project-title">Pabellón de Cristal</div>
+        </section>
+
+        <section class="fullscreen-section" style="background-image: url('casa-del-arbol.jpg');">
+            <div class="project-title">Residencia del Lago</div>
+        </section>
+       
+        <section class="fullscreen-section" style="background-image: url('lucernario-xochimilco.jpg');">
+            <div class="project-title">Pabellón de Cristal</div>
+        </section>
+ 
+        <section class="fullscreen-section" style="background-image: url('departamentos-huixtoco.jpg');">
+            <div class="project-title">Pabellón de Cristal</div>
+        </section>
+      
+        <section class="fullscreen-section" style="background-image: url('ixtapaluca-coral.jpg');">
+            <div class="project-title">Pabellón de Cristal</div>
+        </section>
+
+    </main>
+
+    <script>
+        function toggleNav() {
+            const nav = document.getElementById('nav-overlay');
+            nav.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>
