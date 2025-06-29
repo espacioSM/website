@@ -30,7 +30,6 @@
             justify-content: space-between;
             align-items: center;
             padding: 40px 0;
-            margin-bottom: 40px;
         }
 
         .logo {
@@ -50,14 +49,29 @@
             margin-left: 10px;
         }
 
-        .main-title {
-            font-size: clamp(3rem, 10vw, 8rem);
-            font-weight: 500;
+        /* --- NUEVA SECCIÓN HERO BANNER --- */
+        .hero-banner {
+            height: 60vh; /* Altura del banner, puedes ajustarlo */
+            width: 100%;
+            background-size: cover;
+            background-position: center center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
             text-align: center;
-            letter-spacing: -0.05em;
-            margin: 0 0 40px 0;
+            margin-bottom: 60px; /* Espacio antes de los filtros */
+            border-radius: 4px;
         }
-        
+
+        .hero-banner h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 600;
+            background-color: rgba(0,0,0,0.4);
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
         .filters {
             text-align: center;
             margin-bottom: 60px;
@@ -168,7 +182,7 @@
             margin-bottom: 15px;
         }
         
-        .footer-column a {
+        .footer-column a, .footer-column p {
             display: block;
             color: var(--gray-color);
             text-decoration: none;
@@ -193,7 +207,9 @@
         </header>
 
         <main>
-            <h1 class="main-title">PROYECTOS</h1>
+            <div class="hero-banner" style="background-image: url('hero.jpg');">
+                <h1>Casa de la Montaña</h1>
+            </div>
 
             <div class="filters">
                 <button class="active" onclick="filterProjects('all')">Todos</button>
@@ -204,19 +220,14 @@
 
             <div class="project-grid">
                 <div class="project-item" data-category="vivienda">
-                    <img src="casa-montana-principal.jpg" alt="Casa de la Montaña">
-                    <div class="project-item-overlay"><h3>Casa de la Montaña</h3></div>
-                </div>
-                <div class="project-item" data-category="calculo">
-                    <img src="loft-urbano-vista.jpg" alt="Loft Urbano">
+                    <img src="proyecto1.jpg" alt="Loft Urbano">
                     <div class="project-item-overlay"><h3>Loft Urbano</h3></div>
                 </div>
-                <div class="project-item" data-category="vivienda">
-                    <img src="pabellon-cristal-exterior.jpg" alt="Pabellón de Cristal">
+                <div class="project-item" data-category="corporativo"> <img src="proyecto2.jpg" alt="Pabellón de Cristal">
                     <div class="project-item-overlay"><h3>Pabellón de Cristal</h3></div>
                 </div>
-                <div class="project-item" data-category="deportivo">
-                    <img src="residencia-lago-atardecer.jpg" alt="Residencia del Lago">
+                <div class="project-item" data-category="vivienda">
+                    <img src="proyecto3.jpg" alt="Residencia del Lago">
                     <div class="project-item-overlay"><h3>Residencia del Lago</h3></div>
                 </div>
                  </div>
@@ -237,7 +248,6 @@
                 <div class="footer-column">
                     <h4>Contacto</h4>
                     <a href="mailto:contacto@espaciosm.art">contacto@espaciosm.art</a>
-                    <a href="tel:+525500000000">+52 55 0000 0000</a>
                     <p>Ciudad de México</p>
                 </div>
                 <div class="footer-column">
@@ -254,21 +264,15 @@
             const items = document.querySelectorAll('.project-item');
             const buttons = document.querySelectorAll('.filters button');
             
-            // Manejar estilo del botón activo
-            buttons.forEach(button => {
-                if (button.textContent.toLowerCase() === category || (category === 'all' && button.textContent.toLowerCase() === 'todos')) {
-                    button.classList.add('active');
-                } else {
-                    button.classList.remove('active');
-                }
-            });
+            buttons.forEach(button => { button.classList.remove('active'); });
+            event.target.classList.add('active');
 
-            // Filtrar los proyectos
             items.forEach(item => {
-                if (category === 'all' || item.dataset.category === category) {
-                    item.classList.remove('hide');
+                const itemCategory = item.dataset.category;
+                if (category === 'all' || itemCategory === category) {
+                    item.style.display = 'block';
                 } else {
-                    item.classList.add('hide');
+                    item.style.display = 'none';
                 }
             });
         }
