@@ -3,179 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>espacioSM | Arquitectura</title>
+    <title>espacioSM | Proyectos (Borrador)</title>
     <style>
-        /* --- Reseteo Básico y Tipografía --- */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
         
+        :root {
+            --text-color: #1a1a1a;
+            --background-color: #ffffff;
+            --gray-color: #888;
+        }
+
         body, html {
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
-            background-color: #fff;
-            color: #1a1a1a;
-            scroll-behavior: smooth;
+            background-color: var(--background-color);
+            color: var(--text-color);
         }
 
-        /* --- Contenedor Principal con Scroll Snap --- */
-        .scroll-container {
-            scroll-snap-type: y mandatory;
-            overflow-y: scroll;
-            height: 100vh;
+        .container {
+            padding: 0 40px;
         }
 
-        /* --- Secciones a Pantalla Completa --- */
-        .fullscreen-section {
-            height: 100vh;
-            width: 100%;
-            scroll-snap-align: start;
-            display: flex;
-            align-items: flex-end; /* Alinea el texto abajo */
-            justify-content: center; /* Centra el texto horizontalmente */
-            background-size: cover;
-            background-position: center center;
-            position: relative;
-        }
-        
-        /* --- Títulos de Proyecto --- */
-        .project-title {
-            color: white;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 10px 20px;
-            margin-bottom: 40px;
-            font-weight: 300;
-            letter-spacing: 1px;
-            font-size: 16px;
-            border-radius: 4px;
-        }
-
-        /* --- Encabezado Fijo --- */
         header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 25px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-sizing: border-box;
-            z-index: 100;
-            transition: background-color 0.3s ease;
+            padding: 40px 0;
+            margin-bottom: 40px;
         }
 
         .logo {
-            max-height: 40px; 
-            filter: brightness(0) invert(1); /* Logo en blanco para contraste */
+            max-height: 40px;
+        }
+
+        .menu-trigger {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            margin-left: 10px;
+        }
+
+        .main-title {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 500;
+            text-align: center;
+            letter-spacing: -0.05em;
+            margin: 0 0 40px 0;
         }
         
-        .menu-icon {
-            font-size: 30px;
-            cursor: pointer;
-            color: #fff; /* Icono en blanco */
-            text-shadow: 0px 0px 5px rgba(0,0,0,0.5); /* Sombra para legibilidad */
+        .filters {
+            text-align: center;
+            margin-bottom: 60px;
         }
-    
 
-        /* --- Menú Overlay --- */
-        .nav-overlay {
-            position: fixed;
+        .filters button {
+            background: none;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 0 15px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-color);
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        .filters button:hover {
+            color: var(--text-color);
+        }
+        
+        .filters button.active {
+            color: var(--text-color);
+            border-bottom-color: var(--text-color);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .project-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+        
+        .project-item.hide {
+            display: none;
+        }
+
+        .project-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-item-overlay {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(26, 26, 26, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 999;
+            background: rgba(0,0,0,0.5);
+            color: white;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+            align-items: flex-end;
+            padding: 20px;
+            box-sizing: border-box;
             opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            transition: opacity 0.4s ease;
         }
         
-        .nav-overlay.active {
+        .project-item:hover .project-item-overlay {
             opacity: 1;
-            visibility: visible;
         }
 
-        .nav-overlay a {
-            color: #fff;
+        .project-item h3 {
+            margin: 0;
+            font-weight: 500;
+        }
+        
+        .manifesto {
+            text-align: center;
+            padding: 120px 0;
+            margin: 60px 0;
+        }
+
+        .manifesto p {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 500;
+            line-height: 1.4;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        footer {
+            padding: 60px 0;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .footer-column h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .footer-column a {
+            display: block;
+            color: var(--gray-color);
             text-decoration: none;
-            font-size: 32px;
-            font-weight: 300;
-            margin: 20px 0;
-            transition: color 0.3s;
+            margin-bottom: 10px;
+            font-size: 14px;
         }
-        
-        .nav-overlay a:hover {
-            color: #aaa;
-        }
-        
-        .close-icon {
-            position: absolute;
-            top: 25px;
-            right: 40px;
-            font-size: 40px;
-            cursor: pointer;
-            color: #fff;
+         .footer-column a:hover {
+            color: var(--text-color);
         }
 
     </style>
 </head>
 <body>
 
-    <header>
-        <img src="logo.png.png" alt="Logo espacioSM">
-        <div class="menu-icon" onclick="toggleNav()">☰</div>
-    </header>
+    <div class="container">
+        <header>
+            <img src="logo.png" alt="Logo espacioSM" class="logo">
+            <div class="menu-trigger">
+                <span>Menú</span>
+                <span class="menu-icon">☰</span>
+            </div>
+        </header>
 
-    <nav class="nav-overlay" id="nav-overlay">
-        <div class="close-icon" onclick="toggleNav()">×</div>
-        <a href="#proyectos">Proyectos</a>
-        <a href="#">Despacho</a>
-        <a href="#">Contacto</a>
-    </nav>
+        <main>
+            <h1 class="main-title">PROYECTOS</h1>
 
-    <main class="scroll-container">
-        <section class="fullscreen-section" style="background-image: url('hero1.jpg');">
-            <div class="project-title">Casa de la Montaña</div>
-        </section>
-        
-        <section id="proyectos" class="fullscreen-section" style="background-image: url('casa-huitzilac.jpg');">
-            <div class="project-title">Loft Urbano</div>
-        </section>
-        
-        <section class="fullscreen-section" style="background-image: url('casa -jardín.jpg');">
-            <div class="project-title">Pabellón de Cristal</div>
-        </section>
+            <div class="filters">
+                <button class="active" onclick="filterProjects('all')">Todos</button>
+                <button onclick="filterProjects('vivienda')">Vivienda</button>
+                <button onclick="filterProjects('calculo')">Cálculo</button>
+                <button onclick="filterProjects('deportivo')">Superficies Deportivas</button>
+            </div>
 
-        <section class="fullscreen-section" style="background-image: url('casa-del-arbol.jpg');">
-            <div class="project-title">Residencia del Lago</div>
-        </section>
-       
-        <section class="fullscreen-section" style="background-image: url('lucernario-xochimilco.jpg');">
-            <div class="project-title">Pabellón de Cristal</div>
-        </section>
- 
-        <section class="fullscreen-section" style="background-image: url('departamentos-huixtoco.jpg');">
-            <div class="project-title">Pabellón de Cristal</div>
-        </section>
-      
-        <section class="fullscreen-section" style="background-image: url('ixtapaluca-coral.jpg');">
-            <div class="project-title">Pabellón de Cristal</div>
-        </section>
+            <div class="project-grid">
+                <div class="project-item" data-category="vivienda">
+                    <img src="casa-montana-principal.jpg" alt="Casa de la Montaña">
+                    <div class="project-item-overlay"><h3>Casa de la Montaña</h3></div>
+                </div>
+                <div class="project-item" data-category="calculo">
+                    <img src="loft-urbano-vista.jpg" alt="Loft Urbano">
+                    <div class="project-item-overlay"><h3>Loft Urbano</h3></div>
+                </div>
+                <div class="project-item" data-category="vivienda">
+                    <img src="pabellon-cristal-exterior.jpg" alt="Pabellón de Cristal">
+                    <div class="project-item-overlay"><h3>Pabellón de Cristal</h3></div>
+                </div>
+                <div class="project-item" data-category="deportivo">
+                    <img src="residencia-lago-atardecer.jpg" alt="Residencia del Lago">
+                    <div class="project-item-overlay"><h3>Residencia del Lago</h3></div>
+                </div>
+                 </div>
 
-    </main>
+            <section class="manifesto">
+                <p>"Creemos en una arquitectura que genera silencio, espacio y emoción."</p>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Navegación</h4>
+                    <a href="#">Proyectos</a>
+                    <a href="#">Despacho</a>
+                    <a href="#">Contacto</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Contacto</h4>
+                    <a href="mailto:contacto@espaciosm.art">contacto@espaciosm.art</a>
+                    <a href="tel:+525500000000">+52 55 0000 0000</a>
+                    <p>Ciudad de México</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Social</h4>
+                    <a href="#">Instagram</a>
+                    <a href="#">LinkedIn</a>
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <script>
-        function toggleNav() {
-            const nav = document.getElementById('nav-overlay');
-            nav.classList.toggle('active');
+        function filterProjects(category) {
+            const items = document.querySelectorAll('.project-item');
+            const buttons = document.querySelectorAll('.filters button');
+            
+            // Manejar estilo del botón activo
+            buttons.forEach(button => {
+                if (button.textContent.toLowerCase() === category || (category === 'all' && button.textContent.toLowerCase() === 'todos')) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+
+            // Filtrar los proyectos
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.classList.remove('hide');
+                } else {
+                    item.classList.add('hide');
+                }
+            });
         }
     </script>
-
 </body>
 </html>
