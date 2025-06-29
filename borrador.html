@@ -5,25 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>espacioSM | Arquitectura (Borrador)</title>
     <style>
-        /* --- Importación de Tipografía (Ejemplo: Lato) --- */
         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
         
-        /* --- Estilos Generales --- */
         body, html {
             margin: 0;
             padding: 0;
-            font-family: 'Lato', sans-serif; /* Usamos la fuente importada */
+            font-family: 'Lato', sans-serif;
             background-color: #ffffff;
             color: #111;
         }
 
         .page-container {
-            max-width: 1400px; /* Ancho máximo del contenido */
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 40px;
         }
 
-        /* --- Encabezado --- */
         header {
             display: flex;
             justify-content: space-between;
@@ -41,10 +38,9 @@
             cursor: pointer;
         }
 
-        /* --- Sección Hero --- */
         .hero-section {
             width: 100%;
-            height: 70vh; /* Altura del banner principal */
+            height: 70vh;
             background-size: cover;
             background-position: center;
             display: flex;
@@ -54,7 +50,7 @@
             color: white;
         }
         
-        .hero-section::before { /* Capa oscura para legibilidad del texto */
+        .hero-section::before {
             content: '';
             position: absolute;
             top: 0;
@@ -65,22 +61,20 @@
         }
 
         .hero-title {
-            font-size: clamp(2.5rem, 8vw, 5rem); /* Título grande y adaptable */
+            font-size: clamp(2.5rem, 8vw, 5rem);
             font-weight: 700;
-            z-index: 1; /* Para que esté sobre la capa oscura */
+            z-index: 1;
             text-align: center;
         }
         
-        /* --- Cuadrícula de Proyectos --- */
         .portfolio-grid {
             padding: 80px 0;
         }
 
         .grid-container {
             display: grid;
-            /* Dos columnas, con la primera más ancha */
             grid-template-columns: 1.5fr 1fr; 
-            gap: 30px; /* Espacio entre las imágenes */
+            gap: 30px;
         }
         
         .grid-item {
@@ -95,7 +89,7 @@
         }
 
         .grid-item:hover img {
-            transform: scale(1.05); /* Efecto de zoom sutil */
+            transform: scale(1.05);
         }
 
         .grid-item .project-name {
@@ -108,11 +102,56 @@
             text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
         }
         
-        /* Para hacer la cuadrícula responsive en móviles */
         @media (max-width: 768px) {
             .grid-container {
-                grid-template-columns: 1fr; /* Una sola columna en móviles */
+                grid-template-columns: 1fr;
             }
+        }
+        
+        /* --- ESTILOS DEL FOOTER --- */
+        footer {
+            padding: 80px 0;
+            margin-top: 40px;
+            background-color: #f8f8f8;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer-container {
+             max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .footer-column a, .footer-column p {
+            display: block;
+            color: #555;
+            text-decoration: none;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 400;
+        }
+        .footer-column a:hover {
+            color: #000;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid #eee;
+            color: #888;
+            font-size: 12px;
         }
 
     </style>
@@ -120,15 +159,14 @@
 <body>
 
     <div class="page-container">
-
         <header>
             <img src="logo.png" alt="Logo espacioSM" class="logo">
             <div class="menu-icon">☰</div>
         </header>
 
         <main>
-            <section class="hero-section" style="background-image: url('hero-principal.jpg');">
-                <h1 class="hero-title">Casa en la Playa</h1>
+            <section class="hero-section" style="background-image: url('nombre-real-de-tu-foto.jpg');">
+                <h1 class="hero-title">Casa de la Montaña</h1>
             </section>
 
             <section class="portfolio-grid">
@@ -137,23 +175,36 @@
                         <img src="proyecto-1.jpg" alt="Proyecto 1">
                         <div class="project-name">Residencia del Valle</div>
                     </div>
-                    <div class="grid-item">
-                        <img src="proyecto-2.jpg" alt="Proyecto 2">
-                        <div class="project-name">Cálculo Estructural Z</div>
-                    </div>
-                    <div class="grid-item">
-                        <img src="proyecto-3.jpg" alt="Proyecto 3">
-                        <div class="project-name">Pista de Atletismo</div>
-                    </div>
-                     <div class="grid-item">
-                        <img src="proyecto-4.jpg" alt="Proyecto 4">
-                        <div class="project-name">Interiorismo Condesa</div>
-                    </div>
                     </div>
             </section>
         </main>
-        
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Navegación</h4>
+                <a href="#">Proyectos</a>
+                <a href="#">Estudio</a>
+                <a href="#">Proceso</a>
+                <a href="#">Contacto</a>
+            </div>
+            <div class="footer-column">
+                <h4>Contacto</h4>
+                <p>Ciudad de México, México</p>
+                <a href="mailto:contacto@espaciosm.art">contacto@espaciosm.art</a>
+                <a href="tel:+525500000000">+52 55 0000 0000</a>
+            </div>
+            <div class="footer-column">
+                <h4>Social</h4>
+                <a href="#" target="_blank">Instagram</a>
+                <a href="#" target="_blank">LinkedIn</a>
+            </div>
         </div>
+        <div class="copyright">
+            <p>© espacioSM 2024</p>
+        </div>
+    </footer>
 
 </body>
 </html>
