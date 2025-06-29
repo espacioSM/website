@@ -49,9 +49,8 @@
             margin-left: 10px;
         }
 
-        /* --- NUEVA SECCIÓN HERO BANNER --- */
         .hero-banner {
-            height: 60vh; /* Altura del banner, puedes ajustarlo */
+            height: 60vh;
             width: 100%;
             background-size: cover;
             background-position: center center;
@@ -60,7 +59,7 @@
             justify-content: center;
             color: white;
             text-align: center;
-            margin-bottom: 60px; /* Espacio antes de los filtros */
+            margin-bottom: 60px;
             border-radius: 4px;
         }
 
@@ -72,12 +71,13 @@
             border-radius: 5px;
         }
 
+        /* --- ESTILOS PARA LOS BOTONES COMO ENLACES --- */
         .filters {
             text-align: center;
             margin-bottom: 60px;
         }
 
-        .filters button {
+        .filters a { /* Cambiado de button a 'a' */
             background: none;
             border: none;
             font-family: 'Inter', sans-serif;
@@ -91,17 +91,14 @@
             padding-bottom: 5px;
             border-bottom: 2px solid transparent;
             transition: color 0.3s, border-color 0.3s;
+            text-decoration: none;
         }
 
-        .filters button:hover {
-            color: var(--text-color);
-        }
-        
-        .filters button.active {
+        .filters a:hover, .filters a.active {
             color: var(--text-color);
             border-bottom-color: var(--text-color);
         }
-
+        
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -112,11 +109,6 @@
             position: relative;
             overflow: hidden;
             border-radius: 4px;
-            transition: transform 0.3s ease;
-        }
-        
-        .project-item.hide {
-            display: none;
         }
 
         .project-item img {
@@ -124,6 +116,11 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            transition: transform 0.4s ease;
+        }
+        
+        .project-item:hover img {
+             transform: scale(1.05);
         }
 
         .project-item-overlay {
@@ -132,7 +129,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%);
             color: white;
             display: flex;
             align-items: flex-end;
@@ -149,6 +146,12 @@
         .project-item h3 {
             margin: 0;
             font-weight: 500;
+            transform: translateY(10px);
+            transition: transform 0.4s ease;
+        }
+
+        .project-item:hover h3 {
+            transform: translateY(0);
         }
         
         .manifesto {
@@ -212,25 +215,26 @@
             </div>
 
             <div class="filters">
-                <button class="active" onclick="filterProjects('all')">Todos</button>
-                <button onclick="filterProjects('vivienda')">Vivienda</button>
-                <button onclick="filterProjects('calculo')">Cálculo</button>
-                <button onclick="filterProjects('deportivo')">Superficies Deportivas</button>
+                <a href="todos.html" class="active">Todos</a>
+                <a href="vivienda.html">Vivienda</a>
+                <a href="calculo.html">Cálculo</a>
+                <a href="deportivo.html">Superficies Deportivas</a>
             </div>
 
             <div class="project-grid">
-                <div class="project-item" data-category="vivienda">
+                <a href="proyecto-loft.html" class="project-item">
                     <img src="proyecto1.jpg" alt="Loft Urbano">
                     <div class="project-item-overlay"><h3>Loft Urbano</h3></div>
-                </div>
-                <div class="project-item" data-category="corporativo"> <img src="proyecto2.jpg" alt="Pabellón de Cristal">
+                </a>
+                <a href="proyecto-pabellon.html" class="project-item">
+                    <img src="proyecto2.jpg" alt="Pabellón de Cristal">
                     <div class="project-item-overlay"><h3>Pabellón de Cristal</h3></div>
-                </div>
-                <div class="project-item" data-category="vivienda">
+                </a>
+                <a href="proyecto-residencia.html" class="project-item">
                     <img src="proyecto3.jpg" alt="Residencia del Lago">
                     <div class="project-item-overlay"><h3>Residencia del Lago</h3></div>
-                </div>
-                 </div>
+                </a>
+            </div>
 
             <section class="manifesto">
                 <p>"Creemos en una arquitectura que genera silencio, espacio y emoción."</p>
@@ -238,44 +242,8 @@
         </main>
 
         <footer>
-            <div class="footer-grid">
-                <div class="footer-column">
-                    <h4>Navegación</h4>
-                    <a href="#">Proyectos</a>
-                    <a href="#">Despacho</a>
-                    <a href="#">Contacto</a>
-                </div>
-                <div class="footer-column">
-                    <h4>Contacto</h4>
-                    <a href="mailto:contacto@espaciosm.art">contacto@espaciosm.art</a>
-                    <p>Ciudad de México</p>
-                </div>
-                <div class="footer-column">
-                    <h4>Social</h4>
-                    <a href="#">Instagram</a>
-                    <a href="#">LinkedIn</a>
-                </div>
-            </div>
-        </footer>
+           </footer>
     </div>
-
-    <script>
-        function filterProjects(category) {
-            const items = document.querySelectorAll('.project-item');
-            const buttons = document.querySelectorAll('.filters button');
-            
-            buttons.forEach(button => { button.classList.remove('active'); });
-            event.target.classList.add('active');
-
-            items.forEach(item => {
-                const itemCategory = item.dataset.category;
-                if (category === 'all' || itemCategory === category) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-    </script>
-</body>
+    
+    </body>
 </html>
