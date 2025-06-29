@@ -3,247 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>espacioSM | Proyectos (Borrador)</title>
+    <title>espacioSM | Arquitectura (Borrador)</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+        /* --- Importación de Tipografía (Ejemplo: Lato) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
         
-        :root {
-            --text-color: #1a1a1a;
-            --background-color: #ffffff;
-            --gray-color: #888;
-        }
-
+        /* --- Estilos Generales --- */
         body, html {
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
+            font-family: 'Lato', sans-serif; /* Usamos la fuente importada */
+            background-color: #ffffff;
+            color: #111;
         }
 
-        .container {
+        .page-container {
+            max-width: 1400px; /* Ancho máximo del contenido */
+            margin: 0 auto;
             padding: 0 40px;
         }
 
+        /* --- Encabezado --- */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 40px 0;
+            padding: 30px 0;
         }
 
         .logo {
-            max-height: 40px;
-        }
-
-        .menu-trigger {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 500;
+            max-height: 45px;
         }
 
         .menu-icon {
-            font-size: 24px;
-            margin-left: 10px;
+            font-size: 30px;
+            font-weight: 300;
+            cursor: pointer;
         }
 
-        .hero-banner {
-            height: 60vh;
+        /* --- Sección Hero --- */
+        .hero-section {
             width: 100%;
+            height: 70vh; /* Altura del banner principal */
             background-size: cover;
-            background-position: center center;
+            background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            text-align: center;
-            margin-bottom: 60px;
-            border-radius: 4px;
-        }
-
-        .hero-banner h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 600;
-            background-color: rgba(0,0,0,0.4);
-            padding: 10px 20px;
-            border-radius: 5px;
-        }
-
-        /* --- ESTILOS PARA LOS BOTONES COMO ENLACES --- */
-        .filters {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .filters a { /* Cambiado de button a 'a' */
-            background: none;
-            border: none;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            margin: 0 15px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--gray-color);
-            padding-bottom: 5px;
-            border-bottom: 2px solid transparent;
-            transition: color 0.3s, border-color 0.3s;
-            text-decoration: none;
-        }
-
-        .filters a:hover, .filters a.active {
-            color: var(--text-color);
-            border-bottom-color: var(--text-color);
-        }
-        
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .project-item {
             position: relative;
-            overflow: hidden;
-            border-radius: 4px;
-        }
-
-        .project-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.4s ease;
+            color: white;
         }
         
-        .project-item:hover img {
-             transform: scale(1.05);
-        }
-
-        .project-item-overlay {
+        .hero-section::before { /* Capa oscura para legibilidad del texto */
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%);
-            color: white;
-            display: flex;
-            align-items: flex-end;
-            padding: 20px;
-            box-sizing: border-box;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        
-        .project-item:hover .project-item-overlay {
-            opacity: 1;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3);
         }
 
-        .project-item h3 {
-            margin: 0;
-            font-weight: 500;
-            transform: translateY(10px);
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem); /* Título grande y adaptable */
+            font-weight: 700;
+            z-index: 1; /* Para que esté sobre la capa oscura */
+            text-align: center;
+        }
+        
+        /* --- Cuadrícula de Proyectos --- */
+        .portfolio-grid {
+            padding: 80px 0;
+        }
+
+        .grid-container {
+            display: grid;
+            /* Dos columnas, con la primera más ancha */
+            grid-template-columns: 1.5fr 1fr; 
+            gap: 30px; /* Espacio entre las imágenes */
+        }
+        
+        .grid-item {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .grid-item img {
+            width: 100%;
+            display: block;
             transition: transform 0.4s ease;
         }
 
-        .project-item:hover h3 {
-            transform: translateY(0);
-        }
-        
-        .manifesto {
-            text-align: center;
-            padding: 120px 0;
-            margin: 60px 0;
+        .grid-item:hover img {
+            transform: scale(1.05); /* Efecto de zoom sutil */
         }
 
-        .manifesto p {
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            font-weight: 500;
-            line-height: 1.4;
-            max-width: 800px;
-            margin: 0 auto;
+        .grid-item .project-name {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
         }
         
-        footer {
-            padding: 60px 0;
-            border-top: 1px solid #eee;
-        }
-        
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        
-        .footer-column h4 {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-        
-        .footer-column a, .footer-column p {
-            display: block;
-            color: var(--gray-color);
-            text-decoration: none;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-         .footer-column a:hover {
-            color: var(--text-color);
+        /* Para hacer la cuadrícula responsive en móviles */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr; /* Una sola columna en móviles */
+            }
         }
 
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="page-container">
+
         <header>
             <img src="logo.png" alt="Logo espacioSM" class="logo">
-            <div class="menu-trigger">
-                <span>Menú</span>
-                <span class="menu-icon">☰</span>
-            </div>
+            <div class="menu-icon">☰</div>
         </header>
 
         <main>
-            <div class="hero-banner" style="background-image: url('hero.jpg');">
-                <h1>Casa de la Montaña</h1>
-            </div>
+            <section class="hero-section" style="background-image: url('hero-principal.jpg');">
+                <h1 class="hero-title">Casa en la Playa</h1>
+            </section>
 
-            <div class="filters">
-                <a href="todos.html" class="active">Todos</a>
-                <a href="vivienda.html">Vivienda</a>
-                <a href="calculo.html">Cálculo</a>
-                <a href="deportivo.html">Superficies Deportivas</a>
-            </div>
-
-            <div class="project-grid">
-                <a href="proyecto-loft.html" class="project-item">
-                    <img src="proyecto1.jpg" alt="Loft Urbano">
-                    <div class="project-item-overlay"><h3>Loft Urbano</h3></div>
-                </a>
-                <a href="proyecto-pabellon.html" class="project-item">
-                    <img src="proyecto2.jpg" alt="Pabellón de Cristal">
-                    <div class="project-item-overlay"><h3>Pabellón de Cristal</h3></div>
-                </a>
-                <a href="proyecto-residencia.html" class="project-item">
-                    <img src="proyecto3.jpg" alt="Residencia del Lago">
-                    <div class="project-item-overlay"><h3>Residencia del Lago</h3></div>
-                </a>
-            </div>
-
-            <section class="manifesto">
-                <p>"Creemos en una arquitectura que genera silencio, espacio y emoción."</p>
+            <section class="portfolio-grid">
+                <div class="grid-container">
+                    <div class="grid-item">
+                        <img src="proyecto-1.jpg" alt="Proyecto 1">
+                        <div class="project-name">Residencia del Valle</div>
+                    </div>
+                    <div class="grid-item">
+                        <img src="proyecto-2.jpg" alt="Proyecto 2">
+                        <div class="project-name">Cálculo Estructural Z</div>
+                    </div>
+                    <div class="grid-item">
+                        <img src="proyecto-3.jpg" alt="Proyecto 3">
+                        <div class="project-name">Pista de Atletismo</div>
+                    </div>
+                     <div class="grid-item">
+                        <img src="proyecto-4.jpg" alt="Proyecto 4">
+                        <div class="project-name">Interiorismo Condesa</div>
+                    </div>
+                    </div>
             </section>
         </main>
+        
+        </div>
 
-        <footer>
-           </footer>
-    </div>
-    
-    </body>
+</body>
 </html>
