@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudio de Arquitectura</title>
+    <style>
+        /* Reset y estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Menú superior */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #333;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #999;
+        }
+
+        /* Hero Section (Imagen principal) */
+        .hero {
+            height: 100vh;
+            background-image: url('https://via.placeholder.com/1920x1080');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px; /* Ajuste para el header fijo */
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 48px;
+            text-align: center;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Grid de proyectos */
+        .projects {
+            padding: 80px 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project {
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+        }
+
+        .project img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .project:hover img {
+            transform: scale(1.05);
+        }
+
+        .project-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            width: 100%;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px;
+            text-align: center;
+            background-color: #333;
+            color: white;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">ESTUDIO</a>
+        <nav>
+            <ul>
+                <li><a href="#">Proyectos</a></li>
+                <li><a href="#">Equipo</a></li>
+                <li><a href="#">Noticias</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Arquitectura Contemporánea</h1>
+    </section>
+
+    <section class="projects">
+        <div class="project">
+            <img src="https://via.placeholder.com/600x400" alt="Proyecto 1">
+            <div class="project-info">
+                <h3>Proyecto Residencial</h3>
+                <p>Valencia, España</p>
+            </div>
+        </div>
+        <div class="project">
+            <img src="https://via.placeholder.com/600x400" alt="Proyecto 2">
+            <div class="project-info">
+                <h3>Casa en la Montaña</h3>
+                <p>Andorra</p>
+            </div>
+        </div>
+        <div class="project">
+            <img src="https://via.placeholder.com/600x400" alt="Proyecto 3">
+            <div class="project-info">
+                <h3>Oficinas Urbanas</h3>
+                <p>Madrid, España</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2023 Estudio de Arquitectura. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
