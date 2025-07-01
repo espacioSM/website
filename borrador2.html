@@ -3,174 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudio de Arquitectura</title>
+    <title>espacioSM | Arquitectura (Borrador Final)</title>
     <style>
-        /* Reset y estilos generales */
-        * {
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+        
+        :root {
+            --text-color: #111;
+            --background-color: #ffffff;
+            --gray-color: #6c757d;
+            --project-image-opacity: 0.6; /* Variable para controlar opacidad inicial */
+            --project-image-brightness: 0.7; /* Variable para controlar brillo inicial */
+        }
+
+        body, html {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Lato', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
         }
 
-        body {
-            background-color: #f9f9f9;
-            color: #333;
-            line-height: 1.6;
+        .page-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
         }
 
-        /* Menú superior */
         header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px 40px;
-            background-color: rgba(255, 255, 255, 0.9);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
+            padding: 30px 0;
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: bold;
-            text-decoration: none;
-            color: #333;
+            max-height: 45px;
         }
 
-        nav ul {
-            display: flex;
-            list-style: none;
+        .menu-icon {
+            font-size: 30px;
+            font-weight: 300;
+            cursor: pointer;
         }
 
-        nav ul li {
-            margin-left: 30px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: #333;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: #999;
-        }
-
-        /* Hero Section (Imagen principal) */
-        .hero {
-            height: 100vh;
-            background-image: url('https://via.placeholder.com/1920x1080');
-            background-size: cover;
+        .hero-section {
+            width: 100%;
+            height: 70vh;
+            background-size: 60%; 
             background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 80px; /* Ajuste para el header fijo */
-        }
-
-        .hero h1 {
+            margin: 0 auto 80px;
             color: white;
-            font-size: 48px;
-            text-align: center;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            position: relative;
+            background-color: #FEFEFE;
         }
 
-        /* Grid de proyectos */
-        .projects {
-            padding: 80px 40px;
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .category-links {
+            text-align: center;
+            margin-bottom: 60px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+
+        .category-links a {
+            font-family: 'Lato', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            margin: 0 15px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .category-links a:hover {
+            color: var(--text-color);
+        }
+        
+        .portfolio-grid {
+            padding-bottom: 80px;
+        }
+
+        .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
         }
-
-        .project {
+        
+        .grid-item {
             position: relative;
             overflow: hidden;
-            height: 400px;
+            text-decoration: none;
+            color: white;
         }
-
-        .project img {
+        
+        .grid-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
+            display: block;
+            transition: all 0.4s ease;
+            opacity: var(--project-image-opacity);
+            filter: brightness(var(--project-image-brightness)) contrast(1.1) saturate(0.9);
         }
 
-        .project:hover img {
+        .grid-item:hover img {
             transform: scale(1.05);
+            opacity: 1;
+            filter: brightness(1) contrast(1) saturate(1);
         }
 
-        .project-info {
+        .grid-item .project-name {
             position: absolute;
             bottom: 0;
             left: 0;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            width: 100%;
+            right: 0;
+            padding: 25px;
+            font-size: 20px;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            transition: all 0.3s ease;
         }
 
-        /* Footer */
         footer {
-            padding: 40px;
-            text-align: center;
-            background-color: #333;
-            color: white;
+            padding: 80px 0;
+            background-color: #f8f8f8;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer-container {
+             max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .footer-column a, .footer-column p {
+            display: block;
+            color: #555;
+            text-decoration: none;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .footer-column a:hover {
+            color: #000;
         }
 
-        footer p {
-            font-size: 14px;
+        .copyright {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid #eee;
+            color: #aaa;
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <a href="#" class="logo">ESTUDIO</a>
-        <nav>
-            <ul>
-                <li><a href="#">Proyectos</a></li>
-                <li><a href="#">Equipo</a></li>
-                <li><a href="#">Noticias</a></li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <section class="hero">
-        <h1>Arquitectura Contemporánea</h1>
-    </section>
+    <div class="page-container">
+        <header>
+            <img src="logo.png.png" alt="Logo espacioSM" class="logo">
+            <div class="menu-icon">☰</div>
+        </header>
 
-    <section class="projects">
-        <div class="project">
-            <img src="https://via.placeholder.com/600x400" alt="Proyecto 1">
-            <div class="project-info">
-                <h3>Proyecto Residencial</h3>
-                <p>Valencia, España</p>
-            </div>
-        </div>
-        <div class="project">
-            <img src="https://via.placeholder.com/600x400" alt="Proyecto 2">
-            <div class="project-info">
-                <h3>Casa en la Montaña</h3>
-                <p>Andorra</p>
-            </div>
-        </div>
-        <div class="project">
-            <img src="https://via.placeholder.com/600x400" alt="Proyecto 3">
-            <div class="project-info">
-                <h3>Oficinas Urbanas</h3>
-                <p>Madrid, España</p>
-            </div>
-        </div>
-    </section>
+        <main>
+            <section class="hero-section" style="background-image: url('hero1.jpg');">
+                <h1 class="hero-title">  </h1>
+            </section>
 
-    <footer>
-        <p>© 2023 Estudio de Arquitectura. Todos los derechos reservados.</p>
-    </footer>
-</body>
-</html>
+            <div class="category-links">
+                <a href="todos.html">Todos</a>
+                <a href="vivienda.html">Vivienda</a>
+                <a href="calculo.html">Cálculo</a>
+                <a href="superficies-deportivas.html">Superficies Depor
