@@ -11,19 +11,19 @@
             --text-color: #111;
             --background-color: #ffffff;
             --gray-color: #6c757d;
-            /* Variables para proyectos */
-            --project-image-opacity: 0.6;
-            --project-image-brightness: 0.7;
-            --project-size: 250px; /* Tamaño fijo cuadrado */
+            /* Variables responsive */
+            --project-size: 250px; /* Base desktop */
+            --hero-height: 70vh;
         }
 
-        /* ESTILOS GENERALES */
+        /* RESET Y ESTILOS BASE */
         body, html {
             margin: 0;
             padding: 0;
             font-family: 'Lato', sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
+            scroll-behavior: smooth;
         }
 
         .page-container {
@@ -32,6 +32,7 @@
             padding: 0 40px;
         }
 
+        /* HEADER RESPONSIVE */
         header {
             display: flex;
             justify-content: space-between;
@@ -41,6 +42,7 @@
 
         .logo {
             max-height: 45px;
+            width: auto;
         }
 
         .menu-icon {
@@ -49,10 +51,10 @@
             cursor: pointer;
         }
 
-        /* HERO SECTION */
+        /* HERO SECTION RESPONSIVE */
         .hero-section {
             width: 100%;
-            height: 70vh;
+            height: var(--hero-height);
             background-size: 60%;
             background-position: center;
             background-repeat: no-repeat;
@@ -64,22 +66,26 @@
         }
 
         .hero-title {
-            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-size: clamp(2rem, 6vw, 4rem);
             font-weight: 700;
             text-align: center;
+            padding: 0 20px;
         }
 
+        /* CATEGORÍAS */
         .category-links {
             text-align: center;
             margin-bottom: 60px;
             border-top: 1px solid #eee;
             border-bottom: 1px solid #eee;
             padding: 20px 0;
+            overflow-x: auto; /* Para móviles */
+            white-space: nowrap;
         }
 
         .category-links a {
             font-family: 'Lato', sans-serif;
-            font-size: 14px;
+            font-size: clamp(12px, 1.5vw, 14px);
             font-weight: 700;
             margin: 0 15px;
             text-transform: uppercase;
@@ -87,13 +93,10 @@
             color: var(--gray-color);
             text-decoration: none;
             transition: color 0.3s;
+            display: inline-block; /* Para scroll horizontal en móviles */
         }
 
-        .category-links a:hover {
-            color: var(--text-color);
-        }
-        
-        /* PORTFOLIO GRID - AJUSTE PRINCIPAL */
+        /* GRID DE PROYECTOS RESPONSIVE */
         .portfolio-grid {
             padding-bottom: 80px;
         }
@@ -110,27 +113,22 @@
             overflow: hidden;
             text-decoration: none;
             color: white;
-            /* Contenedor cuadrado fijo */
-            width: var(--project-size);
-            height: var(--project-size);
-            margin: 0 auto; /* Centrado horizontal */
+            width: 100%;
+            aspect-ratio: 1; /* Cuadrado perfecto */
+            border-radius: 4px;
         }
         
         .grid-item img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Recorta la imagen manteniendo proporción */
-            object-position: center; /* Centra el recorte */
+            object-fit: cover;
+            object-position: center;
             display: block;
             transition: all 0.4s ease;
-            opacity: var(--project-image-opacity);
-            filter: brightness(var(--project-image-brightness)) contrast(1.1);
         }
 
         .grid-item:hover img {
-            transform: scale(1.05);
-            opacity: 1;
-            filter: brightness(1) contrast(1);
+            transform: scale(1.03);
         }
 
         .grid-item .project-name {
@@ -138,17 +136,16 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 25px;
-            font-size: 20px;
+            padding: 20px;
+            font-size: clamp(16px, 2vw, 20px);
             font-weight: 700;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
             background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
-            transition: all 0.3s ease;
         }
 
-        /* FOOTER */
+        /* FOOTER RESPONSIVE */
         footer {
-            padding: 80px 0;
+            padding: 60px 0 30px;
             background-color: #f8f8f8;
             border-top: 1px solid #eee;
         }
@@ -158,7 +155,7 @@
             margin: 0 auto;
             padding: 0 40px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 40px;
         }
         
@@ -184,32 +181,88 @@
 
         .copyright {
             text-align: center;
-            margin-top: 80px;
-            padding-top: 40px;
+            margin-top: 60px;
+            padding-top: 30px;
             border-top: 1px solid #eee;
             color: #aaa;
             font-size: 12px;
         }
+
+        /* MEDIA QUERIES */
+        @media (max-width: 1024px) { /* Tablet */
+            :root {
+                --project-size: 200px;
+                --hero-height: 60vh;
+            }
+            .hero-section {
+                background-size: 70%;
+            }
+            .page-container {
+                padding: 0 30px;
+            }
+        }
+
+        @media (max-width: 768px) { /* Tablet pequeña */
+            :root {
+                --project-size: 180px;
+            }
+            .grid-container {
+                gap: 15px;
+            }
+            .category-links {
+                padding: 15px 0;
+            }
+            .hero-title {
+                font-size: clamp(1.8rem, 6vw, 3rem);
+            }
+        }
+
+        @media (max-width: 480px) { /* Móvil */
+            :root {
+                --project-size: 100%;
+                --hero-height: 50vh;
+            }
+            .page-container {
+                padding: 0 20px;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .hero-section {
+                background-size: 90%;
+                margin-bottom: 40px;
+            }
+            header {
+                padding: 20px 0;
+            }
+            .logo {
+                max-height: 35px;
+            }
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- ESTRUCTURA HTML -->
     <div class="page-container">
         <header>
-            <img src="logo.png.png" alt="Logo espacioSM" class="logo">
+            <img src="logo.png" alt="Logo espacioSM" class="logo">
             <div class="menu-icon">☰</div>
         </header>
 
         <main>
             <section class="hero-section" style="background-image: url('hero1.jpg');">
-                <h1 class="hero-title">  </h1>
+                <h1 class="hero-title">Arquitectura con propósito</h1>
             </section>
 
             <div class="category-links">
-                <a href="todos.html">Todos</a>
-                <a href="vivienda.html">Vivienda</a>
-                <a href="calculo.html">Cálculo</a>
+                <a href="vivienda.html">Casa Habitación</a>
+                <a href="calculo.html">Cálculo estructural</a>
                 <a href="superficies-deportivas.html">Superficies Deportivas</a>
+                <a href="Kafnilu.html">KAFNILU</a>
             </div>
 
             <section class="portfolio-grid">
@@ -227,8 +280,16 @@
                         <div class="project-name">Casa del Pirul</div>
                     </a>
                     <a href="proyecto-4.html" class="grid-item">
-                        <img src="proyecto-4.jpg" alt="Proyecto 4">
-                        <div class="project-name">Interiorismo Condesa</div>
+                        <img src="deptos-huixtoco.jpg" alt="Proyecto 4">
+                        <div class="project-name">Departamentos Huixtoco</div>
+                         </a>
+                    <a href="proyecto-5.html" class="grid-item">
+                        <img src="ixtapaluca-coral.jpg" alt="Proyecto 4">
+                        <div class="project-name">Coral</div>
+                         </a>
+                    <a href="proyecto-6.html" class="grid-item">
+                        <img src="lucernario-xochimilco.jpg" alt="Proyecto 4">
+                        <div class="project-name">Lucernario Xochimilco</div>
                     </a>
                 </div>
             </section>
@@ -236,7 +297,32 @@
     </div>
 
     <footer>
-        <!-- ... (footer igual que antes) ... -->
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Navegación</h4>
+                <a href="#">Proyectos</a>
+                <a href="#">Despacho</a>
+                <a href="#">Contacto</a>
+            </div>
+            <div class="footer-column">
+                <h4>Contacto</h4>
+                <p>Ciudad de México, México</p>
+                <a href="mailto:contacto@espaciosm.art">contacto@espaciosm.art</a>
+            </div>
+            <div class="footer-column">
+                <h4>Social</h4>
+                <a href="#" target="_blank">Instagram</a>
+                <a href="#" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© espacioSM <span id="current-year"></span></p>
+        </div>
     </footer>
+
+    <script>
+        // Año actual en el footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
