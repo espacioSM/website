@@ -47,17 +47,17 @@
         .hero-section {
             width: 100%;
             height: 70vh;
-            background-size: cover;
+            background-size: 90%; /* Reducimos el zoom de la imagen */
             background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 80px;
             color: white;
             position: relative;
+            background-color: #f5f5f5; /* Color de fondo por si la imagen no cubre todo */
         }
-        
-        /* Eliminado el ::before que agregaba opacidad al hero */
 
         .hero-title {
             font-size: clamp(2.5rem, 8vw, 5rem);
@@ -114,12 +114,14 @@
             object-fit: cover;
             display: block;
             transition: all 0.4s ease;
-            opacity: 0.8; /* Opacidad inicial para imágenes de proyectos */
+            opacity: 0.6; /* Aumentamos la opacidad (más oscuro) */
+            filter: brightness(0.8); /* Añadimos filtro para oscurecer más */
         }
 
         .grid-item:hover img {
             transform: scale(1.05);
-            opacity: 1; /* Opacidad completa al hacer hover */
+            opacity: 1;
+            filter: brightness(1); /* Volvemos al brillo normal al hacer hover */
         }
 
         .grid-item .project-name {
@@ -132,7 +134,7 @@
             font-weight: 700;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
             background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         footer {
