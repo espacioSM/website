@@ -14,6 +14,9 @@
             /* Variables responsive */
             --project-size: 250px; /* Base desktop */
             --hero-height: 70vh;
+            --project-opacity: 0.85;
+            --project-brightness: 0.9;
+            --project-overlay: rgba(0,0,0,0.3);
         }
 
         /* RESET Y ESTILOS BASE */
@@ -105,7 +108,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(var(--project-size), 1fr));
             gap: 20px;
-            justify-content: center;
+            justify-items: center; /* Centra los items horizontalmente */
         }
         
         .grid-item {
@@ -113,9 +116,10 @@
             overflow: hidden;
             text-decoration: none;
             color: white;
-            width: 100%;
+            width: var(--project-size);
             aspect-ratio: 1; /* Cuadrado perfecto */
             border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
         .grid-item img {
@@ -125,10 +129,30 @@
             object-position: center;
             display: block;
             transition: all 0.4s ease;
+            opacity: var(--project-opacity);
+            filter: brightness(var(--project-brightness));
+        }
+
+        .grid-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--project-overlay);
+            z-index: 1;
+            transition: all 0.3s ease;
         }
 
         .grid-item:hover img {
             transform: scale(1.03);
+            opacity: 1;
+            filter: brightness(1);
+        }
+
+        .grid-item:hover::before {
+            background: rgba(0,0,0,0.1);
         }
 
         .grid-item .project-name {
@@ -141,6 +165,7 @@
             font-weight: 700;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
             background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            z-index: 2;
         }
 
         /* FOOTER RESPONSIVE */
@@ -205,6 +230,7 @@
         @media (max-width: 768px) { /* Tablet pequeña */
             :root {
                 --project-size: 180px;
+                --project-opacity: 0.9;
             }
             .grid-container {
                 gap: 15px;
@@ -282,13 +308,13 @@
                     <a href="proyecto-4.html" class="grid-item">
                         <img src="deptos-huixtoco.jpg" alt="Proyecto 4">
                         <div class="project-name">Departamentos Huixtoco</div>
-                         </a>
+                    </a>
                     <a href="proyecto-5.html" class="grid-item">
-                        <img src="ixtapaluca-coral.jpg" alt="Proyecto 4">
+                        <img src="ixtapaluca-coral.jpg" alt="Proyecto 5">
                         <div class="project-name">Coral</div>
-                         </a>
+                    </a>
                     <a href="proyecto-6.html" class="grid-item">
-                        <img src="lucernario-xochimilco.jpg" alt="Proyecto 4">
+                        <img src="lucernario-xochimilco.jpg" alt="Proyecto 6">
                         <div class="project-name">Lucernario Xochimilco</div>
                     </a>
                 </div>
