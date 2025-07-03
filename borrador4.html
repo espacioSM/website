@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>espacioSM | Arquitectura</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+        
+        :root {
+            --text-color: #111;
+            --background-color: #ffffff;
+            --gray-color: #6c757d;
+            --hero-height: 70vh;
+            --mobile-hero-height: 50vh;
+            --green-color: #16a34a;
+            --dark-color: #1e293b;
+        }
+
+        /* RESET Y ESTILOS BASE */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Lato', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            scroll-behavior: smooth;
+        }
+
+        .page-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            background-color: var(--background-color);
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            background-color: var(--background-color);
+        }
+
+        .logo {
+            max-height: 45px;
+            width: auto;
+        }
+
+        .menu-icon {
+            font-size: 30px;
+            font-weight: 300;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        /* HERO SECTION - FONDO BLANCO */
+        .hero-section {
+            width: 100%;
+            height: var(--hero-height);
+            background-color: var(--background-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-image {
+            max-width: 60%;
+            max-height: 60%;
+            object-fit: contain;
+            object-position: center;
+            margin-bottom: 30px;
+        }
+
+        .hero-title {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            margin-bottom: 2rem;
+            color: #555;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--green-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: var(--dark-color);
+            color: white;
+        }
+
+        /* SECCIONES GENERALES */
+        .section {
+            padding: 80px 0;
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        /* SERVICIOS */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        /* DIFERENCIADOR */
+        .differentiator {
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+
+        .differentiator p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* PROCESO */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .process-step {
+            font-weight: 500;
+        }
+
+        /* CONTACTO */
+        .contact {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+        }
+
+        .contact p {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* GALERÍA MEJORADA */
+        .portfolio-grid {
+            padding: 80px 0;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            justify-items: center;
+        }
+        
+        .grid-item {
+            position: relative;
+            overflow: hidden;
+            color: white;
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 16px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .grid-item .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .grid-item .project-name {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
+            text-align: center;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        .grid-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .grid-item:hover .project-name {
+            transform: translateY(0);
+        }
+
+        /* MODAL */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 800px;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-image {
+            width: 100%;
+            max-height: 60vh;
+            object-fit: contain;
+            background: white;
+        }
+
+        .modal-info {
+            padding: 24px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-color);
+        }
+
+        .modal-description {
+            color: #555;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .close-btn {
+            color: #0066cc;
+            background: none;
+            border: none;
+            font-size: 0.875rem;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 0;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 60px 0 30px;
+            background-color: var(--background-color);
+            border-top: 1px solid #eee;
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-color);
+        }
+        
+        .footer-column a, .footer-column p {
+            display: block;
+            color: #555;
+            text-decoration: none;
+            margin-bottom: 10px;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: var(--text-color);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        /* MEDIA QUERIES */
+        @media (max-width: 1024px) {
+            .hero-image {
+                max-width: 70%;
+            }
+            
+            .page-container {
+                padding: 0 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                height: var(--mobile-hero-height);
+            }
+            
+            .hero-image {
+                max-width: 90%;
+                max-height: 90%;
+            }
+            
+            .grid-container {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .grid-item {
+                border-radius: 12px;
+            }
+            
+            .grid-item .overlay {
+                opacity: 1;
+                background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+            }
+            
+            .grid-item .project-name {
+                transform: translateY(0);
+                text-align: left;
+                align-self: flex-end;
+                width: 100%;
+            }
+            
+            .grid-item:hover {
+                transform: none;
+            }
+            
+            .grid-item:active {
+                transform: scale(0.98);
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-container {
+                padding: 0 20px;
+            }
+            
+            .hero-section {
+                margin-bottom: 40px;
+            }
+            
+            header {
+                padding: 20px 0;
+            }
+            
+            .logo {
+                max-height: 35px;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .modal-image {
+                max-height: 50vh;
+            }
+            
+            .modal-info {
+                padding: 16px;
+            }
+
+            .services-grid,
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <img src="logo.png.png" alt="Logo espacioSM" class="logo">
+            <div class="menu-icon">☰</div>
+        </header>
+
+        <main>
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <img src="hero1.jpg" alt="Hero image" class="hero-image">
+                <h1 class="hero-title">Diseño y construcción sin sorpresas</h1>
+                <p class="hero-subtitle">Arquitectura + Ingeniería con control total</p>
+                <div class="hero-buttons">
+                    <a href="https://wa.me/" class="btn btn-primary">WhatsApp</a>
+                    <a href="#agenda" class="btn btn-secondary">Agenda una llamada</a>
+                </div>
+            </section>
+
+            <!-- Servicios -->
+            <section class="section">
+                <h2 class="section-title">¿Qué hacemos?</h2>
+                <div class="services-grid">
+                    <div>
+                        <div class="service-icon">🏡</div>
+                        <h3 class="service-title">Diseño Residencial</h3>
+                    </div>
+                    <div>
+                        <div class="service-icon">🧮</div>
+                        <h3 class="service-title">Presupuesto y Cálculo</h3>
+                    </div>
+                    <div>
+                        <div class="service-icon">🏗️</div>
+                        <h3 class="service-title">Construcción</h3>
+                    </div>
+                    <div>
+                        <div class="service-icon">📲</div>
+                        <h3 class="service-title">Control Digital</h3>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diferenciador -->
+            <section class="section differentiator">
+                <h2 class="section-title">Tu proyecto siempre en tus manos</h2>
+                <p>Creamos un sistema en línea donde puedes ver tu proyecto en tiempo real: avances, pagos, decisiones... todo desde tu celular.</p>
+            </section>
+
+            <!-- Portafolio -->
+            <section class="portfolio-grid">
+                <h2 class="section-title">Proyectos Recientes</h2>
+                <div class="grid-container">
+                    <div class="grid-item" onclick="openModal('casa-huitzilac.jpg', 'Huitzilac', 'Proyecto residencial en bosque de Huitzilac')">
+                        <img src="casa-huitzilac.jpg" alt="Proyecto 1">
+                        <div class="overlay">
+                            <div class="project-name">Huitzilac</div>
+                        </div>
+                    </div>
+                    <div class="grid-item" onclick="openModal('casa-jardin.jpg', 'Casa Jardin', 'Diseño de casa con jardín integrado')">
+                        <img src="casa-jardin.jpg" alt="Proyecto 2">
+                        <div class="overlay">
+                            <div class="project-name">Casa Jardin</div>
+                        </div>
+                    </div>
+                    <div class="grid-item" onclick="openModal('casa-del-arbol.jpg', 'Casa del Pirul', 'Vivienda adaptada al entorno natural')">
+                        <img src="casa-del-arbol.jpg" alt="Proyecto 3">
+                        <div class="overlay">
+                            <div class="project-name">Casa del Pirul</div>
+                        </div>
+                    </div>
+                    <div class="grid-item" onclick="openModal('deptos-huixtoco.jpg', 'Departamentos Huixtoco', 'Conjunto habitacional moderno')">
+                        <img src="deptos-huixtoco.jpg" alt="Proyecto 4">
+                        <div class="overlay">
+                            <div class="project-name">Departamentos Huixtoco</div>
+                        </div>
+                    </div>
+                    <div class="grid-item" onclick="openModal('ixtapaluca-coral.jpg', 'Coral', 'Proyecto residencial con formas orgánicas')">
+                        <img src="ixtapaluca-coral.jpg" alt="Proyecto 5">
+                        <div class="overlay">
+                            <div class="project-name">Coral</div>
+                        </div>
+                    </div>
+                    <div class="grid-item" onclick="openModal('lucernario-xochimilco.jpg', 'Lucernario Xochimilco', 'Diseño con iluminación natural')">
+                        <img src="lucernario-xochimilco.jpg" alt="Proyecto 6">
+                        <div class="overlay">
+                            <div class="project-name">Lucernario Xochimilco</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Proceso -->
+            <section class="section">
+                <h2 class="section-title">¿Cómo trabajamos?</h2>
+                <div class="process-grid">
+                    <div class="process-step"><strong>1.</strong> Reunión y levantamiento</div>
+                    <div class="process-step"><strong>2.</strong> Diseño en acuarela y digital</div>
+                    <div class="process-step"><strong>3.</strong> Presupuesto transparente</div>
+                    <div class="process-step"><strong>4.</strong> Cálculo estructural</div>
+                    <div class="process-step"><strong>5.</strong> Ejecución + seguimiento digital</div>
+                    <div class="process-step"><strong>6.</strong> Entrega y acompañamiento</div>
+                </div>
+            </section>
+
+            <!-- Contacto -->
+            <section id="agenda" class="section contact">
+                <h2 class="section-title">¿Listo para comenzar?</h2>
+                <p>Agenda una llamada gratuita y empieza a visualizar tu casa ideal.</p>
+                <div class="hero-buttons">
+                    <a href="https://wa.me/" class="btn btn-primary">Escríbenos por WhatsApp</a>
+                    <a href="#" class="btn" style="background-color: white; color: var(--dark-color);">Agendar cita</a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <img class="modal-image" id="modalImage" src="" alt="">
+            <div class="modal-info">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <p class="modal-description" id="modalDescription"></p>
+                <button class="close-btn" onclick="closeModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Navegación</h4>
+                <a href="#">Proyectos</a>
+                <a href="#">Despacho</a>
+                <a href="#">Contacto</a>
+            </div>
+            <div class="footer-column">
+                <h4>Contacto</h4>
+                <p>Ciudad de México, México</p>
+                <a href="mailto:contacto@espaciosm.art">contacto@espaciosm.art</a>
+            </div>
+            <div class="footer-column">
+                <h4>Social</h4>
+                <a href="#" target="_blank">Instagram</a>
+                <a href="#" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© espacioSM <span id="current-year"></span></p>
+        </div>
+    </footer>
+
+    <script>
+        // Año actual en el footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Funciones para el modal
+        function openModal(imageSrc, title, description) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDescription').textContent = description;
+            document.getElementById('imageModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Cerrar modal al hacer clic fuera del contenido
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Cerrar modal con la tecla ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('imageModal').classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Efecto táctil para móviles
+        document.querySelectorAll('.grid-item').forEach(item => {
+            item.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+            }, {passive: true});
+            
+            item.addEventListener('touchend', function() {
+                this.style.transform = 'scale(1)';
+            }, {passive: true});
+        });
+    </script>
+</body>
+</html>
