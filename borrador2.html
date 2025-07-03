@@ -9,11 +9,10 @@
         
         :root {
             --text-color: #111;
-            --background-color: #f9f7f3; /* Cambiado a un fondo más cálido */
+            --background-color: #f9f7f3;
             --gray-color: #6c757d;
-            /* Variables responsive */
-            --project-size: 250px; /* Base desktop */
             --hero-height: 70vh;
+            --mobile-hero-height: 50vh;
         }
 
         /* RESET Y ESTILOS BASE */
@@ -51,18 +50,24 @@
             cursor: pointer;
         }
 
-        /* HERO SECTION RESPONSIVE */
+        /* HERO SECTION - FONDO BLANCO */
         .hero-section {
             width: 100%;
             height: var(--hero-height);
-            background-size: 60%;
-            background-position: center;
-            background-repeat: no-repeat;
+            background-color: white; /* Fondo blanco */
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 80px;
-            background-color: var(--background-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            max-width: 60%;
+            max-height: 100%;
+            object-fit: contain;
+            mix-blend-mode: multiply; /* Mezcla con el fondo blanco */
         }
 
         .hero-title {
@@ -79,8 +84,9 @@
             border-top: 1px solid #eee;
             border-bottom: 1px solid #eee;
             padding: 20px 0;
-            overflow-x: auto; /* Para móviles */
+            overflow-x: auto;
             white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
         }
 
         .category-links a {
@@ -93,10 +99,10 @@
             color: var(--gray-color);
             text-decoration: none;
             transition: color 0.3s;
-            display: inline-block; /* Para scroll horizontal en móviles */
+            display: inline-block;
         }
 
-        /* NUEVO ESTILO PARA LA GALERÍA */
+        /* GALERÍA MEJORADA PARA MÓVIL */
         .portfolio-grid {
             padding-bottom: 80px;
         }
@@ -111,14 +117,13 @@
         .grid-item {
             position: relative;
             overflow: hidden;
-            text-decoration: none;
             color: white;
             width: 100%;
-            aspect-ratio: 1; /* Cuadrado perfecto */
+            aspect-ratio: 1;
             border-radius: 16px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
         
         .grid-item img {
@@ -138,14 +143,8 @@
             align-items: center;
             justify-content: center;
             transition: opacity 0.3s ease;
-        }
-
-        .grid-item:hover {
-            transform: scale(1.03);
-        }
-
-        .grid-item:hover .overlay {
-            opacity: 1;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         .grid-item .project-name {
@@ -153,7 +152,62 @@
             font-size: 1.25rem;
             font-weight: 600;
             text-align: center;
-            padding: 0 16px;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        .grid-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .grid-item:hover .project-name {
+            transform: translateY(0);
+        }
+
+        /* EFECTOS ESPECIALES PARA MÓVIL */
+        @media (max-width: 768px) {
+            .hero-section {
+                height: var(--mobile-hero-height);
+            }
+            
+            .hero-image {
+                max-width: 90%;
+            }
+            
+            .grid-container {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .grid-item {
+                border-radius: 12px;
+            }
+            
+            .grid-item .overlay {
+                opacity: 1;
+                background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+            }
+            
+            .grid-item .project-name {
+                transform: translateY(0);
+                text-align: left;
+                align-self: flex-end;
+                width: 100%;
+            }
+            
+            .grid-item:hover {
+                transform: none;
+            }
+            
+            /* Efecto de "click" para móviles */
+            .grid-item:active {
+                transform: scale(0.98);
+            }
         }
 
         /* MODAL */
@@ -163,16 +217,19 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.9);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 1000;
             padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .modal.active {
             display: flex;
+            opacity: 1;
         }
 
         .modal-content {
@@ -181,13 +238,20 @@
             width: 100%;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
         }
 
         .modal-image {
             width: 100%;
             max-height: 60vh;
-            object-fit: cover;
+            object-fit: contain;
+            background: white;
         }
 
         .modal-info {
@@ -259,59 +323,45 @@
             font-size: 12px;
         }
 
-        /* MEDIA QUERIES */
-        @media (max-width: 1024px) { /* Tablet */
-            :root {
-                --project-size: 200px;
-                --hero-height: 60vh;
+        /* MEDIA QUERIES ADICIONALES */
+        @media (max-width: 1024px) {
+            .hero-image {
+                max-width: 70%;
             }
-            .hero-section {
-                background-size: 70%;
-            }
+            
             .page-container {
                 padding: 0 30px;
             }
         }
 
-        @media (max-width: 768px) { /* Tablet pequeña */
-            :root {
-                --project-size: 180px;
-            }
-            .grid-container {
-                gap: 15px;
-            }
-            .category-links {
-                padding: 15px 0;
-            }
-            .hero-title {
-                font-size: clamp(1.8rem, 6vw, 3rem);
-            }
-        }
-
-        @media (max-width: 480px) { /* Móvil */
-            :root {
-                --hero-height: 50vh;
-            }
+        @media (max-width: 480px) {
             .page-container {
                 padding: 0 20px;
             }
-            .grid-container {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
+            
             .hero-section {
-                background-size: 90%;
                 margin-bottom: 40px;
             }
+            
             header {
                 padding: 20px 0;
             }
+            
             .logo {
                 max-height: 35px;
             }
+            
             .footer-container {
                 grid-template-columns: 1fr;
                 gap: 30px;
+            }
+            
+            .modal-image {
+                max-height: 50vh;
+            }
+            
+            .modal-info {
+                padding: 16px;
             }
         }
     </style>
@@ -324,8 +374,8 @@
         </header>
 
         <main>
-            <section class="hero-section" style="background-image: url('hero1.jpg');">
-                <h1 class="hero-title"> </h1>
+            <section class="hero-section">
+                <img src="hero1.jpg" alt="Hero image" class="hero-image">
             </section>
 
             <div class="category-links">
@@ -425,12 +475,12 @@
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalDescription').textContent = description;
             document.getElementById('imageModal').classList.add('active');
-            document.body.style.overflow = 'hidden'; // Evita el scroll cuando el modal está abierto
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             document.getElementById('imageModal').classList.remove('active');
-            document.body.style.overflow = 'auto'; // Restaura el scroll
+            document.body.style.overflow = 'auto';
         }
 
         // Cerrar modal al hacer clic fuera del contenido
@@ -445,6 +495,17 @@
             if (e.key === 'Escape' && document.getElementById('imageModal').classList.contains('active')) {
                 closeModal();
             }
+        });
+
+        // Efecto táctil para móviles
+        document.querySelectorAll('.grid-item').forEach(item => {
+            item.addEventListener('touchstart', function() {
+                this.classList.add('touched');
+            }, {passive: true});
+            
+            item.addEventListener('touchend', function() {
+                this.classList.remove('touched');
+            }, {passive: true});
         });
     </script>
 </body>
