@@ -1,254 +1,84 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>espacioSM | Arquitectura (Borrador Final)</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
-        
-        :root {
-            --text-color: #111;
-            --background-color: #ffffff;
-            --gray-color: #6c757d;
-            --project-image-opacity: 0.6; /* Variable para controlar opacidad inicial */
-            --project-image-brightness: 0.7; /* Variable para controlar brillo inicial */
-        }
+import { useState } from "react";
+import { Dialog } from "@headlessui/react";
+import { motion } from "framer-motion";
 
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: 'Lato', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-        }
+const images = [
+  {
+    src: "/img1.jpg",
+    title: "Casa en Valle de Bravo",
+    description: "Acuarela sobre papel, proyecto residencial en bosque."
+  },
+  {
+    src: "/img2.jpg",
+    title: "Pabellón Cultural",
+    description: "Diseño conceptual en acuarela para centro comunitario."
+  },
+  {
+    src: "/img3.jpg",
+    title: "Oficinas UTECA",
+    description: "Render artístico para campus universitario."
+  },
+  {
+    src: "/img4.jpg",
+    title: "Casa Patio",
+    description: "Estudio de vivienda introspectiva, técnica mixta."
+  },
+  {
+    src: "/img5.jpg",
+    title: "Loft Urbano",
+    description: "Diseño compacto con luz natural como protagonista."
+  },
+  {
+    src: "/img6.jpg",
+    title: "Centro de Bienestar",
+    description: "Espacios abiertos para la salud física y emocional."
+  },
+];
 
-        .page-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
+export default function GaleriaAcuarela() {
+  const [selected, setSelected] = useState(null);
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 0;
-        }
-
-        .logo {
-            max-height: 45px;
-        }
-
-        .menu-icon {
-            font-size: 30px;
-            font-weight: 300;
-            cursor: pointer;
-        }
-
-        .hero-section {
-            width: 100%;
-            height: 70vh;
-            background-size: 60%; 
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 80px;
-            color: white;
-            position: relative;
-            background-color: #FEFEFE;
-        }
-
-        .hero-title {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 700;
-            z-index: 1;
-            text-align: center;
-        }
-
-        .category-links {
-            text-align: center;
-            margin-bottom: 60px;
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-            padding: 20px 0;
-        }
-
-        .category-links a {
-            font-family: 'Lato', sans-serif;
-            font-size: 14px;
-            font-weight: 700;
-            margin: 0 15px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--gray-color);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .category-links a:hover {
-            color: var(--text-color);
-        }
-        
-        .portfolio-grid {
-            padding-bottom: 80px;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-        
-        .grid-item {
-            position: relative;
-            overflow: hidden;
-            text-decoration: none;
-            color: white;
-        }
-        
-        .grid-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: all 0.4s ease;
-            opacity: var(--project-image-opacity);
-            filter: brightness(var(--project-image-brightness)) contrast(1.1) saturate(0.9);
-        }
-
-        .grid-item:hover img {
-            transform: scale(1.05);
-            opacity: 1;
-            filter: brightness(1) contrast(1) saturate(1);
-        }
-
-        .grid-item .project-name {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 25px;
-            font-size: 20px;
-            font-weight: 700;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
-            transition: all 0.3s ease;
-        }
-
-        footer {
-            padding: 80px 0;
-            background-color: #f8f8f8;
-            border-top: 1px solid #eee;
-        }
-        
-        .footer-container {
-             max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 40px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
-        
-        .footer-column h4 {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .footer-column a, .footer-column p {
-            display: block;
-            color: #555;
-            text-decoration: none;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-        .footer-column a:hover {
-            color: #000;
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 80px;
-            padding-top: 40px;
-            border-top: 1px solid #eee;
-            color: #aaa;
-            font-size: 12px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="page-container">
-        <header>
-            <img src="logo.png.png" alt="Logo espacioSM" class="logo">
-            <div class="menu-icon">☰</div>
-        </header>
-
-        <main>
-            <section class="hero-section" style="background-image: url('hero1.jpg');">
-                <h1 class="hero-title">  </h1>
-            </section>
-
-            <div class="category-links">
-                <a href="todos.html">Todos</a>
-                <a href="vivienda.html">Vivienda</a>
-                <a href="calculo.html">Cálculo</a>
-                <a href="superficies-deportivas.html">Superficies Deportivas</a>
+  return (
+    <div className="min-h-screen bg-[#f9f7f3] p-8">
+      <h1 className="text-3xl font-light text-center mb-10">Portafolio en Acuarela</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {images.map((img, i) => (
+          <motion.div
+            key={i}
+            whileHover={{ scale: 1.03 }}
+            onClick={() => setSelected(img)}
+            className="cursor-pointer rounded-2xl overflow-hidden shadow-md relative group"
+          >
+            <img
+              src={img.src}
+              alt={img.title}
+              className="object-cover w-full h-64"
+            />
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <p className="text-white text-lg font-semibold px-2 text-center">{img.title}</p>
             </div>
+          </motion.div>
+        ))}
+      </div>
 
-            <section class="portfolio-grid">
-                <div class="grid-container">
-                    <a href="proyecto-1.html" class="grid-item">
-                        <img src="casa-huitzilac.jpg" alt="Proyecto 1">
-                        <div class="project-name">Huitzilac</div>
-                    </a>
-                    <a href="proyecto-2.html" class="grid-item">
-                        <img src="casa-jardin.jpg" alt="Proyecto 2">
-                        <div class="project-name">Casa Jardin</div>
-                    </a>
-                    <a href="proyecto-3.html" class="grid-item">
-                        <img src="casa-del-arbol.jpg" alt="Proyecto 3">
-                        <div class="project-name">Casa del Pirul</div>
-                    </a>
-                     <a href="proyecto-4.html" class="grid-item">
-                        <img src="proyecto-4.jpg" alt="Proyecto 4">
-                        <div class="project-name">Interiorismo Condesa</div>
-                    </a>
-                </div>
-            </section>
-        </main>
+      <Dialog open={!!selected} onClose={() => setSelected(null)} className="relative z-50">
+        <div className="fixed inset-0 bg-black/60" aria-hidden="true" />
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <Dialog.Panel className="bg-white max-w-3xl w-full rounded-xl shadow-xl overflow-hidden">
+            <img src={selected?.src} alt={selected?.title} className="w-full object-cover" />
+            <div className="p-6">
+              <Dialog.Title className="text-2xl font-semibold mb-2">{selected?.title}</Dialog.Title>
+              <p className="text-gray-600">{selected?.description}</p>
+              <button
+                className="mt-4 text-sm text-blue-600 hover:underline"
+                onClick={() => setSelected(null)}
+              >
+                Cerrar
+              </button>
+            </div>
+          </Dialog.Panel>
+        </div>
+      </Dialog>
     </div>
-
-    <footer>
-        <div class="footer-container">
-            <div class="footer-column">
-                <h4>Navegación</h4>
-                <a href="#">Proyectos</a>
-                <a href="#">Despacho</a>
-                <a href="#">Contacto</a>
-            </div>
-            <div class="footer-column">
-                <h4>Contacto</h4>
-                <p>Ciudad de México, México</p>
-                <a href="mailto:contacto@espaciosm.art">contacto@espaciosm.art</a>
-                </div>
-            <div class="footer-column">
-                <h4>Social</h4>
-                <a href="#" target="_blank">Instagram</a>
-                <a href="#" target="_blank">LinkedIn</a>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>© espacioSM 2024</p>
-        </div>
-    </footer>
-
-</body>
-</html>
+  );
+}
