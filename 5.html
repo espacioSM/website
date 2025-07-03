@@ -75,6 +75,7 @@
             border: none;
             padding: 5px;
             outline: none;
+            z-index: 101; /* Asegura que esté por encima del menú */
         }
 
         .menu-icon:hover {
@@ -459,7 +460,7 @@
             align-self: flex-start;
         }
 
-        /* MENÚ MÓVIL */
+        /* MENÚ MÓVIL - CORREGIDO */
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -468,10 +469,11 @@
             max-width: 300px;
             height: 100vh;
             background: white;
-            z-index: 99;
+            z-index: 100; /* Ajustado para estar debajo del ícono */
             transition: right 0.3s ease;
-            padding: 80px 30px 30px;
+            padding: 100px 30px 30px; /* Más padding arriba para evitar solapamiento */
             box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            overflow-y: auto;
         }
 
         .mobile-menu.active {
@@ -485,6 +487,11 @@
             text-decoration: none;
             border-bottom: 1px solid #eee;
             font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent-color);
         }
 
         .menu-overlay {
@@ -494,12 +501,15 @@
             right: 0;
             bottom: 0;
             background: rgba(0,0,0,0.5);
-            z-index: 98;
+            z-index: 99; /* Entre el menú y el ícono */
             display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .menu-overlay.active {
             display: block;
+            opacity: 1;
         }
 
         /* EFECTOS PARA MÓVIL Y TABLET */
@@ -567,6 +577,11 @@
             .modal-image {
                 max-height: 50vh;
             }
+
+            /* Ajustes específicos para el menú móvil */
+            .mobile-menu {
+                padding-top: 80px; /* Menos espacio para pantallas pequeñas */
+            }
         }
 
         @media (max-width: 480px) {
@@ -593,6 +608,12 @@
 
             .category-links a {
                 margin: 0 10px;
+            }
+
+            /* Ajustes adicionales para móviles muy pequeños */
+            .mobile-menu {
+                width: 85%;
+                padding-top: 70px;
             }
         }
     </style>
