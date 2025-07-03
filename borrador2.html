@@ -1,84 +1,451 @@
-import { useState } from "react";
-import { Dialog } from "@headlessui/react";
-import { motion } from "framer-motion";
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>espacioSM | Arquitectura (Borrador Final)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+        
+        :root {
+            --text-color: #111;
+            --background-color: #f9f7f3; /* Cambiado a un fondo más cálido */
+            --gray-color: #6c757d;
+            /* Variables responsive */
+            --project-size: 250px; /* Base desktop */
+            --hero-height: 70vh;
+        }
 
-const images = [
-  {
-    src: "/img1.jpg",
-    title: "Casa en Valle de Bravo",
-    description: "Acuarela sobre papel, proyecto residencial en bosque."
-  },
-  {
-    src: "/img2.jpg",
-    title: "Pabellón Cultural",
-    description: "Diseño conceptual en acuarela para centro comunitario."
-  },
-  {
-    src: "/img3.jpg",
-    title: "Oficinas UTECA",
-    description: "Render artístico para campus universitario."
-  },
-  {
-    src: "/img4.jpg",
-    title: "Casa Patio",
-    description: "Estudio de vivienda introspectiva, técnica mixta."
-  },
-  {
-    src: "/img5.jpg",
-    title: "Loft Urbano",
-    description: "Diseño compacto con luz natural como protagonista."
-  },
-  {
-    src: "/img6.jpg",
-    title: "Centro de Bienestar",
-    description: "Espacios abiertos para la salud física y emocional."
-  },
-];
+        /* RESET Y ESTILOS BASE */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Lato', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            scroll-behavior: smooth;
+        }
 
-export default function GaleriaAcuarela() {
-  const [selected, setSelected] = useState(null);
+        .page-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
 
-  return (
-    <div className="min-h-screen bg-[#f9f7f3] p-8">
-      <h1 className="text-3xl font-light text-center mb-10">Portafolio en Acuarela</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {images.map((img, i) => (
-          <motion.div
-            key={i}
-            whileHover={{ scale: 1.03 }}
-            onClick={() => setSelected(img)}
-            className="cursor-pointer rounded-2xl overflow-hidden shadow-md relative group"
-          >
-            <img
-              src={img.src}
-              alt={img.title}
-              className="object-cover w-full h-64"
-            />
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-              <p className="text-white text-lg font-semibold px-2 text-center">{img.title}</p>
+        /* HEADER RESPONSIVE */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+        }
+
+        .logo {
+            max-height: 45px;
+            width: auto;
+        }
+
+        .menu-icon {
+            font-size: 30px;
+            font-weight: 300;
+            cursor: pointer;
+        }
+
+        /* HERO SECTION RESPONSIVE */
+        .hero-section {
+            width: 100%;
+            height: var(--hero-height);
+            background-size: 60%;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 80px;
+            background-color: var(--background-color);
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 700;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        /* CATEGORÍAS */
+        .category-links {
+            text-align: center;
+            margin-bottom: 60px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+            overflow-x: auto; /* Para móviles */
+            white-space: nowrap;
+        }
+
+        .category-links a {
+            font-family: 'Lato', sans-serif;
+            font-size: clamp(12px, 1.5vw, 14px);
+            font-weight: 700;
+            margin: 0 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-color);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: inline-block; /* Para scroll horizontal en móviles */
+        }
+
+        /* NUEVO ESTILO PARA LA GALERÍA */
+        .portfolio-grid {
+            padding-bottom: 80px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            justify-items: center;
+        }
+        
+        .grid-item {
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: white;
+            width: 100%;
+            aspect-ratio: 1; /* Cuadrado perfecto */
+            border-radius: 16px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .grid-item .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.03);
+        }
+
+        .grid-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .grid-item .project-name {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
+            text-align: center;
+            padding: 0 16px;
+        }
+
+        /* MODAL */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 800px;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .modal-image {
+            width: 100%;
+            max-height: 60vh;
+            object-fit: cover;
+        }
+
+        .modal-info {
+            padding: 24px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .modal-description {
+            color: #555;
+            margin-bottom: 16px;
+        }
+
+        .close-btn {
+            color: #0066cc;
+            background: none;
+            border: none;
+            font-size: 0.875rem;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* FOOTER RESPONSIVE */
+        footer {
+            padding: 60px 0 30px;
+            background-color: #f8f8f8;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .footer-column a, .footer-column p {
+            display: block;
+            color: #555;
+            text-decoration: none;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .footer-column a:hover {
+            color: #000;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        /* MEDIA QUERIES */
+        @media (max-width: 1024px) { /* Tablet */
+            :root {
+                --project-size: 200px;
+                --hero-height: 60vh;
+            }
+            .hero-section {
+                background-size: 70%;
+            }
+            .page-container {
+                padding: 0 30px;
+            }
+        }
+
+        @media (max-width: 768px) { /* Tablet pequeña */
+            :root {
+                --project-size: 180px;
+            }
+            .grid-container {
+                gap: 15px;
+            }
+            .category-links {
+                padding: 15px 0;
+            }
+            .hero-title {
+                font-size: clamp(1.8rem, 6vw, 3rem);
+            }
+        }
+
+        @media (max-width: 480px) { /* Móvil */
+            :root {
+                --hero-height: 50vh;
+            }
+            .page-container {
+                padding: 0 20px;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .hero-section {
+                background-size: 90%;
+                margin-bottom: 40px;
+            }
+            header {
+                padding: 20px 0;
+            }
+            .logo {
+                max-height: 35px;
+            }
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <img src="logo.png.png" alt="Logo espacioSM" class="logo">
+            <div class="menu-icon">☰</div>
+        </header>
+
+        <main>
+            <section class="hero-section" style="background-image: url('hero1.jpg');">
+                <h1 class="hero-title"> </h1>
+            </section>
+
+            <div class="category-links">
+                <a href="vivienda.html">Casa Habitación</a>
+                <a href="calculo.html">Cálculo estructural</a>
+                <a href="superficies-deportivas.html">Superficies Deportivas</a>
+                <a href="Kafnilu.html">KAFNILU</a>
             </div>
-          </motion.div>
-        ))}
-      </div>
 
-      <Dialog open={!!selected} onClose={() => setSelected(null)} className="relative z-50">
-        <div className="fixed inset-0 bg-black/60" aria-hidden="true" />
-        <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Dialog.Panel className="bg-white max-w-3xl w-full rounded-xl shadow-xl overflow-hidden">
-            <img src={selected?.src} alt={selected?.title} className="w-full object-cover" />
-            <div className="p-6">
-              <Dialog.Title className="text-2xl font-semibold mb-2">{selected?.title}</Dialog.Title>
-              <p className="text-gray-600">{selected?.description}</p>
-              <button
-                className="mt-4 text-sm text-blue-600 hover:underline"
-                onClick={() => setSelected(null)}
-              >
-                Cerrar
-              </button>
-            </div>
-          </Dialog.Panel>
-        </div>
-      </Dialog>
+            <section class="portfolio-grid">
+                <h1 class="hero-title" style="margin-bottom: 40px;">Portafolio de Proyectos</h1>
+                <div class="grid-container">
+                    <div class="grid-item" onclick="openModal('casa-huitzilac.jpg', 'Huitzilac', 'Proyecto residencial en bosque de Huitzilac')">
+                        <img src="casa-huitzilac.jpg" alt="Proyecto 1">
+                        <div class="overlay">
+                            <div class="project-name">Huitzilac</div>
+                        </div>
+                    </div>
+                    <div class="grid-item" onclick="openModal('casa-jardin.jpg', 'Casa Jardin', 'Diseño de casa con jardín integrado')">
+                        <img src="casa-jardin.jpg" alt="Proyecto 2">
+                        <div class="overlay">
+                            <div class="project-name">Casa Jardin</div>
+                        </div>
+                    </div>
+                    <div class="grid-item" onclick="openModal('casa-del-arbol.jpg', 'Casa del Pirul', 'Vivienda adaptada al entorno natural')">
+                        <img src="casa-del-arbol.jpg" alt="Proyecto 3">
+                        <div class="overlay">
+                            <div class="project-name">Casa del Pirul</div>
+                        </div>
+                    </div>
+                    <div class="grid-item" onclick="openModal('deptos-huixtoco.jpg', 'Departamentos Huixtoco', 'Conjunto habitacional moderno')">
+                        <img src="deptos-huixtoco.jpg" alt="Proyecto 4">
+                        <div class="overlay">
+                            <div class="project-name">Departamentos Huixtoco</div>
+                        </div>
+                    </div>
+                    <div class="grid-item" onclick="openModal('ixtapaluca-coral.jpg', 'Coral', 'Proyecto residencial con formas orgánicas')">
+                        <img src="ixtapaluca-coral.jpg" alt="Proyecto 5">
+                        <div class="overlay">
+                            <div class="project-name">Coral</div>
+                        </div>
+                    </div>
+                    <div class="grid-item" onclick="openModal('lucernario-xochimilco.jpg', 'Lucernario Xochimilco', 'Diseño con iluminación natural')">
+                        <img src="lucernario-xochimilco.jpg" alt="Proyecto 6">
+                        <div class="overlay">
+                            <div class="project-name">Lucernario Xochimilco</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
-  );
-}
+
+    <!-- Modal -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <img class="modal-image" id="modalImage" src="" alt="">
+            <div class="modal-info">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <p class="modal-description" id="modalDescription"></p>
+                <button class="close-btn" onclick="closeModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Navegación</h4>
+                <a href="#">Proyectos</a>
+                <a href="#">Despacho</a>
+                <a href="#">Contacto</a>
+            </div>
+            <div class="footer-column">
+                <h4>Contacto</h4>
+                <p>Ciudad de México, México</p>
+                <a href="mailto:contacto@espaciosm.art">contacto@espaciosm.art</a>
+            </div>
+            <div class="footer-column">
+                <h4>Social</h4>
+                <a href="#" target="_blank">Instagram</a>
+                <a href="#" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© espacioSM <span id="current-year"></span></p>
+        </div>
+    </footer>
+
+    <script>
+        // Año actual en el footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Funciones para el modal
+        function openModal(imageSrc, title, description) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDescription').textContent = description;
+            document.getElementById('imageModal').classList.add('active');
+            document.body.style.overflow = 'hidden'; // Evita el scroll cuando el modal está abierto
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.remove('active');
+            document.body.style.overflow = 'auto'; // Restaura el scroll
+        }
+
+        // Cerrar modal al hacer clic fuera del contenido
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Cerrar modal con la tecla ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('imageModal').classList.contains('active')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
