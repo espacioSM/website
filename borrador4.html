@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>espacioSM | Arquitectura</title>
+    <title>espacioSM | Estudio de Arquitectura</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;500;700&display=swap');
         
         :root {
             --text-color: #111;
             --background-color: #ffffff;
             --gray-color: #6c757d;
-            --hero-height: 70vh;
-            --mobile-hero-height: 50vh;
-            --green-color: #16a34a;
-            --dark-color: #1e293b;
+            --hero-height: 80vh;
+            --mobile-hero-height: 60vh;
+            --accent-color: #8b5a2b; /* Color madera para acentos */
         }
 
         /* RESET Y ESTILOS BASE */
@@ -27,6 +26,11 @@
             scroll-behavior: smooth;
         }
 
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+        }
+
         .page-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -34,7 +38,7 @@
             background-color: var(--background-color);
         }
 
-        /* HEADER */
+        /* HEADER ELEGANTE */
         header {
             display: flex;
             justify-content: space-between;
@@ -44,158 +48,103 @@
         }
 
         .logo {
-            max-height: 45px;
+            max-height: 50px;
             width: auto;
         }
 
         .menu-icon {
-            font-size: 30px;
+            font-size: 28px;
             font-weight: 300;
             cursor: pointer;
             color: var(--text-color);
+            transition: opacity 0.3s;
         }
 
-        /* HERO SECTION - FONDO BLANCO */
+        .menu-icon:hover {
+            opacity: 0.7;
+        }
+
+        /* HERO SECTION - ELEGANTE Y MINIMALISTA */
         .hero-section {
             width: 100%;
             height: var(--hero-height);
             background-color: var(--background-color);
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             margin: 0 auto;
             position: relative;
             overflow: hidden;
-            text-align: center;
-            padding: 0 20px;
         }
 
         .hero-image {
-            max-width: 60%;
-            max-height: 60%;
+            max-width: 65%;
+            max-height: 65%;
             object-fit: contain;
             object-position: center;
-            margin-bottom: 30px;
         }
 
-        .hero-title {
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            font-weight: 300;
-            margin-bottom: 1rem;
+        /* CATEGORÍAS ESTILIZADAS */
+        .category-links {
+            text-align: center;
+            margin: 60px 0;
+            padding: 25px 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            background-color: var(--background-color);
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
         }
 
-        .hero-subtitle {
-            font-size: clamp(1rem, 2vw, 1.25rem);
-            margin-bottom: 2rem;
-            color: #555;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            border-radius: 8px;
+        .category-links a {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(14px, 1.5vw, 16px);
             font-weight: 500;
+            margin: 0 20px;
+            letter-spacing: 1px;
+            color: var(--text-color);
             text-decoration: none;
             transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
         }
 
-        .btn-primary {
-            background-color: var(--green-color);
-            color: white;
+        .category-links a:hover {
+            color: var(--accent-color);
         }
 
-        .btn-secondary {
-            background-color: var(--dark-color);
-            color: white;
+        .category-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
         }
 
-        /* SECCIONES GENERALES */
-        .section {
-            padding: 80px 0;
+        .category-links a:hover::after {
             width: 100%;
         }
 
+        /* GALERÍA DE PROYECTOS ELEGANTE */
+        .portfolio-section {
+            padding: 80px 0;
+        }
+
         .section-title {
-            font-size: clamp(1.5rem, 4vw, 2rem);
-            font-weight: 600;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             text-align: center;
             margin-bottom: 60px;
-        }
-
-        /* SERVICIOS */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            text-align: center;
-        }
-
-        .service-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .service-title {
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        /* DIFERENCIADOR */
-        .differentiator {
-            background-color: #f8f9fa;
-            text-align: center;
-        }
-
-        .differentiator p {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        /* PROCESO */
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            text-align: center;
-        }
-
-        .process-step {
-            font-weight: 500;
-        }
-
-        /* CONTACTO */
-        .contact {
-            background-color: var(--dark-color);
-            color: white;
-            text-align: center;
-        }
-
-        .contact p {
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        /* GALERÍA MEJORADA */
-        .portfolio-grid {
-            padding: 80px 0;
+            letter-spacing: 1px;
         }
 
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
+            gap: 30px;
             justify-items: center;
         }
         
@@ -205,10 +154,8 @@
             color: white;
             width: 100%;
             aspect-ratio: 1;
-            border-radius: 16px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
         }
         
         .grid-item img {
@@ -217,117 +164,92 @@
             object-fit: cover;
             object-position: center;
             display: block;
+            transition: transform 0.6s ease;
         }
 
         .grid-item .overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0,0,0,0.4);
-            opacity: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 60%);
             display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.3s ease;
-            padding: 20px;
+            align-items: flex-end;
+            padding: 25px;
             box-sizing: border-box;
         }
 
         .grid-item .project-name {
-            color: white;
-            font-size: 1.25rem;
-            font-weight: 600;
-            text-align: center;
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            transform: translateY(10px);
+            opacity: 0.9;
+            transition: all 0.4s ease;
         }
 
-        .grid-item:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-        }
-
-        .grid-item:hover .overlay {
-            opacity: 1;
+        .grid-item:hover img {
+            transform: scale(1.05);
         }
 
         .grid-item:hover .project-name {
             transform: translateY(0);
-        }
-
-        /* MODAL */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.9);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            padding: 20px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.active {
-            display: flex;
             opacity: 1;
         }
 
-        .modal-content {
-            background: white;
-            max-width: 800px;
-            width: 100%;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
+        /* DIFERENCIADOR ELEGANTE */
+        .differentiator {
+            padding: 100px 0;
+            text-align: center;
+            background-color: #fafafa;
         }
 
-        .modal.active .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-image {
-            width: 100%;
-            max-height: 60vh;
-            object-fit: contain;
-            background: white;
-        }
-
-        .modal-info {
-            padding: 24px;
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--text-color);
-        }
-
-        .modal-description {
+        .differentiator p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
             color: #555;
-            margin-bottom: 16px;
-            line-height: 1.5;
         }
 
-        .close-btn {
-            color: #0066cc;
-            background: none;
-            border: none;
-            font-size: 0.875rem;
-            cursor: pointer;
-            text-decoration: underline;
-            padding: 0;
+        /* PROCESO DE TRABAJO */
+        .process-section {
+            padding: 100px 0;
         }
 
-        /* FOOTER */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .process-step {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            position: relative;
+            padding-top: 50px;
+        }
+
+        .process-step::before {
+            content: attr(data-number);
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* FOOTER ELEGANTE */
         footer {
-            padding: 60px 0 30px;
+            padding: 80px 0 30px;
             background-color: var(--background-color);
             border-top: 1px solid #eee;
         }
@@ -338,15 +260,15 @@
             padding: 0 40px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
+            gap: 50px;
         }
         
         .footer-column h4 {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
             color: var(--text-color);
         }
         
@@ -354,28 +276,102 @@
             display: block;
             color: #555;
             text-decoration: none;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 14px;
             transition: color 0.3s;
         }
         
         .footer-column a:hover {
-            color: var(--text-color);
+            color: var(--accent-color);
         }
 
         .copyright {
             text-align: center;
-            margin-top: 60px;
+            margin-top: 80px;
             padding-top: 30px;
             border-top: 1px solid #eee;
             color: #aaa;
             font-size: 12px;
+            letter-spacing: 1px;
         }
 
-        /* MEDIA QUERIES */
+        /* MODAL ELEGANTE */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-image {
+            width: 100%;
+            max-height: 65vh;
+            object-fit: contain;
+            background: white;
+        }
+
+        .modal-info {
+            padding: 30px;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .modal-description {
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        .close-btn {
+            color: var(--accent-color);
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 0;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.5px;
+        }
+
+        /* MEDIA QUERIES PARA RESPONSIVE */
         @media (max-width: 1024px) {
             .hero-image {
-                max-width: 70%;
+                max-width: 75%;
+                max-height: 75%;
             }
             
             .page-container {
@@ -395,40 +391,25 @@
             
             .grid-container {
                 grid-template-columns: 1fr;
-                gap: 16px;
-            }
-            
-            .grid-item {
-                border-radius: 12px;
-            }
-            
-            .grid-item .overlay {
-                opacity: 1;
-                background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
-            }
-            
-            .grid-item .project-name {
-                transform: translateY(0);
-                text-align: left;
-                align-self: flex-end;
-                width: 100%;
-            }
-            
-            .grid-item:hover {
-                transform: none;
-            }
-            
-            .grid-item:active {
-                transform: scale(0.98);
-            }
-
-            .services-grid {
-                grid-template-columns: repeat(2, 1fr);
                 gap: 20px;
+            }
+            
+            .category-links {
+                padding: 20px 0;
+            }
+            
+            .category-links a {
+                margin: 0 15px;
             }
 
             .process-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+
+            .portfolio-section,
+            .process-section {
+                padding: 60px 0;
             }
         }
 
@@ -437,16 +418,12 @@
                 padding: 0 20px;
             }
             
-            .hero-section {
-                margin-bottom: 40px;
-            }
-            
             header {
                 padding: 20px 0;
             }
             
             .logo {
-                max-height: 35px;
+                max-height: 40px;
             }
             
             .footer-container {
@@ -459,21 +436,15 @@
             }
             
             .modal-info {
-                padding: 16px;
+                padding: 20px;
             }
 
-            .services-grid,
             .process-grid {
                 grid-template-columns: 1fr;
             }
 
-            .hero-buttons {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .btn {
-                width: 100%;
+            .section-title {
+                margin-bottom: 40px;
             }
         }
     </style>
@@ -486,49 +457,22 @@
         </header>
 
         <main>
-            <!-- Hero Section -->
+            <!-- Hero Section Minimalista -->
             <section class="hero-section">
                 <img src="hero1.jpg" alt="Hero image" class="hero-image">
-                <h1 class="hero-title">Diseño y construcción sin sorpresas</h1>
-                <p class="hero-subtitle">Arquitectura + Ingeniería con control total</p>
-                <div class="hero-buttons">
-                    <a href="https://wa.me/" class="btn btn-primary">WhatsApp</a>
-                    <a href="#agenda" class="btn btn-secondary">Agenda una llamada</a>
-                </div>
             </section>
 
-            <!-- Servicios -->
-            <section class="section">
-                <h2 class="section-title">¿Qué hacemos?</h2>
-                <div class="services-grid">
-                    <div>
-                        <div class="service-icon">🏡</div>
-                        <h3 class="service-title">Diseño Residencial</h3>
-                    </div>
-                    <div>
-                        <div class="service-icon">🧮</div>
-                        <h3 class="service-title">Presupuesto y Cálculo</h3>
-                    </div>
-                    <div>
-                        <div class="service-icon">🏗️</div>
-                        <h3 class="service-title">Construcción</h3>
-                    </div>
-                    <div>
-                        <div class="service-icon">📲</div>
-                        <h3 class="service-title">Control Digital</h3>
-                    </div>
-                </div>
-            </section>
+            <!-- Menú de Categorías Estilizado -->
+            <div class="category-links">
+                <a href="vivienda.html">Casa Habitación</a>
+                <a href="calculo.html">Cálculo estructural</a>
+                <a href="superficies-deportivas.html">Superficies Deportivas</a>
+                <a href="Kafnilu.html">KAFNILU</a>
+            </div>
 
-            <!-- Diferenciador -->
-            <section class="section differentiator">
-                <h2 class="section-title">Tu proyecto siempre en tus manos</h2>
-                <p>Creamos un sistema en línea donde puedes ver tu proyecto en tiempo real: avances, pagos, decisiones... todo desde tu celular.</p>
-            </section>
-
-            <!-- Portafolio -->
-            <section class="portfolio-grid">
-                <h2 class="section-title">Proyectos Recientes</h2>
+            <!-- Portafolio de Proyectos -->
+            <section class="portfolio-section">
+                <h2 class="section-title">Nuestros Proyectos</h2>
                 <div class="grid-container">
                     <div class="grid-item" onclick="openModal('casa-huitzilac.jpg', 'Huitzilac', 'Proyecto residencial en bosque de Huitzilac')">
                         <img src="casa-huitzilac.jpg" alt="Proyecto 1">
@@ -569,32 +513,26 @@
                 </div>
             </section>
 
-            <!-- Proceso -->
-            <section class="section">
-                <h2 class="section-title">¿Cómo trabajamos?</h2>
-                <div class="process-grid">
-                    <div class="process-step"><strong>1.</strong> Reunión y levantamiento</div>
-                    <div class="process-step"><strong>2.</strong> Diseño en acuarela y digital</div>
-                    <div class="process-step"><strong>3.</strong> Presupuesto transparente</div>
-                    <div class="process-step"><strong>4.</strong> Cálculo estructural</div>
-                    <div class="process-step"><strong>5.</strong> Ejecución + seguimiento digital</div>
-                    <div class="process-step"><strong>6.</strong> Entrega y acompañamiento</div>
-                </div>
+            <!-- Diferenciador Elegante -->
+            <section class="differentiator">
+                <h2 class="section-title">Nuestra Filosofía</h2>
+                <p>En espacioSM fusionamos arte y funcionalidad, creando espacios que cuentan historias. Cada proyecto es una oportunidad para reinventar la relación entre el ser humano y su entorno, con un enfoque en la sostenibilidad y la belleza atemporal.</p>
             </section>
 
-            <!-- Contacto -->
-            <section id="agenda" class="section contact">
-                <h2 class="section-title">¿Listo para comenzar?</h2>
-                <p>Agenda una llamada gratuita y empieza a visualizar tu casa ideal.</p>
-                <div class="hero-buttons">
-                    <a href="https://wa.me/" class="btn btn-primary">Escríbenos por WhatsApp</a>
-                    <a href="#" class="btn" style="background-color: white; color: var(--dark-color);">Agendar cita</a>
+            <!-- Proceso de Trabajo -->
+            <section class="process-section">
+                <h2 class="section-title">Nuestro Proceso</h2>
+                <div class="process-grid">
+                    <div class="process-step" data-number="1">Conceptualización y diseño inicial</div>
+                    <div class="process-step" data-number="2">Desarrollo técnico y estructural</div>
+                    <div class="process-step" data-number="3">Presentación y ajustes</div>
+                    <div class="process-step" data-number="4">Ejecución con supervisión permanente</div>
                 </div>
             </section>
         </main>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal Elegante -->
     <div class="modal" id="imageModal">
         <div class="modal-content">
             <img class="modal-image" id="modalImage" src="" alt="">
@@ -609,24 +547,26 @@
     <footer>
         <div class="footer-container">
             <div class="footer-column">
-                <h4>Navegación</h4>
+                <h4>Estudio</h4>
                 <a href="#">Proyectos</a>
-                <a href="#">Despacho</a>
-                <a href="#">Contacto</a>
+                <a href="#">Equipo</a>
+                <a href="#">Filosofía</a>
             </div>
             <div class="footer-column">
                 <h4>Contacto</h4>
                 <p>Ciudad de México, México</p>
                 <a href="mailto:contacto@espaciosm.art">contacto@espaciosm.art</a>
+                <a href="tel:+525555555555">+52 55 5555 5555</a>
             </div>
             <div class="footer-column">
-                <h4>Social</h4>
+                <h4>Redes</h4>
                 <a href="#" target="_blank">Instagram</a>
+                <a href="#" target="_blank">Pinterest</a>
                 <a href="#" target="_blank">LinkedIn</a>
             </div>
         </div>
         <div class="copyright">
-            <p>© espacioSM <span id="current-year"></span></p>
+            <p>© espacioSM <span id="current-year"></span> | Todos los derechos reservados</p>
         </div>
     </footer>
 
