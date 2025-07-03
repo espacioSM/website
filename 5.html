@@ -134,7 +134,7 @@
             padding: 80px 0;
         }
 
-        .portfolio-title {
+        .section-title {
             font-size: clamp(1.8rem, 4vw, 2.5rem);
             text-align: center;
             margin-bottom: 60px;
@@ -210,6 +210,60 @@
 
         .grid-item:hover .project-name {
             transform: translateY(0);
+        }
+
+        /* SECCIÓN FILOSOFÍA */
+        .philosophy-section {
+            padding: 80px 0;
+            background-color: #fafafa;
+            text-align: center;
+        }
+
+        .philosophy-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* SECCIÓN PROCESO */
+        .process-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .process-step {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            position: relative;
+            padding-top: 50px;
+        }
+
+        .process-step::before {
+            content: attr(data-number);
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
         }
 
         /* FOOTER ELEGANTE */
@@ -368,8 +422,15 @@
                 transform: scale(0.98);
             }
 
-            .portfolio-grid {
+            .portfolio-grid,
+            .philosophy-section,
+            .process-section {
                 padding: 60px 0;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
             }
         }
 
@@ -424,7 +485,7 @@
 
             <!-- Portafolio de Proyectos -->
             <section class="portfolio-grid">
-                <h2 class="portfolio-title">Portafolio de Proyectos</h2>
+                <h2 class="section-title">Portafolio de Proyectos</h2>
                 <div class="grid-container">
                     <div class="grid-item" onclick="openModal('casa-huitzilac.jpg', 'Huitzilac', 'Proyecto residencial en bosque de Huitzilac')">
                         <img src="casa-huitzilac.jpg" alt="Proyecto 1">
@@ -464,6 +525,25 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Sección Filosofía -->
+            <section class="philosophy-section">
+                <h2 class="section-title">Nuestra Filosofía</h2>
+                <div class="philosophy-content">
+                    <p>En espacioSM fusionamos arte y funcionalidad, creando espacios que cuentan historias. Cada proyecto es una oportunidad para reinventar la relación entre el ser humano y su entorno, con un enfoque en la sostenibilidad y la belleza atemporal.</p>
+                </div>
+            </section>
+
+            <!-- Sección Proceso -->
+            <section class="process-section">
+                <h2 class="section-title">Nuestro Proceso</h2>
+                <div class="process-grid">
+                    <div class="process-step" data-number="1">Conceptualización y diseño inicial</div>
+                    <div class="process-step" data-number="2">Desarrollo técnico y estructural</div>
+                    <div class="process-step" data-number="3">Presentación y ajustes</div>
+                    <div class="process-step" data-number="4">Ejecución con supervisión permanente</div>
+                </div>
+            </section>
         </main>
     </div>
 
@@ -482,10 +562,10 @@
     <footer>
         <div class="footer-container">
             <div class="footer-column">
-                <h4>Navegación</h4>
+                <h4>Estudio</h4>
                 <a href="#">Proyectos</a>
-                <a href="#">Despacho</a>
-                <a href="#">Contacto</a>
+                <a href="#">Equipo</a>
+                <a href="#">Filosofía</a>
             </div>
             <div class="footer-column">
                 <h4>Contacto</h4>
@@ -494,7 +574,7 @@
                 <a href="tel:+525555555555">+52 55 5555 5555</a>
             </div>
             <div class="footer-column">
-                <h4>Social</h4>
+                <h4>Redes</h4>
                 <a href="#" target="_blank">Instagram</a>
                 <a href="#" target="_blank">Pinterest</a>
                 <a href="#" target="_blank">LinkedIn</a>
