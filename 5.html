@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- SEO: Meta descripción para mejorar la visibilidad en buscadores -->
+    <!-- SEO y metadatos mejorados -->
     <meta name="description" content="espacioSM es un estudio de arquitectura en México que fusiona arte y funcionalidad para crear espacios únicos y sostenibles. Conoce nuestros proyectos y equipo.">
+    <meta name="keywords" content="arquitectura, diseño, México, proyectos arquitectónicos, estudio de arquitectura">
+    <meta property="og:title" content="espacioSM | Estudio de Arquitectura">
+    <meta property="og:description" content="Estudio de arquitectura especializado en diseños únicos y sostenibles">
+    <meta property="og:type" content="website">
     <title>espacioSM | Estudio de Arquitectura</title>
+    <!-- Preload de recursos críticos -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;500;700&display=swap" as="style">
+    <link rel="preload" href="hero1.jpg" as="image">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;500;700&display=swap');
         
@@ -47,11 +54,15 @@
             align-items: center;
             padding: 30px 0;
             background-color: var(--background-color);
+            position: relative;
+            z-index: 100;
         }
 
         .logo {
             max-height: 50px;
             width: auto;
+            height: auto;
+            will-change: transform;
         }
 
         .menu-icon {
@@ -60,6 +71,10 @@
             cursor: pointer;
             color: var(--text-color);
             transition: opacity 0.3s;
+            background: none;
+            border: none;
+            padding: 5px;
+            outline: none;
         }
 
         .menu-icon:hover {
@@ -84,6 +99,9 @@
             max-height: 65%;
             object-fit: contain;
             object-position: center;
+            width: auto;
+            height: auto;
+            will-change: transform;
         }
 
         /* CATEGORÍAS ESTILIZADAS */
@@ -97,6 +115,11 @@
             background-color: var(--background-color);
             border-top: 1px solid #eee;
             border-bottom: 1px solid #eee;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .category-links::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
         }
 
         .category-links a {
@@ -160,6 +183,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             cursor: pointer;
             transition: all 0.3s ease;
+            will-change: transform;
         }
         
         .grid-item img {
@@ -170,6 +194,7 @@
             display: block;
             transition: transform 0.4s ease, filter 0.4s ease;
             filter: brightness(0.9);
+            will-change: transform, filter;
         }
 
         .grid-item .overlay {
@@ -214,7 +239,7 @@
             transform: translateY(0);
         }
 
-        /* SECCIÓN EQUIPO (REEMPLAZA A FILOSOFÍA) */
+        /* SECCIÓN EQUIPO (COMBINACIÓN DE FILOSOFÍA Y EQUIPO) */
         .team-section {
             padding: 80px 0;
             background-color: #fafafa;
@@ -245,8 +270,16 @@
             line-height: 1.8;
             color: #555;
         }
+
+        .philosophy-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
         
-        /* SECCIÓN PROCESO - LÍNEA DE TIEMPO */
+        /* SECCIÓN PROCESO - LÍNEA DE TIEMPO MEJORADA */
         .process-section {
             padding: 80px 0;
             text-align: center;
@@ -298,14 +331,8 @@
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             z-index: 2;
-            border: 3px solid #fafafa; /* Debe coincidir con el fondo de la sección anterior */
+            border: 3px solid var(--background-color);
         }
-        
-        /* En la sección de proceso, el borde del círculo debe ser blanco */
-        .process-section .process-step::before {
-            border-color: var(--background-color);
-        }
-
 
         /* FOOTER ELEGANTE */
         footer {
@@ -355,7 +382,7 @@
             letter-spacing: 1px;
         }
 
-        /* MODAL ELEGANTE */
+        /* MODAL ELEGANTE MEJORADO */
         .modal {
             position: fixed;
             top: 0;
@@ -385,6 +412,9 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.3);
             transform: scale(0.9);
             transition: transform 0.4s ease;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .modal.active .modal-content {
@@ -400,6 +430,7 @@
 
         .modal-info {
             padding: 30px;
+            overflow-y: auto;
         }
 
         .modal-title {
@@ -425,6 +456,50 @@
             padding: 0;
             font-family: 'Playfair Display', serif;
             letter-spacing: 0.5px;
+            align-self: flex-start;
+        }
+
+        /* MENÚ MÓVIL */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: white;
+            z-index: 99;
+            transition: right 0.3s ease;
+            padding: 80px 30px 30px;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 15px 0;
+            color: var(--text-color);
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            font-size: 1.1rem;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 98;
+            display: none;
+        }
+
+        .menu-overlay.active {
+            display: block;
         }
 
         /* EFECTOS PARA MÓVIL Y TABLET */
@@ -482,6 +557,15 @@
 
             .process-step {
                 padding-top: 50px;
+                max-width: 100%;
+            }
+
+            .modal-content {
+                max-height: 85vh;
+            }
+
+            .modal-image {
+                max-height: 50vh;
             }
         }
 
@@ -503,12 +587,12 @@
                 gap: 30px;
             }
             
-            .modal-image {
-                max-height: 50vh;
-            }
-            
             .modal-info {
                 padding: 20px;
+            }
+
+            .category-links a {
+                margin: 0 10px;
             }
         }
     </style>
@@ -516,14 +600,23 @@
 <body>
     <div class="page-container">
         <header>
-            <img src="https://placehold.co/150x50/111111/FFFFFF?text=espacioSM" alt="Logo espacioSM" class="logo">
-            <div class="menu-icon">☰</div>
+            <img src="logo.png" alt="Logo espacioSM - Estudio de Arquitectura" class="logo" loading="eager">
+            <button class="menu-icon" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">☰</button>
         </header>
+
+        <!-- Menú móvil -->
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="#portfolio">Portafolio</a>
+            <a href="#team">Equipo</a>
+            <a href="#process">Proceso</a>
+            <a href="#contact">Contacto</a>
+        </div>
+        <div class="menu-overlay" id="menu-overlay"></div>
 
         <main>
             <!-- Hero Section -->
             <section class="hero-section">
-                <img src="https://placehold.co/1200x800/eeeeee/cccccc?text=Proyecto+Destacado" alt="Hero image" class="hero-image" onerror="this.onerror=null;this.src='https://placehold.co/1200x800';">
+                <img src="hero1.jpg" alt="Proyecto destacado de espacioSM" class="hero-image" loading="eager" onerror="this.onerror=null;this.src='fallback-hero.jpg'">
             </section>
 
             <!-- Categorías -->
@@ -535,42 +628,41 @@
             </div>
 
             <!-- Portafolio -->
-            <section class="portfolio-grid">
+            <section class="portfolio-grid" id="portfolio">
                 <h2 class="section-title">Portafolio de Proyectos</h2>
                 <div class="grid-container">
-                    <!-- Items del portafolio (sin cambios) -->
-                     <div class="grid-item" onclick="openModal('https://placehold.co/800x800/A89C94/FFFFFF?text=Huitzilac', 'Huitzilac', 'Proyecto residencial en bosque de Huitzilac')">
-                        <img src="https://placehold.co/600x600/A89C94/FFFFFF?text=Huitzilac" alt="Proyecto 1">
+                    <div class="grid-item" onclick="openModal('casa-huitzilac.jpg', 'Huitzilac', 'Proyecto residencial en bosque de Huitzilac')" role="button" tabindex="0" aria-label="Ver proyecto Huitzilac">
+                        <img src="casa-huitzilac-thumb.jpg" alt="Proyecto residencial Huitzilac" loading="lazy">
                         <div class="overlay">
                             <div class="project-name">Huitzilac</div>
                         </div>
                     </div>
-                    <div class="grid-item" onclick="openModal('https://placehold.co/800x800/B2A495/FFFFFF?text=Casa+Jardin', 'Casa Jardin', 'Diseño de casa con jardín integrado')">
-                        <img src="https://placehold.co/600x600/B2A495/FFFFFF?text=Casa+Jardin" alt="Proyecto 2">
+                    <div class="grid-item" onclick="openModal('casa-jardin.jpg', 'Casa Jardin', 'Diseño de casa con jardín integrado')" role="button" tabindex="0" aria-label="Ver proyecto Casa Jardín">
+                        <img src="casa-jardin-thumb.jpg" alt="Proyecto Casa Jardín" loading="lazy">
                         <div class="overlay">
                             <div class="project-name">Casa Jardin</div>
                         </div>
                     </div>
-                    <div class="grid-item" onclick="openModal('https://placehold.co/800x800/8B786D/FFFFFF?text=Casa+del+Pirul', 'Casa del Pirul', 'Vivienda adaptada al entorno natural')">
-                        <img src="https://placehold.co/600x600/8B786D/FFFFFF?text=Casa+del+Pirul" alt="Proyecto 3">
+                    <div class="grid-item" onclick="openModal('casa-del-arbol.jpg', 'Casa del Pirul', 'Vivienda adaptada al entorno natural')" role="button" tabindex="0" aria-label="Ver proyecto Casa del Pirul">
+                        <img src="casa-del-arbol-thumb.jpg" alt="Proyecto Casa del Pirul" loading="lazy">
                         <div class="overlay">
                             <div class="project-name">Casa del Pirul</div>
                         </div>
                     </div>
-                    <div class="grid-item" onclick="openModal('https://placehold.co/800x800/9F8C76/FFFFFF?text=Depto+Huixtoco', 'Departamentos Huixtoco', 'Conjunto habitacional moderno')">
-                        <img src="https://placehold.co/600x600/9F8C76/FFFFFF?text=Depto+Huixtoco" alt="Proyecto 4">
+                    <div class="grid-item" onclick="openModal('deptos-huixtoco.jpg', 'Departamentos Huixtoco', 'Conjunto habitacional moderno')" role="button" tabindex="0" aria-label="Ver proyecto Departamentos Huixtoco">
+                        <img src="deptos-huixtoco-thumb.jpg" alt="Proyecto Departamentos Huixtoco" loading="lazy">
                         <div class="overlay">
                             <div class="project-name">Departamentos Huixtoco</div>
                         </div>
                     </div>
-                    <div class="grid-item" onclick="openModal('https://placehold.co/800x800/C1A99B/FFFFFF?text=Coral', 'Coral', 'Proyecto residencial con formas orgánicas')">
-                        <img src="https://placehold.co/600x600/C1A99B/FFFFFF?text=Coral" alt="Proyecto 5">
+                    <div class="grid-item" onclick="openModal('ixtapaluca-coral.jpg', 'Coral', 'Proyecto residencial con formas orgánicas')" role="button" tabindex="0" aria-label="Ver proyecto Coral">
+                        <img src="ixtapaluca-coral-thumb.jpg" alt="Proyecto Coral" loading="lazy">
                         <div class="overlay">
                             <div class="project-name">Coral</div>
                         </div>
                     </div>
-                    <div class="grid-item" onclick="openModal('https://placehold.co/800x800/D4C4B3/FFFFFF?text=Lucernario', 'Lucernario Xochimilco', 'Diseño con iluminación natural')">
-                        <img src="https://placehold.co/600x600/D4C4B3/FFFFFF?text=Lucernario" alt="Proyecto 6">
+                    <div class="grid-item" onclick="openModal('lucernario-xochimilco.jpg', 'Lucernario Xochimilco', 'Diseño con iluminación natural')" role="button" tabindex="0" aria-label="Ver proyecto Lucernario Xochimilco">
+                        <img src="lucernario-xochimilco-thumb.jpg" alt="Proyecto Lucernario Xochimilco" loading="lazy">
                         <div class="overlay">
                             <div class="project-name">Lucernario Xochimilco</div>
                         </div>
@@ -578,19 +670,22 @@
                 </div>
             </section>
 
-            <!-- SECCIÓN EQUIPO (NUEVA) -->
-            <section class="team-section">
+            <!-- SECCIÓN EQUIPO -->
+            <section class="team-section" id="team">
                 <h2 class="section-title">Nuestro Equipo</h2>
                 <div class="team-content">
-                    <img src="https://placehold.co/1000x600/dddddd/aaaaaa?text=Foto+de+nuestro+equipo" alt="Foto del equipo de espacioSM" class="team-photo">
+                    <img src="team-photo.jpg" alt="Equipo de espacioSM trabajando" class="team-photo" loading="lazy">
                     <div class="team-description">
                         <p>Somos un colectivo de arquitectos, diseñadores y constructores apasionados por transformar ideas en realidad. Creemos en la colaboración, la innovación y en un proceso de diseño centrado en las personas que habitarán los espacios que creamos.</p>
+                    </div>
+                    <div class="philosophy-content">
+                        <p>En espacioSM fusionamos arte y funcionalidad, creando espacios que cuentan historias. Cada proyecto es una oportunidad para reinventar la relación entre el ser humano y su entorno, con un enfoque en la sostenibilidad y la belleza atemporal.</p>
                     </div>
                 </div>
             </section>
 
             <!-- Sección Proceso -->
-            <section class="process-section">
+            <section class="process-section" id="process">
                 <h2 class="section-title">Nuestro Proceso</h2>
                 <div class="process-timeline">
                     <div class="process-step" data-number="1">Conceptualización y diseño inicial</div>
@@ -602,26 +697,25 @@
         </main>
     </div>
 
-    <!-- Modal (sin cambios) -->
-    <div class="modal" id="imageModal">
+    <!-- Modal -->
+    <div class="modal" id="imageModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle">
         <div class="modal-content">
-            <img class="modal-image" id="modalImage" src="" alt="">
+            <img class="modal-image" id="modalImage" src="" alt="" loading="eager">
             <div class="modal-info">
                 <h2 class="modal-title" id="modalTitle"></h2>
                 <p class="modal-description" id="modalDescription"></p>
-                <button class="close-btn" onclick="closeModal()">Cerrar</button>
+                <button class="close-btn" onclick="closeModal()" aria-label="Cerrar modal">Cerrar</button>
             </div>
         </div>
     </div>
 
-    <!-- Footer (sin cambios) -->
-    <footer>
+    <footer id="contact">
         <div class="footer-container">
             <div class="footer-column">
                 <h4>Estudio</h4>
-                <a href="#">Proyectos</a>
-                <a href="#">Equipo</a>
-                <a href="#">Proceso</a>
+                <a href="#portfolio">Proyectos</a>
+                <a href="#team">Equipo</a>
+                <a href="#process">Proceso</a>
             </div>
             <div class="footer-column">
                 <h4>Contacto</h4>
@@ -631,9 +725,9 @@
             </div>
             <div class="footer-column">
                 <h4>Redes</h4>
-                <a href="#" target="_blank">Instagram</a>
-                <a href="#" target="_blank">Pinterest</a>
-                <a href="#" target="_blank">LinkedIn</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">Pinterest</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             </div>
         </div>
         <div class="copyright">
@@ -641,40 +735,103 @@
         </div>
     </footer>
 
-    <!-- Script (sin cambios) -->
     <script>
+        // Año actual en el footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
-        const modal = document.getElementById('imageModal');
+
+        // Funciones para el modal
         function openModal(imageSrc, title, description) {
+            const modal = document.getElementById('imageModal');
             document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('modalImage').alt = title;
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalDescription').textContent = description;
+            
             modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
+            
+            // Enfocar el botón de cerrar para accesibilidad
+            setTimeout(() => {
+                document.querySelector('.close-btn').focus();
+            }, 100);
         }
+
         function closeModal() {
+            const modal = document.getElementById('imageModal');
             modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = 'auto';
         }
-        modal.addEventListener('click', function(e) {
+
+        // Cerrar modal al hacer clic fuera del contenido
+        document.getElementById('imageModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
             }
         });
+
+        // Cerrar modal con la tecla ESC
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
+            if (e.key === 'Escape' && document.getElementById('imageModal').classList.contains('active')) {
                 closeModal();
             }
         });
+
+        // Efecto táctil para móviles
         document.querySelectorAll('.grid-item').forEach(item => {
             item.addEventListener('touchstart', function() {
-                this.style.transition = 'transform 0.2s ease';
                 this.style.transform = 'scale(0.98)';
             }, {passive: true});
             
             item.addEventListener('touchend', function() {
                 this.style.transform = 'scale(1)';
             }, {passive: true});
+            
+            // Soporte para teclado
+            item.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    const img = this.querySelector('img');
+                    const title = this.querySelector('.project-name').textContent;
+                    openModal(img.src.replace('-thumb', ''), title, 'Descripción detallada del proyecto ' + title);
+                }
+            });
+        });
+
+        // Menú móvil
+        const menuIcon = document.querySelector('.menu-icon');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuOverlay = document.getElementById('menu-overlay');
+        
+        function toggleMenu() {
+            const isExpanded = menuIcon.getAttribute('aria-expanded') === 'true';
+            menuIcon.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = isExpanded ? 'auto' : 'hidden';
+        }
+        
+        menuIcon.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+        
+        // Precarga de imágenes cuando estén en viewport
+        const lazyLoad = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    observer.unobserve(img);
+                }
+            });
+        };
+        
+        const observer = new IntersectionObserver(lazyLoad, {
+            rootMargin: '100px 0px',
+            threshold: 0.1
+        });
+        
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            observer.observe(img);
         });
     </script>
 </body>
