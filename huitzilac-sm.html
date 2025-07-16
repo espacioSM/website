@@ -1,4 +1,4 @@
- <html lang="es" class="scroll-smooth">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -291,7 +291,7 @@
                     <p class="text-lg text-gray-600 mb-8">Hablemos de tu visión. Completa el formulario y nos pondremos en contacto a la brevedad.</p>
                     
                     <!-- Formulario de Contacto funcional con Formspree -->
-                    <form action="https://formspree.io/f/contacto@espaciosm.art" method="POST" class="space-y-6 text-left">
+                    <form id="contact-form" class="space-y-6 text-left">
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
                             <input type="text" name="name" id="name" required class="mt-1 block w-full px-4 py-3 bg-gray-50 border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500">
@@ -309,6 +309,7 @@
                                 Enviar Mensaje
                             </button>
                         </div>
+                        <div id="form-message" class="hidden text-center py-2 px-4 rounded"></div>
                     </form>
                 </div>
             </section>
@@ -328,7 +329,7 @@
                     <span>Regresar a Proyectos</span>
                 </a>
                 <!-- Enlace al siguiente proyecto -->
-                <a href="/proyectos/casa-lago" class="flex items-center space-x-2 hover:text-white transition-colors">
+                <a href="/proyectos/casa-lago" id="next-project" class="flex items-center space-x-2 hover:text-white transition-colors">
                     <span>Siguiente Proyecto</span>
                     <i class="fa-solid fa-arrow-right"></i>
                 </a>
@@ -379,6 +380,69 @@
                         nav.classList.remove('nav-scrolled'); 
                     }
                 });
+            }
+
+            // Formulario de contacto funcional con Formspree
+            const contactForm = document.getElementById('contact-form');
+            const formMessage = document.getElementById('form-message');
+            
+            if(contactForm && formMessage) {
+                contactForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const submitButton = contactForm.querySelector('button[type="submit"]');
+                    const originalButtonText = submitButton.textContent;
+
+                    // Deshabilitar botón y mostrar carga
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Enviando...';
+                    formMessage.classList.add('hidden');
+
+                    try {
+                        const formData = new FormData(contactForm);
+                        const response = await fetch('https://formspree.io/f/comercial@espaciosm.art', {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        if (response.ok) {
+                            formMessage.textContent = '¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.';
+                            formMessage.className = 'text-center py-2 px-4 rounded bg-green-100 text-green-700';
+                            contactForm.reset();
+                        } else {
+                            throw new Error('Error de red al contactar el servidor de Formspree.');
+                        }
+
+                    } catch (error) {
+                        console.error('Error en el envío:', error);
+                        formMessage.textContent = 'Hubo un error al enviar tu mensaje. Por favor, inténtalo de nuevo más tarde.';
+                        formMessage.className = 'text-center py-2 px-4 rounded bg-red-100 text-red-700';
+                    } finally {
+                        formMessage.classList.remove('hidden');
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
+
+                        setTimeout(() => {
+                            formMessage.classList.add('hidden');
+                        }, 6000);
+                    }
+                });
+            }
+
+            // Navegación entre proyectos (ejemplo)
+            // Puedes cambiar estas URLs manualmente para cada proyecto
+            const projectsNavigation = {
+                previous: '/proyectos/proyecto-anterior',
+                next: '/proyectos/casa-lago'
+            };
+            
+            // Configurar enlaces de navegación
+            const nextProjectLink = document.getElementById('next-project');
+            if(nextProjectLink) {
+                nextProjectLink.href = projectsNavigation.next;
             }
         });
     </script>
