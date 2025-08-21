@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="espacioSM es un estudio de arquitectura en México que fusiona arte y funcionalidad para crear espacios únicos y sostenibles. Conoce nuestros proyectos y equipo.">
+    <meta name="keywords" content="arquitectura, diseño, México, proyectos arquitectónicos, estudio de arquitectura">
+    <meta property="og:title" content="espacioSM | Estudio de Arquitectura">
+    <meta property="og:description" content="Estudio de arquitectura especializado en diseños únicos y sostenibles">
+    <meta property="og:type" content="website">
+    <title>espacioSM | Estudio de Arquitectura</title>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;500;700&display=swap"></noscript>
+    <link rel="preload" href="hero1.jpg" as="image">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;500;700&display=swap');
+        
+        :root {
+            --text-color: #111;
+            --background-color: #ffffff;
+            --gray-color: #6c757d;
+            --hero-height: 80vh;
+            --mobile-hero-height: 60vh;
+            --accent-color: #8b5a2b;
+        }
+
+        /* RESET Y ESTILOS BASE */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Lato', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+        }
+
+        .page-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            background-color: var(--background-color);
+        }
+
+        /* HEADER ELEGANTE */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            background-color: var(--background-color);
+            position: relative;
+            z-index: 101; /* Header por encima de todo menos el menú activo */
+        }
+
+        .logo {
+            max-height: 50px;
+            width: auto;
+            height: auto;
+        }
+
+        .menu-icon {
+            font-size: 28px;
+            font-weight: 300;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: opacity 0.3s;
+            background: none;
+            border: none;
+            padding: 5px;
+            outline: none;
+            z-index: 1001; /* El ícono siempre debe estar encima de todo */
+        }
+
+        .menu-icon:hover {
+            opacity: 0.7;
+        }
+
+        /* HERO SECTION */
+        .hero-section {
+            width: 100%;
+            height: var(--hero-height);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            max-width: 65%;
+            max-height: 65%;
+            object-fit: contain;
+            object-position: center;
+        }
+
+        /* CATEGORÍAS ESTILIZADAS */
+        .category-links {
+            text-align: center;
+            margin: 60px 0;
+            padding: 25px 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .category-links::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        .category-links a {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(14px, 1.5vw, 16px);
+            font-weight: 500;
+            margin: 0 20px;
+            letter-spacing: 1px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .category-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .category-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .category-links a:hover::after {
+            width: 100%;
+        }
+
+        /* GALERÍA DE PROYECTOS */
+        .portfolio-grid {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            text-align: center;
+            margin-bottom: 60px;
+            letter-spacing: 1px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            justify-items: center;
+        }
+        
+        /* == MODIFICACIÓN CSS == */
+        /* Hacemos que la etiqueta 'a' se comporte como un bloque y removemos estilos de enlace */
+        .grid-item {
+            display: block; /* Asegura que el enlace ocupe todo el espacio */
+            text-decoration: none; /* Quita el subrayado del enlace */
+            color: inherit; /* Hereda el color (blanco en este caso para el overlay) */
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            transition: transform 0.4s ease, filter 0.4s ease;
+            filter: brightness(0.9);
+        }
+
+        .grid-item .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .grid-item .project-name {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
+            text-align: center;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .grid-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .grid-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(1);
+        }
+
+        .grid-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .grid-item:hover .project-name {
+            transform: translateY(0);
+        }
+
+        /* SECCIÓN EQUIPO */
+        .team-section {
+            padding: 80px 0;
+            background-color: #fafafa;
+        }
+
+        .team-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .team-photo {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            object-fit: cover;
+        }
+
+        .team-description, .philosophy-content {
+            max-width: 800px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+        
+        /* SECCIÓN PROCESO */
+        .process-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .process-timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            max-width: 1200px;
+            margin: 60px auto 0;
+            padding: 0 20px;
+        }
+
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background-color: #eee;
+            z-index: 1;
+        }
+
+        .process-step {
+            font-size: 1rem;
+            line-height: 1.6;
+            position: relative;
+            padding-top: 60px;
+            flex: 1;
+            max-width: 220px;
+        }
+
+        .process-step::before {
+            content: attr(data-number);
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            z-index: 2;
+            border: 3px solid var(--background-color);
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 80px 0 30px;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 50px;
+        }
+        
+        .footer-column h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+        
+        .footer-column a, .footer-column p {
+            display: block;
+            color: #555;
+            text-decoration: none;
+            margin-bottom: 12px;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+            color: #aaa;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        /* MODAL (INTACTO, POR SI SE NECESITA EN OTRO LADO) */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 900px;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-image {
+            width: 100%;
+            max-height: 65vh;
+            object-fit: contain;
+        }
+
+        .modal-info {
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .modal-description {
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        .close-btn {
+            color: var(--accent-color);
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 0;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.5px;
+            align-self: flex-start;
+        }
+
+        /* MENÚ MÓVIL FUNCIONAL */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%; /* Inicia fuera de la pantalla */
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            transition: right 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            padding: 100px 40px 40px;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+
+        .mobile-menu.active {
+            right: 0; /* Lo trae a la vista */
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 18px 0;
+            color: var(--text-color);
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            font-size: 1.2rem;
+            font-family: 'Playfair Display', serif;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none; /* No se puede hacer clic por defecto */
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto; /* Se puede hacer clic cuando está activo */
+        }
+
+        /* MEDIA QUERIES */
+        @media (max-width: 768px) {
+            .hero-section {
+                height: var(--mobile-hero-height);
+            }
+            .hero-image {
+                max-width: 90%;
+                max-height: 90%;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .grid-item .overlay {
+                opacity: 1;
+                background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+                align-items: flex-end;
+            }
+            .grid-item .project-name {
+                transform: translateY(0);
+                text-align: left;
+                width: 100%;
+            }
+            .grid-item:hover {
+                transform: none;
+            }
+            .grid-item:active {
+                transform: scale(0.98);
+            }
+            .portfolio-grid, .team-section, .process-section {
+                padding: 60px 0;
+            }
+            .process-timeline {
+                flex-direction: column;
+                align-items: center;
+                gap: 40px;
+                margin-top: 0;
+            }
+            .process-timeline::before {
+                display: none;
+            }
+            .process-step {
+                padding-top: 50px;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-container {
+                padding: 0 20px;
+            }
+            header {
+                padding: 20px 0;
+            }
+            .logo {
+                max-height: 40px;
+            }
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .modal-info {
+                padding: 20px;
+            }
+            .category-links a {
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <img src="logo.png.png" alt="Logo espacioSM - Estudio de Arquitectura" class="logo" loading="eager">
+            <button class="menu-icon" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">☰</button>
+        </header>
+
+        <div class="mobile-menu" id="mobile-menu" role="navigation">
+            <a href="#portfolio">Portafolio</a>
+            <a href="#team">Nuestro Equipo</a>
+            <a href="#process">Proceso</a>
+            <a href="#contact">Contacto</a>
+        </div>
+        <div class="menu-overlay" id="menu-overlay"></div>
+
+        <main>
+            <section class="hero-section">
+                <img src="hero1.jpg" alt="Proyecto destacado de espacioSM" class="hero-image" loading="eager" onerror="this.onerror=null;this.src='https://placehold.co/1200x800';">
+            </section>
+
+            <div class="category-links">
+                <a href="vivienda.html">Casa Habitación</a>
+                <a href="calculo.html">Cálculo estructural</a>
+                <a href="superficies-deportivas.html">Superficies Deportivas</a>
+                <a href="Kafnilu.html">KAFNILU</a>
+            </div>
+
+            <section class="portfolio-grid" id="portfolio">
+                <h2 class="section-title">Portafolio de Proyectos</h2>
+                <div class="grid-container">
+                    
+                    <a href="huitzilac-sm.html" class="grid-item" aria-label="Ver proyecto Huitzilac">
+                        <img src="casa-huitzilac.jpg" alt="Proyecto residencial Huitzilac" loading="lazy">
+                        <div class="overlay"><div class="project-name">Huitzilac</div></div>
+                    </a>
+
+                    <a href="casajardin.html" class="grid-item" aria-label="Ver proyecto Casa Jardín">
+                        <img src="casa-jardin.jpg" alt="Proyecto Casa Jardín" loading="lazy">
+                        <div class="overlay"><div class="project-name">Casa Jardin</div></div>
+                    </a>
+
+                    <a href="pirul/pirul-sm.html" class="grid-item" aria-label="Ver proyecto Casa del Pirul">
+                        <img src="casa-del-arbol.jpg" alt="Proyecto Casa del Pirul" loading="lazy">
+                        <div class="overlay"><div class="project-name">Casa del Pirul</div></div>
+                    </a>
+
+                    <a href="huixtoco/huixtoco-sm.html" class="grid-item" aria-label="Ver proyecto Departamentos Huixtoco">
+                        <img src="deptos-huixtoco.jpg" alt="Proyecto Departamentos Huixtoco" loading="lazy">
+                        <div class="overlay"><div class="project-name">Departamentos Huixtoco</div></div>
+                    </a>
+
+                    <a href="coral/coral-sm.html" class="grid-item" aria-label="Ver proyecto Coral">
+                        <img src="jardin-coral-sm.png" alt="Proyecto Coral" loading="lazy">
+                        <div class="overlay"><div class="project-name">Coral</div></div>
+                    </a>
+
+                    <a href="lucernario/lucernario-sm.html" class="grid-item" aria-label="Ver proyecto Lucernario Xochimilco">
+                        <img src="lucernario-xochimilco.jpg" alt="Proyecto Lucernario Xochimilco" loading="lazy">
+                        <div class="overlay"><div class="project-name">Lucernario Xochimilco</div></div>
+                    </a>
+
+                </div>
+            </section>
+
+            <section class="team-section" id="team">
+                <h2 class="section-title">Nuestro Equipo y Filosofía</h2>
+                <div class="team-content">
+                    <img src="team-photo.jpg" alt="Equipo de espacioSM trabajando" class="team-photo" loading="lazy">
+                    <div class="team-description">
+                        <p>Somos un colectivo de arquitectos, diseñadores y constructores apasionados por transformar ideas en realidad. Creemos en la colaboración, la innovación y en un proceso de diseño centrado en las personas que habitarán los espacios que creamos.</p>
+                    </div>
+                    <div class="philosophy-content">
+                        <p>En espacioSM fusionamos arte y funcionalidad, creando espacios que cuentan historias. Cada proyecto es una oportunidad para reinventar la relación entre el ser humano y su entorno, con un enfoque en la sostenibilidad y la belleza atemporal.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="process-section" id="process">
+                <h2 class="section-title">Nuestro Proceso</h2>
+                <div class="process-timeline">
+                    <div class="process-step" data-number="1">Conceptualización y diseño inicial</div>
+                    <div class="process-step" data-number="2">Desarrollo técnico y estructural</div>
+                    <div class="process-step" data-number="3">Presentación y ajustes</div>
+                    <div class="process-step" data-number="4">Ejecución con supervisión permanente</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="modal" id="imageModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <img class="modal-image" id="modalImage" src="" alt="" loading="lazy">
+            <div class="modal-info">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <p class="modal-description" id="modalDescription"></p>
+                <button class="close-btn" onclick="closeModal()" aria-label="Cerrar modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Estudio</h4>
+                <a href="#portfolio">Proyectos</a>
+                <a href="#team">Equipo</a>
+                <a href="#process">Proceso</a>
+            </div>
+            <div class="footer-column">
+                <h4>Contacto</h4>
+                <p>Ciudad de México, México</p>
+                <a href="mailto:contacto@espaciosm.art">contacto@espaciosm.art</a>
+                <a href="tel:+525555555555">+52 55 5555 5555</a>
+            </div>
+            <div class="footer-column">
+                <h4>Redes</h4>
+                <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">Pinterest</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© espacioSM <span id="current-year"></span> | Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- MENÚ MÓVIL ---
+            const menuIcon = document.querySelector('.menu-icon');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuOverlay = document.getElementById('menu-overlay');
+            const menuLinks = mobileMenu.querySelectorAll('a');
+
+            const toggleMenu = () => {
+                const isExpanded = menuIcon.getAttribute('aria-expanded') === 'true';
+                menuIcon.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            };
+
+            menuIcon.addEventListener('click', toggleMenu);
+            menuOverlay.addEventListener('click', toggleMenu);
+            menuLinks.forEach(link => {
+                link.addEventListener('click', toggleMenu);
+            });
+
+            // --- MODAL DE IMÁGENES ---
+            // Nota: Este código del modal se conserva, pero ya no es utilizado por la galería de proyectos.
+            // Puede ser reutilizado para otras imágenes o elementos del sitio si es necesario.
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+            const closeModalBtn = document.querySelector('.close-btn');
+
+            // La función openModal ya no es llamada por la galería principal, pero se mantiene.
+            window.openModal = (imageSrc, title, description) => {
+                modalImage.src = imageSrc;
+                modalImage.alt = title;
+                modalTitle.textContent = title;
+                modalDescription.textContent = description;
+                
+                modal.classList.add('active');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+                
+                setTimeout(() => closeModalBtn.focus(), 100);
+            };
+
+            window.closeModal = () => {
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            };
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            closeModalBtn.addEventListener('click', closeModal);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+            
+            // --- OTROS SCRIPTS ---
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
+</html>
