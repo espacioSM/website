@@ -38,15 +38,15 @@
     <!-- Estilos personalizados -->
     <style>
         :root {
-            --primary-color: #D97706;
-            --primary-dark: #B45309;
-            --dark-bg: #1F2937;
+            --primary-color: #FFCD00; /* Amarillo Caterpillar */
+            --primary-dark: #E6B800;
+            --dark-bg: #000000; /* Negro */
             --light-bg: #F9FAFB;
         }
         
         body {
             font-family: 'Inter', sans-serif;
-            color: #1F2937;
+            color: #000000; /* Texto negro */
             background-color: #FFFFFF;
             scroll-behavior: smooth;
         }
@@ -60,13 +60,14 @@
         
         .btn-primary {
             background-color: var(--primary-color);
+            color: #000000; /* Texto negro */
             transition: all 0.3s ease;
         }
         
         .btn-primary:hover {
             background-color: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(217, 119, 6, 0.4);
+            box-shadow: 0 10px 25px -5px rgba(255, 205, 0, 0.4);
         }
         
         .value-card {
@@ -102,7 +103,7 @@
         
         .form-input:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2);
+            box-shadow: 0 0 0 3px rgba(255, 205, 0, 0.2);
         }
         
         .nav-scrolled {
@@ -145,7 +146,7 @@
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="flex justify-between items-center">
                 <a href="https://www.espaciosm.art" aria-label="Página de inicio de espacioSM" class="flex items-center">
-                    <span class="text-xl font-bold text-gray-800">espacio<span class="text-amber-600">SM</span></span>
+                    <span class="text-xl font-bold text-gray-800">espacio<span class="text-[#FFCD00]">SM</span></span>
                 </a>
 
                 <button id="menu-toggle" class="md:hidden focus:outline-none" aria-label="Menú principal" aria-expanded="false">
@@ -155,10 +156,10 @@
                 </button>
 
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="/proyectos" class="text-gray-800 hover:text-amber-600 transition-colors">Proyectos</a>
-                    <a href="/estudio" class="text-gray-800 hover:text-amber-600 transition-colors">Estudio</a>
-                    <a href="/contacto" class="text-gray-800 hover:text-amber-600 transition-colors">Contacto</a>
-                    <a href="#consultar" class="bg-amber-600 text-white px-4 py-2 rounded-md hover:bg-amber-700 transition-colors">Consultar Proyecto</a>
+                    <a href="/proyectos" class="text-gray-800 hover:text-[#FFCD00] transition-colors">Proyectos</a>
+                    <a href="/estudio" class="text-gray-800 hover:text-[#FFCD00] transition-colors">Estudio</a>
+                    <a href="/contacto" class="text-gray-800 hover:text-[#FFCD00] transition-colors">Contacto</a>
+                    <a href="#consultar" class="bg-[#FFCD00] text-black px-4 py-2 rounded-md hover:bg-[#E6B800] transition-colors">Consultar Proyecto</a>
                 </div>
             </div>
 
@@ -167,7 +168,7 @@
                     <a href="/proyectos" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:bg-gray-100">Proyectos</a>
                     <a href="/estudio" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:bg-gray-100">Estudio</a>
                     <a href="/contacto" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:bg-gray-100">Contacto</a>
-                    <a href="#consultar" class="block px-3 py-2 rounded-md text-base font-medium bg-amber-600 text-white hover:bg-amber-700">Consultar Proyecto</a>
+                    <a href="#consultar" class="block px-3 py-2 rounded-md text-base font-medium bg-[#FFCD00] text-black hover:bg-[#E6B800]">Consultar Proyecto</a>
                 </div>
             </div>
         </div>
@@ -177,7 +178,7 @@
     <section class="hero-section min-h-screen flex items-center justify-center text-white pt-20">
         <div class="max-w-6xl mx-auto px-6 md:px-12 text-center hero-content">
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in-up">
-                Ingeniería Estructural que <span class="text-amber-400">Potencia</span> tu Visión Arquitectónica
+                Ingeniería Estructural que <span class="text-[#FFCD00]">Potencia</span> tu Visión Arquitectónica
             </h1>
             <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s;">
                 Traducimos conceptos de diseño complejos en estructuras seguras, eficientes y construibles.
@@ -196,8 +197,8 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Value 1 -->
                 <div class="value-card p-6 bg-gray-50 rounded-lg">
-                    <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-chart-pie text-amber-600 text-xl"></i>
+                    <div class="w-14 h-14 bg-[#FFF5CC] rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-chart-pie text-[#FFCD00] text-xl"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">Optimización de Recursos</h3>
                     <p class="text-gray-600">Diseñamos estructuras eficientes que respetan tu presupuesto, minimizando el desperdicio de materiales sin sacrificar la seguridad.</p>
@@ -205,8 +206,8 @@
                 
                 <!-- Value 2 -->
                 <div class="value-card p-6 bg-gray-50 rounded-lg">
-                    <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-hard-hat text-amber-600 text-xl"></i>
+                    <div class="w-14 h-14 bg-[#FFF5CC] rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-hard-hat text-[#FFCD00] text-xl"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">Viabilidad Constructiva</h3>
                     <p class="text-gray-600">Hacemos posibles esos diseños audaces, asegurando que cada elemento sea construible desde las etapas tempranas.</p>
@@ -214,8 +215,8 @@
                 
                 <!-- Value 3 -->
                 <div class="value-card p-6 bg-gray-50 rounded-lg">
-                    <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-project-diagram text-amber-600 text-xl"></i>
+                    <div class="w-14 h-14 bg-[#FFF5CC] rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-project-diagram text-[#FFCD00] text-xl"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">Coordinación Integral</h3>
                     <p class="text-gray-600">Nuestra visión 360° integra la estructura con las demás ingenierías, eliminando conflictos y reduciendo errores en obra.</p>
@@ -223,8 +224,8 @@
                 
                 <!-- Value 4 -->
                 <div class="value-card p-6 bg-gray-50 rounded-lg">
-                    <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-shield-alt text-amber-600 text-xl"></i>
+                    <div class="w-14 h-14 bg-[#FFF5CC] rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-shield-alt text-[#FFCD00] text-xl"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">Seguridad y Certidumbre</h3>
                     <p class="text-gray-600">La tranquilidad de que tu proyecto cumple con toda la normativa y está respaldado por una memoria de cálculo robusta.</p>
@@ -244,11 +245,11 @@
                     <div>
                         <h3 class="text-2xl font-bold mb-4">Casa Huitzilac</h3>
                         <div class="mb-6">
-                            <h4 class="text-lg font-semibold text-amber-600 mb-2">El Reto:</h4>
+                            <h4 class="text-lg font-semibold text-[#FFCD00] mb-2">El Reto:</h4>
                             <p class="text-gray-600">Diseñar una estructura para una vivienda con grandes voladizos y amplios ventanales que se integre con el paisaje montañoso, manteniendo la estabilidad en un terreno con pendiente pronunciada.</p>
                         </div>
                         <div>
-                            <h4 class="text-lg font-semibold text-amber-600 mb-2">La Solución:</h4>
+                            <h4 class="text-lg font-semibold text-[#FFCD00] mb-2">La Solución:</h4>
                             <p class="text-gray-600">Implementamos un sistema de losas postensadas y muros de contención estratégicamente ubicados que permitieron lograr los voladizos deseados mientras se garantizaba la estabilidad estructural y la integración con el terreno.</p>
                         </div>
                     </div>
@@ -263,11 +264,11 @@
                     <div class="order-2 lg:order-1">
                         <h3 class="text-2xl font-bold mb-4">Edificio Reforma</h3>
                         <div class="mb-6">
-                            <h4 class="text-lg font-semibold text-amber-600 mb-2">El Reto:</h4>
+                            <h4 class="text-lg font-semibold text-[#FFCD00] mb-2">El Reto:</h4>
                             <p class="text-gray-600">Crear una estructura para un edificio de 12 niveles con planta libre en un terreno limitado en el centro de la ciudad, con restricciones de vibración y requisitos sísmicos estrictos.</p>
                         </div>
                         <div>
-                            <h4 class="text-lg font-semibold text-amber-600 mb-2">La Solución:</h4>
+                            <h4 class="text-lg font-semibold text-[#FFCD00] mb-2">La Solución:</h4>
                             <p class="text-gray-600">Diseñamos un sistema dual de marcos rígidos y núcleos de concreto armado que proporciona la flexibilidad arquitectónica deseada mientras cumple con todos los requisitos de seguridad sísmica y limitaciones de vibración.</p>
                         </div>
                     </div>
@@ -290,9 +291,9 @@
             
             <div class="bg-white p-8 rounded-lg shadow-sm">
                 <div class="flex flex-col items-center">
-                    <div class="mb-10 relative">
+                    <div class="mb-10 relative w-full max-w-2xl mx-auto">
                         <!-- Central Circle - Architectural Project -->
-                        <div class="w-40 h-40 rounded-full bg-amber-500 flex items-center justify-center text-white font-semibold text-center p-4 mx-auto shadow-lg">
+                        <div class="w-40 h-40 rounded-full bg-[#FFCD00] flex items-center justify-center text-black font-semibold text-center p-4 mx-auto shadow-lg">
                             Proyecto Arquitectónico
                         </div>
                         
@@ -300,34 +301,34 @@
                         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80">
                             <!-- Structural Engineering -->
                             <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                                <div class="w-28 h-28 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 font-medium text-center p-3">
+                                <div class="w-28 h-28 rounded-full bg-[#FFF5CC] flex items-center justify-center text-black font-medium text-center p-3">
                                     Cálculo Estructural
                                 </div>
-                                <div class="h-16 w-1 bg-amber-300 mx-auto"></div>
+                                <div class="h-16 w-1 bg-[#FFCD00] mx-auto"></div>
                             </div>
                             
                             <!-- Soil Mechanics -->
                             <div class="absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2">
-                                <div class="w-28 h-28 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 font-medium text-center p-3">
+                                <div class="w-28 h-28 rounded-full bg-[#FFF5CC] flex items-center justify-center text-black font-medium text-center p-3">
                                     Mecánica de Suelos
                                 </div>
-                                <div class="h-1 w-16 bg-amber-300 ml-auto"></div>
+                                <div class="h-1 w-16 bg-[#FFCD00] ml-auto"></div>
                             </div>
                             
                             <!-- Facilities -->
                             <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
-                                <div class="w-28 h-28 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 font-medium text-center p-3">
+                                <div class="w-28 h-28 rounded-full bg-[#FFF5CC] flex items-center justify-center text-black font-medium text-center p-3">
                                     Instalaciones
                                 </div>
-                                <div class="h-16 w-1 bg-amber-300 mx-auto"></div>
+                                <div class="h-16 w-1 bg-[#FFCD00] mx-auto"></div>
                             </div>
                             
                             <!-- Construction -->
                             <div class="absolute top-1/2 left-0 transform -translate-x-1/2 -translate-y-1/2">
-                                <div class="w-28 h-28 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 font-medium text-center p-3">
+                                <div class="w-28 h-28 rounded-full bg-[#FFF5CC] flex items-center justify-center text-black font-medium text-center p-3">
                                     Construcción
                                 </div>
-                                <div class="h-1 w-16 bg-amber-300 mr-auto"></div>
+                                <div class="h-1 w-16 bg-[#FFCD00] mr-auto"></div>
                             </div>
                         </div>
                     </div>
@@ -341,7 +342,7 @@
     </section>
 
     <!-- CTA Section -->
-    <section id="consultar" class="py-20 px-6 md:px-12 bg-gray-900 text-white">
+    <section id="consultar" class="py-20 px-6 md:px-12 bg-black text-white">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-3xl md:text-4xl font-bold mb-6">¿Listo para Darle Solidez a tu Próximo Proyecto?</h2>
             <p class="text-xl mb-12 max-w-3xl mx-auto">
@@ -384,40 +385,40 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300 py-12 px-6 md:px-12">
+    <footer class="bg-black text-gray-300 py-12 px-6 md:px-12">
         <div class="max-w-6xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                 <div>
                     <h3 class="text-white text-lg font-semibold mb-4">Contacto</h3>
                     <p class="mb-2">Ciudad de México, México</p>
-                    <a href="mailto:contacto@espaciosm.art" class="block mb-2 hover:text-amber-400 transition-colors">contacto@espaciosm.art</a>
-                    <a href="tel:+525613870288" class="block hover:text-amber-400 transition-colors">+52 56 1387 0288</a>
+                    <a href="mailto:contacto@espaciosm.art" class="block mb-2 hover:text-[#FFCD00] transition-colors">contacto@espaciosm.art</a>
+                    <a href="tel:+525613870288" class="block hover:text-[#FFCD00] transition-colors">+52 56 1387 0288</a>
                 </div>
                 
                 <div>
                     <h3 class="text-white text-lg font-semibold mb-4">Servicios</h3>
-                    <a href="#" class="block mb-2 hover:text-amber-400 transition-colors">Ingeniería Estructural</a>
-                    <a href="#" class="block mb-2 hover:text-amber-400 transition-colors">Superficies Deportivas</a>
-                    <a href="#" class="block hover:text-amber-400 transition-colors">Consultoría</a>
+                    <a href="#" class="block mb-2 hover:text-[#FFCD00] transition-colors">Ingeniería Estructural</a>
+                    <a href="#" class="block mb-2 hover:text-[#FFCD00] transition-colors">Superficies Deportivas</a>
+                    <a href="#" class="block hover:text-[#FFCD00] transition-colors">Consultoría</a>
                 </div>
                 
                 <div>
                     <h3 class="text-white text-lg font-semibold mb-4">Síguenos</h3>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-amber-600 transition-colors">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#FFCD00] transition-colors">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-amber-600 transition-colors">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#FFCD00] transition-colors">
                             <i class="fab fa-pinterest"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-amber-600 transition-colors">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#FFCD00] transition-colors">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
                     </div>
                 </div>
             </div>
             
-            <div class="border-t border-gray-700 pt-8 text-center">
+            <div class="border-t border-gray-800 pt-8 text-center">
                 <p>&copy; 2023 espacioSM. Todos los derechos reservados.</p>
             </div>
         </div>
