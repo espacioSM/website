@@ -402,7 +402,7 @@ en un recorrido de inspección de las características superficiales de las áre
                 Contáctanos para revisar tu proyecto. Permítenos ser el socio de ingeniería que tu estudio necesita.
             </p>
             
-            <form class="bg-white text-gray-800 p-8 rounded-lg shadow-md text-left">
+            <form id="contact-form-google" class="bg-white text-gray-800 p-8 rounded-lg shadow-md text-left">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nombre *</label>
@@ -433,6 +433,8 @@ en un recorrido de inspección de las características superficiales de las áre
                 <button type="submit" class="btn-primary w-full py-3 px-6 rounded-md text-lg font-semibold">
                     Enviar Consulta
                 </button>
+                
+                <div id="form-message" class="hidden mt-4 text-center py-2 px-4 rounded"></div>
             </form>
         </div>
     </section>
@@ -513,14 +515,72 @@ en un recorrido de inspección de las características superficiales de las áre
                 observer.observe(item);
             });
             
-            // Form submission
-            const contactForm = document.querySelector('form');
+            // --- INICIO DE LA LÓGICA DEL FORMULARIO CON GOOGLE SHEETS ---
+            const contactForm = document.getElementById('contact-form-google');
+            const formMessage = document.getElementById('form-message');
+            
+            // URL de tu aplicación web de Google Apps Script
+            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxYWB_hxyfWrh9uidWPq8_ERR7xCn9dnUsDsyouPmcb_vUIXlUFUSU2SDxFeMKUwn36qA/exec';
+
             if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
+                contactForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    alert('¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.');
-                    contactForm.reset();
+                    
+                    const submitButton = contactForm.querySelector('button[type="submit"]');
+                    const originalButtonText = submitButton.textContent;
+                    
+                    // Deshabilitar botón y mostrar carga
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Enviando...';
+                    formMessage.classList.add('hidden');
+                    
+                    try {
+                        const formData = new FormData(contactForm);
+                        const response = await fetch(GOOGLE_SCRIPT_URL, {
+                            method: 'POST',
+                            body: formData,
+                        });
+                        
+                        if (response.ok) {
+                            const result = await response.json();
+                            if (result.result === 'success') {
+                                formMessage.textContent = '¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.';
+                                formMessage.className = 'text-center py-2 px-4 rounded bg-green-100 text-green-700';
+                                contactForm.reset();
+                            } else {
+                                throw new Error('El script de Google devolvió un error.');
+                            }
+                        } else {
+                            throw new Error('Error de red al contactar el servidor de Google.');
+                        }
+
+                    } catch (error) {
+                        console.error('Error en el envío:', error);
+                        formMessage.textContent = 'Hubo un error al enviar tu mensaje. Por favor, inténtalo de nuevo más tarde.';
+                        formMessage.className = 'text-center py-2 px-4 rounded bg-red-100 text-red-700';
+                    } finally {
+                        formMessage.classList.remove('hidden');
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
+
+                        setTimeout(() => {
+                            formMessage.classList.add('hidden');
+                        }, 6000);
+                    }
                 });
+            }
+            // --- FIN DE LA LÓGICA DEL FORMULARIO ---
+
+            // Navegación entre proyectos (ejemplo)
+            const projectsNavigation = {
+                previous: '/lucernario/lucernario-sm.html',
+                next: '/casajardin.html'
+            };
+            
+            // Configurar enlaces de navegación
+            const nextProjectLink = document.getElementById('next-project');
+            if(nextProjectLink) {
+                nextProjectLink.href = projectsNavigation.next;
             }
         });
     </script>
