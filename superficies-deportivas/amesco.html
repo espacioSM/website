@@ -1,1 +1,617 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superficies Deportivas | AMESCO Partner | espacioSM</title>
+    <meta name="description" content="AMERICAN SPORTS COATING - 15 años de experiencia en instalaciones deportivas, infantiles y recreativas. Partner especializado de espacioSM.">
+    <meta name="keywords" content="superficies deportivas, canchas de tenis, pistas de atletismo, pasto sintético, plexipave, plexitrac, instalaciones deportivas">
+    <link rel="canonical" href="https://www.espaciosm.art/partner-amesco">
 
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.espaciosm.art/partner-amesco">
+    <meta property="og:title" content="Superficies Deportivas | AMESCO Partner | espacioSM">
+    <meta property="og:description" content="AMERICAN SPORTS COATING - 15 años de experiencia en instalaciones deportivas, infantiles y recreativas. Partner especializado de espacioSM.">
+    <meta property="og:image" content="https://www.amesco.com.mx/wp-content/uploads/2021/11/01_inicio.jpg">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.espaciosm.art/partner-amesco">
+    <meta property="twitter:title" content="Superficies Deportivas | AMESCO Partner | espacioSM">
+    <meta property="twitter:description" content="AMERICAN SPORTS COATING - 15 años de experiencia en instalaciones deportivas, infantiles y recreativas. Partner especializado de espacioSM.">
+    <meta property="twitter:image" content="https://www.amesco.com.mx/wp-content/uploads/2021/11/01_inicio.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #FFCD00; /* Amarillo Caterpillar */
+            --primary-dark: #E6B800;
+            --dark-bg: #000000; /* Negro */
+            --light-bg: #F9FAFB;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #000000; /* Texto negro */
+            background-color: #FFFFFF;
+            scroll-behavior: smooth;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://www.amesco.com.mx/wp-content/uploads/2021/07/slider001.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #000000; /* Texto negro */
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(255, 205, 0, 0.4);
+        }
+        
+        .value-card {
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+            border-bottom: 3px solid var(--primary-color);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .portfolio-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .portfolio-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .partner-section {
+            background-color: var(--light-bg);
+        }
+        
+        .form-input {
+            transition: all 0.3s ease;
+            border: 1px solid #E5E7EB;
+        }
+        
+        .form-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 205, 0, 0.2);
+        }
+        
+        .nav-scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        /* Estilos para el diagrama */
+        .diagram-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+        
+        .diagram-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background-color: #FFCD00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 600;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+        }
+        
+        .diagram-item {
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background-color: #FFF5CC;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 500;
+            z-index: 5;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 0.75rem;
+        }
+        
+        .diagram-connector {
+            position: absolute;
+            background-color: #FFCD00;
+            z-index: 1;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 0 1rem;
+            }
+            
+            .value-card {
+                margin-bottom: 1.5rem;
+            }
+            
+            .diagram-container {
+                height: 320px;
+                max-width: 400px;
+            }
+            
+            .diagram-center {
+                width: 120px;
+                height: 120px;
+                font-size: 0.9rem;
+            }
+            
+            .diagram-item {
+                width: 90px;
+                height: 90px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .diagram-container {
+                height: 280px;
+                max-width: 320px;
+            }
+            
+            .diagram-center {
+                width: 100px;
+                height: 100px;
+                font-size: 0.8rem;
+            }
+            
+            .diagram-item {
+                width: 80px;
+                height: 80px;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="flex justify-between items-center">
+                <a href="https://www.espaciosm.art" aria-label="Página de inicio de espacioSM" class="flex items-center">
+                    <span class="text-xl font-bold text-gray-800">espacio<span class="text-[#FFCD00]">SM</span></span>
+                </a>
+
+                <button id="menu-toggle" class="md:hidden focus:outline-none" aria-label="Menú principal" aria-expanded="false">
+                    <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/proyectos" class="text-gray-800 hover:text-[#FFCD00] transition-colors">Proyectos</a>
+                    <a href="/partners" class="text-gray-800 hover:text-[#FFCD00] transition-colors">Partners</a>
+                    <a href="/contacto" class="text-gray-800 hover:text-[#FFCD00] transition-colors">Contacto</a>
+                    <a href="#consultar" class="bg-[#FFCD00] text-black px-4 py-2 rounded-md hover:bg-[#E6B800] transition-colors">Consultar Proyecto</a>
+                </div>
+            </div>
+
+            <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg rounded-lg mt-2 py-2">
+                <div class="px-4 pt-2 pb-3 space-y-1">
+                    <a href="/proyectos" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:bg-gray-100">Proyectos</a>
+                    <a href="/partners" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:bg-gray-100">Partners</a>
+                    <a href="/contacto" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:bg-gray-100">Contacto</a>
+                    <a href="#consultar" class="block px-3 py-2 rounded-md text-base font-medium bg-[#FFCD00] text-black hover:bg-[#E6B800]">Consultar Proyecto</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section min-h-screen flex items-center justify-center text-white pt-20">
+        <div class="max-w-6xl mx-auto px-6 md:px-12 text-center hero-content">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in-up">
+                Superficies Deportivas <span class="text-[#FFCD00]">AMESCO</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s;">
+                15 años de experiencia en instalaciones deportivas, infantiles y recreativas. Partner especializado de espacioSM.
+            </p>
+            <a href="#consultar" class="btn-primary inline-block px-8 py-4 rounded-md text-lg font-semibold animate-fade-in-up" style="animation-delay: 0.4s;">
+                Consultar Proyecto
+            </a>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 md:px-12 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Tu Aliado en Superficies Deportivas de Alto Rendimiento</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="value-card p-6 bg-gray-50 rounded-lg">
+                    <div class="w-14 h-14 bg-[#FFF5CC] rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-baseball-ball text-[#FFCD00] text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Sistemas Especializados</h3>
+                    <p class="text-gray-600">Plexipave, Plexicushion, Plexitrac, Laykold y pastos sintéticos nacionales e importados de EUA y Europa.</p>
+                </div>
+                
+                <div class="value-card p-6 bg-gray-50 rounded-lg">
+                    <div class="w-14 h-14 bg-[#FFF5CC] rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-running text-[#FFCD00] text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Alto Rendimiento</h3>
+                    <p class="text-gray-600">Superficies diseñadas para competencia profesional, amateur y áreas de entretenimiento de alta calidad.</p>
+                </div>
+                
+                <div class="value-card p-6 bg-gray-50 rounded-lg">
+                    <div class="w-14 h-14 bg-[#FFF5CC] rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-hard-hat text-[#FFCD00] text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Experiencia Comprobada</h3>
+                    <p class="text-gray-600">Más de 15 años en el mercado, realizando y renovando proyectos para entrenamiento profesional y amateur.</p>
+                </div>
+                
+                <div class="value-card p-6 bg-gray-50 rounded-lg">
+                    <div class="w-14 h-14 bg-[#FFF5CC] rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-shield-alt text-[#FFCD00] text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Calidad Garantizada</h3>
+                    <p class="text-gray-600">Materiales de primera calidad y sistemas reconocidos internacionalmente para garantizar durabilidad y rendimiento.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 md:px-12 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Sistemas y Soluciones Deportivas</h2>
+            
+            <div class="space-y-20">
+                <div class="portfolio-item grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Sistema PLEXIPAVE</h3>
+                        <div class="mb-6">
+                            <h4 class="text-lg font-semibold text-[#FFCD00] mb-2">Características:</h4>
+                            <p class="text-gray-600">Acabado de pintura 100% acrílica altamente pigmentada y texturizada. Desarrollado gracias a más de cinco décadas de avances tecnológicos en la aplicación de acrílicos para pistas deportivas.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold text-[#FFCD00] mb-2">Aplicaciones:</h4>
+                            <p class="text-gray-600">Canchas de tenis profesionales y amateur. Utilizado en torneos internacionales como el Australian Open e Indian Wells.</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="https://www.amesco.com.mx/wp-content/uploads/2021/08/tenis001.png" alt="Sistema Plexipave para tenis" class="rounded-lg shadow-md">
+                        <img src="https://www.amesco.com.mx/wp-content/uploads/2021/11/001_Tenis.png" alt="Cancha de tenis con Plexipave" class="rounded-lg shadow-md">
+                    </div>
+                </div>
+                
+                <div class="portfolio-item grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                    <div class="order-2 lg:order-1">
+                        <h3 class="text-2xl font-bold mb-4">Sistema PLEXITRAC</h3>
+                        <div class="mb-6">
+                            <h4 class="text-lg font-semibold text-[#FFCD00] mb-2">Características:</h4>
+                            <p class="text-gray-600">Pista de Tartán de Alta Competencia con el 70% de gránulos de hule color negro y el 30% de gránulos de hule color rojo.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold text-[#FFCD00] mb-2">Beneficios:</h4>
+                            <p class="text-gray-600">Diseñado para proveer la óptima combinación de seguridad y reducción de fuerza. Ideal para competencias de alto nivel.</p>
+                        </div>
+                    </div>
+                    <div class="order-1 lg:order-2 grid grid-cols-2 gap-4">
+                        <img src="https://www.amesco.com.mx/wp-content/uploads/2021/08/atletismo001.png" alt="Sistema Plexitrac para atletismo" class="rounded-lg shadow-md">
+                        <img src="https://www.amesco.com.mx/wp-content/uploads/2021/11/002_Atletismo.png" alt="Pista de atletismo con Plexitrac" class="rounded-lg shadow-md">
+                    </div>
+                </div>
+
+                <div class="portfolio-item grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Pasto Sintético</h3>
+                        <div class="mb-6">
+                            <h4 class="text-lg font-semibold text-[#FFCD00] mb-2">Variedades:</h4>
+                            <p class="text-gray-600">Pasto sintético nacional o importado con la mejor calidad para cualquier actividad: paisajismo, futbol, tenis, padel, americano, etc.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold text-[#FFCD00] mb-2">Ventajas:</h4>
+                            <p class="text-gray-600">Bajo mantenimiento, durabilidad excepcional y rendimiento consistente en cualquier condición climática.</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="https://www.amesco.com.mx/wp-content/uploads/2021/11/003_Futbol.png" alt="Cancha de futbol con pasto sintético" class="rounded-lg shadow-md">
+                        <img src="https://www.amesco.com.mx/wp-content/uploads/2021/11/006_UsosMult.png" alt="Área de usos múltiples con pasto sintético" class="rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="partner-section py-20 px-6 md:px-12">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">Accesorios y Equipamiento Deportivo</h2>
+            <p class="text-xl text-center text-gray-600 max-w-3xl mx-auto mb-10">
+                Distribuidores oficiales de accesorios para tenis marca HAR-TRU, la fuente líder mundial de superficies de cancha de tenis, consultoría, equipos y accesorios de primera calidad.
+            </p>
+            
+            <div class="bg-white p-8 rounded-lg shadow-sm mt-8">
+                <div class="flex flex-col md:flex-row items-center justify-between">
+                    <div class="md:w-1/2 mb-8 md:mb-0">
+                        <img src="https://www.amesco.com.mx/wp-content/uploads/2021/12/Sello_15-150x150.png" alt="15 años de experiencia AMESCO" class="mx-auto mb-6">
+                        <h3 class="text-2xl font-bold mb-4 text-center">Productos HAR-TRU</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center"><i class="fas fa-check text-[#FFCD00] mr-2"></i> Redes</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-[#FFCD00] mr-2"></i> Postes</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-[#FFCD00] mr-2"></i> Cintillos</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-[#FFCD00] mr-2"></i> Anclas</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center"><i class="fas fa-check text-[#FFCD00] mr-2"></i> Scores</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-[#FFCD00] mr-2"></i> Líneas</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-[#FFCD00] mr-2"></i> Clavos</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-[#FFCD00] mr-2"></i> Y más...</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 text-center">
+                        <img src="https://www.amesco.com.mx/wp-content/uploads/2021/07/AMESCO_web.png" alt="Logo AMESCO" class="mx-auto mb-6 max-w-xs">
+                        <p class="text-gray-600 mb-6">
+                            Somos una empresa que cuenta con 15 años de amplia experiencia en instalaciones deportivas, infantiles y recreativas con los más reconocidos sistemas y materiales importados y nacionales.
+                        </p>
+                        <a href="https://www.amesco.com.mx/wp-content/uploads/2021/07/AMESCO_catalogo_media.pdf" target="_blank" class="btn-primary inline-block px-6 py-3 rounded-md">
+                            <i class="fas fa-download mr-2"></i> Descargar Catálogo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 md:px-12 bg-black text-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">Deportes que Cubrimos</h2>
+            <p class="text-xl text-center mb-12 max-w-3xl mx-auto">
+                Especialistas en superficies para una amplia gama de disciplinas deportivas
+            </p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-gray-800 p-6 rounded-lg text-center">
+                    <div class="w-16 h-16 bg-[#FFCD00] rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-baseball-ball text-black text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Tenis</h3>
+                    <p class="text-gray-300 text-sm">Canchas profesionales y amateur</p>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-lg text-center">
+                    <div class="w-16 h-16 bg-[#FFCD00] rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-running text-black text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Atletismo</h3>
+                    <p class="text-gray-300 text-sm">Pistas de alta competencia</p>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-lg text-center">
+                    <div class="w-16 h-16 bg-[#FFCD00] rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-futbol text-black text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Fútbol</h3>
+                    <p class="text-gray-300 text-sm">Pasto sintético de calidad</p>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-lg text-center">
+                    <div class="w-16 h-16 bg-[#FFCD00] rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-basketball-ball text-black text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Básquetbol</h3>
+                    <p class="text-gray-300 text-sm">Canchas multiusos</p>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-lg text-center">
+                    <div class="w-16 h-16 bg-[#FFCD00] rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-table-tennis text-black text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Pádel</h3>
+                    <p class="text-gray-300 text-sm">Superficies especializadas</p>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-lg text-center">
+                    <div class="w-16 h-16 bg-[#FFCD00] rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-table-tennis text-black text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Pickleball</h3>
+                    <p class="text-gray-300 text-sm">Nuevas tendencias</p>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-lg text-center">
+                    <div class="w-16 h-16 bg-[#FFCD00] rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-square text-black text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Usos Múltiples</h3>
+                    <p class="text-gray-300 text-sm">Espacios versátiles</p>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-lg text-center">
+                    <div class="w-16 h-16 bg-[#FFCD00] rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-home text-black text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Pisos</h3>
+                    <p class="text-gray-300 text-sm">Soluciones integrales</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="consultar" class="py-20 px-6 md:px-12 bg-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">¿Listo para Tu Próximo Proyecto Deportivo?</h2>
+            <p class="text-xl mb-12 max-w-3xl mx-auto">
+                Contáctanos para revisar tu proyecto. Permítenos ser el partner especializado en superficies deportivas que tu proyecto necesita.
+            </p>
+            
+            <form id="contact-form-google" class="bg-gray-50 text-gray-800 p-8 rounded-lg shadow-md text-left">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nombre *</label>
+                        <input type="text" id="name" name="name" required class="form-input w-full px-4 py-3 rounded-md">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Correo Electrónico *</label>
+                        <input type="email" id="email" name="email" required class="form-input w-full px-4 py-3 rounded-md">
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="project-type" class="block text-sm font-medium text-gray-700 mb-2">Tipo de Proyecto</label>
+                    <select id="project-type" name="project-type" class="form-input w-full px-4 py-3 rounded-md">
+                        <option value="">Selecciona una opción</option>
+                        <option value="tenis">Tenis</option>
+                        <option value="atletismo">Atletismo</option>
+                        <option value="futbol">Fútbol</option>
+                        <option value="basquetbol">Básquetbol</option>
+                        <option value="padel">Pádel</option>
+                        <option value="usos-multiples">Usos Múltiples</option>
+                        <option value="pickleball">Pickleball</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Mensaje</label>
+                    <textarea id="message" name="message" rows="5" class="form-input w-full px-4 py-3 rounded-md"></textarea>
+                </div>
+                
+                <button type="submit" class="btn-primary w-full py-3 px-6 rounded-md text-lg font-semibold">
+                    Enviar Consulta
+                </button>
+                
+                <div id="form-message" class="hidden mt-4 text-center py-2 px-4 rounded"></div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-black text-gray-300 py-12 px-6 md:px-12">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Contacto AMESCO</h3>
+                    <p class="mb-2">Especialistas en superficies deportivas</p>
+                    <a href="mailto:contacto@amesco.com.mx" class="block mb-2 hover:text-[#FFCD00] transition-colors">contacto@amesco.com.mx</a>
+                    <a href="tel:+525539934359" class="block hover:text-[#FFCD00] transition-colors">+52 55 3993 4359</a>
+                </div>
+                
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Servicios</h3>
+                    <a href="#" class="block mb-2 hover:text-[#FFCD00] transition-colors">Sistema Plexipave</a>
+                    <a href="#" class="block mb-2 hover:text-[#FFCD00] transition-colors">Sistema Plexitrac</a>
+                    <a href="#" class="block mb-2 hover:text-[#FFCD00] transition-colors">Pasto Sintético</a>
+                    <a href="#" class="block hover:text-[#FFCD00] transition-colors">Accesorios Deportivos</a>
+                </div>
+                
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Partner de</h3>
+                    <div class="flex items-center">
+                        <span class="text-xl font-bold text-gray-300">espacio<span class="text-[#FFCD00]">SM</span></span>
+                    </div>
+                    <p class="mt-4 text-sm">Ingeniería especializada que potencia tu visión arquitectónica</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p>&copy; 2023 AMESCO - American Sports Coating. Todos los derechos reservados.</p>
+                <p class="mt-2 text-sm">Partner especializado de espacioSM</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (menuToggle && mobileMenu) {
+                menuToggle.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                    this.setAttribute('aria-expanded', mobileMenu.classList.contains('hidden') ? 'false' : 'true');
+                });
+            }
+            
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('nav-scrolled');
+                } else {
+                    navbar.classList.remove('nav-scrolled');
+                }
+            });
+            
+            // Portfolio items animation
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            portfolioItems.forEach(item => {
+                observer.observe(item);
+            });
+            
+            // --- INICIO DE LA LÓGICA DEL FORMULARIO CON GOOGLE SHEETS ---
+            const contactForm = document.getElementById('contact-form-google');
+            const formMessage = document.getElementById('form-message');
+            
+            // URL de tu aplicación web de Google Apps Script
+            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxYWB_hxyfWrh9uidWPq8_ERR7xCn9dnUsDsyouPmcb_vUIXlUFUSU2SDxFeMKUwn36qA/exec';
+
+            if (contactForm)
