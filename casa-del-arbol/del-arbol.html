@@ -1,230 +1,104 @@
-<!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingeniería Estructural | espacioSM</title>
-    <meta name="description" content="Ingeniería estructural especializada que potencia la visión arquitectónica. Traducimos conceptos de diseño complejos en estructuras seguras, eficientes y construibles.">
-    <meta name="keywords" content="ingeniería estructural, cálculo estructural, diseño estructural, arquitectura, construcción, estructuras seguras">
-    <link rel="canonical" href="https://www.espaciosm.art/ingenieria-estructural">
+    
+    <title> HCasa Jardin - Proyecto de Arquitectura | espacioSM</title>
+    <meta name="description" content="Descubre el proyecto 'Proyecto en Iztapalapa', una vivienda unifamiliar en Iztapalapa diseñada por espacioSM, contemplando un epacio intimo y para convivir en familia.">
+    <meta name="keywords" content="arquitectura, diseño residencial, vivienda unifamiliar, espacioSM, Proyecto Iztapalapa, CDMX, construcción, diseño moderno">
+    <link rel="canonical" href="https://www.espaciosm.art/proyectos/casajardin">
 
+    <meta property="og:title" content="Iztapalapa - Proyecto de Arquitectura | espacioSM">
+    <meta property="og:description" content="Una residencia familiar que opta por la convivencia en familia, buscando la iluminación y ventilación natural.">
+    <meta property="og:image" content="Huitzilac espacioSM.png">
+    <meta property="og:url" content="https://www.espaciosm.art/proyectos/casajardin">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.espaciosm.art/ingenieria-estructural">
-    <meta property="og:title" content="Ingeniería Estructural | espacioSM">
-    <meta property="og:description" content="Ingeniería estructural especializada que potencia la visión arquitectónica. Traducimos conceptos de diseño complejos en estructuras seguras, eficientes y construibles.">
-    <meta property="og:image" content="https://www.espaciosm.art/images/og-image-estructural.jpg">
-
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://www.espaciosm.art/ingenieria-estructural">
-    <meta property="twitter:title" content="Ingeniería Estructural | espacioSM">
-    <meta property="twitter:description" content="Ingeniería estructural especializada que potencia la visión arquitectónica. Traducimos conceptos de diseño complejos en estructuras seguras, eficientes y construibles.">
-    <meta property="twitter:image" content="https://www.espaciosm.art/images/og-image-estructural.jpg">
-
+    <meta property="og:site_name" content="espacioSM">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Casa Jardin - Proyecto de Arquitectura | espacioSM">
+    <meta name="twitter:description" content="Una residencia familiar que opta por la convivencia en familia, buscando la iluminación y ventilación natural.">
+    <meta name="twitter:image" content="casa-jardin.jpg">
+    
+    <link rel="preload" href="logo.png" as="image" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    </noscript>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <script type="application/ld+json">
+    {
+        "@context": "https://espaciosm.art",
+        "@type": "CreativeWork",
+        "name": "Casa Jardin SM",
+        "description": "Casa Jardin",
+        "image": "casa-jardin.jpg",
+        "creator": {
+            "@type": "Organization",
+            "name": "espacioSM",
+            "url": "https://www.espaciosm.art"
+        },
+        "datePublished": "2020-10-12",
+        "keywords": "arquitectura, diseño residencial, vivienda unifamiliar",
+        "about": {
+            "@type": "Place",
+            "name": "Iztapalapa, CDMX"
+        }
+    }
+    </script>
+
     <style>
-        :root {
-            --primary-color: #FFCD00; /* Amarillo Caterpillar */
-            --primary-dark: #E6B800;
-            --dark-bg: #000000; /* Negro */
-            --light-bg: #F9FAFB;
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #F8F9FA; 
+            color: #343A40; 
         }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            color: #000000; /* Texto negro */
-            background-color: #FFFFFF;
-            scroll-behavior: smooth;
+        .section-fade-in { 
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out; 
         }
-        
-        .hero-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+        .section-fade-in.visible { 
+            opacity: 1; 
+            transform: translateY(0); 
         }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: #000000; /* Texto negro */
-            transition: all 0.3s ease;
+        h1, h2, h3 { 
+            font-weight: 700; 
         }
-        
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(255, 205, 0, 0.4);
+        .nav-scrolled { 
+            background-color: rgba(255, 255, 255, 0.9); 
+            backdrop-filter: blur(10px); 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
         }
-        
-        .value-card {
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-        }
-        
-        .value-card:hover {
-            transform: translateY(-5px);
-            border-bottom: 3px solid var(--primary-color);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-        
-        .portfolio-item {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .portfolio-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .integrated-engineering {
-            background-color: var(--light-bg);
-        }
-        
-        .form-input {
-            transition: all 0.3s ease;
-            border: 1px solid #E5E7EB;
-        }
-        
-        .form-input:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(255, 205, 0, 0.2);
-        }
-        
-        .nav-scrolled {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Animaciones */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .animate-fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-        
-        /* Estilos para el diagrama */
-        .diagram-container {
-            position: relative;
-            height: 400px;
-            width: 100%;
-            max-width: 500px;
-            margin: 2rem auto;
-        }
-        
-        .diagram-center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background-color: #FFCD00;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-weight: 600;
-            z-index: 10;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 1rem;
-        }
-        
-        .diagram-item {
-            position: absolute;
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            background-color: #FFF5CC;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-weight: 500;
-            z-index: 5;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 0.75rem;
-        }
-        
-        .diagram-connector {
-            position: absolute;
-            background-color: #FFCD00;
-            z-index: 1;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero-content {
+        @media (max-width: 767px) {
+            .hero-text {
                 padding: 0 1rem;
             }
-            
-            .value-card {
-                margin-bottom: 1.5rem;
+            .section-fade-in {
+                margin-bottom: 3rem !important;
             }
-            
-            .diagram-container {
-                height: 320px;
-                max-width: 400px;
-            }
-            
-            .diagram-center {
-                width: 120px;
-                height: 120px;
-                font-size: 0.9rem;
-            }
-            
-            .diagram-item {
-                width: 90px;
-                height: 90px;
-                font-size: 0.8rem;
+            #ficha-tecnica dl {
+                grid-template-columns: 1fr;
             }
         }
-
-        @media (max-width: 480px) {
-            .diagram-container {
-                height: 280px;
-                max-width: 320px;
-            }
-            
-            .diagram-center {
-                width: 100px;
-                height: 100px;
-                font-size: 0.8rem;
-            }
-            
-            .diagram-item {
-                width: 80px;
-                height: 80px;
-                font-size: 0.75rem;
-            }
+        button, a {
+            min-width: 44px;
+            min-height: 44px;
         }
     </style>
 </head>
-<body class="antialiased">
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4">
+<body class="bg-white">
+
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
-            <div class="flex justify-between items-center">
-                <a href="https://www.espaciosm.art" aria-label="Página de inicio de espacioSM" class="flex items-center">
-                    <span class="text-xl font-bold text-gray-800">espacio<span class="text-[#FFCD00]">SM</span></span>
+            <div class="flex justify-between items-center h-20">
+                <a href="https://www.espaciosm.art" aria-label="Página de inicio de espacioSM">
+                    <img src="logo.png.png" alt="Logo de espacioSM Arquitectura" class="h-8 w-auto" loading="lazy">
                 </a>
 
                 <button id="menu-toggle" class="md:hidden focus:outline-none" aria-label="Menú principal" aria-expanded="false">
@@ -234,286 +108,241 @@
                 </button>
 
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="/proyectos" class="text-gray-800 hover:text-[#FFCD00] transition-colors">Proyectos</a>
-                    <a href="/contacto" class="text-gray-800 hover:text-[#FFCD00] transition-colors">Contacto</a>
-                    <a href="#consultar" class="bg-[#FFCD00] text-black px-4 py-2 rounded-md hover:bg-[#E6B800] transition-colors">Consultar Proyecto</a>
+                    <a href="/proyectos" class="text-gray-800 hover:text-amber-600 transition-colors">Cálculo estructural</a>
+                    <a href="/estudio" class="text-gray-800 hover:text-amber-600 transition-colors">Superficies Deportivas</a>
+                    <a href="/contacto" class="text-gray-800 hover:text-amber-600 transition-colors">Contacto</a>
                 </div>
             </div>
 
             <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg rounded-lg mt-2 py-2">
                 <div class="px-4 pt-2 pb-3 space-y-1">
-                    <a href="/proyectos" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:bg-gray-100">Proyectos</a>
+                    <a href="/proyectos" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:bg-gray-100">Cálculo estructural</a>
+                    <a href="/estudio" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:bg-gray-100">Superficies Deportivas</a>
                     <a href="/contacto" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:bg-gray-100">Contacto</a>
-                    <a href="#consultar" class="block px-3 py-2 rounded-md text-base font-medium bg-[#FFCD00] text-black hover:bg-[#E6B800]">Consultar Proyecto</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <section class="hero-section min-h-screen flex items-center justify-center text-white pt-20">
-        <div class="max-w-6xl mx-auto px-6 md:px-12 text-center hero-content">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in-up">
-                Ingeniería Estructural que <span class="text-[#FFCD00]">Potencia</span> tu Visión Arquitectónica
-            </h1>
-            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s;">
-                Traducimos conceptos de diseño complejos en estructuras seguras, eficientes y construibles.
-            </p>
-            <a href="#consultar" class="btn-primary inline-block px-8 py-4 rounded-md text-lg font-semibold animate-fade-in-up" style="animation-delay: 0.4s;">
-                Consultar mi Proyecto
-            </a>
-        </div>
-    </section>
+    <div class="max-w-7xl mx-auto">
 
-    <section class="py-20 px-6 md:px-12 bg-white">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Tu Aliado para la Integridad del Diseño en la Obra</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="value-card p-6 bg-gray-50 rounded-lg">
-                    <div class="w-14 h-14 bg-[#FFF5CC] rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-chart-pie text-[#FFCD00] text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Optimización de Recursos</h3>
-                    <p class="text-gray-600">Diseñamos estructuras eficientes que respetan tu presupuesto, minimizando el desperdicio de materiales sin sacrificar la seguridad.</p>
-                </div>
-                
-                <div class="value-card p-6 bg-gray-50 rounded-lg">
-                    <div class="w-14 h-14 bg-[#FFF5CC] rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-hard-hat text-[#FFCD00] text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Viabilidad Constructiva</h3>
-                    <p class="text-gray-600">Hacemos posibles esos diseños audaces, asegurando que cada elemento sea construible desde las etapas tempranas.</p>
-                </div>
-                
-                <div class="value-card p-6 bg-gray-50 rounded-lg">
-                    <div class="w-14 h-14 bg-[#FFF5CC] rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-project-diagram text-[#FFCD00] text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Coordinación Integral</h3>
-                    <p class="text-gray-600">Nuestra visión 360° integra la estructura con las demás ingenierías, eliminando conflictos y reduciendo errores en obra.</p>
-                </div>
-                
-                <div class="value-card p-6 bg-gray-50 rounded-lg">
-                    <div class="w-14 h-14 bg-[#FFF5CC] rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-shield-alt text-[#FFCD00] text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Seguridad y Certidumbre</h3>
-                    <p class="text-gray-600">La tranquilidad de que tu proyecto cumple con toda la normativa y está respaldado por una memoria de cálculo robusta.</p>
-                </div>
+        <header class="h-screen bg-cover bg-center bg-no-repeat relative flex items-center justify-center text-white text-center" style="background-image: url('Huitzilac espacioSM.png');">
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+            <div class="relative z-10 p-8 max-w-4xl mx-auto hero-text">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                    Vivienda unifamiliar Casa Jardin
+                </h1>
+                <p class="text-lg md:text-xl font-light max-w-3xl mx-auto" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+                    Una residencia familiar que opta por la convivencia en familia, buscando la iluminación y ventilación natural.
+                </p>
             </div>
-        </div>
-    </section>
+        </header>
 
-    <section class="py-20 px-6 md:px-12 bg-gray-50">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Estructuras que Cuentan una Historia</h2>
-            
-            <div class="space-y-20">
-                <div class="portfolio-item grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-                    <div>
-                        <h3 class="text-2xl font-bold mb-4">Casa del árbol</h3>
-                        <div class="mb-6">
-                            <h4 class="text-lg font-semibold text-[#FFCD00] mb-2">El Reto:</h4>
-                            <p class="text-gray-600">Diseñar una estructura para una vivienda con espacios interiores de doble altura y amplios ventanales que se integren, manteniendo la estabilidad en un terreno con blando.</p>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-semibold text-[#FFCD00] mb-2">La Solución:</h4>
-                            <p class="text-gray-600">Implementamos un sistema de losas aligeradas y muros de carga de mamposteria estratégicamente ubicados que permitieron lograr las doble altura deseada mientras, se garantizaba la estabilidad estructural y la integración con el terreno.</p>
-                        </div>
+        <main class="px-6 py-12 md:px-12 md:py-24">
+
+            <section id="historia" class="section-fade-in mb-24">
+                <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center">
+                    <div class="md:col-span-4">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 border-l-4 border-amber-600 pl-4">
+                            El Reto y la Visión
+                        </h2>
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <img src="https://espaciosm.art/estructural/deformación.jpg" alt="Deformación en estructura" class="rounded-lg shadow-md">
-                        <img src="https://espaciosm.art/estructural/vigueta.png" alt="Vigueta y bovedilla - Modelo estructural" class="rounded-lg shadow-md">
+                    <div class="md:col-span-8 space-y-6 text-lg text-gray-600 leading-relaxed">
+                        <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                            <p class="italic">Nuestro cliente busca un refugio familiar en Iztapalapa. El reto que nos planteó fue: "Quiero que mi casa no se vea hacia adentro, pero necesito que se ilumine y ventile. Me gustan los espacios abiertos para pasar tiempo con mi familia.""</p>
+                        </div>
+                        <p>
+                            Nuestra propuesta reinterpreta el concepto de privacidad en entornos urbanos, creando una barrera perceptual que garantiza intimidad sin sacrificar la conexión con el exterior. Logramos espacios que respiran a través de patios interiores y estratégicos vacíos que canalizan la luz y el aire, cumpliendo con el deseo de un hogar familiar luminoso y acogedor.
+                        </p>
                     </div>
                 </div>
-                
-                <div class="portfolio-item grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-                    <div class="order-2 lg:order-1">
-                        <h3 class="text-2xl font-bold mb-4">Mecánica de suelos Casa Jardín</h3>
-                        <div class="mb-6">
-                            <h4 class="text-lg font-semibold text-[#FFCD00] mb-2">El Reto:</h4>
-                            <p class="text-gray-600">Iztapala se caracteriza por ser una zona con fallas geológicas por lo que, es de suma importancia un estudio que garantice su estabiliad por la vibración vàn requisitos sísmicos estrictos.</p>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-semibold text-[#FFCD00] mb-2">La Solución:</h4>
-                            <p class="text-gray-600">El estudio de acuerdo a norma se realizo para el tipo de cimentación más apropiado para la casa proyectada, se efectuó un estudio de mecánica de suelos consistente
-en un recorrido de inspección de las características superficiales de las áreas contiguas al predio apoyándose en la información geológica de la zona,</p>
-                        </div>
-                    </div>
-                    <div class="order-1 lg:order-2 grid grid-cols-2 gap-4">
-                        <img src="https://espaciosm.art/estructural/mecanica 1.png" alt="Zona geológica - Predio" class="rounded-lg shadow-md">
-                        <img src="https://espaciosm.art/estructural/mecanica 2.png" alt="Perforación - Pozo" class="rounded-lg shadow-md">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <section class="integrated-engineering py-20 px-6 md:px-12">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">El Poder de la Ingeniería Unificada</h2>
-            <p class="text-xl text-center text-gray-600 max-w-3xl mx-auto mb-10">
-                Al consolidar Mecánica de Suelos, Cálculo Estructural e Instalaciones bajo un mismo techo, garantizamos una comunicación fluida, evitamos interferencias y optimizamos el cronograma del proyecto. Menos coordinación para el arquitecto, mejores resultados para la obra.
-            </p>
-            
-            <div class="bg-white p-8 rounded-lg shadow-sm mt-8">
-                <div class="flex flex-col items-center">
-                    <!-- Diagrama mejorado -->
-                    <div class="diagram-container">
-                        <!-- Centro -->
-                        <div class="diagram-center">
-                            Proyecto Arquitectónico
-                        </div>
-                        
-                        <!-- Elementos conectados -->
-                        <div class="diagram-item" style="top: 0; left: 50%; transform: translateX(-50%);">
-                            Cálculo Estructural
-                        </div>
-                        <div class="diagram-connector" style="width: 4px; height: 70px; top: 110px; left: 50%; transform: translateX(-50%);"></div>
-                        
-                        <div class="diagram-item" style="top: 50%; right: 0; transform: translateY(-50%);">
-                            Mecánica de Suelos
-                        </div>
-                        <div class="diagram-connector" style="width: 70px; height: 4px; top: 50%; right: 110px; transform: translateY(-50%);"></div>
-                        
-                        <div class="diagram-item" style="bottom: 0; left: 50%; transform: translateX(-50%);">
-                            Instalaciones
-                        </div>
-                        <div class="diagram-connector" style="width: 4px; height: 70px; bottom: 110px; left: 50%; transform: translateX(-50%);"></div>
-                        
-                        <div class="diagram-item" style="top: 50%; left: 0; transform: translateY(-50%);">
-                            Construcción
-                        </div>
-                        <div class="diagram-connector" style="width: 70px; height: 4px; top: 50%; left: 110px; transform: translateY(-50%);"></div>
-                    </div>
-                    
-                    <p class="text-gray-600 text-center max-w-2xl mt-10">
-                        Nuestro enfoque integrado asegura que todas las especialidades trabajen en armonía desde el concepto inicial hasta la ejecución final, reduciendo imprevistos y garantizando la viabilidad de tu diseño.
+            <section id="galeria" class="space-y-20">
+                <div class="section-fade-in max-w-6xl mx-auto">
+                    <h3 class="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-4">Explorando el Diseño</h3>
+                    <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">
+                        Cada proyecto nace de una idea que evoluciona. Aquí mostramos diferentes ángulos y momentos del concepto, desde los bocetos hasta los renders detallados que dan vida a la visión del cliente.
                     </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-start">
+                        <figure class="md:col-span-2">
+                            <img 
+                                src="casa-jardin/casa-jardin.jpg" 
+                                alt="Render de la fachada principal del Proyecto Casa Jardin" 
+                                class="rounded-lg shadow-lg w-full h-auto object-cover"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                            <figcaption class="text-center text-sm text-gray-500 mt-2">Vista principal de la residencia.</figcaption>
+                        </figure>
+                        <figure>
+                            <img 
+                                src="casa-jardin/casa-jardin-sala-sm1.png" 
+                                alt="Render del interior del Proyecto Casa Jardin" 
+                                class="rounded-lg shadow-lg w-full h-auto object-cover"
+                                loading="lazy"
+                            >
+                            <figcaption class="text-center text-sm text-gray-500 mt-2">Espacio interior de la Casa Jardin</figcaption>
+                        </figure>
+                        <figure>
+                            <img 
+                                src="casa-jardin/roo-garden-jardin.png" 
+                                alt="Roof Garden Casa Jardin" 
+                                class="rounded-lg shadow-lg w-full h-auto object-cover"
+                                loading="lazy"
+                            >
+                            <figcaption class="text-center text-sm text-gray-500 mt-2">Roof Garden Casa Jardin</figcaption>
+                        </figure>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
+                <div class="section-fade-in max-w-6xl mx-auto">
+                    <h3 class="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-8">La Inteligencia del Diseño</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+                        <div class="border p-4 rounded-lg">
+                            <img 
+                                src="casa-jardin/PA Casa jardin espacioSM.png" 
+                                alt="Plano de planta alta del Proyecto Casa Jardin" 
+                                class="w-full h-auto rounded"
+                                loading="lazy"
+                            >
+                        </div>
+                        <div class="space-y-4">
+                            <ul class="list-none space-y-5">
+                                <li class="flex items-start">
+                                    <span class="bg-amber-600 text-white rounded-full h-6 w-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">✓</span>
+                                    <span><strong class="block text-gray-800">Privacidad Iluminada:</strong> Se diseñó un sistema de celosías y muros ciegos en fachada que protegen la intimidad, mientras que patios interiores y altos ventanales laterales garantizan iluminación y ventilación cruzada natural..</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-amber-600 text-white rounded-full h-6 w-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">✓</span>
+                                    <span><strong class="block text-gray-800">Fusión Estética:</strong> El concepto fusiona el estilo minimalista con toques mediterráneos, creando volúmenes puros y blancos contrastados con madera cálida y arcadas suaves que generan un ambiente acogedor.</span>
+                                </li>
+                                 <li class="flex items-start">
+                                    <span class="bg-amber-600 text-white rounded-full h-6 w-6 flex items-center justify-center mr-4 mt-1 flex-shrink-0">✓</span>
+                                    <span><strong class="block text-gray-800">Jardines Internos:</strong> Cada estancia principal cuenta con su propia vista dirigida a un jardín o patio interior, integrando la naturaleza como parte esencial de la experiencia diaria. </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-fade-in max-w-4xl mx-auto text-center">
+                    <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8">El Detalle que Enamora</h3>
+                    <figure class="mx-auto">
+                        <img 
+                            src="casa-jardin/casa-jardin-interior-sm.png" 
+                            alt="Detalle jardin interior Proyecto Casa Jardin" 
+                            class="rounded-lg shadow-lg w-full h-auto object-cover"
+                            loading="lazy"
+                        >
+                        <figcaption class="text-center text-lg text-gray-600 mt-6 italic max-w-3xl mx-auto">
+                            "El corazón de la casa es un patio central con una fuente. Es el espacio de convivencia familiar total, abierto al cielo pero completamente privado, creando un santuario de desconexión y unión."
+                        </figcaption>
+                    </figure>
+                </div>
+            </section>
 
-    <section id="consultar" class="py-20 px-6 md:px-12 bg-black text-white">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">¿Listo para Darle Solidez a tu Próximo Proyecto?</h2>
-            <p class="text-xl mb-12 max-w-3xl mx-auto">
-                Contáctanos para revisar tu proyecto. Permítenos ser el socio de ingeniería que tu estudio necesita.
-            </p>
+            <section id="ficha-tecnica" class="section-fade-in mt-24 pt-16 border-t border-gray-200">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Ficha Técnica</h2>
+                <div class="max-w-3xl mx-auto bg-gray-50 p-8 rounded-lg shadow-sm border border-gray-200">
+                    <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 text-lg">
+                        <div class="flex flex-col"><dt class="font-bold text-gray-800">Ubicación:</dt><dd class="text-gray-600">Iztapalapa, CDMX</dd></div>
+                        <div class="flex flex-col"><dt class="font-bold text-gray-800">Año del Proyecto:</dt><dd class="text-gray-600">2020</dd></div>
+                        <div class="flex flex-col"><dt class="font-bold text-gray-800">Superficie:</dt><dd class="text-gray-600"> 169.09 m²</dd></div>
+                        <div class="flex flex-col"><dt class="font-bold text-gray-800">Tipología:</dt><dd class="text-gray-600">Vivienda Unifamiliar</dd></div>
+                        <div class="sm:col-span-2"><dt class="font-bold text-gray-800">Materiales Clave:</dt><dd class="text-gray-600">Estuco blanco, Madera de Tzalam, Celosía de concreto, Pisos de terrazzo.</dd></div>
+                    </dl>
+                </div>
+            </section>
             
-            <form id="contact-form-google" class="bg-white text-gray-800 p-8 rounded-lg shadow-md text-left">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nombre *</label>
-                        <input type="text" id="name" name="name" required class="form-input w-full px-4 py-3 rounded-md">
-                    </div>
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Correo Electrónico *</label>
-                        <input type="email" id="email" name="email" required class="form-input w-full px-4 py-3 rounded-md">
-                    </div>
+            <section id="contacto" class="section-fade-in mt-24 pt-16 border-t border-gray-200">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">¿Interesado en un proyecto similar?</h2>
+                    <p class="text-lg text-gray-600 mb-8">Hablemos de tu visión. Completa el formulario y nos pondremos en contacto a la brevedad.</p>
+                    
+                    <form id="contact-form-google" class="space-y-6 text-left">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
+                            <input type="text" name="name" id="name" required class="mt-1 block w-full px-4 py-3 bg-gray-50 border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+                            <input type="email" name="email" id="email" required class="mt-1 block w-full px-4 py-3 bg-gray-50 border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700">Mensaje</label>
+                            <textarea name="message" id="message" rows="4" required class="mt-1 block w-full px-4 py-3 bg-gray-50 border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="inline-flex justify-center py-3 px-8 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-colors">
+                                Enviar Mensaje
+                            </button>
+                        </div>
+                        <div id="form-message" class="hidden text-center py-2 px-4 rounded"></div>
+                    </form>
                 </div>
-                
-                <div class="mb-6">
-                    <label for="project-type" class="block text-sm font-medium text-gray-700 mb-2">Tipo de Proyecto</label>
-                    <select id="project-type" name="project-type" class="form-input w-full px-4 py-3 rounded-md">
-                        <option value="">Selecciona una opción</option>
-                        <option value="residencial">Residencial</option>
-                        <option value="comercial">Comercial</option>
-                        <option value="mixto">Uso Mixto</option>
-                        <option value="otro">Otro</option>
-                    </select>
-                </div>
-                
-                <div class="mb-6">
-                    <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Mensaje</label>
-                    <textarea id="message" name="message" rows="5" class="form-input w-full px-4 py-3 rounded-md"></textarea>
-                </div>
-                
-                <button type="submit" class="btn-primary w-full py-3 px-6 rounded-md text-lg font-semibold">
-                    Enviar Consulta
-                </button>
-                <div id="form-message" class="hidden text-center py-2 px-4 rounded mt-4"></div>
-            </form>
-        </div>
-    </section>
+            </section>
 
-    <footer class="bg-black text-gray-300 py-12 px-6 md:px-12">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                <div>
-                    <h3 class="text-white text-lg font-semibold mb-4">Contacto</h3>
-                    <p class="mb-2">Ciudad de México, México</p>
-                    <a href="mailto:contacto@espaciosm.art" class="block mb-2 hover:text-[#FFCD00] transition-colors">contacto@espaciosm.art</a>
-                    <a href="tel:+525613870288" class="block hover:text-[#FFCD00] transition-colors">+52 56 1387 0288</a>
-                </div>
-                
-                <div>
-                    <h3 class="text-white text-lg font-semibold mb-4">Servicios</h3>
-                    <a href="#" class="block mb-2 hover:text-[#FFCD00] transition-colors">Ingeniería Estructural</a>
-                    <a href="#" class="block mb-2 hover:text-[#FFCD00] transition-colors">Superficies Deportivas</a>
-                    <a href="#" class="block hover:text-[#FFCD00] transition-colors">Consultoría</a>
-                </div>
-                
-                <div>
-                    <h3 class="text-white text-lg font-semibold mb-4">Síguenos</h3>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#FFCD00] transition-colors">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#FFCD00] transition-colors">
-                            <i class="fab fa-pinterest"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#FFCD00] transition-colors">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </div>
-                </div>
+        </main>
+    </div>
+
+    <footer class="bg-gray-900 text-gray-300 mt-24">
+        <div class="max-w-7xl mx-auto py-12 px-6 md:px-12">
+            <div class="flex justify-between items-center mb-8">
+                <a href="/home.html" class="flex items-center space-x-2 hover:text-white transition-colors">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Regresar al Inicio</span>
+                </a>
+                <a href="/home.html" id="next-project" class="flex items-center space-x-2 hover:text-white transition-colors">
+                    <span>Siguiente Proyecto</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
             </div>
-            
-            <div class="border-t border-gray-800 pt-8 text-center">
-                <p>&copy; 2023 espacioSM. Todos los derechos reservados.</p>
+            <div class="border-t border-gray-700"></div>
+            <div class="text-center text-gray-400 pt-8">
+                <p>&copy; 2025 espacioSM. Todos los derechos reservados.</p>
+                <p class="text-sm">Diseño y Desarrollo por espacioSM</p>
             </div>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            // Control del menú hamburguesa
             const menuToggle = document.getElementById('menu-toggle');
             const mobileMenu = document.getElementById('mobile-menu');
             
-            if (menuToggle && mobileMenu) {
+            if(menuToggle && mobileMenu) {
                 menuToggle.addEventListener('click', function() {
                     mobileMenu.classList.toggle('hidden');
                     this.setAttribute('aria-expanded', mobileMenu.classList.contains('hidden') ? 'false' : 'true');
                 });
             }
-            
-            // Navbar scroll effect
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('nav-scrolled');
-                } else {
-                    navbar.classList.remove('nav-scrolled');
-                }
-            });
-            
-            // Portfolio items animation
-            const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+            // Efectos de scroll y animaciones
+            const sections = document.querySelectorAll('.section-fade-in');
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+                entries.forEach(entry => { 
+                    if (entry.isIntersecting) { 
+                        entry.target.classList.add('visible'); 
+                    } 
+                });
+            }, { rootMargin: '0px', threshold: 0.1 });
+            
+            sections.forEach(section => { 
+                observer.observe(section); 
+            });
+
+            // Efecto de navbar al hacer scroll
+            const nav = document.getElementById('navbar');
+            if(nav) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) { 
+                        nav.classList.add('nav-scrolled'); 
+                    } else { 
+                        nav.classList.remove('nav-scrolled'); 
                     }
                 });
-            }, { threshold: 0.1 });
-            
-            portfolioItems.forEach(item => {
-                observer.observe(item);
-            });
-            
+            }
+
             // --- INICIO DE LA LÓGICA DEL FORMULARIO CON GOOGLE SHEETS ---
             const contactForm = document.getElementById('contact-form-google');
             const formMessage = document.getElementById('form-message');
@@ -569,6 +398,22 @@ en un recorrido de inspección de las características superficiales de las áre
                 });
             }
             // --- FIN DE LA LÓGICA DEL FORMULARIO ---
+
+            // Navegación entre proyectos (ejemplo)
+            const projectsNavigation = {
+                previous: '/huitzilac-sm.html',
+                next: 'casa-del-arbol/del-arbol.html'
+            };
+            
+            // Configurar enlaces de navegación
+            const nextProjectLink = document.getElementById('next-project');
+            if(nextProjectLink) {
+                nextProjectLink.href = projectsNavigation.next;
+            }
+        });
+    </script>
+</body>
+</html>
         });
     </script>
 </body>
