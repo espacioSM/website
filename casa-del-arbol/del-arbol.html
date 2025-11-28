@@ -90,6 +90,15 @@
             min-width: 44px;
             min-height: 44px;
         }
+        .image-container {
+            height: 400px;
+            overflow: hidden;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body class="bg-white">
@@ -176,21 +185,25 @@
                             <figcaption class="text-center text-sm text-gray-500 mt-2">Vista principal de la residencia.</figcaption>
                         </figure>
                         <figure>
-                            <img 
-                                src="estancia-sm-tultepec.jpg" 
-                                alt="Render de la estancia del Proyecto Casa del Árbol" 
-                                class="rounded-lg shadow-lg w-full h-auto object-cover"
-                                loading="lazy"
-                            >
+                            <div class="image-container">
+                                <img 
+                                    src="estancia-sm-tultepec.jpg" 
+                                    alt="Render de la estancia del Proyecto Casa del Árbol" 
+                                    class="rounded-lg shadow-lg"
+                                    loading="lazy"
+                                >
+                            </div>
                             <figcaption class="text-center text-sm text-gray-500 mt-2">Espacio interior de la Casa del arbol</figcaption>
                         </figure>
                         <figure>
-                            <img 
-                                src="patio-tultepec-sm.png" 
-                                alt="Patio Casa del Árbol" 
-                                class="rounded-lg shadow-lg w-full h-auto object-cover"
-                                loading="lazy"
-                            >
+                            <div class="image-container">
+                                <img 
+                                    src="patio-tultepec-sm.png" 
+                                    alt="Patio Casa del Árbol" 
+                                    class="rounded-lg shadow-lg"
+                                    loading="lazy"
+                                >
+                            </div>
                             <figcaption class="text-center text-sm text-gray-500 mt-2">Patio Casa del Árbol</figcaption>
                         </figure>
                     </div>
@@ -379,7 +392,7 @@
                                 throw new Error('El script de Google devolvió un error.');
                             }
                         } else {
-                            throw new Error('Error de red al contactar el servidor de Google.');
+                            throw new Error('Error de network al contactar el servidor de Google.');
                         }
 
                     } catch (error) {
@@ -414,8 +427,3 @@
     </script>
 </body>
 </html>
-        });
-    </script>
-</body>
-</html>
-
