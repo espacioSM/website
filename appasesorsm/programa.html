@@ -242,7 +242,7 @@
         }
 
         // ===== RENDERIZAR PREGUNTA =====
-        async function render() {
+        function render() {
             const q = questions[current];
             const area = document.getElementById('main-render');
             updateProg();
@@ -256,6 +256,7 @@
                     let valor = responses[f] || "";
                     html += `<input type="text" id="${f}" placeholder="${f.toUpperCase()}" value="${valor}" class="input-underline mb-4">`;
                 });
+                html += `<button onclick="handleMultiNext()" class="btn-primary-sm w-full py-4 mt-8">Siguiente Paso</button>`;
             } 
             else if (q.type === "opt") {
                 html += `<div class="grid grid-cols-2 gap-2">`;
@@ -285,7 +286,7 @@
                     html += `<input type="text" id="other-val" placeholder="ESPECIFICA AQUÍ..." value="${otherVal}" class="input-underline mt-4 text-xs">`;
                 }
                 
-                html += `<button onclick="handleMultiNext()" class="btn-primary-sm w-full py-4 mt-8">Siguiente Paso</button>`;
+                html += `<button onclick="handleMultiOptNext()" class="btn-primary-sm w-full py-4 mt-8">Siguiente Paso</button>`;
             } 
             else if (q.type === "visual") {
                 html += `<div class="grid grid-cols-2 gap-3">`;
@@ -305,10 +306,6 @@
                 <textarea id="chat-val" class="w-full border-4 border-black p-4 text-xs font-bold uppercase h-32" 
                     placeholder="EJ: ME PREOCUPA EL TIEMPO DE OBRA...">${responses.chat || ''}</textarea>
                 <button onclick="handleChatNext()" class="btn-primary-sm w-full py-4 mt-8">Finalizar Diagnóstico</button>`;
-            }
-
-            if(q.type === "multi") {
-                html += `<button onclick="handleMultiNext()" class="btn-primary-sm w-full py-4 mt-8">Siguiente Paso</button>`;
             }
 
             area.innerHTML = html;
@@ -336,22 +333,27 @@
         function handleMultiNext() {
             const q = questions[current];
             
-            if (q.type === "multi") {
-                if(q.fields.some(f => !document.getElementById(f)?.value)) {
-                    return alert("Completa todos los campos.");
-                }
-                q.fields.forEach(f => {
-                    responses[f] = document.getElementById(f).value;
-                });
-                saveAndNext(q.fields.map(f => responses[f]).join(" | "));
+            if(q.fields.some(f => !document.getElementById(f)?.value)) {
+                return alert("Completa todos los campos.");
             }
-            else if (q.type === "multi-opt") {
-                if(selected.length === 0) return alert("Selecciona al menos una opción.");
-                const other = document.getElementById('other-val')?.value;
-                if(selected.includes("Otro") && !other) return alert("Especifica el campo 'Otro'.");
-                let val = selected.join(", ") + (other ? " (" + other + ")" : "");
-                saveAndNext(val);
-            }
+            q.fields.forEach(f => {
+                responses[f] = document.getElementById(f).value;
+            });
+            saveAndNext(q.fields.map(f => responses[f]).join(" | "));
+        }
+
+        function handleMultiOptNext() {
+            const q = questions[current];
+            
+            if(selected.length === 0) return alert("Selecciona al menos una opción.");
+            
+            const other = document.getElementById('other-val')?.value;
+            if(selected.includes("Otro") && !other) return alert("Especifica el campo 'Otro'.");
+            
+            let val = selected.join(", ");
+            if (other) val += " (" + other + ")";
+            
+            saveAndNext(val);
         }
 
         function handleChatNext() {
@@ -359,7 +361,7 @@
             saveAndNext(val);
         }
 
-        async function saveAndNext(v) {
+        function saveAndNext(v) {
             const q = questions[current];
             responses[q.field || q.fields?.[0] || "data_" + current] = v;
             projectLog.responses = {...responses};
@@ -374,15 +376,18 @@
 
         function updateProg() {
             const p = (current / (questions.length - 1)) * 100;
-            document.getElementById('prog-line').style.width = p + "%";
+            const progLine = document.getElementById('prog-line');
+            if (progLine) progLine.style.width = p + "%";
             
             for(let i=1; i<=4; i++) {
                 const dot = document.getElementById(`d-${i}`);
-                if(i <= questions[current].step) {
-                    dot.classList.add('bg-black');
-                    dot.classList.remove('bg-white');
-                    dot.classList.add('text-[#FFCD00]');
-                    dot.classList.remove('text-gray-300');
+                if (dot) {
+                    if(i <= questions[current].step) {
+                        dot.classList.add('bg-black');
+                        dot.classList.remove('bg-white');
+                        dot.classList.add('text-[#FFCD00]');
+                        dot.classList.remove('text-gray-300');
+                    }
                 }
             }
         }
@@ -398,7 +403,7 @@
             document.getElementById('auraModal').classList.remove('flex');
         }
 
-        async function sendAuraMessage() {
+        function sendAuraMessage() {
             const input = document.getElementById('auraChatInput');
             const message = input.value.trim();
             if (!message) return;
@@ -513,8 +518,6 @@
             document.getElementById('tip-box').classList.add('hidden');
             
             console.log("PROYECTO COMPLETO:", projectLog);
-            console.log("RESPUESTAS:", responses);
-            console.log("INTERACCIONES AURA:", projectLog.auraInteractions);
         }
     </script>
 </body>
