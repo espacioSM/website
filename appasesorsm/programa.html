@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diagnóstico Aura SM | espacioSM</title>
+    <title>Diagnóstico Integral Aura SM | espacioSM</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -11,75 +11,61 @@
         :root { --primary-color: #FFCD00; --primary-dark: #E6B800; --dark-bg: #000000; }
         body { font-family: 'Inter', sans-serif; color: #000000; background-color: #FFFFFF; }
         .nav-scrolled { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .btn-primary { background-color: var(--primary-color); color: #000000; transition: all 0.3s ease; font-weight: 600; }
-        .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-2px); shadow: 0 10px 25px -5px rgba(255, 205, 0, 0.4); }
-        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        .btn-primary { background-color: var(--primary-color); color: #000000; transition: all 0.3s ease; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; }
+        .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-2px); }
+        .input-sm { border-bottom: 2px solid #E5E7EB; width: 100%; padding: 10px 0; font-weight: 600; text-transform: uppercase; font-size: 13px; }
+        .input-sm:focus { outline: none; border-color: var(--primary-color); }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased bg-gray-50">
 
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 nav-scrolled">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 text-black">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="flex justify-between items-center">
                 <a href="https://www.espaciosm.art" class="flex items-center">
-                    <span class="text-xl font-bold">espacio<span class="text-[#FFCD00]">SM</span></span>
+                    <span class="text-xl font-bold text-gray-800">espacio<span class="text-[#FFCD00]">SM</span></span>
                 </a>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="/casa-del-arbol/del-arbol.html" class="hover:text-[#FFCD00] transition-colors uppercase text-[12px] font-bold tracking-widest">Proyectos</a>
-                    <a href="/contacto.html" class="hover:text-[#FFCD00] transition-colors uppercase text-[12px] font-bold tracking-widest">Contacto</a>
-                    <a href="#consultar" class="bg-[#FFCD00] text-black px-4 py-2 rounded-md hover:bg-[#E6B800] transition-colors uppercase text-[11px] font-black">Consultar Proyecto</a>
+                    <a href="/casa-del-arbol/del-arbol.html" class="text-gray-800 hover:text-[#FFCD00] font-bold text-[11px] uppercase tracking-widest">Proyectos</a>
+                    <a href="/contacto.html" class="text-gray-800 hover:text-[#FFCD00] font-bold text-[11px] uppercase tracking-widest">Contacto</a>
+                    <a href="#diagnostico" class="bg-[#FFCD00] text-black px-4 py-2 rounded-sm font-black text-[10px] uppercase tracking-widest">Consultar Proyecto</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <section id="consultar" class="pt-32 pb-20 px-6 bg-white min-h-screen">
+    <section id="diagnostico" class="pt-32 pb-20 px-6">
         <div class="max-w-3xl mx-auto">
             
-            <div class="flex justify-between mb-16 relative">
-                <div class="absolute top-5 left-0 w-full h-[1px] bg-gray-100 z-0"></div>
-                <div id="progress-line" class="absolute top-5 left-0 w-[0%] h-[2px] bg-[#FFCD00] z-0 transition-all duration-700"></div>
+            <div class="flex justify-between mb-12 relative px-4">
+                <div class="absolute top-5 left-0 w-full h-[1px] bg-gray-200 z-0"></div>
+                <div id="progress-line" class="absolute top-5 left-0 h-[2px] bg-[#FFCD00] z-0 transition-all duration-700" style="width: 0%;"></div>
                 
-                <div class="relative z-10 flex flex-col items-center">
-                    <div id="step-1-icon" class="w-10 h-10 rounded-full bg-black text-[#FFCD00] flex items-center justify-center font-bold border-2 border-[#FFCD00] shadow-md">
-                        <i class="fas fa-id-card text-xs"></i>
-                    </div>
-                    <span class="text-[9px] uppercase font-bold mt-2 tracking-widest">Identidad</span>
-                </div>
-                <div class="relative z-10 flex flex-col items-center text-gray-300">
-                    <div id="step-2-icon" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center font-bold">
-                        <i class="fas fa-tools text-xs"></i>
-                    </div>
-                    <span class="text-[9px] uppercase font-bold mt-2 tracking-widest">Alcance</span>
-                </div>
-                <div class="relative z-10 flex flex-col items-center text-gray-300">
-                    <div id="step-3-icon" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center font-bold">
-                        <i class="fas fa-file-contract text-xs"></i>
-                    </div>
-                    <span class="text-[9px] uppercase font-bold mt-2 tracking-widest">Reporte</span>
-                </div>
+                <div class="relative z-10 flex flex-col items-center"><div id="step-1" class="w-10 h-10 rounded-full bg-black text-[#FFCD00] flex items-center justify-center border-2 border-[#FFCD00]"><i class="fas fa-id-badge"></i></div><span class="text-[8px] font-black uppercase mt-2">ID</span></div>
+                <div class="relative z-10 flex flex-col items-center"><div id="step-2" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center"><i class="fas fa-users"></i></div><span class="text-[8px] font-black uppercase mt-2">Habitantes</span></div>
+                <div class="relative z-10 flex flex-col items-center"><div id="step-3" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center"><i class="fas fa-car"></i></div><span class="text-[8px] font-black uppercase mt-2">Equipamiento</span></div>
+                <div class="relative z-10 flex flex-col items-center"><div id="step-4" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center"><i class="fas fa-palette"></i></div><span class="text-[8px] font-black uppercase mt-2">Estética</span></div>
+                <div class="relative z-10 flex flex-col items-center"><div id="step-5" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center"><i class="fas fa-leaf"></i></div><span class="text-[8px] font-black uppercase mt-2">Eco</span></div>
             </div>
 
             <div class="bg-white border-[3px] border-black rounded-sm overflow-hidden shadow-[15px_15px_0px_0px_rgba(255,205,0,1)]">
-                
                 <div class="bg-black p-5 flex justify-between items-center text-white">
                     <div class="flex items-center gap-3">
                         <div class="w-2 h-2 bg-[#FFCD00] rounded-full animate-pulse"></div>
-                        <span class="text-[10px] font-black uppercase tracking-[0.3em]">Aura SM Intelligence</span>
+                        <span class="text-[10px] font-black uppercase tracking-[0.3em]">Aura SM Consultora</span>
                     </div>
-                    <button onclick="toggleAuraHelp()" class="text-[#FFCD00] text-[10px] font-bold border border-[#FFCD00] px-3 py-1 hover:bg-[#FFCD00] hover:text-black transition-all">
-                        <i class="fas fa-brain mr-2"></i>ASESORÍA CORTA
-                    </button>
+                    <button onclick="auraHelp()" class="text-[#FFCD00] text-[10px] font-bold border border-[#FFCD00] px-3 py-1 hover:bg-[#FFCD00] hover:text-black transition-all">CONSULTA RÁPIDA</button>
                 </div>
 
-                <div id="form-container" class="p-8 md:p-12 fade-in">
+                <div id="form-container" class="p-8 md:p-12 min-h-[450px] flex flex-col justify-between">
                     </div>
 
-                <div id="aura-tip-box" class="hidden bg-gray-50 border-t-2 border-black p-6">
+                <div id="aura-tip" class="hidden bg-gray-50 border-t-2 border-black p-6 fade-in">
                     <div class="flex gap-4">
-                        <span class="text-2xl text-[#FFCD00] font-black italic">“</span>
-                        <p id="aura-tip-text" class="text-[12px] italic text-gray-700 leading-relaxed font-medium"></p>
+                        <span class="text-3xl text-[#FFCD00] font-black italic">“</span>
+                        <p id="aura-text" class="text-[12px] italic text-gray-700 leading-relaxed font-semibold"></p>
                     </div>
                 </div>
             </div>
@@ -87,164 +73,201 @@
     </section>
 
     <script>
-        // ESTADO DEL FORMULARIO (Basado en tu Google Form)
+        // DATOS DEL PDF GOOGLE FORM 
         const state = {
-            step: 1,
-            name: '', email: '', location: '',
-            projectType: '', // Obra Nueva, Ampliación, etc.
-            spaceNeeds: '', // Habitaciones, baños, etc.
-            licenseStatus: '',
-            stylePref: '',
-            budgetRange: '',
-            concerns: ''
+            current: 1,
+            data: {
+                email: '', nombre: '', edoCivil: '', ocupacion: '', ubicacion: '',
+                licencia: '', tipoTrabajo: '', descAmpliacion: '',
+                numUsuarios: '', tipoUsuarios: [], visitas: '',
+                numAutos: 0, tipoAutos: [], planesAutos: '', tipoAutoFuturo: '',
+                mascotas: '', tipoMascota: '',
+                habitaciones: '', dimensiones: '', piano: '', pianoDesc: '',
+                tiempoSitio: [], hobbies: '', molestias: '',
+                tonalidades: '', pisos: '', elementosNat: '',
+                estilo: '', estiloOtro: '', ecotec: []
+            }
         };
 
         const auraTips = {
-            step1: "Identificar la ubicación es clave. El Arq. San Miguel analizará el suelo y clima de la zona.",
-            licencia_si: "Excelente. La licencia vigente permite un despliegue inmediato de ingeniería.",
-            licencia_no: "Entendido. La estrategia de regularización debe ser validada directamente por el Arq. San Miguel.",
-            ampliacion: "En ampliaciones, Aura SM recomienda un escaneo estructural previo para evitar fisuras en lo existente.",
-            presupuesto: "Aterrizar el rango de inversión nos permite optimizar la selección de materiales sin sacrificar diseño."
+            step1: "La ubicación geográfica define los parámetros de diseño bioclimático.",
+            licencia_no: "Construir sin licencia es un riesgo patrimonial. El Arq. San Miguel validará tu estrategia legal.",
+            mascotas: "Diseñar espacios para mascotas mejora la higiene y durabilidad de tus acabados.",
+            molestias: "Identificar qué te molesta nos ayuda a evitar errores de flujos en tu nuevo diseño.",
+            ecotec: "La inversión en ecotecnología se recupera en menos de 5 años por ahorro operativo."
         };
 
-        function updateUI() {
-            const line = document.getElementById('progress-line');
-            line.style.width = state.step === 1 ? '0%' : state.step === 2 ? '50%' : '100%';
-            
-            [1, 2, 3].forEach(i => {
-                const icon = document.getElementById(`step-${i}-icon`);
-                if(i <= state.step) {
-                    icon.className = "w-10 h-10 rounded-full bg-black text-[#FFCD00] flex items-center justify-center font-bold border-2 border-[#FFCD00] shadow-md transition-all";
-                    icon.parentElement.classList.remove('text-gray-300');
-                    icon.parentElement.classList.add('text-black');
-                }
-            });
+        function setTip(text) {
+            const box = document.getElementById('aura-tip');
+            const p = document.getElementById('aura-text');
+            if(!text) { box.classList.add('hidden'); return; }
+            box.classList.remove('hidden');
+            p.innerText = text;
         }
 
-        function renderStep1() {
-            state.step = 1; updateUI();
-            document.getElementById('form-container').innerHTML = `
-                <div class="space-y-8 fade-in">
-                    <h2 class="text-xl font-black uppercase italic border-l-8 border-[#FFCD00] pl-4 mb-8">01. Identidad y Contexto</h2>
-                    <input type="text" id="inp-name" placeholder="NOMBRE COMPLETO" class="w-full border-b-2 border-gray-200 py-3 focus:outline-none focus:border-black text-sm uppercase font-bold tracking-widest mb-4">
-                    <input type="email" id="inp-email" placeholder="CORREO ELECTRÓNICO" class="w-full border-b-2 border-gray-200 py-3 focus:outline-none focus:border-black text-sm font-bold uppercase tracking-widest mb-4">
-                    <input type="text" id="inp-loc" placeholder="CIUDAD Y COLONIA / C.P." class="w-full border-b-2 border-gray-200 py-3 focus:outline-none focus:border-black text-sm font-bold uppercase tracking-widest">
-                    <button onclick="saveStep1()" class="btn-primary w-full py-5 text-xs font-black uppercase tracking-[0.3em] mt-8 shadow-lg">Continuar Diagnóstico</button>
-                </div>
-            `;
-            setAuraTip(auraTips.step1);
-        }
+        function render() {
+            const container = document.getElementById('form-container');
+            container.innerHTML = '';
+            updateProgress();
 
-        function saveStep1() {
-            state.name = document.getElementById('inp-name').value;
-            state.email = document.getElementById('inp-email').value;
-            state.location = document.getElementById('inp-loc').value;
-            if(!state.name || !state.email || !state.location) return alert("Arq. San Miguel requiere estos datos para el reporte.");
-            renderStep2();
-        }
-
-        function renderStep2() {
-            state.step = 2; updateUI();
-            document.getElementById('form-container').innerHTML = `
-                <div class="space-y-8 fade-in">
-                    <h2 class="text-xl font-black uppercase italic border-l-8 border-[#FFCD00] pl-4 mb-8">02. Alcance y Necesidades</h2>
-                    
-                    <div class="space-y-4">
-                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Tipo de Proyecto</label>
-                        <select id="inp-type" onchange="setAuraTip(this.value.includes('Ampliación') ? auraTips.ampliacion : '')" class="w-full border-2 border-gray-100 p-4 font-bold text-xs uppercase tracking-widest">
-                            <option value="Obra Nueva">Obra Nueva</option>
-                            <option value="Ampliación / Remodelación">Ampliación / Remodelación</option>
-                            <option value="Mantenimiento">Mantenimiento</option>
+            if (state.current === 1) {
+                container.innerHTML = `
+                    <div class="fade-in space-y-6">
+                        <h2 class="text-sm font-black uppercase tracking-widest border-l-4 border-[#FFCD00] pl-3 italic">01. Identidad y Ubicación [cite: 4, 6, 9]</h2>
+                        <input type="email" placeholder="Correo Electrónico *" value="${state.data.email}" onchange="state.data.email=this.value" class="input-sm">
+                        <input type="text" placeholder="Nombre Completo *" value="${state.data.nombre}" onchange="state.data.nombre=this.value" class="input-sm">
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" placeholder="Estado Civil" value="${state.data.edoCivil}" onchange="state.data.edoCivil=this.value" class="input-sm">
+                            <input type="text" placeholder="Ocupación" value="${state.data.ocupacion}" onchange="state.data.ocupacion=this.value" class="input-sm">
+                        </div>
+                        <input type="text" placeholder="Ubicación del Terreno *" value="${state.data.ubicacion}" onchange="state.data.ubicacion=this.value" class="input-sm">
+                        
+                        <p class="text-[10px] font-bold text-gray-400 mt-6 uppercase">¿Tienes Licencia de Construcción? [cite: 10]</p>
+                        <select onchange="state.data.licencia=this.value; setTip(this.value.includes('No') ? auraTips.licencia_no : '')" class="w-full border-2 border-gray-100 p-3 text-[11px] font-bold">
+                            <option value="">Selecciona una opción</option>
+                            <option value="Si, tengo">Si, tengo Licencia [cite: 15]</option>
+                            <option value="No, pretendo">No, pretendo sacar una [cite: 16]</option>
+                            <option value="No tengo contemplado">Tratar legalidad con Arq. San Miguel </option>
                         </select>
                     </div>
+                    <button onclick="validateStep1()" class="btn-primary w-full py-4 mt-8">Siguiente Paso</button>
+                `;
+                setTip(auraTips.step1);
+            } 
 
-                    <div class="space-y-4">
-                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest italic">¿Qué espacios necesitas? (Recámaras, baños, etc.)</label>
-                        <textarea id="inp-needs" class="w-full border-2 border-gray-100 p-4 font-bold text-xs uppercase tracking-widest" rows="2"></textarea>
+            else if (state.current === 2) {
+                container.innerHTML = `
+                    <div class="fade-in space-y-6">
+                        <h2 class="text-sm font-black uppercase tracking-widest border-l-4 border-[#FFCD00] pl-3 italic">02. Programa y Usuarios [cite: 19, 27, 28]</h2>
+                        <select onchange="state.data.tipoTrabajo=this.value" class="w-full border-2 border-gray-100 p-3 text-[11px] font-bold">
+                            <option value="">Tipo de Obra: ${state.data.tipoTrabajo || 'Seleccionar'}</option>
+                            <option value="Obra Nueva">Obra Nueva [cite: 22]</option>
+                            <option value="Remodelación">Remodelación [cite: 23]</option>
+                            <option value="Ampliación">Ampliación [cite: 25]</option>
+                        </select>
+                        <input type="text" placeholder="Número de habitantes *" value="${state.data.numUsuarios}" onchange="state.data.numUsuarios=this.value" class="input-sm">
+                        
+                        <p class="text-[10px] font-bold text-gray-400 uppercase">Tipos de Usuario [cite: 28]</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            ${['Infante', 'Adolescente', 'Adulto Joven', 'Adulto', 'Adulto Mayor'].map(t => `
+                                <label class="text-[10px] font-bold flex items-center gap-2 border p-2 cursor-pointer hover:bg-gray-50">
+                                    <input type="checkbox" onchange="toggleArray('tipoUsuarios', '${t}')" ${state.data.tipoUsuarios.includes(t) ? 'checked' : ''}> ${t.toUpperCase()}
+                                </label>
+                            `).join('')}
+                        </div>
+                        <input type="text" placeholder="¿Recibe muchas visitas? (Si/No)" onchange="state.data.visitas=this.value" class="input-sm">
                     </div>
+                    <div class="flex gap-2 mt-8"><button onclick="state.current--" class="w-1/3 border-2 border-black py-4 font-bold text-xs uppercase">Atrás</button>
+                    <button onclick="state.current++" class="btn-primary flex-1 py-4">Siguiente</button></div>
+                `;
+            }
 
-                    <div class="space-y-4">
-                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest italic italic">Estatus de Licencia</label>
-                        <div class="grid grid-cols-1 gap-2">
-                            <button onclick="setLicense('Si', auraTips.licencia_si)" class="lic-btn p-3 border border-gray-200 text-[10px] font-bold uppercase hover:border-black transition">Tengo Licencia</button>
-                            <button onclick="setLicense('Consultar Arq. SM', auraTips.licencia_no)" class="lic-btn p-3 border-2 border-black text-[10px] font-bold uppercase bg-black text-[#FFCD00]">Consultar con el Arq. San Miguel</button>
+            else if (state.current === 3) {
+                container.innerHTML = `
+                    <div class="fade-in space-y-6">
+                        <h2 class="text-sm font-black uppercase tracking-widest border-l-4 border-[#FFCD00] pl-3 italic">03. Estacionamiento y Mascotas [cite: 45, 79]</h2>
+                        <input type="number" placeholder="¿Cuántos vehículos posee? *" value="${state.data.numAutos}" onchange="state.data.numAutos=this.value" class="input-sm">
+                        <input type="text" placeholder="Tipos de auto (Sedán, SUV, PickUp, Moto) [cite: 56]" onchange="state.data.tipoAutos=this.value" class="input-sm">
+                        
+                        <p class="text-[10px] font-bold text-gray-400 uppercase mt-4">¿Tiene o planea adquirir mascotas? [cite: 79]</p>
+                        <div class="flex gap-4">
+                            <button onclick="state.data.mascotas='Si'; setTip(auraTips.mascotas)" class="flex-1 p-3 border-2 border-gray-100 hover:border-black font-bold text-xs">SÍ</button>
+                            <button onclick="state.data.mascotas='No'" class="flex-1 p-3 border-2 border-gray-100 hover:border-black font-bold text-xs">NO</button>
+                        </div>
+                        <input type="text" placeholder="Intereses y pasatiempos en el proyecto [cite: 107]" onchange="state.data.hobbies=this.value" class="input-sm">
+                    </div>
+                    <div class="flex gap-2 mt-8"><button onclick="state.current--" class="w-1/3 border-2 border-black py-4 font-bold text-xs uppercase">Atrás</button>
+                    <button onclick="state.current++" class="btn-primary flex-1 py-4">Siguiente</button></div>
+                `;
+            }
+
+            else if (state.current === 4) {
+                container.innerHTML = `
+                    <div class="fade-in space-y-4">
+                        <h2 class="text-sm font-black uppercase tracking-widest border-l-4 border-[#FFCD00] pl-3 italic italic">04. Diseño y Preferencias [cite: 108, 110, 118, 128]</h2>
+                        <textarea placeholder="¿Qué cosas le molestan de otras casas? (Ej. Cocina expuesta) [cite: 108]" onchange="state.data.molestias=this.value; setTip(auraTips.molestias)" class="w-full border-2 p-3 text-xs font-bold uppercase" rows="2"></textarea>
+                        
+                        <p class="text-[10px] font-bold text-gray-400 uppercase italic">Tonalidades Predilectas [cite: 110]</p>
+                        <select onchange="state.data.tonalidades=this.value" class="w-full border p-2 text-[10px] font-bold uppercase tracking-widest">
+                            <option>Neutras [cite: 113]</option><option>Oscuras [cite: 114]</option><option>Tierra [cite: 115]</option><option>Tendencia [cite: 117]</option>
+                        </select>
+
+                        <p class="text-[10px] font-bold text-gray-400 uppercase italic">Materiales en Piso [cite: 118]</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            ${['Loseta', 'Madera', 'Mármol', 'Concreto Aparente', 'Laminado'].map(p => `
+                                <button onclick="state.data.pisos='${p}'" class="p-2 border text-[9px] font-bold uppercase hover:bg-gray-100">${p}</button>
+                            `).join('')}
                         </div>
                     </div>
+                    <div class="flex gap-2 mt-8"><button onclick="state.current--" class="w-1/3 border-2 border-black py-4 font-bold text-xs uppercase">Atrás</button>
+                    <button onclick="state.current++" class="btn-primary flex-1 py-4">Siguiente</button></div>
+                `;
+            }
 
-                    <button onclick="saveStep2()" class="btn-primary w-full py-5 text-xs font-black uppercase tracking-[0.3em] mt-8 shadow-lg">Generar Reporte Final</button>
-                </div>
-            `;
-        }
+            else if (state.current === 5) {
+                container.innerHTML = `
+                    <div class="fade-in space-y-6">
+                        <h2 class="text-sm font-black uppercase tracking-widest border-l-4 border-[#FFCD00] pl-3 italic italic">05. Estilo y Sostenibilidad [cite: 128, 138]</h2>
+                        <p class="text-[10px] font-bold text-gray-400 uppercase">Estilo Arquitectónico [cite: 128]</p>
+                        <div class="grid grid-cols-3 gap-2">
+                            ${['Clásico', 'Moderno', 'Contemporáneo', 'Minimalista', 'Mexicano'].map(s => `
+                                <button onclick="state.data.estilo='${s}'" class="p-2 border text-[8px] font-black uppercase hover:bg-[#FFCD00]">${s}</button>
+                            `).join('')}
+                        </div>
 
-        function setLicense(val, tip) {
-            state.licenseStatus = val;
-            setAuraTip(tip);
-        }
-
-        function saveStep2() {
-            state.projectType = document.getElementById('inp-type').value;
-            state.spaceNeeds = document.getElementById('inp-needs').value;
-            if(!state.licenseStatus) return alert("Favor de definir el estatus legal.");
-            renderStep3();
-        }
-
-        function renderStep3() {
-            state.step = 3; updateUI();
-            const waMsg = `Hola Arq. San Miguel, Aura SM me entregó mi diagnóstico.\n\nProyecto: ${state.projectType}\nCliente: ${state.name}\nUbicación: ${state.location}\nLicencia: ${state.licenseStatus}\nNecesidades: ${state.spaceNeeds}`;
-            
-            document.getElementById('form-container').innerHTML = `
-                <div class="text-center space-y-8 fade-in">
-                    <h2 class="text-3xl font-black italic uppercase tracking-tighter">Análisis <span class="text-[#FFCD00]">espacioSM</span></h2>
-                    <div class="bg-gray-50 p-6 border-l-8 border-black text-left">
-                        <p class="text-[10px] font-bold text-gray-400 uppercase mb-4 tracking-widest">Ficha Técnica Preliminar</p>
-                        <p class="text-sm font-bold mb-1">${state.name}</p>
-                        <p class="text-xs text-gray-600 mb-4">${state.location} | ${state.projectType}</p>
-                        <p class="text-[11px] font-medium leading-relaxed italic italic">"Prioridad: ${state.licenseStatus === 'Si' ? 'Arranque de obra' : 'Validación estratégica con Arq. SM'}"</p>
-                    </div>
-
-                    <div class="py-4 text-left">
-                        <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-6">Próximos Pasos</p>
-                        <div class="relative pl-6 border-l-2 border-gray-100 space-y-6">
-                            <div class="relative">
-                                <div class="absolute -left-[31px] w-4 h-4 bg-[#FFCD00] rounded-full border-4 border-white shadow-sm"></div>
-                                <p class="text-xs font-bold uppercase">Validación con Arq. San Miguel</p>
-                            </div>
-                            <div class="relative opacity-30">
-                                <div class="absolute -left-[31px] w-4 h-4 bg-gray-200 rounded-full border-4 border-white"></div>
-                                <p class="text-xs font-bold uppercase">Levantamiento en Sitio</p>
-                            </div>
+                        <p class="text-[10px] font-bold text-gray-400 uppercase mt-4">Implementar Ecotecnología [cite: 138]</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            ${['Paneles solares', 'Captación Pluvial', 'Biodigestor', 'Calentador Solar'].map(e => `
+                                <label class="text-[9px] font-bold flex items-center gap-2 border p-2">
+                                    <input type="checkbox" onchange="toggleArray('ecotec', '${e}'); setTip(auraTips.ecotec)"> ${e.toUpperCase()}
+                                </label>
+                            `).join('')}
                         </div>
                     </div>
-
-                    <a href="https://wa.me/525613870288?text=${encodeURIComponent(waMsg)}" target="_blank" class="btn-primary block w-full py-5 text-xs font-black uppercase tracking-[0.3em] shadow-xl">
-                        Enviar a WhatsApp y Agendar
-                    </a>
-                </div>
-            `;
-            setAuraTip("Diagnóstico completado. El Arq. San Miguel ha sido notificado.");
+                    <div class="flex gap-2 mt-8"><button onclick="state.current--" class="w-1/3 border-2 border-black py-4 font-bold text-xs uppercase">Atrás</button>
+                    <button onclick="finish()" class="btn-primary flex-1 py-4 animate-pulse">Generar Reporte SM</button></div>
+                `;
+            }
         }
 
-        function setAuraTip(text) {
-            const tipBox = document.getElementById('aura-tip-box');
-            const tipText = document.getElementById('aura-tip-text');
-            if(!text) return tipBox.classList.add('hidden');
-            tipBox.classList.remove('hidden');
-            tipText.innerText = text;
+        function validateStep1() {
+            if(!state.data.nombre || !state.data.email || !state.data.ubicacion) return alert("Arq. San Miguel requiere los campos obligatorios para el diagnóstico técnico.");
+            state.current++; render();
         }
 
-        function toggleAuraHelp() {
-            alert("Aura SM Asesoría:\n1. Toda ampliación requiere validar muros de carga.\n2. La licencia es la base legal de tu patrimonio.\n3. El Arq. San Miguel evaluará el presupuesto vs necesidades.");
+        function toggleArray(key, val) {
+            const arr = state.data[key];
+            const idx = arr.indexOf(val);
+            if(idx > -1) arr.splice(idx, 1);
+            else arr.push(val);
         }
 
-        // NAVBAR SCROLL EFFECT
-        window.addEventListener('scroll', function() {
+        function updateProgress() {
+            const line = document.getElementById('progress-line');
+            line.style.width = ((state.current - 1) * 25) + '%';
+            for(let i=1; i<=5; i++) {
+                const el = document.getElementById(`step-${i}`);
+                if(i <= state.current) {
+                    el.classList.replace('bg-white', 'bg-black');
+                    el.classList.replace('text-gray-300', 'text-[#FFCD00]');
+                    el.classList.add('border-[#FFCD00]');
+                }
+            }
+        }
+
+        function finish() {
+            const waMsg = `Hola Arq. San Miguel, Aura SM me entregó mi diagnóstico estructural.\n\nNombre: ${state.data.nombre}\nUbicación: ${state.data.ubicacion}\nObra: ${state.data.tipoTrabajo}\nEstilo: ${state.data.estilo}\nLicencia: ${state.data.licencia}`;
+            window.location.href = `https://wa.me/525613870288?text=${encodeURIComponent(waMsg)}`;
+        }
+
+        function auraHelp() { alert("Aura SM Asesoría:\n1. La mecánica de suelos es vital en zonas de sismo.\n2. La orientación solar reduce el consumo eléctrico.\n3. El Arq. San Miguel optimiza tu presupuesto mediante ingeniería de precisión."); }
+
+        window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) nav.classList.add('nav-scrolled');
-            else nav.classList.remove('nav-scrolled');
+            if(window.scrollY > 50) nav.classList.add('nav-scrolled'); else nav.classList.remove('nav-scrolled');
         });
 
-        // INIT
-        renderStep1();
+        render();
     </script>
 </body>
 </html>
