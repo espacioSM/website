@@ -1,109 +1,215 @@
-<section class="py-20 px-6 bg-white min-h-screen font-['Inter']">
-    <div class="max-w-2xl mx-auto">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultoría Virtual Aura SM | espacioSM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary: #FFCD00; --dark: #000000; }
+        body { font-family: 'Inter', sans-serif; background-color: #F9FAFB; }
+        .btn-sm-yellow { background-color: var(--primary); color: black; transition: all 0.3s; }
+        .btn-sm-yellow:hover { background-color: #E6B800; transform: translateY(-2px); }
+        .step-active { color: var(--primary); border-color: var(--primary); }
+        .aura-border { border-left: 4px solid var(--primary); }
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="py-6 px-10 bg-black text-white flex justify-between items-center">
+        <span class="text-xl font-bold tracking-tighter italic">espacio<span class="text-[#FFCD00] not-italic">SM</span></span>
+        <div class="flex items-center gap-2">
+            <div class="w-2 h-2 bg-[#FFCD00] rounded-full animate-pulse"></div>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Aura SM Activa</span>
+        </div>
+    </nav>
+
+    <main class="max-w-3xl mx-auto py-12 px-6">
         
-        <div class="flex justify-between mb-16 relative">
+        <div class="flex justify-between mb-12 relative">
             <div class="absolute top-5 left-0 w-full h-[1px] bg-gray-200 z-0"></div>
-            <div id="progress-bar" class="absolute top-5 left-0 w-1/2 h-[2px] bg-[#FFCD00] z-0 transition-all duration-700"></div>
+            <div id="progress-line" class="absolute top-5 left-0 w-[0%] h-[2px] bg-[#FFCD00] z-0 transition-all duration-700"></div>
             
-            <div class="relative z-10 flex flex-col items-center">
-                <div class="w-10 h-10 rounded-full bg-[#FFCD00] text-black flex items-center justify-center font-bold shadow-md">
-                    <i class="fas fa-map-marker-alt text-xs"></i>
+            <div class="relative z-10 flex flex-col items-center group">
+                <div id="step-1-icon" class="w-10 h-10 rounded-full bg-black text-[#FFCD00] flex items-center justify-center font-bold border-2 border-[#FFCD00] transition-colors">
+                    <i class="fas fa-user-edit text-xs"></i>
                 </div>
-                <span class="text-[9px] uppercase font-bold mt-2 tracking-widest text-[#FFCD00]">Contexto</span>
+                <span class="text-[9px] uppercase font-bold mt-2 tracking-widest">Contexto</span>
             </div>
             <div class="relative z-10 flex flex-col items-center">
-                <div class="w-10 h-10 rounded-full bg-black text-[#FFCD00] flex items-center justify-center font-bold border-2 border-[#FFCD00] ring-4 ring-white">
+                <div id="step-2-icon" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center font-bold transition-colors">
                     <i class="fas fa-drafting-compass text-xs"></i>
                 </div>
-                <span class="text-[10px] uppercase font-bold mt-2 tracking-widest text-black italic">Técnico</span>
+                <span class="text-[9px] uppercase font-bold mt-2 tracking-widest text-gray-300">Técnico</span>
             </div>
             <div class="relative z-10 flex flex-col items-center">
-                <div class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center font-bold">
+                <div id="step-3-icon" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center font-bold transition-colors">
                     <i class="fas fa-file-invoice text-xs"></i>
                 </div>
-                <span class="text-[10px] uppercase font-bold mt-2 tracking-widest text-gray-200">Reporte</span>
+                <span class="text-[9px] uppercase font-bold mt-2 tracking-widest text-gray-300">Reporte</span>
             </div>
         </div>
 
-        <div class="bg-white border-[3px] border-black rounded-sm overflow-hidden shadow-[12px_12px_0px_0px_rgba(255,205,0,1)]">
+        <div class="bg-white border-[3px] border-black shadow-[15px_15px_0px_0px_rgba(0,0,0,1)] rounded-sm overflow-hidden min-h-[500px]">
             
             <div class="bg-black p-5 flex justify-between items-center text-white">
-                <div class="flex items-center gap-3">
-                    <div class="w-2 h-2 bg-[#FFCD00] rounded-full animate-pulse"></div>
-                    <span class="text-[10px] font-bold uppercase tracking-[0.3em]">Aura SM Intelligence</span>
-                </div>
-                <button onclick="toggleAsesoria()" class="bg-[#FFCD00] text-black px-4 py-2 text-[10px] font-black uppercase tracking-tighter hover:bg-white transition-all flex items-center gap-2">
-                    <i class="fas fa-lightbulb"></i> ¿Duda técnica?
+                <p class="text-[10px] font-black uppercase tracking-[0.3em] italic">Consultoría Aura SM</p>
+                <button onclick="showHelp()" class="text-[#FFCD00] text-[10px] font-bold border border-[#FFCD00] px-3 py-1 hover:bg-[#FFCD00] hover:text-black transition-all uppercase">
+                    <i class="fas fa-brain mr-1"></i> Asesoría Corta
                 </button>
             </div>
 
-            <div id="panel-asesoria" class="hidden bg-gray-100 p-6 border-b-2 border-black animate-fade-in">
-                <p class="text-[11px] font-bold uppercase mb-2 text-gray-500 tracking-widest italic">Asesoría Concisa:</p>
-                <p id="texto-asesoria" class="text-sm leading-relaxed text-black italic font-medium">
-                    "Selecciona una opción para recibir un consejo técnico de Aura SM."
-                </p>
-            </div>
-
-            <div class="p-8 space-y-10">
-                <div class="space-y-6">
-                    <h3 class="text-xs font-black uppercase tracking-widest border-l-8 border-[#FFCD00] pl-4 italic">
-                        Situación Legal de la Obra
-                    </h3>
-                    
-                    <div class="grid grid-cols-1 gap-4">
-                        <button onclick="responder('licencia', 'si')" class="option-btn text-left p-5 border-2 border-gray-100 hover:border-black transition-all group flex justify-between items-center">
-                            <span class="text-sm font-bold uppercase tracking-tight">Cuento con Licencia autorizada</span>
-                            <i class="fas fa-chevron-right text-gray-200 group-hover:text-[#FFCD00]"></i>
-                        </button>
-
-                        <button onclick="responder('licencia', 'no')" class="option-btn text-left p-5 border-2 border-gray-100 hover:border-black transition-all group flex justify-between items-center">
-                            <span class="text-sm font-bold uppercase tracking-tight">Tratar situación con el Arq. San Miguel</span>
-                            <i class="fas fa-lock text-gray-200 group-hover:text-[#FFCD00]"></i>
-                        </button>
-                    </div>
+            <div id="form-content" class="p-8 md:p-12 fade-in">
                 </div>
 
-                <div id="aura-dynamic-tip" class="hidden transform translate-y-4 opacity-0 transition-all duration-500">
-                    <div class="flex gap-4 items-start bg-slate-50 p-6 rounded-lg border-l-4 border-black italic">
-                        <span class="text-2xl text-[#FFCD00]">“</span>
-                        <p id="tip-content" class="text-sm text-gray-800 leading-relaxed font-light"></p>
-                    </div>
-                </div>
-
-                <div class="pt-6">
-                    <button class="w-full bg-black text-white py-5 font-black uppercase tracking-[0.3em] text-xs hover:bg-[#FFCD00] hover:text-black transition-all active:scale-95 shadow-lg">
-                        Continuar al Reporte Final
-                    </button>
+            <div id="aura-footer" class="hidden bg-gray-50 border-t-2 border-black p-6">
+                <div class="flex gap-4">
+                    <span class="text-2xl text-[#FFCD00] font-black">“</span>
+                    <p id="aura-tip-text" class="text-xs italic text-gray-700 leading-relaxed font-medium"></p>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </main>
 
-<script>
-    // Lógica de Aura SM
-    const tips = {
-        licencia_si: "Excelente. La licencia vigente nos permite iniciar el despliegue de maquinaria de inmediato, optimizando tus tiempos de entrega en un 15%.",
-        licencia_no: "Decisión correcta. Iniciar procesos sin validación legal pone en riesgo tu capital. El Arq. San Miguel definirá la ruta crítica para regularizar tu obra bajo norma.",
-        ayuda_general: "Para espacioSM, la integridad estructural empieza en el papel. Si tienes dudas sobre el COS o CUS de tu terreno, pídele al Arq. San Miguel un análisis de sitio."
-    };
+    <script>
+        const state = { step: 1, name: '', email: '', location: '', type: '', license: '' };
 
-    function responder(categoria, opcion) {
-        const tipBox = document.getElementById('aura-dynamic-tip');
-        const tipContent = document.getElementById('tip-content');
-        const key = `${categoria}_${opcion}`;
+        const tips = {
+            identidad: "Un gusto conocerte. Identificar el contexto geográfico es el primer paso para una ingeniería estructural eficiente.",
+            nueva: "La obra nueva permite optimizar la cimentación desde el origen. Revisaremos el COS y CUS de tu zona.",
+            ampliacion: "En ampliaciones, la prioridad es no comprometer los muros de carga existentes. Analizaremos la unión estructural.",
+            mantenimiento: "El mantenimiento preventivo duplica la vida útil de los acabados y previene fallas en instalaciones.",
+            licencia_si: "Excelente. Contar con licencia agiliza el despliegue de maquinaria y personal de espacioSM.",
+            licencia_no: "Entendido. Esta situación debe ser validada por el Arq. San Miguel para trazar una ruta de regularización segura."
+        };
 
-        // Inyectar texto y mostrar
-        tipContent.innerHTML = tips[key];
-        tipBox.classList.remove('hidden', 'opacity-0', 'translate-y-4');
-        tipBox.classList.add('opacity-100', 'translate-y-0');
+        function updateProgress() {
+            const line = document.getElementById('progress-line');
+            const icons = [1, 2, 3];
+            line.style.width = state.step === 1 ? '0%' : state.step === 2 ? '50%' : '100%';
+            
+            icons.forEach(i => {
+                const icon = document.getElementById(`step-${i}-icon`);
+                if (i <= state.step) {
+                    icon.classList.replace('bg-white', 'bg-black');
+                    icon.classList.replace('text-gray-300', 'text-[#FFCD00]');
+                    icon.classList.add('border-[#FFCD00]');
+                }
+            });
+        }
 
-        // Actualizar también la asesoría corta si está abierta
-        document.getElementById('texto-asesoria').innerText = tips[key];
-    }
+        function showTip(text) {
+            const footer = document.getElementById('aura-footer');
+            const tipText = document.getElementById('aura-tip-text');
+            footer.classList.remove('hidden');
+            tipText.innerText = text;
+        }
 
-    function toggleAsesoria() {
-        const panel = document.getElementById('panel-asesoria');
-        panel.classList.toggle('hidden');
-    }
-</script>
+        function renderStep1() {
+            state.step = 1; updateProgress();
+            document.getElementById('form-content').innerHTML = `
+                <div class="space-y-8">
+                    <h2 class="text-xl font-black uppercase italic border-l-8 border-[#FFCD00] pl-4 mb-8">Datos de Identidad</h2>
+                    <input type="text" id="name" placeholder="NOMBRE COMPLETO" class="w-full border-b-2 border-gray-200 py-3 focus:outline-none focus:border-black text-sm uppercase font-bold tracking-widest mb-6">
+                    <input type="email" id="email" placeholder="CORREO ELECTRÓNICO" class="w-full border-b-2 border-gray-200 py-3 focus:outline-none focus:border-black text-sm font-bold uppercase tracking-widest mb-6">
+                    <input type="text" id="loc" placeholder="CIUDAD / COLONIA O C.P." class="w-full border-b-2 border-gray-200 py-3 focus:outline-none focus:border-black text-sm font-bold uppercase tracking-widest">
+                    <button onclick="saveStep1()" class="w-full bg-black text-white py-5 font-black uppercase tracking-[0.3em] text-xs hover:bg-[#FFCD00] hover:text-black transition-all mt-8">Siguiente Paso</button>
+                </div>
+            `;
+            showTip(tips.identidad);
+        }
+
+        function saveStep1() {
+            state.name = document.getElementById('name').value;
+            state.email = document.getElementById('email').value;
+            state.location = document.getElementById('loc').value;
+            if(!state.name || !state.email) return alert("Favor de llenar los campos obligatorios.");
+            renderStep2();
+        }
+
+        function renderStep2() {
+            state.step = 2; updateProgress();
+            document.getElementById('form-content').innerHTML = `
+                <div class="space-y-8 fade-in">
+                    <h2 class="text-xl font-black uppercase italic border-l-8 border-[#FFCD00] pl-4">Definición Técnica</h2>
+                    <div class="grid grid-cols-1 gap-4">
+                        <button onclick="selectType('Obra Nueva', tips.nueva)" class="p-4 border-2 border-gray-100 hover:border-black text-left text-xs font-bold uppercase tracking-widest">🏗️ Obra Nueva</button>
+                        <button onclick="selectType('Ampliación', tips.ampliacion)" class="p-4 border-2 border-gray-100 hover:border-black text-left text-xs font-bold uppercase tracking-widest">🏠 Ampliación / Remodelación</button>
+                        <button onclick="selectType('Mantenimiento', tips.mantenimiento)" class="p-4 border-2 border-gray-100 hover:border-black text-left text-xs font-bold uppercase tracking-widest">🔧 Mantenimiento</button>
+                    </div>
+                    <div id="license-section" class="hidden pt-6 fade-in">
+                        <h3 class="text-xs font-black mb-4 uppercase text-gray-400 italic tracking-widest italic">Situación Legal</h3>
+                        <div class="grid grid-cols-1 gap-2">
+                            <button onclick="selectLicense('Con Licencia', tips.licencia_si)" class="p-4 bg-gray-50 border border-gray-200 text-xs font-bold uppercase tracking-widest text-left">Tengo Licencia</button>
+                            <button onclick="selectLicense('Por definir con Arq. SM', tips.licencia_no)" class="p-4 bg-black text-[#FFCD00] border border-black text-xs font-bold uppercase tracking-widest text-left">Consultar con Arq. San Miguel</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectType(t, tip) {
+            state.type = t;
+            showTip(tip);
+            document.getElementById('license-section').classList.remove('hidden');
+        }
+
+        function selectLicense(l, tip) {
+            state.license = l;
+            showTip(tip);
+            setTimeout(renderStep3, 1000);
+        }
+
+        function renderStep3() {
+            state.step = 3; updateProgress();
+            const message = `Hola Arq. San Miguel, Aura SM me entregó mi diagnóstico preliminar.\n\nProyecto: ${state.type}\nCliente: ${state.name}\nUbicación: ${state.location}\nLicencia: ${state.license}`;
+            const waLink = `https://wa.me/525613870288?text=${encodeURIComponent(message)}`;
+
+            document.getElementById('form-content').innerHTML = `
+                <div class="space-y-6 fade-in">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-black italic uppercase tracking-tighter">Reporte <span class="text-[#FFCD00]">espacioSM</span></h2>
+                        <p class="text-[10px] text-gray-400 font-bold tracking-[0.3em]">ANALYSIS ID: SM-2026-${Math.floor(Math.random()*900)}</p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-6 border-l-4 border-black space-y-4">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase">Diagnóstico Preliminar</p>
+                        <p class="text-sm font-bold">${state.name} | ${state.type}</p>
+                        <p class="text-xs text-gray-500 uppercase">${state.location}</p>
+                    </div>
+
+                    <div class="py-6">
+                        <p class="text-[10px] font-bold uppercase mb-6 tracking-widest">Hoja de Ruta del Proyecto</p>
+                        <div class="flex flex-col gap-6 relative">
+                            <div class="absolute left-3 top-0 bottom-0 w-[1px] bg-gray-200"></div>
+                            <div class="flex items-center gap-6 relative z-10">
+                                <div class="w-6 h-6 rounded-full bg-[#FFCD00] text-black flex items-center justify-center text-[8px] font-bold">1</div>
+                                <p class="text-xs font-bold uppercase tracking-tight">Cita de Validación Técnica</p>
+                            </div>
+                            <div class="flex items-center gap-6 relative z-10 opacity-30">
+                                <div class="w-6 h-6 rounded-full bg-gray-200 text-white flex items-center justify-center text-[8px] font-bold">2</div>
+                                <p class="text-xs font-bold uppercase tracking-tight">Levantamiento y Diagnóstico</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="${waLink}" class="block text-center bg-[#FFCD00] text-black py-5 font-black uppercase tracking-[0.2em] text-xs hover:bg-black hover:text-white transition-all shadow-xl">
+                        Enviar Reporte al Arq. San Miguel
+                    </a>
+                </div>
+            `;
+        }
+
+        function showHelp() {
+            alert("Aura SM Asesoría:\n\n- Toda obra requiere validación estructural.\n- La licencia protege tu capital.\n- El Arq. San Miguel revisará tu ubicación para darte el COS/CUS exacto.");
+        }
+
+        // INIT
+        renderStep1();
+    </script>
+</body>
+</html>
