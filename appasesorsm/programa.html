@@ -11,10 +11,8 @@
         :root { --primary-color: #FFCD00; --primary-dark: #E6B800; }
         body { font-family: 'Inter', sans-serif; color: #000000; background-color: #FFFFFF; }
         
-        /* Navbar exacto de Estructuras */
         .nav-scrolled { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
         
-        /* Estilo Caterpillar espacioSM */
         .sm-card { border: 3px solid #000; box-shadow: 12px 12px 0px 0px var(--primary-color); }
         .btn-primary-sm { background-color: var(--primary-color); color: #000; font-weight: 800; text-transform: uppercase; transition: all 0.3s; border: 2px solid #000; letter-spacing: 0.1em; }
         .btn-primary-sm:hover { background-color: #000; color: var(--primary-color); transform: translateY(-2px); }
@@ -23,11 +21,9 @@
         .btn-option { border: 2px solid #E5E7EB; padding: 14px; text-align: left; font-weight: 700; font-size: 11px; text-transform: uppercase; transition: 0.2s; width: 100%; }
         .btn-option:hover, .btn-option.active { border-color: #000; background-color: var(--primary-color); }
 
-        /* Style Cards */
         .visual-card { border: 2px solid #E5E7EB; cursor: pointer; transition: 0.3s; }
         .visual-card:hover, .visual-card.active { border-color: #000; box-shadow: 5px 5px 0px 0px var(--primary-color); }
 
-        /* Aura Bubble */
         .aura-bubble { animation: float 3s ease-in-out infinite; z-index: 1000; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         
@@ -77,7 +73,7 @@
 
                 <div id="main-render" class="p-8 md:p-12 min-h-[460px] flex flex-col justify-center">
                     <div class="fade-in space-y-6">
-                        <h2 class="text-3xl font-black uppercase italic italic tracking-tighter">Consultoría de Autor</h2>
+                        <h2 class="text-3xl font-black uppercase italic tracking-tighter">Consultoría de Autor</h2>
                         <p class="text-[11px] font-bold text-gray-600 uppercase leading-relaxed">
                             Bienvenido al motor de diagnóstico de <strong>espacioSM</strong>. <br><br>
                             A continuación, definiremos los parámetros de tu proyecto. Durante el proceso, <strong>Aura SM</strong> te acompañará resolviendo dudas técnicas y brindándote tips estratégicos para proteger tu inversión.
@@ -150,6 +146,10 @@
                 { name: "Industrial", img: "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=400" },
                 { name: "Mexicano", img: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=400" }
             ], tip: "Tu estilo define los acabados estructurales y la materialidad." },
+            // NUEVAS PREGUNTAS DE ACABADOS - LENGUAJE CLARO
+            { step: 4, q: "¿En qué espacios quieres poner más atención o presupuesto?", field: "prioridad_acabados", type: "multi-opt", options: ["Pisos", "Muros", "Techos", "Closets y carpintería"], hasOther: true, tip: "Asignamos el presupuesto donde realmente importa, sin desperdiciar recursos." },
+            { step: 4, q: "¿Dónde pasas más tiempo en tu día a día?", field: "espacios_uso", type: "multi-opt", options: ["Sala", "Cocina", "Recámara", "Estudio", "Comedor", "Terraza"], hasOther: true, tip: "Los espacios que más usamos deben tener los mejores acabados y confort." },
+            { step: 4, q: "¿Te interesa usar materiales ecológicos o locales?", field: "material_sostenible", type: "opt", options: ["Sí", "No", "Lo evaluamos después"], tip: "Materiales locales y sostenibles pueden reducir costos de mantenimiento y hasta darte beneficios fiscales." },
             { step: 4, q: "Aura SM Chat: Dudas o ajustes finales", field: "chat", type: "chat", tip: "Consolidando la bitácora técnica para el Arq. San Miguel." }
         ];
 
@@ -179,7 +179,7 @@
                 q.options.forEach(o => html += `<div onclick="saveAndNext('${o.name}')" class="visual-card p-1 bg-white"><img src="${o.img}" class="w-full h-20 object-cover grayscale hover:grayscale-0 transition"><p class="text-[8px] font-black text-center mt-1 uppercase">${o.name}</p></div>`);
                 html += `</div>`;
             } else if (q.type === "chat") {
-                html += `<div class="bg-gray-100 p-4 border-l-4 border-[#FFCD00] text-[10px] font-bold mb-4 italic italic">Aura: "He analizado tus respuestas. Todo indica un proyecto sólido. ¿Deseas agregar alguna nota final para el Arq. San Miguel?"</div><textarea id="chat-val" class="w-full border-4 border-black p-4 text-xs font-bold uppercase h-32" placeholder="EJ: ME PREOCUPA EL TIEMPO DE OBRA..."></textarea>`;
+                html += `<div class="bg-gray-100 p-4 border-l-4 border-[#FFCD00] text-[10px] font-bold mb-4 italic">Aura: "He analizado tus respuestas. Todo indica un proyecto sólido. ¿Deseas agregar alguna nota final para el Arq. San Miguel?"</div><textarea id="chat-val" class="w-full border-4 border-black p-4 text-xs font-bold uppercase h-32" placeholder="EJ: ME PREOCUPA EL TIEMPO DE OBRA..."></textarea>`;
             }
 
             if(q.type !== "opt" && q.type !== "visual") {
@@ -187,7 +187,6 @@
             }
             area.innerHTML = html;
             
-            // ACTUALIZAR TIP
             document.getElementById('tip-box').classList.remove('hidden');
             document.getElementById('tip-text').innerText = q.tip;
         }
@@ -230,7 +229,12 @@
             document.getElementById('prog-line').style.width = p + "%";
             for(let i=1; i<=4; i++) {
                 const dot = document.getElementById(`d-${i}`);
-                if(i <= questions[current].step) dot.classList.replace('bg-white', 'bg-black'), dot.classList.replace('text-gray-300', 'text-[#FFCD00]');
+                if(i <= questions[current].step) {
+                    dot.classList.add('bg-black');
+                    dot.classList.remove('bg-white');
+                    dot.classList.add('text-[#FFCD00]');
+                    dot.classList.remove('text-gray-300');
+                }
             }
         }
 
@@ -249,7 +253,6 @@
                 </div>
             `;
             document.getElementById('tip-box').classList.add('hidden');
-            // AQUÍ DISPARARÍAS EL FETCH AL GOOGLE APPS SCRIPT
         }
     </script>
 </body>
