@@ -1,523 +1,530 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aura SM Engine | espacioSM</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>AURA SM - ESTRATEGIA</title>
     <style>
-        :root { --primary-color: #FFCD00; --primary-dark: #E6B800; }
-        body { font-family: 'Inter', sans-serif; color: #000000; background-color: #FFFFFF; }
-        
-        .nav-scrolled { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        
-        .sm-card { border: 3px solid #000; box-shadow: 12px 12px 0px 0px var(--primary-color); }
-        .btn-primary-sm { background-color: var(--primary-color); color: #000; font-weight: 800; text-transform: uppercase; transition: all 0.3s; border: 2px solid #000; letter-spacing: 0.1em; }
-        .btn-primary-sm:hover { background-color: #000; color: var(--primary-color); transform: translateY(-2px); }
-        
-        .input-underline { border-bottom: 2px solid #000; width: 100%; padding: 12px 0; font-weight: 700; text-transform: uppercase; outline: none; background: transparent; }
-        .btn-option { border: 2px solid #E5E7EB; padding: 14px; text-align: left; font-weight: 700; font-size: 11px; text-transform: uppercase; transition: 0.2s; width: 100%; }
-        .btn-option:hover, .btn-option.active { border-color: #000; background-color: var(--primary-color); }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        .visual-card { border: 2px solid #E5E7EB; cursor: pointer; transition: 0.3s; }
-        .visual-card:hover, .visual-card.active { border-color: #000; box-shadow: 5px 5px 0px 0px var(--primary-color); }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(145deg, #f0f2f5 0%, #e9ecef 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
 
-        .aura-bubble { animation: float 3s ease-in-out infinite; z-index: 1000; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        
-        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Contenedor principal - tamaño fijo tipo ventana de mensajería */
+        .chat-container {
+            width: 100%;
+            max-width: 420px;
+            height: 780px;
+            background: #ffffff;
+            border-radius: 36px 36px 28px 28px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25), 0 8px 20px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+        }
+
+        /* Header estilo app con ESPACIOS */
+        .app-header {
+            background: #1a2639;
+            color: white;
+            padding: 28px 22px 16px 22px;
+            border-bottom: 1px solid #2a3650;
+            position: relative;
+        }
+
+        .app-header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .app-header h1 span {
+            background: #3e5a8c;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+            margin-left: 8px;
+        }
+
+        .app-header .estrategia-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 13px;
+            color: #b9c7e6;
+            margin-top: 8px;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Sección de bienvenida - sutil */
+        .welcome-section {
+            padding: 18px 20px 8px 20px;
+            background: #ffffff;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .welcome-text {
+            font-size: 15px;
+            color: #3a3f4e;
+            line-height: 1.5;
+            background: #f5f9ff;
+            padding: 16px 18px;
+            border-radius: 24px;
+            border: 1px solid #e9ecf2;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .welcome-text strong {
+            color: #1f2b45;
+            font-weight: 600;
+        }
+
+        /* Área de mensajes y preguntas con scroll */
+        .questions-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 20px 20px 20px;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            scroll-behavior: smooth;
+        }
+
+        /* Estilo cada bloque de pregunta + burbujas */
+        .question-block {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Mensaje de pregunta estilo "bubble" del usuario */
+        .user-question-bubble {
+            background: #1a2639;
+            color: white;
+            padding: 16px 20px;
+            border-radius: 28px 28px 8px 28px;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 1.4;
+            max-width: 85%;
+            align-self: flex-end;
+            box-shadow: 0 6px 14px rgba(0, 20, 40, 0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            word-break: break-word;
+            margin-left: auto;
+        }
+
+        /* Respuesta tipo "Aura SM" */
+        .aura-response-bubble {
+            background: #f0f4fe;
+            color: #1d2b3f;
+            padding: 16px 20px;
+            border-radius: 28px 28px 28px 8px;
+            font-size: 15px;
+            line-height: 1.5;
+            max-width: 90%;
+            align-self: flex-start;
+            border: 1px solid #d9e2f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            word-break: break-word;
+        }
+
+        .aura-response-bubble strong {
+            color: #1f3a6b;
+            font-weight: 600;
+        }
+
+        /* Contenedor de burbujas de preguntas (flotantes) */
+        .bubble-questions-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-start;
+            margin: 8px 0 4px 0;
+        }
+
+        .bubble-question {
+            background: white;
+            border: 1.5px solid #d0dbe9;
+            color: #1e2d47;
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            user-select: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .bubble-question:hover {
+            background: #edf3fd;
+            border-color: #1a2639;
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 30, 60, 0.12);
+        }
+
+        .bubble-question.active {
+            background: #1a2639;
+            color: white;
+            border-color: #1a2639;
+        }
+
+        /* Burbujas de respuesta (inicialmente ocultas) */
+        .bubble-answer {
+            background: #eef2f7;
+            border: 1px solid #cbd5e1;
+            color: #1e2d47;
+            padding: 10px 18px;
+            border-radius: 40px;
+            font-size: 13.5px;
+            font-weight: 500;
+            margin: 4px 8px 4px 0;
+            display: inline-block;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: translateY(5px);
+            transition: opacity 0.25s ease, transform 0.2s ease;
+            pointer-events: none;
+        }
+
+        .bubble-answer.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        /* Input fijo en la parte inferior */
+        .chat-input-area {
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            padding: 18px 20px 20px 20px;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.02);
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            background: #f1f5f9;
+            border-radius: 50px;
+            padding: 4px 6px 4px 20px;
+            border: 1px solid #dde3ea;
+            transition: border 0.2s;
+        }
+
+        .input-container:focus-within {
+            border-color: #1a2639;
+            background: #ffffff;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 14px 0;
+            font-size: 15px;
+            outline: none;
+            color: #1e293b;
+        }
+
+        .chat-input-area input::placeholder {
+            color: #8193aa;
+            font-weight: 400;
+        }
+
+        .send-btn {
+            background: #1a2639;
+            border: none;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-left: 4px;
+            font-size: 18px;
+        }
+
+        .send-btn:hover {
+            background: #2e3d5a;
+            transform: scale(1.03);
+        }
+
+        /* Disclaimer de protección */
+        .footer-note {
+            font-size: 10px;
+            text-align: center;
+            color: #6c7a94;
+            margin-top: 14px;
+            letter-spacing: 0.2px;
+            font-weight: 400;
+            border-top: 1px dashed #d2dceb;
+            padding-top: 12px;
+        }
+
+        /* Scroll personalizado */
+        .questions-area::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .questions-area::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .questions-area::-webkit-scrollbar-thumb {
+            background: #b6c2d6;
+            border-radius: 20px;
+        }
     </style>
 </head>
-<body class="antialiased">
+<body>
+    <div class="chat-container">
+        <!-- Header con nombre fijo -->
+        <div class="app-header">
+            <h1>
+                # espacio
+                <span>AURA SM</span>
+            </h1>
+            <div class="estrategia-badge">ESTRATEGIA · asesoría digital</div>
+        </div>
 
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 nav-scrolled">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-            <a href="https://www.espaciosm.art" class="flex items-center">
-                <span class="text-xl font-bold text-gray-800">espacio<span class="text-[#FFCD00]">SM</span></span>
-            </a>
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="/casa-del-arbol/del-arbol.html" class="text-gray-800 hover:text-[#FFCD00] font-bold text-[11px] uppercase tracking-widest">Proyectos</a>
-                <a href="/contacto.html" class="text-gray-800 hover:text-[#FFCD00] font-bold text-[11px] uppercase tracking-widest">Contacto</a>
-                <a href="#engine-start" class="bg-[#FFCD00] text-black px-4 py-2 rounded-md font-black text-[10px] uppercase tracking-widest border-2 border-black">Consultar Proyecto</a>
+        <!-- Subtítulo y breve intro (preguntas y ayuda) -->
+        <div class="welcome-section">
+            <div class="welcome-text">
+                <strong>preguntas y ayudarte a elegir.</strong> El Arq. San Miguel revisará todo al final.
             </div>
         </div>
-    </nav>
 
-    <!-- Aura SM Modal Chat -->
-    <div id="auraModal" class="fixed inset-0 bg-black bg-opacity-90 z-[1001] hidden items-center justify-center p-4">
-        <div class="bg-white sm-card max-w-2xl w-full max-h-[80vh] flex flex-col">
-            <div class="bg-black p-4 flex justify-between items-center border-b-4 border-[#FFCD00]">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-[#FFCD00] flex items-center justify-center text-black font-black border-2 border-white">SM</div>
-                    <span class="text-white text-[12px] font-black uppercase tracking-[0.2em]">Aura SM · Estrategia</span>
-                </div>
-                <button onclick="closeAuraModal()" class="text-white hover:text-[#FFCD00] text-xl font-bold">&times;</button>
+        <!-- Área donde aparecen preguntas y respuestas dinámicas -->
+        <div class="questions-area" id="questionsArea">
+            <!-- Las preguntas y respuestas se generan con JS -->
+        </div>
+
+        <!-- Input fijo inferior + datos protegidos -->
+        <div class="chat-input-area">
+            <div class="input-container">
+                <input type="text" placeholder="ESCRIBE TU DUDA SOBRE LA PREGUNTA..." id="messageInput">
+                <button class="send-btn" id="sendButton">→</button>
             </div>
-            <div id="auraChatMessages" class="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50">
-                <div class="flex gap-3 items-start">
-                    <div class="w-8 h-8 rounded-full bg-black flex-shrink-0 flex items-center justify-center border border-[#FFCD00]">
-                        <i class="fas fa-robot text-[#FFCD00] text-xs"></i>
-                    </div>
-                    <div class="bg-white p-3 border-2 border-black text-[11px] font-bold leading-relaxed max-w-[80%]">
-                        Aura SM: Soy la inteligencia estratégica de espacioSM. Estoy aquí para explicarte las preguntas y ayudarte a elegir. El Arq. San Miguel revisará todo al final.
-                    </div>
-                </div>
-            </div>
-            <div class="p-4 border-t-2 border-black bg-white">
-                <div class="flex gap-2">
-                    <input type="text" id="auraChatInput" placeholder="ESCRIBE TU DUDA SOBRE LA PREGUNTA..." class="flex-1 border-2 border-black p-3 text-[10px] font-bold uppercase" onkeypress="if(event.key==='Enter') sendAuraMessage()">
-                    <button onclick="sendAuraMessage()" class="bg-black text-[#FFCD00] px-6 py-3 text-[10px] font-black uppercase tracking-wider border-2 border-[#FFCD00]">Enviar</button>
-                </div>
-                <p class="text-[7px] text-gray-500 mt-2 font-bold uppercase">Tus datos están protegidos · Uso exclusivo para ficha técnica espacioSM</p>
+            <div class="footer-note">
+                TUS DATOS ESTÁN PROTEGIDOS - USO EXCLUSIVO PARA FICHA TÉCNICA ESPACIOSM
             </div>
         </div>
     </div>
-
-    <div onclick="openAuraModal()" class="aura-bubble fixed bottom-8 right-8 cursor-pointer flex flex-col items-center">
-        <div class="bg-black text-[#FFCD00] w-14 h-14 rounded-full flex items-center justify-center shadow-2xl border-2 border-[#FFCD00]">
-            <i class="fas fa-robot text-2xl"></i>
-        </div>
-        <span class="bg-black text-white text-[7px] font-black px-2 py-1 rounded mt-2 uppercase tracking-tighter">Consultar Aura SM</span>
-    </div>
-
-    <section id="engine-start" class="pt-32 pb-20 px-6 bg-gray-50 min-h-screen">
-        <div class="max-w-2xl mx-auto">
-            
-            <div id="tracker" class="hidden flex justify-between mb-12 relative px-4">
-                <div class="absolute top-5 left-0 w-full h-[1px] bg-gray-200 z-0"></div>
-                <div id="prog-line" class="absolute top-5 left-0 h-[2px] bg-black z-0 transition-all duration-700" style="width: 0%;"></div>
-                <div class="relative z-10 flex flex-col items-center"><div id="d-1" class="w-8 h-8 rounded-full bg-black text-[#FFCD00] flex items-center justify-center border-2 border-[#FFCD00] text-[10px] font-bold">1</div><span class="text-[7px] font-black mt-1 uppercase">Contexto</span></div>
-                <div class="relative z-10 flex flex-col items-center"><div id="d-2" class="w-8 h-8 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">2</div><span class="text-[7px] font-black mt-1 uppercase">Gente</span></div>
-                <div class="relative z-10 flex flex-col items-center"><div id="d-3" class="w-8 h-8 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">3</div><span class="text-[7px] font-black mt-1 uppercase">Equipo</span></div>
-                <div class="relative z-10 flex flex-col items-center"><div id="d-4" class="w-8 h-8 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">4</div><span class="text-[7px] font-black mt-1 uppercase">Estética</span></div>
-            </div>
-
-            <div class="bg-white sm-card rounded-sm overflow-hidden">
-                <div class="bg-black p-4 flex justify-between items-center text-white border-b-4 border-[#FFCD00]">
-                    <span class="text-[10px] font-black uppercase tracking-[0.3em]">Aura SM Engine</span>
-                    <div class="flex items-center gap-2"><div class="w-2 h-2 bg-[#FFCD00] rounded-full animate-pulse"></div><span class="text-[8px] font-bold">ACTIVO</span></div>
-                </div>
-
-                <div id="main-render" class="p-8 md:p-12 min-h-[460px] flex flex-col justify-center">
-                    <div class="fade-in space-y-6">
-                        <h2 class="text-3xl font-black uppercase italic tracking-tighter">Consultoría de Autor</h2>
-                        <p class="text-[11px] font-bold text-gray-600 uppercase leading-relaxed">
-                            Bienvenido al motor de diagnóstico de <strong>espacioSM</strong>. <br><br>
-                            A continuación, definiremos los parámetros de tu proyecto. Durante el proceso, <strong>Aura SM</strong> te explicará cada pregunta para que elijas con confianza.
-                        </p>
-                        <div class="bg-yellow-50 p-4 border-l-4 border-black text-[10px] font-bold uppercase">
-                            * Aura SM solo explica, no sugiere. Las decisiones y soluciones las define el Arq. San Miguel.
-                        </div>
-                        <button onclick="initQuiz()" class="btn-primary-sm w-full py-5 text-sm">Iniciar Diagnóstico</button>
-                    </div>
-                </div>
-
-                <div id="tip-box" class="hidden bg-gray-50 border-t-2 border-black p-6">
-                    <div class="flex gap-4 items-start">
-                        <div class="w-10 h-10 rounded-full bg-[#FFCD00] flex items-center justify-center text-[10px] font-black italic border-2 border-black flex-shrink-0">SM</div>
-                        <div class="space-y-1 w-full">
-                            <p class="text-[8px] font-black uppercase text-white bg-black px-2 py-0.5 inline-block">Tip de espacioSM</p>
-                            <p id="tip-text" class="text-[11px] font-bold italic text-gray-700 leading-relaxed uppercase tracking-tight"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-black text-gray-300 py-12 px-6 md:px-12 border-t-4 border-[#FFCD00]">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                <div>
-                    <h3 class="text-white text-lg font-semibold mb-4">Contacto</h3>
-                    <p class="text-[12px] mb-2">Ciudad de México, México</p>
-                    <a href="mailto:contacto@espaciosm.art" class="block mb-2 hover:text-[#FFCD00] text-[12px]">contacto@espaciosm.art</a>
-                    <a href="tel:+525613870288" class="block hover:text-[#FFCD00] text-[12px] font-bold">+52 56 1387 0288</a>
-                </div>
-                <div>
-                    <h3 class="text-white text-lg font-semibold mb-4">Servicios</h3>
-                    <a href="#" class="block mb-2 hover:text-[#FFCD00] text-[12px] uppercase">Ingeniería Estructural</a>
-                    <a href="#" class="block mb-2 hover:text-[#FFCD00] text-[12px] uppercase">Diseño Arquitectónico</a>
-                    <a href="#" class="block hover:text-[#FFCD00] text-[12px] uppercase">Consultoría Aura SM</a>
-                </div>
-                <div>
-                    <h3 class="text-white text-lg font-semibold mb-4">Síguenos</h3>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#FFCD00] transition-colors"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#FFCD00] transition-colors"><i class="fab fa-pinterest"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 pt-8 text-center text-[10px] uppercase tracking-widest font-bold">
-                <p>&copy; 2026 espacioSM. Todos los derechos reservados.</p>
-            </div>
-        </div>
-    </footer>
 
     <script>
-        // URL DE TU GOOGLE APPS SCRIPT
-        const GAS_URL = "URL_DE_TU_SCRIPT_AQUI";
+        (function() {
+            // Estado de la burbuja activa
+            let activeBubbleQuestionId = null;
 
-        // ===== BITÁCORA COMPLETA =====
-        let projectLog = {
-            responses: {},
-            tips: [],
-            auraInteractions: []
-        };
+            // Función para agregar un bloque de pregunta + respuesta al área
+            function addQuestionBlock(questionText, answerHTML, questionId) {
+                const area = document.getElementById('questionsArea');
+                const block = document.createElement('div');
+                block.className = 'question-block';
+                block.dataset.blockId = questionId;
 
-        const questions = [
-            { step: 1, q: "Identificación del Cliente", fields: ["Nombre", "Email", "Ocupación"], type: "multi", tipBase: "Perfil del cliente define la narrativa del proyecto." },
-            { step: 1, q: "Ubicación y M2 del Terreno", fields: ["Ubicación", "M2 Aproximados"], type: "multi", tipBase: "Los m² definen el área libre permitida por normativa." },
-            { step: 1, q: "¿Cuentas con licencia?", field: "licencia", type: "opt", options: ["Sí", "No", "Tratar con Arq. San Miguel"], tipBase: "La licencia protege tu patrimonio." },
-            { step: 2, q: "¿Número exacto de habitantes?", field: "habitantes", type: "opt", options: ["1", "2", "3", "4", "5", "6+"], tipBase: "Más personas requieren mayor capacidad de almacenamiento de agua." },
-            { step: 2, q: "Tipo de habitantes", field: "tipos", type: "multi-opt", options: ["Infante", "Joven", "Adulto", "Adulto Mayor"], tipBase: "Cada edad tiene necesidades distintas de espacio." },
-            { step: 3, q: "¿Cuántos vehículos posee?", field: "autos_n", type: "opt", options: ["0", "1", "2", "3", "4+"], tipBase: "Cocheras sin columnas dan mejor visibilidad." },
-            { step: 3, q: "¿Tipo de vehículo?", field: "autos_t", type: "multi-opt", options: ["Sedán", "SUV", "Moto", "Eléctrico", "Cuatrimoto", "Otro"], hasOther: true, tipBase: "Cada vehículo tiene dimensiones distintas." },
-            { step: 3, q: "Equipamiento especial", field: "especiales", type: "multi-opt", options: ["Estudio", "Taller", "Gimnasio", "Piano", "Instrumentos", "Otro"], hasOther: true, tipBase: "Objetos pesados necesitan refuerzo en losas." },
-            { step: 4, q: "Estilo Arquitectónico", field: "estilo", type: "visual", options: [
-                { name: "Minimalista", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400" },
-                { name: "Moderno", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400" },
-                { name: "Industrial", img: "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=400" },
-                { name: "Mexicano", img: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=400" }
-            ], tipBase: "El estilo define materiales y atmósfera." },
-            { step: 4, q: "¿En qué espacios poner más presupuesto?", field: "prioridad_acabados", type: "multi-opt", options: ["Pisos", "Paredes", "Techos", "Puertas y ventanas", "Otro"], hasOther: true, tipBase: "Invertir donde más se usa." },
-            { step: 4, q: "¿Dónde pasas más tiempo?", field: "espacios_uso", type: "multi-opt", options: ["Sala", "Cocina", "Recámara", "Estudio", "Comedor", "Jardín", "Otro"], hasOther: true, tipBase: "Los espacios de uso diario deben ser confortables." },
-            { step: 4, q: "¿Materiales ecológicos?", field: "material_sostenible", type: "opt", options: ["Sí", "No", "Lo evaluamos"], tipBase: "Materiales locales ahorran mantenimiento." },
-            { step: 4, q: "Notas para el Arq. San Miguel", field: "chat", type: "chat", tipBase: "Tus observaciones se integran al diagnóstico." }
-        ];
+                // Burbuja de pregunta (usuario)
+                const userBubble = document.createElement('div');
+                userBubble.className = 'user-question-bubble';
+                userBubble.textContent = questionText;
+                block.appendChild(userBubble);
 
-        let current = 0, responses = {}, selected = [];
+                // Burbuja de respuesta (Aura)
+                const auraBubble = document.createElement('div');
+                auraBubble.className = 'aura-response-bubble';
+                auraBubble.innerHTML = answerHTML;
+                block.appendChild(auraBubble);
 
-        // ===== TIPS DINÁMICOS - SE ACTUALIZAN CON CADA RESPUESTA =====
-        function getDynamicTip() {
-            const q = questions[current];
-            let tip = q.tipBase;
+                area.appendChild(block);
+                // Scroll automático al final
+                area.scrollTop = area.scrollHeight;
+            }
 
-            // Tips basados en respuestas ACUMULADAS - lenguaje natural
-            if (responses.Ocupación?.toLowerCase().includes("maestro") || 
-                responses.Ocupación?.toLowerCase().includes("profesor") ||
-                responses.Ocupación?.toLowerCase().includes("docente")) {
-                tip = "Un maestro necesita un espacio tranquilo para preparar clase. El Arq. San Miguel considera iluminación natural y silencio.";
-            }
-            else if (responses.especiales?.includes("Instrumentos") || 
-                     responses.especiales?.includes("Piano") ||
-                     responses.Ocupación?.toLowerCase().includes("músico")) {
-                tip = "Un músico trabaja mejor en un taller con muros aislantes. El sonido se queda en el espacio y no molesta.";
-            }
-            else if (responses.habitantes === "6+" || responses.habitantes === "5") {
-                tip = "Familia numerosa. El Arq. San Miguel dimensiona cisternas más grandes y baños con flujos eficientes.";
-            }
-            else if (responses.autos_t?.includes("Eléctrico")) {
-                tip = "Vehículo eléctrico. La preinstalación de carga ahora evita romper acabados después.";
-            }
-            else if (responses.tipos?.includes("Adulto Mayor")) {
-                tip = "Adulto mayor. Una recámara con baño completo en planta baja da tranquilidad a futuro.";
-            }
-            else if (responses.autos_t?.includes("Cuatrimoto")) {
-                tip = "Cuatrimoto. El Arq. San Miguel suele dejar espacio para taller o para un segundo vehículo similar.";
-            }
-            else if (responses.espacios_uso?.includes("Jardín")) {
-                tip = "Jardín o patio. Una losa ligera o pérgola extiende la vida al aire libre sin perder área.";
-            }
-            else if (responses.prioridad_acabados?.includes("Pisos")) {
-                tip = "Pisos. Es la superficie que más usas. Una buena elección dura décadas y suma valor.";
-            }
-            else if (responses.especiales?.includes("Taller")) {
-                tip = "Taller en casa. El Arq. San Miguel evalúa cargas de maquinaria y ventilación específica.";
-            }
-            else if (responses.especiales?.includes("Gimnasio")) {
-                tip = "Gimnasio. Las losas deben reforzarse para soportar peso estático y vibración.";
-            }
-            
-            return tip;
-        }
-
-        // ===== INICIALIZAR =====
-        function initQuiz() { 
-            document.getElementById('tracker').classList.remove('hidden'); 
-            render(); 
-        }
-
-        // ===== RENDERIZAR PREGUNTA =====
-        function render() {
-            const q = questions[current];
-            const area = document.getElementById('main-render');
-            updateProg();
-
-            let html = `<div class="fade-in space-y-6">
-                <p class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic">Paso ${current + 1}/${questions.length}</p>
-                <h2 class="text-xl font-black uppercase italic border-l-8 border-black pl-4 leading-tight">${q.q}</h2>`;
-
-            if (q.type === "multi") {
-                q.fields.forEach(f => {
-                    let valor = responses[f] || "";
-                    html += `<input type="text" id="${f}" placeholder="${f.toUpperCase()}" value="${valor}" class="input-underline mb-4">`;
-                });
-                html += `<button onclick="handleMultiNext()" class="btn-primary-sm w-full py-4 mt-8">Siguiente Paso</button>`;
-            } 
-            else if (q.type === "opt") {
-                html += `<div class="grid grid-cols-2 gap-2">`;
-                q.options.forEach(o => {
-                    let active = responses[q.field] === o ? 'active' : '';
-                    html += `<button onclick="saveAndNext('${o}')" class="btn-option ${active}">${o}</button>`;
-                });
-                html += `</div>`;
-            } 
-            else if (q.type === "multi-opt") {
-                // Restaurar selecciones previas
-                if (responses[q.field]) {
-                    selected = responses[q.field].split(", ").map(s => s.replace(/ \(.*\)$/, ''));
-                } else {
-                    selected = [];
+            // Función para manejar clic en burbuja de pregunta
+            function handleBubbleQuestion(questionId, questionText) {
+                // Cerrar burbuja de pregunta si está abierta
+                if (activeBubbleQuestionId === questionId) {
+                    activeBubbleQuestionId = null;
+                    
+                    // Ocultar todas las burbujas de respuesta
+                    document.querySelectorAll('.bubble-answer').forEach(answer => {
+                        answer.classList.remove('visible');
+                    });
+                    
+                    // Desactivar clase active de las burbujas de pregunta
+                    document.querySelectorAll('.bubble-question').forEach(q => {
+                        q.classList.remove('active');
+                    });
+                    return;
                 }
                 
-                html += `<div class="grid grid-cols-2 gap-2">`;
-                q.options.forEach(o => {
-                    let active = selected.includes(o) ? 'active' : '';
-                    html += `<button onclick="toggleM('${o}')" class="btn-option ${active}">${o}</button>`;
-                });
-                html += `</div>`;
+                activeBubbleQuestionId = questionId;
                 
-                if(q.hasOther && selected.includes("Otro")) {
-                    let otherVal = responses[q.field]?.match(/\(([^)]+)\)/)?.[1] || "";
-                    html += `<input type="text" id="other-val" placeholder="ESPECIFICA AQUÍ..." value="${otherVal}" class="input-underline mt-4 text-xs">`;
-                }
-                
-                html += `<button onclick="handleMultiOptNext()" class="btn-primary-sm w-full py-4 mt-8">Siguiente Paso</button>`;
-            } 
-            else if (q.type === "visual") {
-                html += `<div class="grid grid-cols-2 gap-3">`;
-                q.options.forEach(o => {
-                    let active = responses.estilo === o.name ? 'active' : '';
-                    html += `<div onclick="saveAndNext('${o.name}')" class="visual-card p-1 bg-white ${active}">
-                        <img src="${o.img}" class="w-full h-20 object-cover grayscale hover:grayscale-0 transition">
-                        <p class="text-[8px] font-black text-center mt-1 uppercase">${o.name}</p>
-                    </div>`;
-                });
-                html += `</div>`;
-            } 
-            else if (q.type === "chat") {
-                html += `<div class="bg-gray-100 p-4 border-l-4 border-[#FFCD00] text-[10px] font-bold mb-4 italic">
-                    Aura: "He registrado tus respuestas. ¿Algo más que deba saber el Arq. San Miguel?"
-                </div>
-                <textarea id="chat-val" class="w-full border-4 border-black p-4 text-xs font-bold uppercase h-32" 
-                    placeholder="EJ: ME PREOCUPA EL TIEMPO DE OBRA...">${responses.chat || ''}</textarea>
-                <button onclick="handleChatNext()" class="btn-primary-sm w-full py-4 mt-8">Finalizar Diagnóstico</button>`;
-            }
-
-            area.innerHTML = html;
-            
-            // ACTUALIZAR TIP - SIEMPRE DINÁMICO
-            document.getElementById('tip-box').classList.remove('hidden');
-            document.getElementById('tip-text').innerText = getDynamicTip();
-            
-            // Guardar tip en bitácora
-            projectLog.tips.push({
-                paso: current,
-                pregunta: q.q,
-                tip: getDynamicTip(),
-                timestamp: new Date().toISOString()
-            });
-        }
-
-        // ===== MANEJADORES =====
-        function toggleM(v) {
-            const i = selected.indexOf(v);
-            if(i > -1) selected.splice(i, 1); else selected.push(v);
-            render();
-        }
-
-        function handleMultiNext() {
-            const q = questions[current];
-            
-            if(q.fields.some(f => !document.getElementById(f)?.value)) {
-                return alert("Completa todos los campos.");
-            }
-            q.fields.forEach(f => {
-                responses[f] = document.getElementById(f).value;
-            });
-            saveAndNext(q.fields.map(f => responses[f]).join(" | "));
-        }
-
-        function handleMultiOptNext() {
-            const q = questions[current];
-            
-            if(selected.length === 0) return alert("Selecciona al menos una opción.");
-            
-            const other = document.getElementById('other-val')?.value;
-            if(selected.includes("Otro") && !other) return alert("Especifica el campo 'Otro'.");
-            
-            let val = selected.join(", ");
-            if (other) val += " (" + other + ")";
-            
-            saveAndNext(val);
-        }
-
-        function handleChatNext() {
-            const val = document.getElementById('chat-val').value || "Sin comentarios adicionales.";
-            saveAndNext(val);
-        }
-
-        function saveAndNext(v) {
-            const q = questions[current];
-            responses[q.field || q.fields?.[0] || "data_" + current] = v;
-            projectLog.responses = {...responses};
-            
-            if(current < questions.length - 1) { 
-                current++; 
-                render(); 
-            } else { 
-                finish(); 
-            }
-        }
-
-        function updateProg() {
-            const p = (current / (questions.length - 1)) * 100;
-            const progLine = document.getElementById('prog-line');
-            if (progLine) progLine.style.width = p + "%";
-            
-            for(let i=1; i<=4; i++) {
-                const dot = document.getElementById(`d-${i}`);
-                if (dot) {
-                    if(i <= questions[current].step) {
-                        dot.classList.add('bg-black');
-                        dot.classList.remove('bg-white');
-                        dot.classList.add('text-[#FFCD00]');
-                        dot.classList.remove('text-gray-300');
+                // Actualizar clase active en las burbujas de pregunta
+                document.querySelectorAll('.bubble-question').forEach(q => {
+                    if (q.dataset.questionId === questionId) {
+                        q.classList.add('active');
+                    } else {
+                        q.classList.remove('active');
                     }
-                }
-            }
-        }
-
-        // ===== AURA SM - SOLO EXPLICA, NO SUGIERE =====
-        function openAuraModal() {
-            document.getElementById('auraModal').classList.add('flex');
-            document.getElementById('auraModal').classList.remove('hidden');
-        }
-
-        function closeAuraModal() {
-            document.getElementById('auraModal').classList.add('hidden');
-            document.getElementById('auraModal').classList.remove('flex');
-        }
-
-        function sendAuraMessage() {
-            const input = document.getElementById('auraChatInput');
-            const message = input.value.trim();
-            if (!message) return;
-
-            // Mostrar mensaje del usuario
-            const messagesDiv = document.getElementById('auraChatMessages');
-            messagesDiv.innerHTML += `
-                <div class="flex gap-3 items-start justify-end">
-                    <div class="bg-black text-white p-3 border-2 border-[#FFCD00] text-[11px] font-bold max-w-[80%]">
-                        ${message}
-                    </div>
-                    <div class="w-8 h-8 rounded-full bg-[#FFCD00] flex-shrink-0 flex items-center justify-center border-2 border-black">
-                        <i class="fas fa-user text-black text-xs"></i>
-                    </div>
-                </div>
-            `;
-
-            input.value = '';
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-
-            // Bitácora: guardar interacción
-            const interaction = {
-                pregunta: message,
-                timestamp: new Date().toISOString(),
-                respuesta: ""
-            };
-
-            // Respuesta de Aura - SOLO EXPLICA, NO SUGIERE ESTRUCTURA
-            let respuesta = "";
-            const q = questions[current];
-            
-            if (message.toLowerCase().includes("licencia")) {
-                respuesta = "Aura SM: La licencia es el permiso municipal que legaliza tu obra. Sin ella no hay seguridad jurídica. El Arq. San Miguel evalúa cada caso.";
-            }
-            else if (message.toLowerCase().includes("músico") || message.toLowerCase().includes("instrumento") || message.toLowerCase().includes("piano")) {
-                respuesta = "Aura SM: Un espacio para música necesita muros más densos. El Arq. San Miguel calcula el aislamiento según el tipo de instrumento.";
-            }
-            else if (message.toLowerCase().includes("cuatrimoto") || message.toLowerCase().includes("atv")) {
-                respuesta = "Aura SM: Una cuatrimoto mide aproximadamente 1.80m x 1.20m. El Arq. San Miguel considera esa huella más el espacio de maniobra.";
-            }
-            else if (message.toLowerCase().includes("adulto") || message.toLowerCase().includes("movilidad")) {
-                respuesta = "Aura SM: Pensar en accesibilidad desde el diseño inicial cuesta menos. El Arq. San Miguel integra rampas y puertas anchas sin que parezca hospital.";
-            }
-            else if (message.toLowerCase().includes("cos") || message.toLowerCase().includes("cus")) {
-                respuesta = "Aura SM: COS es cuánto suelo ocupas. CUS es cuánto construyes. Ambos los revisa el Arq. San Miguel con tu escritura y el uso de suelo.";
-            }
-            else if (message.toLowerCase().includes("costo") || message.toLowerCase().includes("precio") || message.toLowerCase().includes("presupuesto")) {
-                respuesta = "Aura SM: Los costos exactos dependen del terreno, la cimentación y los acabados. El Arq. San Miguel te da un estimado después del análisis de sitio.";
-            }
-            else {
-                respuesta = `Aura SM: Esta pregunta es sobre "${q.q}". ${q.tipBase} El Arq. San Miguel revisará tu caso particular.`;
-            }
-
-            interaction.respuesta = respuesta;
-            projectLog.auraInteractions.push(interaction);
-
-            // Mostrar respuesta
-            setTimeout(() => {
-                messagesDiv.innerHTML += `
-                    <div class="flex gap-3 items-start">
-                        <div class="w-8 h-8 rounded-full bg-black flex-shrink-0 flex items-center justify-center border border-[#FFCD00]">
-                            <i class="fas fa-robot text-[#FFCD00] text-xs"></i>
-                        </div>
-                        <div class="bg-white p-3 border-2 border-black text-[11px] font-bold leading-relaxed max-w-[80%]">
-                            ${respuesta}
-                        </div>
-                    </div>
-                `;
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            }, 800);
-        }
-
-        // ===== FINALIZAR Y ENVIAR REPORTE =====
-        function finish() {
-            // Construir resumen de interacciones con Aura
-            let auraResumen = "";
-            if (projectLog.auraInteractions.length > 0) {
-                auraResumen = "\n*Consultas a Aura SM:*\n";
-                projectLog.auraInteractions.forEach((item, i) => {
-                    auraResumen += `${i+1}. Cliente: ${item.pregunta}\n   Aura: ${item.respuesta}\n`;
                 });
+                
+                // Mostrar SOLO las burbujas de respuesta de ESTA pregunta específica
+                document.querySelectorAll('.bubble-answer').forEach(answer => {
+                    if (answer.dataset.questionId === questionId) {
+                        answer.classList.add('visible');
+                    } else {
+                        answer.classList.remove('visible');
+                    }
+                });
+                
+                console.log('Pregunta seleccionada:', questionText);
             }
 
-            const waMsg = `Hola Arq. San Miguel, Aura SM te envía el diagnóstico completo:\n\n` +
-                         `Cliente: ${responses.Nombre || responses.data_0?.split(" | ")[0] || "No especificado"}\n` +
-                         `Ocupación: ${responses.Ocupación || responses.data_0?.split(" | ")[2] || "No especificada"}\n` +
-                         `Ubicación: ${responses.Ubicación || responses.data_1?.split(" | ")[0] || "No especificada"}\n` +
-                         `Licencia: ${responses.licencia || "No especificado"}\n` +
-                         `Habitantes: ${responses.habitantes || "No especificado"} (${responses.tipos || "No especificado"})\n` +
-                         `Vehículos: ${responses.autos_n || "0"} - ${responses.autos_t || "No especificado"}\n` +
-                         `Equipamiento: ${responses.especiales || "Ninguno"}\n` +
-                         `Estilo: ${responses.estilo || "No especificado"}\n` +
-                         `Acabados prioritarios: ${responses.prioridad_acabados || "No especificado"}\n` +
-                         `Espacios de uso: ${responses.espacios_uso || "No especificado"}\n` +
-                         `Material sostenible: ${responses.material_sostenible || "No especificado"}\n` +
-                         `Notas: ${responses.chat || "Sin comentarios"}\n` +
-                         `${auraResumen}\n` +
-                         `Bitácora completa con ${projectLog.auraInteractions.length} interacciones disponible en Drive.`;
+            // Inicialización: cargar preguntas predeterminadas y burbujas
+            window.addEventListener('load', function() {
+                const area = document.getElementById('questionsArea');
+                
+                // 1. Insertar preguntas fijas (simula el historial)
+                // Pregunta 1
+                addQuestionBlock(
+                    'para que se necesita una licencia?',
+                    'Aura SM: La licencia es el permiso municipal que legaliza tu obra. Sin ella no hay seguridad jurídica. El Arq. San Miguel evalúa cada caso.',
+                    'q1'
+                );
 
-            document.getElementById('main-render').innerHTML = `
-                <div class="text-center space-y-8 fade-in">
-                    <h2 class="text-3xl font-black italic uppercase tracking-tighter">Reporte <span class="text-[#FFCD00]">espacioSM</span> Listo</h2>
-                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-8">
-                        Diagnóstico finalizado con ${Object.keys(responses).length} respuestas y ${projectLog.auraInteractions.length} consultas a Aura SM.
-                    </p>
-                    <a href="https://wa.me/525613870288?text=${encodeURIComponent(waMsg)}" target="_blank" class="btn-primary-sm block w-full py-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
-                        Enviar al Arq. San Miguel
-                    </a>
-                    <p class="text-[8px] text-gray-500 mt-4">Datos protegidos · Uso exclusivo espacioSM</p>
-                </div>
-            `;
-            document.getElementById('tip-box').classList.add('hidden');
-            
-            console.log("PROYECTO COMPLETO:", projectLog);
+                // Pregunta 2
+                addQuestionBlock(
+                    'es costosa?',
+                    'Aura SM: COS es cuánto suelo ocupa. CUS es cuánto construyes. Ambos los revisa el Arq. San Miguel con tu escritura y el uso de suelo.',
+                    'q2'
+                );
+
+                // 2. Crear contenedor de burbujas de preguntas (flotantes)
+                const bubbleContainer = document.createElement('div');
+                bubbleContainer.className = 'bubble-questions-container';
+                bubbleContainer.id = 'bubbleQuestionsContainer';
+
+                // Lista de preguntas para burbujas
+                const bubbleQuestions = [
+                    { id: 'b1', text: '📋 ¿Qué documentos necesito?' },
+                    { id: 'b2', text: '💰 ¿Costos aproximados?' },
+                    { id: 'b3', text: '⏱️ ¿Tiempo de trámite?' },
+                    { id: 'b4', text: '🏠 ¿Mi casa es regularizable?' },
+                    { id: 'b5', text: '🔍 ¿Qué es COS y CUS?' }
+                ];
+
+                bubbleQuestions.forEach(q => {
+                    const bubble = document.createElement('div');
+                    bubble.className = 'bubble-question';
+                    bubble.dataset.questionId = q.id;
+                    bubble.textContent = q.text;
+                    bubble.addEventListener('click', () => handleBubbleQuestion(q.id, q.text));
+                    bubbleContainer.appendChild(bubble);
+                });
+
+                area.appendChild(bubbleContainer);
+
+                // 3. Crear burbujas de respuestas (inicialmente ocultas) para cada pregunta
+                const answersData = [
+                    { questionId: 'b1', text: 'Escrituras', keywords: 'documentos' },
+                    { questionId: 'b1', text: 'Identificación oficial', keywords: 'ine' },
+                    { questionId: 'b1', text: 'Comprobante de domicilio', keywords: 'luz agua' },
+                    { questionId: 'b2', text: 'Entre $8,000 - $15,000', keywords: 'presupuesto' },
+                    { questionId: 'b2', text: 'Depende del uso de suelo', keywords: 'costo variable' },
+                    { questionId: 'b2', text: 'Honorarios arquitecto', keywords: 'adicional' },
+                    { questionId: 'b3', text: 'De 2 a 4 semanas', keywords: 'plazo' },
+                    { questionId: 'b3', text: 'Puede variar por municipio', keywords: 'demora' },
+                    { questionId: 'b4', text: 'Debe estar en área urbana', keywords: 'ubicación' },
+                    { questionId: 'b4', text: 'Revisar uso de suelo', keywords: 'permisos' },
+                    { questionId: 'b5', text: 'COS = Coeficiente de Ocupación del Suelo', keywords: 'definición' },
+                    { questionId: 'b5', text: 'CUS = Coeficiente de Utilización del Suelo', keywords: 'definición' },
+                    { questionId: 'b5', text: 'Determinan cuánto puedes construir', keywords: 'explicación' }
+                ];
+
+                answersData.forEach(ans => {
+                    const answerBubble = document.createElement('div');
+                    answerBubble.className = 'bubble-answer';
+                    answerBubble.dataset.questionId = ans.questionId;
+                    answerBubble.textContent = ans.text;
+                    answerBubble.setAttribute('data-keywords', ans.keywords || '');
+                    
+                    // Evento para insertar respuesta como pregunta del usuario
+                    answerBubble.addEventListener('click', function(e) {
+                        const text = e.target.textContent;
+                        document.getElementById('messageInput').value = text;
+                    });
+                    
+                    area.appendChild(answerBubble);
+                });
+
+                // 4. Botón de envío
+                document.getElementById('sendButton').addEventListener('click', function() {
+                    const input = document.getElementById('messageInput');
+                    const text = input.value.trim();
+                    if (text === '') return;
+
+                    // Agregar como pregunta del usuario (simulación)
+                    addQuestionBlock(text, 'Aura SM: Gracias por tu pregunta. El Arq. San Miguel revisará los detalles y te dará una respuesta personalizada.', 'custom-' + Date.now());
+
+                    input.value = ''; // Limpiar
+
+                    // Ocultar burbujas al enviar (opcional, para limpiar UI)
+                    activeBubbleQuestionId = null;
+                    document.querySelectorAll('.bubble-answer').forEach(b => b.classList.remove('visible'));
+                    document.querySelectorAll('.bubble-question').forEach(q => q.classList.remove('active'));
+                });
+
+                // También enviar con Enter
+                document.getElementById('messageInput').addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        document.getElementById('sendButton').click();
+                    }
+                });
+
+                // Click en cualquier parte para cerrar burbujas (opcional)
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.bubble-question') && !e.target.closest('.bubble-answer')) {
+                        activeBubbleQuestionId = null;
+                        document.querySelectorAll('.bubble-answer').forEach(b => b.classList.remove('visible'));
+                        document.querySelectorAll('.bubble-question').forEach(q => q.classList.remove('active'));
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
         }
     </script>
 </body>
