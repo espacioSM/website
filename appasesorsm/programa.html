@@ -1,532 +1,306 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA SM - ESTRATEGIA</title>
+    <title>Aura SM Engine | espacioSM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(145deg, #f0f2f5 0%, #e9ecef 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-        }
-
-        .chat-container {
-            width: 100%;
-            max-width: 420px;
-            height: 780px;
-            background: #ffffff;
-            border-radius: 36px 36px 28px 28px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25), 0 8px 20px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(2px);
-        }
-
-        .app-header {
-            background: #1a2639;
-            color: white;
-            padding: 28px 22px 16px 22px;
-            border-bottom: 1px solid #2a3650;
-            position: relative;
-        }
-
-        .app-header h1 {
-            font-size: 24px;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .app-header h1 span {
-            background: #3e5a8c;
-            font-size: 14px;
-            font-weight: 500;
-            padding: 4px 10px;
-            border-radius: 40px;
-            letter-spacing: 0.3px;
-            margin-left: 8px;
-        }
-
-        .app-header .estrategia-badge {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-size: 13px;
-            color: #b9c7e6;
-            margin-top: 8px;
-            display: inline-block;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .welcome-section {
-            padding: 18px 20px 8px 20px;
-            background: #ffffff;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .welcome-text {
-            font-size: 15px;
-            color: #3a3f4e;
-            line-height: 1.5;
-            background: #f5f9ff;
-            padding: 16px 18px;
-            border-radius: 24px;
-            border: 1px solid #e9ecf2;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-        }
-
-        .welcome-text strong {
-            color: #1f2b45;
-            font-weight: 600;
-        }
-
-        .questions-area {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px 20px 20px 20px;
-            background: #ffffff;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            scroll-behavior: smooth;
-        }
-
-        .question-block {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .user-question-bubble {
-            background: #1a2639;
-            color: white;
-            padding: 16px 20px;
-            border-radius: 28px 28px 8px 28px;
-            font-weight: 500;
-            font-size: 16px;
-            line-height: 1.4;
-            max-width: 85%;
-            align-self: flex-end;
-            box-shadow: 0 6px 14px rgba(0, 20, 40, 0.2);
-            border: 1px solid rgba(255,255,255,0.1);
-            word-break: break-word;
-            margin-left: auto;
-        }
-
-        .aura-response-bubble {
-            background: #f0f4fe;
-            color: #1d2b3f;
-            padding: 16px 20px;
-            border-radius: 28px 28px 28px 8px;
-            font-size: 15px;
-            line-height: 1.5;
-            max-width: 90%;
-            align-self: flex-start;
-            border: 1px solid #d9e2f0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-            word-break: break-word;
-        }
-
-        .aura-response-bubble strong {
-            color: #1f3a6b;
-            font-weight: 600;
-        }
-
-        .bubble-questions-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: flex-start;
-            margin: 8px 0 4px 0;
-        }
-
-        .bubble-question {
-            background: white;
-            border: 1.5px solid #d0dbe9;
-            color: #1e2d47;
-            padding: 12px 20px;
-            border-radius: 40px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-            user-select: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .bubble-question:hover {
-            background: #edf3fd;
-            border-color: #1a2639;
-            transform: scale(1.02);
-            box-shadow: 0 6px 12px rgba(0, 30, 60, 0.12);
-        }
-
-        .bubble-question.active {
-            background: #1a2639;
-            color: white;
-            border-color: #1a2639;
-        }
-
-        .bubble-answer {
-            background: #eef2f7;
-            border: 1px solid #cbd5e1;
-            color: #1e2d47;
-            padding: 10px 18px;
-            border-radius: 40px;
-            font-size: 13.5px;
-            font-weight: 500;
-            margin: 4px 8px 4px 0;
-            display: inline-block;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            opacity: 0;
-            transform: translateY(5px);
-            transition: opacity 0.25s ease, transform 0.2s ease;
-            pointer-events: none;
-            cursor: pointer;
-        }
-
-        .bubble-answer.visible {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-
-        .chat-input-area {
-            background: #ffffff;
-            border-top: 1px solid #e2e8f0;
-            padding: 18px 20px 20px 20px;
-            box-shadow: 0 -4px 12px rgba(0,0,0,0.02);
-        }
-
-        .input-container {
-            display: flex;
-            align-items: center;
-            background: #f1f5f9;
-            border-radius: 50px;
-            padding: 4px 6px 4px 20px;
-            border: 1px solid #dde3ea;
-            transition: border 0.2s;
-        }
-
-        .input-container:focus-within {
-            border-color: #1a2639;
-            background: #ffffff;
-        }
-
-        .chat-input-area input {
-            flex: 1;
-            border: none;
-            background: transparent;
-            padding: 14px 0;
-            font-size: 15px;
-            outline: none;
-            color: #1e293b;
-        }
-
-        .chat-input-area input::placeholder {
-            color: #8193aa;
-            font-weight: 400;
-        }
-
-        .send-btn {
-            background: #1a2639;
-            border: none;
-            color: white;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-left: 4px;
-            font-size: 18px;
-        }
-
-        .send-btn:hover {
-            background: #2e3d5a;
-            transform: scale(1.03);
-        }
-
-        .footer-note {
-            font-size: 10px;
-            text-align: center;
-            color: #6c7a94;
-            margin-top: 14px;
-            letter-spacing: 0.2px;
-            font-weight: 400;
-            border-top: 1px dashed #d2dceb;
-            padding-top: 12px;
-        }
-
-        .questions-area::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        .questions-area::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        .questions-area::-webkit-scrollbar-thumb {
-            background: #b6c2d6;
-            border-radius: 20px;
-        }
+        :root { --primary-color: #FFCD00; --primary-dark: #E6B800; }
+        body { font-family: 'Inter', sans-serif; color: #000000; background-color: #FFFFFF; }
+        .nav-scrolled { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .sm-card { border: 3px solid #000; box-shadow: 12px 12px 0px 0px var(--primary-color); }
+        .btn-primary-sm { background-color: var(--primary-color); color: #000; font-weight: 800; text-transform: uppercase; transition: all 0.3s; border: 2px solid #000; letter-spacing: 0.1em; }
+        .btn-primary-sm:hover { background-color: #000; color: var(--primary-color); transform: translateY(-2px); }
+        .input-underline { border-bottom: 2px solid #000; width: 100%; padding: 12px 0; font-weight: 700; text-transform: uppercase; outline: none; background: transparent; }
+        .btn-option { border: 2px solid #E5E7EB; padding: 14px; text-align: left; font-weight: 700; font-size: 11px; text-transform: uppercase; transition: 0.2s; width: 100%; }
+        .btn-option:hover, .btn-option.active { border-color: #000; background-color: var(--primary-color); }
+        .visual-card { border: 2px solid #E5E7EB; cursor: pointer; transition: 0.3s; }
+        .visual-card:hover, .visual-card.active { border-color: #000; box-shadow: 5px 5px 0px 0px var(--primary-color); }
+        .aura-bubble { animation: float 3s ease-in-out infinite; z-index: 1000; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body>
-    <div class="chat-container">
-        <div class="app-header">
-            <h1>
-                # espacio
-                <span>AURA SM</span>
-            </h1>
-            <div class="estrategia-badge">ESTRATEGIA · asesoría digital</div>
-        </div>
+<body class="antialiased">
 
-        <div class="welcome-section">
-            <div class="welcome-text">
-                <strong>preguntas y ayudarte a elegir.</strong> El Arq. San Miguel revisará todo al final.
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 nav-scrolled">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+            <a href="https://www.espaciosm.art" class="flex items-center">
+                <span class="text-xl font-bold text-gray-800">espacio<span class="text-[#FFCD00]">SM</span></span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="/casa-del-arbol/del-arbol.html" class="text-gray-800 hover:text-[#FFCD00] font-bold text-[11px] uppercase tracking-widest">Proyectos</a>
+                <a href="/contacto.html" class="text-gray-800 hover:text-[#FFCD00] font-bold text-[11px] uppercase tracking-widest">Contacto</a>
+                <a href="#engine-start" class="bg-[#FFCD00] text-black px-4 py-2 rounded-md font-black text-[10px] uppercase tracking-widest border-2 border-black">Consultar Proyecto</a>
             </div>
         </div>
+    </nav>
 
-        <div class="questions-area" id="questionsArea">
-            <!-- Las preguntas y respuestas se generan con JS -->
+    <div onclick="openAuraModal()" class="aura-bubble fixed bottom-8 right-8 cursor-pointer flex flex-col items-center">
+        <div class="bg-black text-[#FFCD00] w-14 h-14 rounded-full flex items-center justify-center shadow-2xl border-2 border-[#FFCD00]">
+            <i class="fas fa-robot text-2xl"></i>
         </div>
+        <span class="bg-black text-white text-[7px] font-black px-2 py-1 rounded mt-2 uppercase tracking-tighter shadow-xl">Consultar Aura SM</span>
+    </div>
 
-        <div class="chat-input-area">
-            <div class="input-container">
-                <input type="text" placeholder="ESCRIBE TU DUDA SOBRE LA PREGUNTA..." id="messageInput">
-                <button class="send-btn" id="sendButton">→</button>
+    <div id="auraModal" class="fixed inset-0 bg-black bg-opacity-90 z-[1001] hidden items-center justify-center p-4">
+        <div class="bg-white sm-card max-w-2xl w-full max-h-[85vh] flex flex-col">
+            <div class="bg-black p-4 flex justify-between items-center border-b-4 border-[#FFCD00]">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-[#FFCD00] flex items-center justify-center text-black font-black border-2 border-white text-xs">SM</div>
+                    <span class="text-white text-[12px] font-black uppercase tracking-[0.2em]">Aura SM · Inteligencia Técnica</span>
+                </div>
+                <button onclick="closeAuraModal()" class="text-white hover:text-[#FFCD00] text-2xl font-bold">&times;</button>
             </div>
-            <div class="footer-note">
-                TUS DATOS ESTÁN PROTEGIDOS - USO EXCLUSIVO PARA FICHA TÉCNICA ESPACIOSM
+            <div id="auraChatMessages" class="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50 font-medium">
+                <div class="flex gap-3 items-start">
+                    <div class="w-8 h-8 rounded-full bg-black flex-shrink-0 flex items-center justify-center border border-[#FFCD00]">
+                        <i class="fas fa-robot text-[#FFCD00] text-xs"></i>
+                    </div>
+                    <div class="bg-white p-3 border-2 border-black text-[11px] font-bold leading-relaxed max-w-[85%] sm-shadow-small">
+                        Aura SM: Bienvenido. Soy el cerebro técnico de espacioSM. Explícame tu duda sobre la fase actual y te daré un insight basado en los estándares del Arq. San Miguel.
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t-2 border-black bg-white">
+                <div class="flex gap-2">
+                    <input type="text" id="auraChatInput" placeholder="PREGUNTA A AURA SOBRE TU PROYECTO..." class="flex-1 border-2 border-black p-3 text-[10px] font-bold uppercase outline-none focus:border-[#FFCD00]" onkeypress="if(event.key==='Enter') sendAuraMessage()">
+                    <button onclick="sendAuraMessage()" class="bg-black text-[#FFCD00] px-6 py-3 text-[10px] font-black uppercase tracking-wider border-2 border-[#FFCD00]">Consultar</button>
+                </div>
+                <p class="text-[7px] text-gray-500 mt-2 font-bold uppercase tracking-widest text-center">IA de Autor · espacioSM · Datos Protegidos</p>
             </div>
         </div>
     </div>
 
+    <section id="engine-start" class="pt-32 pb-20 px-6 bg-gray-50 min-h-screen">
+        <div class="max-w-2xl mx-auto">
+            <div id="tracker" class="hidden flex justify-between mb-12 relative px-4">
+                <div class="absolute top-5 left-0 w-full h-[1px] bg-gray-200 z-0"></div>
+                <div id="prog-line" class="absolute top-5 left-0 h-[2px] bg-black z-0 transition-all duration-700" style="width: 0%;"></div>
+                <div class="relative z-10 flex flex-col items-center"><div id="d-1" class="w-8 h-8 rounded-full bg-black text-[#FFCD00] flex items-center justify-center border-2 border-[#FFCD00] text-[10px] font-bold">1</div><span class="text-[7px] font-black mt-1 uppercase">Contexto</span></div>
+                <div class="relative z-10 flex flex-col items-center"><div id="d-2" class="w-8 h-8 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">2</div><span class="text-[7px] font-black mt-1 uppercase">Gente</span></div>
+                <div class="relative z-10 flex flex-col items-center"><div id="d-3" class="w-8 h-8 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">3</div><span class="text-[7px] font-black mt-1 uppercase">Equipo</span></div>
+                <div class="relative z-10 flex flex-col items-center"><div id="d-4" class="w-8 h-8 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">4</div><span class="text-[7px] font-black mt-1 uppercase">Estética</span></div>
+            </div>
+
+            <div class="bg-white sm-card rounded-sm overflow-hidden">
+                <div class="bg-black p-4 flex justify-between items-center text-white border-b-4 border-[#FFCD00]">
+                    <span class="text-[10px] font-black uppercase tracking-[0.3em]">Aura SM Engine</span>
+                    <div class="flex items-center gap-2"><div class="w-2 h-2 bg-[#FFCD00] rounded-full animate-pulse"></div><span class="text-[8px] font-bold">ANALIZANDO</span></div>
+                </div>
+
+                <div id="main-render" class="p-8 md:p-12 min-h-[460px] flex flex-col justify-center">
+                    <div class="fade-in space-y-6">
+                        <h2 class="text-3xl font-black uppercase italic tracking-tighter">Consultoría de Autor</h2>
+                        <p class="text-[11px] font-bold text-gray-600 uppercase leading-relaxed">
+                            Bienvenido al motor de diagnóstico de <strong>espacioSM</strong>. <br><br>
+                            Definiremos los parámetros técnicos de tu proyecto. Durante el proceso, <strong>Aura SM</strong> te brindará tips exclusivos para asegurar la plusvalía y seguridad estructural de tu inversión.
+                        </p>
+                        <div class="bg-yellow-50 p-4 border-l-4 border-black text-[10px] font-bold uppercase">
+                            * Aura SM utiliza razonamiento avanzado para explicarte el "por qué" de cada requerimiento técnico.
+                        </div>
+                        <button onclick="initQuiz()" class="btn-primary-sm w-full py-5 text-sm">Iniciar Diagnóstico</button>
+                    </div>
+                </div>
+
+                <div id="tip-box" class="hidden bg-gray-50 border-t-2 border-black p-6">
+                    <div class="flex gap-4 items-start">
+                        <div class="w-10 h-10 rounded-full bg-[#FFCD00] flex items-center justify-center text-[10px] font-black italic border-2 border-black flex-shrink-0">SM</div>
+                        <div class="space-y-1">
+                            <p class="text-[8px] font-black uppercase text-white bg-black px-2 py-0.5 inline-block">Tip de espacioSM</p>
+                            <p id="tip-text" class="text-[11px] font-bold italic text-gray-700 leading-relaxed uppercase tracking-tight"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black text-gray-300 py-12 px-6 md:px-12 border-t-4 border-[#FFCD00]">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4">Contacto</h3>
+                    <p class="text-[12px] mb-2 font-bold uppercase tracking-widest text-gray-500">CDMX, México</p>
+                    <a href="mailto:contacto@espaciosm.art" class="block mb-2 hover:text-[#FFCD00] text-[12px]">contacto@espaciosm.art</a>
+                    <a href="tel:+525613870288" class="block hover:text-[#FFCD00] text-[12px] font-bold">+52 56 1387 0288</a>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4 italic">Servicios</h3>
+                    <a href="#" class="block mb-2 hover:text-[#FFCD00] text-[11px] uppercase font-bold">Ingeniería Estructural</a>
+                    <a href="#" class="block mb-2 hover:text-[#FFCD00] text-[11px] uppercase font-bold">Diseño Arquitectónico</a>
+                    <a href="#" class="block hover:text-[#FFCD00] text-[11px] uppercase font-bold">Aura SM Engine</a>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-semibold mb-4 italic italic">Social</h3>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#FFCD00] transition-all"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#FFCD00] transition-all"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-[10px] uppercase tracking-widest font-bold">
+                <p>&copy; 2026 espacio<span class="text-[#FFCD00]">SM</span>. Ingeniería de Autor. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        (function() {
-            let activeBubbleQuestionId = null;
-            let deepseekAPI = 'https://api.deepseek.com/v1/chat/completions';
-            let apiKey = 'TU_API_KEY_DEEPSEEK'; // Reemplazar con la API key real
+        const GAS_URL = "URL_DE_TU_SCRIPT_AQUI"; // Conectar aquí con DeepSeek
+        let projectLog = { responses: {}, tips: [], auraInteractions: [] };
 
-            function addQuestionBlock(questionText, answerHTML, questionId) {
-                const area = document.getElementById('questionsArea');
-                const block = document.createElement('div');
-                block.className = 'question-block';
-                block.dataset.blockId = questionId;
+        const questions = [
+            { step: 1, q: "Identificación del Cliente", fields: ["Nombre", "Email", "Ocupación"], type: "multi", tipBase: "Un diagnóstico de autor inicia conociendo quién habitará el diseño." },
+            { step: 1, q: "Ubicación y M2 del Terreno", fields: ["Ubicación", "M2 Aproximados"], type: "multi", tipBase: "Los m² definen el potencial de construcción legal y estructural." },
+            { step: 1, q: "¿Cuentas con licencia?", field: "licencia", type: "opt", options: ["Sí", "No", "Tratar con Arq. San Miguel"], tipBase: "La licencia es el blindaje legal de tu obra." },
+            { step: 2, q: "¿Número de habitantes?", field: "habitantes", type: "opt", options: ["1", "2", "3", "4", "5", "6+"], tipBase: "Más personas requieren instalaciones más robustas." },
+            { step: 2, q: "Tipo de habitantes", field: "tipos", type: "multi-opt", options: ["Infante", "Joven", "Adulto", "Adulto Mayor"], tipBase: "Cada edad tiene necesidades distintas de ergonomía." },
+            { step: 3, q: "¿Cuántos vehículos?", field: "autos_n", type: "opt", options: ["0", "1", "2", "3", "4+"], tipBase: "Cocheras libres de columnas mejoran la maniobrabilidad." },
+            { step: 3, q: "¿Tipo de vehículo?", field: "autos_t", type: "multi-opt", options: ["Sedán", "SUV", "Moto", "Eléctrico", "Otro"], hasOther: true, tipBase: "Vehículos pesados o eléctricos requieren preinstalaciones específicas." },
+            { step: 3, q: "Equipamiento especial", field: "especiales", type: "multi-opt", options: ["Estudio", "Taller", "Gimnasio", "Piano", "Otro"], hasOther: true, tipBase: "Ciertos equipos requieren refuerzos de losa específicos." },
+            { step: 4, q: "Estilo Arquitectónico", field: "estilo", type: "visual", options: [
+                { name: "Minimalista", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400" },
+                { name: "Moderno", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400" },
+                { name: "Industrial", img: "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=400" },
+                { name: "Mexicano", img: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=400" }
+            ], tipBase: "Tu estilo define los acabados y la atmósfera estructural." },
+            { step: 4, q: "Aura SM Chat Final", field: "chat", type: "chat", tipBase: "Consolidando tu visión con los estándares de espacioSM." }
+        ];
 
-                const userBubble = document.createElement('div');
-                userBubble.className = 'user-question-bubble';
-                userBubble.textContent = questionText;
-                block.appendChild(userBubble);
+        let current = 0, selected = [];
 
-                const auraBubble = document.createElement('div');
-                auraBubble.className = 'aura-response-bubble';
-                auraBubble.innerHTML = answerHTML;
-                block.appendChild(auraBubble);
+        function initQuiz() { document.getElementById('tracker').classList.remove('hidden'); render(); }
 
-                area.appendChild(block);
-                area.scrollTop = area.scrollHeight;
+        function render() {
+            const q = questions[current];
+            const area = document.getElementById('main-render');
+            updateProg();
+
+            let html = `<div class="fade-in space-y-6"><p class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic">Paso ${current + 1}/${questions.length}</p><h2 class="text-xl font-black uppercase italic border-l-8 border-black pl-4 leading-tight">${q.q}</h2>`;
+
+            if (q.type === "multi") {
+                q.fields.forEach(f => {
+                    let val = projectLog.responses[f] || "";
+                    html += `<input type="text" id="${f}" placeholder="${f.toUpperCase()}" value="${val}" class="input-underline mb-4">`;
+                });
+                html += `<button onclick="handleMultiNext()" class="btn-primary-sm w-full py-4 mt-8">Siguiente Paso</button>`;
+            } 
+            else if (q.type === "opt") {
+                html += `<div class="grid grid-cols-2 gap-2">`;
+                q.options.forEach(o => {
+                    let active = projectLog.responses[q.field] === o ? 'active' : '';
+                    html += `<button onclick="saveAndNext('${o}')" class="btn-option ${active}">${o}</button>`;
+                });
+                html += `</div>`;
+            } 
+            else if (q.type === "multi-opt") {
+                selected = projectLog.responses[q.field] ? projectLog.responses[q.field].split(", ").map(x => x.split(" (")[0]) : [];
+                html += `<div class="grid grid-cols-2 gap-2">`;
+                q.options.forEach(o => {
+                    let active = selected.includes(o) ? 'active' : '';
+                    html += `<button onclick="toggleM('${o}')" class="btn-option ${active}">${o}</button>`;
+                });
+                html += `</div>`;
+                if(q.hasOther && selected.includes("Otro")) {
+                    let otherVal = projectLog.responses[q.field]?.match(/\(([^)]+)\)/)?.[1] || "";
+                    html += `<input type="text" id="other-val" placeholder="ESPECIFICA..." value="${otherVal}" class="input-underline mt-4 text-xs">`;
+                }
+                html += `<button onclick="handleMultiOptNext()" class="btn-primary-sm w-full py-4 mt-8">Siguiente Paso</button>`;
+            }
+            else if (q.type === "visual") {
+                html += `<div class="grid grid-cols-2 gap-3">`;
+                q.options.forEach(o => {
+                    let active = projectLog.responses.estilo === o.name ? 'active' : '';
+                    html += `<div onclick="saveAndNext('${o.name}')" class="visual-card p-1 bg-white ${active}"><img src="${o.img}" class="w-full h-20 object-cover grayscale hover:grayscale-0 transition"><p class="text-[8px] font-black text-center mt-1 uppercase">${o.name}</p></div>`;
+                });
+                html += `</div>`;
+            }
+            else if (q.type === "chat") {
+                html += `<div class="bg-gray-100 p-4 border-l-4 border-[#FFCD00] text-[10px] font-bold mb-4 italic">Aura: "He analizado tus respuestas. Todo indica un proyecto sólido. ¿Alguna nota extra para el Arq. San Miguel?"</div><textarea id="chat-val" class="w-full border-4 border-black p-4 text-xs font-bold uppercase h-32" placeholder="EJ: ME PREOCUPA EL TIEMPO DE OBRA...">${projectLog.responses.chat || ''}</textarea><button onclick="handleChatNext()" class="btn-primary-sm w-full py-4 mt-8">Finalizar Diagnóstico</button>`;
             }
 
-            async function getDeepSeekResponse(question) {
-                try {
-                    const response = await fetch(deepseekAPI, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${apiKey}`
-                        },
-                        body: JSON.stringify({
-                            model: 'deepseek-chat',
-                            messages: [
-                                {role: 'system', content: 'Eres Aura SM, asistente especializado en licencias de construcción, COS y CUS. Respuestas breves y profesionales.'},
-                                {role: 'user', content: question}
-                            ],
-                            temperature: 0.7,
-                            max_tokens: 150
-                        })
-                    });
-                    
-                    const data = await response.json();
-                    return data.choices[0].message.content;
-                } catch (error) {
-                    console.error('Error:', error);
-                    return 'Aura SM: Lo siento, no pude procesar tu pregunta. Intenta de nuevo.';
+            area.innerHTML = html;
+            document.getElementById('tip-box').classList.remove('hidden');
+            document.getElementById('tip-text').innerText = q.tipBase;
+        }
+
+        function toggleM(v) {
+            const i = selected.indexOf(v);
+            if(i > -1) selected.splice(i, 1); else selected.push(v);
+            render();
+        }
+
+        function handleMultiNext() {
+            const q = questions[current];
+            if(q.fields.some(f => !document.getElementById(f).value)) return alert("Completa todos los campos.");
+            q.fields.forEach(f => projectLog.responses[f] = document.getElementById(f).value);
+            saveAndNext(q.fields.map(f => projectLog.responses[f]).join(" | "));
+        }
+
+        function handleMultiOptNext() {
+            if(selected.length === 0) return alert("Selecciona al menos una opción.");
+            const other = document.getElementById('other-val')?.value;
+            if(selected.includes("Otro") && !other) return alert("Especifica el campo 'Otro'.");
+            saveAndNext(selected.join(", ") + (other ? ` (${other})` : ""));
+        }
+
+        function handleChatNext() {
+            const val = document.getElementById('chat-val').value || "Sin comentarios adicionales.";
+            saveAndNext(val);
+        }
+
+        function saveAndNext(v) {
+            const q = questions[current];
+            projectLog.responses[q.field || "data_" + current] = v;
+            if(current < questions.length - 1) { current++; render(); }
+            else { finish(); }
+        }
+
+        function updateProg() {
+            const p = (current / (questions.length - 1)) * 100;
+            document.getElementById('prog-line').style.width = p + "%";
+            for(let i=1; i<=4; i++) {
+                const dot = document.getElementById(`d-${i}`);
+                if (dot && i <= questions[current].step) {
+                    dot.classList.replace('bg-white', 'bg-black');
+                    dot.classList.replace('text-gray-300', 'text-[#FFCD00]');
+                    dot.classList.add('border-[#FFCD00]');
                 }
             }
+        }
 
-            function handleBubbleQuestion(questionId, questionText) {
-                if (activeBubbleQuestionId === questionId) {
-                    activeBubbleQuestionId = null;
-                    document.querySelectorAll('.bubble-answer').forEach(answer => {
-                        answer.classList.remove('visible');
-                    });
-                    document.querySelectorAll('.bubble-question').forEach(q => {
-                        q.classList.remove('active');
-                    });
-                    return;
-                }
-                
-                activeBubbleQuestionId = questionId;
-                
-                document.querySelectorAll('.bubble-question').forEach(q => {
-                    if (q.dataset.questionId === questionId) {
-                        q.classList.add('active');
-                    } else {
-                        q.classList.remove('active');
-                    }
-                });
-                
-                document.querySelectorAll('.bubble-answer').forEach(answer => {
-                    if (answer.dataset.questionId === questionId) {
-                        answer.classList.add('visible');
-                    } else {
-                        answer.classList.remove('visible');
-                    }
-                });
-            }
+        function openAuraModal() { document.getElementById('auraModal').classList.remove('hidden'); document.getElementById('auraModal').classList.add('flex'); }
+        function closeAuraModal() { document.getElementById('auraModal').classList.add('hidden'); document.getElementById('auraModal').classList.remove('flex'); }
 
-            window.addEventListener('load', function() {
-                const area = document.getElementById('questionsArea');
-                
-                // Preguntas iniciales
-                addQuestionBlock(
-                    'para que se necesita una licencia?',
-                    'Aura SM: La licencia es el permiso municipal que legaliza tu obra. Sin ella no hay seguridad jurídica. El Arq. San Miguel evalúa cada caso.',
-                    'q1'
-                );
+        async function sendAuraMessage() {
+            const input = document.getElementById('auraChatInput');
+            const msg = input.value.trim();
+            if (!msg) return;
 
-                addQuestionBlock(
-                    'es costosa?',
-                    'Aura SM: COS es cuánto suelo ocupa. CUS es cuánto construyes. Ambos los revisa el Arq. San Miguel con tu escritura y el uso de suelo.',
-                    'q2'
-                );
+            const chat = document.getElementById('auraChatMessages');
+            chat.innerHTML += `<div class="flex gap-3 items-start justify-end"><div class="bg-black text-white p-3 border-2 border-[#FFCD00] text-[11px] font-bold max-w-[80%]">${msg}</div><div class="w-8 h-8 rounded-full bg-[#FFCD00] flex-shrink-0 flex items-center justify-center border-2 border-black"><i class="fas fa-user text-black text-xs"></i></div></div>`;
+            input.value = "";
+            chat.scrollTop = chat.scrollHeight;
 
-                // Burbujas de preguntas
-                const bubbleContainer = document.createElement('div');
-                bubbleContainer.className = 'bubble-questions-container';
+            // Simulación de DeepSeek Coherente (En producción usar GAS_URL)
+            setTimeout(() => {
+                let resp = "Aura SM: Entiendo perfectamente. El Arq. San Miguel siempre prioriza la seguridad estructural y la optimización del presupuesto en estos casos. Mi diagnóstico guardará esta observación.";
+                if(msg.toLowerCase().includes("costo") || msg.toLowerCase().includes("precio")) resp = "Aura SM: Los costos se calculan tras el levantamiento. Sin embargo, para tu proyecto, la eficiencia en cimentación será clave para mantener el presupuesto bajo control.";
+                chat.innerHTML += `<div class="flex gap-3 items-start"><div class="w-8 h-8 rounded-full bg-black flex-shrink-0 flex items-center justify-center border border-[#FFCD00]"><i class="fas fa-robot text-[#FFCD00] text-xs"></i></div><div class="bg-white p-3 border-2 border-black text-[11px] font-bold leading-relaxed max-w-[80%]">${resp}</div></div>`;
+                chat.scrollTop = chat.scrollHeight;
+                projectLog.auraInteractions.push({user: msg, aura: resp});
+            }, 800);
+        }
 
-                const bubbleQuestions = [
-                    { id: 'b1', text: '📋 ¿Qué documentos necesito?' },
-                    { id: 'b2', text: '💰 ¿Costos aproximados?' },
-                    { id: 'b3', text: '⏱️ ¿Tiempo de trámite?' },
-                    { id: 'b4', text: '🏠 ¿Mi casa es regularizable?' },
-                    { id: 'b5', text: '🔍 ¿Qué es COS y CUS?' }
-                ];
-
-                bubbleQuestions.forEach(q => {
-                    const bubble = document.createElement('div');
-                    bubble.className = 'bubble-question';
-                    bubble.dataset.questionId = q.id;
-                    bubble.textContent = q.text;
-                    bubble.addEventListener('click', () => handleBubbleQuestion(q.id, q.text));
-                    bubbleContainer.appendChild(bubble);
-                });
-
-                area.appendChild(bubbleContainer);
-
-                // Burbujas de respuestas
-                const answersData = [
-                    // Pregunta 1
-                    { questionId: 'b1', text: 'Escrituras', response: 'Necesitas escrituras originales y copia.' },
-                    { questionId: 'b1', text: 'Identificación oficial', response: 'INE o pasaporte vigente.' },
-                    { questionId: 'b1', text: 'Comprobante de domicilio', response: 'Recibo de luz, agua o teléfono reciente.' },
-                    
-                    // Pregunta 2
-                    { questionId: 'b2', text: 'Entre $8,000 - $15,000', response: 'El costo base depende del municipio.' },
-                    { questionId: 'b2', text: 'Depende del uso de suelo', response: 'Uso de suelo comercial es más caro.' },
-                    { questionId: 'b2', text: 'Honorarios arquitecto', response: 'Aprox $3,000 - $5,000 adicionales.' },
-                    
-                    // Pregunta 3
-                    { questionId: 'b3', text: 'De 2 a 4 semanas', response: 'Si todo está en orden, puede ser rápido.' },
-                    { questionId: 'b3', text: 'Puede variar por municipio', response: 'Algunos municipios tardan hasta 2 meses.' },
-                    
-                    // Pregunta 4
-                    { questionId: 'b4', text: 'Debe estar en área urbana', response: 'Revisamos el uso de suelo primero.' },
-                    { questionId: 'b4', text: 'Revisar uso de suelo', response: 'El Arq. San Miguel hace el análisis.' },
-                    
-                    // Pregunta 5 - CORREGIDA: ahora tiene respuestas coherentes
-                    { questionId: 'b5', text: 'COS = Coeficiente de Ocupación del Suelo', response: 'Indica el porcentaje del terreno que puedes ocupar con construcción.' },
-                    { questionId: 'b5', text: 'CUS = Coeficiente de Utilización del Suelo', response: 'Determina los metros cuadrados totales que puedes construir.' },
-                    { questionId: 'b5', text: 'Determinan cuánto puedes construir', response: 'Ambos definen el potencial constructivo de tu terreno.' }
-                ];
-
-                answersData.forEach(ans => {
-                    const answerBubble = document.createElement('div');
-                    answerBubble.className = 'bubble-answer';
-                    answerBubble.dataset.questionId = ans.questionId;
-                    answerBubble.textContent = ans.text;
-                    answerBubble.dataset.response = ans.response;
-                    
-                    answerBubble.addEventListener('click', async function(e) {
-                        const text = e.target.textContent;
-                        const response = e.target.dataset.response;
-                        document.getElementById('messageInput').value = text;
-                        
-                        // Agregar pregunta del usuario
-                        addQuestionBlock(text, `Aura SM: ${response}`, 'respuesta-' + Date.now());
-                        
-                        // Consultar a Deep Seek para más detalles
-                        const deepseekResponse = await getDeepSeekResponse(text);
-                        if (deepseekResponse) {
-                            addQuestionBlock('Deep Seek: ' + text, deepseekResponse, 'deepseek-' + Date.now());
-                        }
-                    });
-                    
-                    area.appendChild(answerBubble);
-                });
-
-                // Botón de envío
-                document.getElementById('sendButton').addEventListener('click', async function() {
-                    const input = document.getElementById('messageInput');
-                    const text = input.value.trim();
-                    if (text === '') return;
-
-                    addQuestionBlock(text, 'Aura SM: Procesando tu consulta...', 'custom-' + Date.now());
-
-                    // Consultar a Deep Seek
-                    const deepseekResponse = await getDeepSeekResponse(text);
-                    
-                    // Actualizar la última respuesta con la de Deep Seek
-                    const lastBlock = document.querySelector('.question-block:last-child .aura-response-bubble');
-                    if (lastBlock) {
-                        lastBlock.innerHTML = `Aura SM vía Deep Seek: ${deepseekResponse}`;
-                    }
-
-                    input.value = '';
-                });
-
-                document.getElementById('messageInput').addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        document.getElementById('sendButton').click();
-                    }
-                });
-            });
-        })();
+        function finish() {
+            const waMsg = `Hola Arq. San Miguel, nuevo diagnóstico completo.\n\nNombre: ${projectLog.responses.Nombre || "Ver Bitácora"}\nResumen: ${JSON.stringify(projectLog.responses)}`;
+            document.getElementById('main-render').innerHTML = `<div class="text-center space-y-8 fade-in"><h2 class="text-3xl font-black italic uppercase tracking-tighter">Diagnóstico <span class="text-[#FFCD00]">espacioSM</span> Finalizado</h2><p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-8 leading-relaxed">Toda la bitácora ha sido consolidada. El Arq. San Miguel te espera para la revisión técnica.</p><a href="https://wa.me/525613870288?text=${encodeURIComponent(waMsg)}" target="_blank" class="btn-primary-sm block w-full py-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">Enviar al Arq. San Miguel</a></div>`;
+            document.getElementById('tip-box').classList.add('hidden');
+        }
     </script>
 </body>
 </html>
