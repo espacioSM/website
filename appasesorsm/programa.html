@@ -1,45 +1,88 @@
-<div class="max-w-xl mx-auto bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden font-sans">
-  
-  <div class="px-10 pt-8 pb-4 flex justify-between items-center relative">
-    <div class="absolute top-[48px] left-10 right-10 h-[1px] bg-slate-100 z-0"></div>
-    <div class="absolute top-[48px] left-10 w-1/2 h-[1px] bg-blue-600 z-0 transition-all duration-1000"></div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura SM | espacioSM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .aura-gradient { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
+    </style>
+</head>
+<body class="bg-slate-50 antialiased text-slate-900">
 
-    <div class="relative z-10 flex flex-col items-center gap-2">
-      <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg shadow-blue-200">
-        <span class="text-[10px] font-bold">01</span>
-      </div>
-      <span class="text-[8px] uppercase tracking-tighter font-bold text-blue-600">Contexto</span>
+    <div class="min-h-screen flex items-center justify-center p-6">
+        
+        <div class="max-w-xl w-full bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden">
+            
+            <div class="px-10 pt-10 pb-6 flex justify-between items-center relative">
+                <div class="absolute top-[60px] left-10 right-10 h-[1px] bg-slate-100 z-0"></div>
+                <div class="absolute top-[60px] left-10 w-1/2 h-[1px] bg-blue-600 z-0 transition-all duration-1000"></div>
+
+                <div class="relative z-10 flex flex-col items-center gap-2">
+                    <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg shadow-blue-200">
+                        <span class="text-[10px] font-bold">01</span>
+                    </div>
+                    <span class="text-[8px] uppercase tracking-tighter font-bold text-blue-600">Contexto</span>
+                </div>
+
+                <div class="relative z-10 flex flex-col items-center gap-2">
+                    <div class="w-10 h-10 rounded-full bg-white border-2 border-blue-600 text-blue-600 flex items-center justify-center ring-4 ring-white shadow-md">
+                        <span class="text-xs">🏗️</span>
+                    </div>
+                    <span class="text-[8px] uppercase tracking-tighter font-bold text-slate-800">Técnico</span>
+                </div>
+
+                <div class="relative z-10 flex flex-col items-center gap-2">
+                    <div class="w-10 h-10 rounded-full bg-white border border-slate-200 text-slate-300 flex items-center justify-center">
+                        <span class="text-xs">📋</span>
+                    </div>
+                    <span class="text-[8px] uppercase tracking-tighter font-bold text-slate-300">Análisis</span>
+                </div>
+            </div>
+
+            <div class="px-8 pb-4">
+                <div class="aura-gradient rounded-3xl p-6 text-white relative shadow-inner">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                        <span class="text-[10px] uppercase tracking-widest text-blue-400 font-bold tracking-[0.2em]">Aura SM · Consultora</span>
+                    </div>
+                    <p class="text-sm font-light italic leading-relaxed opacity-90">
+                        "Existen rutas técnicas para avanzar y regularizar después. Sin embargo, esta estrategia debe ser validada por el <strong>Arq. San Miguel</strong> para mitigar riesgos legales."
+                    </p>
+                </div>
+            </div>
+
+            <div class="p-8 space-y-8">
+                <div>
+                    <label class="block text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold mb-4 italic">Definición de Estatus Legal</label>
+                    <div class="space-y-3">
+                        <button class="w-full p-4 text-left border border-slate-200 rounded-2xl hover:border-blue-600 transition flex items-center gap-4 group">
+                            <div class="w-2 h-2 rounded-full bg-slate-200 group-hover:bg-blue-600"></div>
+                            <span class="text-sm font-medium text-slate-700">Ya cuento con licencia de obra</span>
+                        </button>
+                        <button class="w-full p-4 text-left border border-blue-600 bg-blue-50/50 rounded-2xl transition flex items-center gap-4 group">
+                            <div class="w-2 h-2 rounded-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,235,0.4)]"></div>
+                            <span class="text-sm font-semibold text-blue-900">Consultar estrategia de regularización</span>
+                        </button>
+                        <button class="w-full p-4 text-left border border-slate-200 rounded-2xl hover:border-blue-600 transition flex items-center gap-4 group">
+                            <div class="w-2 h-2 rounded-full bg-slate-200 group-hover:bg-blue-600"></div>
+                            <span class="text-sm font-medium text-slate-700">Requiere Gestión Integral espacioSM</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button class="w-full bg-slate-900 text-white py-5 rounded-3xl font-bold tracking-tight hover:bg-blue-600 transition-all shadow-xl active:scale-95 transform">
+                        Generar Análisis de Autor →
+                    </button>
+                    <p class="text-[9px] text-center text-slate-300 mt-6 uppercase tracking-[0.3em] font-bold italic">espacioSM · Arquitectura & Construcción</p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="relative z-10 flex flex-col items-center gap-2">
-      <div class="w-10 h-10 rounded-full bg-white border border-blue-600 text-blue-600 flex items-center justify-center">
-        <span class="text-xs">🏗️</span>
-      </div>
-      <span class="text-[8px] uppercase tracking-tighter font-bold text-slate-800">Técnico</span>
-    </div>
-
-    <div class="relative z-10 flex flex-col items-center gap-2">
-      <div class="w-10 h-10 rounded-full bg-white border border-slate-200 text-slate-300 flex items-center justify-center">
-        <span class="text-xs">📋</span>
-      </div>
-      <span class="text-[8px] uppercase tracking-tighter font-bold text-slate-300">Análisis</span>
-    </div>
-  </div>
-
-  <div class="p-8 space-y-6">
-    <div class="bg-slate-900 rounded-3xl p-6 text-white relative">
-      <div class="flex items-center gap-2 mb-3">
-        <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-        <span class="text-[10px] uppercase tracking-widest text-blue-400 font-bold">Aura SM · Tip Técnico</span>
-      </div>
-      <p class="text-sm font-light italic leading-relaxed opacity-90">
-        "Para iniciar sin licencia, trazaremos una ruta de regularización que proteja la estructura. El Arq. San Miguel validará la viabilidad de este proceso según tu ubicación."
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 gap-3">
-       <button class="text-left p-4 rounded-2xl border border-slate-200 hover:border-blue-600 transition text-sm font-medium text-slate-700">Ya cuento con licencia de obra</button>
-       <button class="text-left p-4 rounded-2xl border border-blue-600 bg-blue-50/50 transition text-sm font-semibold text-blue-900">Consultar estrategia de regularización</button>
-    </div>
-  </div>
-</div>
+</body>
+</html>
