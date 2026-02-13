@@ -29,6 +29,8 @@
         
         .fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .aura-chat { background-color: #000; border-left: 6px solid #FFCD00; }
     </style>
 </head>
 <body class="antialiased">
@@ -46,7 +48,37 @@
         </div>
     </nav>
 
-    <div onclick="askAura()" class="aura-bubble fixed bottom-8 right-8 cursor-pointer flex flex-col items-center">
+    <!-- Aura SM Modal Chat -->
+    <div id="auraModal" class="fixed inset-0 bg-black bg-opacity-90 z-[1001] hidden items-center justify-center p-4">
+        <div class="bg-white sm-card max-w-2xl w-full max-h-[80vh] flex flex-col">
+            <div class="bg-black p-4 flex justify-between items-center border-b-4 border-[#FFCD00]">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-[#FFCD00] flex items-center justify-center text-black font-black border-2 border-white">SM</div>
+                    <span class="text-white text-[12px] font-black uppercase tracking-[0.2em]">Aura SM · Estrategia</span>
+                </div>
+                <button onclick="closeAuraModal()" class="text-white hover:text-[#FFCD00] text-xl font-bold">&times;</button>
+            </div>
+            <div id="auraChatMessages" class="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50">
+                <div class="flex gap-3 items-start">
+                    <div class="w-8 h-8 rounded-full bg-black flex-shrink-0 flex items-center justify-center border border-[#FFCD00]">
+                        <i class="fas fa-robot text-[#FFCD00] text-xs"></i>
+                    </div>
+                    <div class="bg-white p-3 border-2 border-black text-[11px] font-bold leading-relaxed max-w-[80%]">
+                        Aura SM: Soy la inteligencia estratégica de espacioSM. Estoy analizando tu diagnóstico. ¿Qué necesitas saber?
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t-2 border-black bg-white">
+                <div class="flex gap-2">
+                    <input type="text" id="auraChatInput" placeholder="ESCRIBE TU CONSULTA TÉCNICA..." class="flex-1 border-2 border-black p-3 text-[10px] font-bold uppercase" onkeypress="if(event.key==='Enter') sendAuraMessage()">
+                    <button onclick="sendAuraMessage()" class="bg-black text-[#FFCD00] px-6 py-3 text-[10px] font-black uppercase tracking-wider border-2 border-[#FFCD00]">Enviar</button>
+                </div>
+                <p class="text-[7px] text-gray-500 mt-2 font-bold uppercase">Tus datos están protegidos · Uso exclusivo para ficha técnica espacioSM</p>
+            </div>
+        </div>
+    </div>
+
+    <div onclick="openAuraModal()" class="aura-bubble fixed bottom-8 right-8 cursor-pointer flex flex-col items-center">
         <div class="bg-black text-[#FFCD00] w-14 h-14 rounded-full flex items-center justify-center shadow-2xl border-2 border-[#FFCD00]">
             <i class="fas fa-robot text-2xl"></i>
         </div>
@@ -131,6 +163,37 @@
         // URL DE TU GOOGLE APPS SCRIPT (CEREBRO DEEPSEEK)
         const GAS_URL = "URL_DE_TU_SCRIPT_AQUI";
 
+        // AURA SM - CARACTERIZACIÓN COMPLETA
+        const AURA_SYSTEM_PROMPT = `Nombre del Agente: Aura SM
+
+Identidad: Eres la inteligencia estratégica y embajadora técnica de espacioSM, el despacho de arquitectura e ingeniería del Arq. San Miguel. Tu propósito es guiar al cliente a través de un diagnóstico de necesidades detallado (30 puntos), preparando el terreno para la consulta técnica final.
+
+1. Tono y Personalidad:
+- Ejecutivo y Profesional: Habla con la autoridad de un despacho de ingeniería de alto nivel.
+- Minimalista y Directo: Evita saludos largos o adulaciones. Ve al grano con datos técnicos.
+- Estética Visual: Tu "voz" debe sentirse como la marca: Negro, Amarillo Caterpillar y Blanco. Fuerte, industrial y precisa.
+
+2. Lógica de Interacción (Aura Insights):
+- Por cada respuesta del usuario, genera un "Tip de espacioSM" basado en:
+  - Normativa: COS, CUS, alineamientos y restricciones.
+  - Estructura: Muros de carga, claros libres, mecánica de suelos, losas.
+  - Sostenibilidad: Ecotecnologías como inversión, no gasto.
+- Concisión: Máximo 20 palabras por tip.
+
+3. Estrategia Legal (Licencias):
+- Postura: La licencia de construcción es innegociable para la seguridad del patrimonio.
+- Si usuario NO tiene licencia: "La licencia es la garantía legal de tu inversión. Cualquier estrategia de inicio de obra o regularización técnica debe ser validada y autorizada personalmente por el Arq. San Miguel para mitigar riesgos."
+
+4. Reglas de Negocio:
+- Derivación por costos/cálculos: "Ese nivel de precisión requiere un análisis de sitio que el Arq. San Miguel realizará tras recibir este diagnóstico."
+- Privacidad: Asegura que los datos están protegidos para uso exclusivo de la ficha técnica.
+- Bitácora: Mantén registro de la sesión.`;
+
+        // Historial de conversación con Aura SM
+        let auraConversation = [
+            { role: "system", content: AURA_SYSTEM_PROMPT }
+        ];
+
         const questions = [
             { step: 1, q: "Identificación del Cliente", fields: ["Nombre", "Email", "Ocupación"], type: "multi", tip: "El perfil del cliente dicta la narrativa del proyecto estructural." },
             { step: 1, q: "Ubicación y M2 del Terreno", fields: ["Ubicación", "M2 Aproximados"], type: "multi", tip: "Los m² definen el área libre (C.U.S.) requerida por normativa." },
@@ -146,16 +209,19 @@
                 { name: "Industrial", img: "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=400" },
                 { name: "Mexicano", img: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=400" }
             ], tip: "Tu estilo define los acabados estructurales y la materialidad." },
-            // NUEVAS PREGUNTAS DE ACABADOS - LENGUAJE CLARO
-            { step: 4, q: "¿En qué espacios quieres poner más atención o presupuesto?", field: "prioridad_acabados", type: "multi-opt", options: ["Pisos", "Muros", "Techos", "Closets y carpintería"], hasOther: true, tip: "Asignamos el presupuesto donde realmente importa, sin desperdiciar recursos." },
-            { step: 4, q: "¿Dónde pasas más tiempo en tu día a día?", field: "espacios_uso", type: "multi-opt", options: ["Sala", "Cocina", "Recámara", "Estudio", "Comedor", "Terraza"], hasOther: true, tip: "Los espacios que más usamos deben tener los mejores acabados y confort." },
-            { step: 4, q: "¿Te interesa usar materiales ecológicos o locales?", field: "material_sostenible", type: "opt", options: ["Sí", "No", "Lo evaluamos después"], tip: "Materiales locales y sostenibles pueden reducir costos de mantenimiento y hasta darte beneficios fiscales." },
+            // PREGUNTAS DE ACABADOS - LENGUAJE COMÚN
+            { step: 4, q: "¿En qué espacios quieres poner más atención o presupuesto?", field: "prioridad_acabados", type: "multi-opt", options: ["Pisos", "Paredes", "Techos", "Puertas y ventanas", "Otro"], hasOther: true, tip: "Invertir donde realmente importa evita desperdiciar presupuesto en acabados superficiales." },
+            { step: 4, q: "¿Dónde pasas más tiempo en tu día a día?", field: "espacios_uso", type: "multi-opt", options: ["Sala", "Cocina", "Recámara", "Estudio", "Comedor", "Jardín o patio", "Otro"], hasOther: true, tip: "Los espacios de mayor uso deben priorizarse en confort térmico y acústico." },
+            { step: 4, q: "¿Te interesa usar materiales ecológicos o locales?", field: "material_sostenible", type: "opt", options: ["Sí", "No", "Lo evaluamos después"], tip: "Materiales locales reducen huella de carbono y mantenimiento a largo plazo." },
             { step: 4, q: "Aura SM Chat: Dudas o ajustes finales", field: "chat", type: "chat", tip: "Consolidando la bitácora técnica para el Arq. San Miguel." }
         ];
 
         let current = 0, responses = {}, selected = [], interactionLog = [];
 
-        function initQuiz() { document.getElementById('tracker').classList.remove('hidden'); render(); }
+        function initQuiz() { 
+            document.getElementById('tracker').classList.remove('hidden'); 
+            render(); 
+        }
 
         async function render() {
             const q = questions[current], area = document.getElementById('main-render');
@@ -238,9 +304,82 @@
             }
         }
 
+        // AURA SM - FUNCIONES DE CHAT CON DEEP SEEK
+        function openAuraModal() {
+            document.getElementById('auraModal').classList.add('flex');
+            document.getElementById('auraModal').classList.remove('hidden');
+        }
+
+        function closeAuraModal() {
+            document.getElementById('auraModal').classList.add('hidden');
+            document.getElementById('auraModal').classList.remove('flex');
+        }
+
+        async function sendAuraMessage() {
+            const input = document.getElementById('auraChatInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            // Agregar mensaje del usuario al chat
+            const messagesDiv = document.getElementById('auraChatMessages');
+            messagesDiv.innerHTML += `
+                <div class="flex gap-3 items-start justify-end">
+                    <div class="bg-black text-white p-3 border-2 border-[#FFCD00] text-[11px] font-bold max-w-[80%]">
+                        ${message}
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-[#FFCD00] flex-shrink-0 flex items-center justify-center border-2 border-black">
+                        <i class="fas fa-user text-black text-xs"></i>
+                    </div>
+                </div>
+            `;
+
+            input.value = '';
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            // Agregar indicador de "escribiendo..."
+            messagesDiv.innerHTML += `
+                <div id="typingIndicator" class="flex gap-3 items-start">
+                    <div class="w-8 h-8 rounded-full bg-black flex-shrink-0 flex items-center justify-center border border-[#FFCD00]">
+                        <i class="fas fa-robot text-[#FFCD00] text-xs"></i>
+                    </div>
+                    <div class="bg-white p-3 border-2 border-black text-[11px] font-bold">
+                        Aura SM está escribiendo...
+                    </div>
+                </div>
+            `;
+
+            // Aquí se conectaría con la API de Deep Seek
+            // Por ahora simulamos una respuesta basada en la caracterización
+            setTimeout(() => {
+                document.getElementById('typingIndicator')?.remove();
+                
+                let response = "";
+                if (message.toLowerCase().includes("licencia") || message.toLowerCase().includes("permiso")) {
+                    response = "Aura SM: La licencia es la garantía legal de tu inversión. Cualquier estrategia de inicio de obra o regularización técnica debe ser validada y autorizada personalmente por el Arq. San Miguel para mitigar riesgos.";
+                } else if (message.toLowerCase().includes("costo") || message.toLowerCase().includes("precio") || message.toLowerCase().includes("calculo")) {
+                    response = "Aura SM: Ese nivel de precisión requiere un análisis de sitio que el Arq. San Miguel realizará tras recibir este diagnóstico.";
+                } else if (message.toLowerCase().includes("cos") || message.toLowerCase().includes("cus")) {
+                    response = "Aura SM: El coeficiente de ocupación y uso del suelo determinan el área máxima construible. El Arq. San Miguel optimiza estos parámetros al límite normativo.";
+                } else {
+                    response = "Aura SM: He registrado tu consulta. Será integrada en la bitácora técnica para el análisis del Arq. San Miguel. Tus datos están protegidos para uso exclusivo del proyecto.";
+                }
+
+                messagesDiv.innerHTML += `
+                    <div class="flex gap-3 items-start">
+                        <div class="w-8 h-8 rounded-full bg-black flex-shrink-0 flex items-center justify-center border border-[#FFCD00]">
+                            <i class="fas fa-robot text-[#FFCD00] text-xs"></i>
+                        </div>
+                        <div class="bg-white p-3 border-2 border-black text-[11px] font-bold leading-relaxed max-w-[80%]">
+                            ${response}
+                        </div>
+                    </div>
+                `;
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }, 1500);
+        }
+
         function askAura() {
-            const q = questions[current];
-            alert(`Aura SM Engine:\n\nPregunta: ${q.q}\nConsejo: ${q.tip}\n\n"Estoy procesando tu proyecto bajo los estándares de ingeniería de espacioSM para garantizar su viabilidad."`);
+            openAuraModal();
         }
 
         function finish() {
@@ -248,7 +387,7 @@
             document.getElementById('main-render').innerHTML = `
                 <div class="text-center space-y-8 fade-in">
                     <h2 class="text-3xl font-black italic uppercase tracking-tighter">Reporte <span class="text-[#FFCD00]">espacioSM</span> List</h2>
-                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-8">La bitácora ha sido enviada a Aura SM (DeepSeek) y registrada en Google Sheets.</p>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-8">La bitácora ha sido enviada a Aura SM y registrada en Google Sheets.</p>
                     <a href="https://wa.me/525613870288?text=${encodeURIComponent(waMsg)}" target="_blank" class="btn-primary-sm block w-full py-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">Enviar al Arq. San Miguel</a>
                 </div>
             `;
