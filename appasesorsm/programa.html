@@ -1,36 +1,67 @@
-<div class="max-w-xl mx-auto bg-white rounded-[2rem] shadow-2xl border border-slate-100 overflow-hidden font-sans">
+<div class="max-w-xl mx-auto bg-white rounded-[2rem] shadow-2xl border border-slate-100 overflow-hidden font-sans my-10">
   
-  <div class="bg-slate-900 p-4 flex items-center gap-4">
-    <div class="w-8 h-8 rounded-full bg-blue-600 flex-shrink-0 flex items-center justify-center text-[10px] font-bold text-white tracking-tighter">SM</div>
-    <p class="text-[13px] text-slate-300 italic leading-snug">
-      "Hola, soy el asistente de <strong>espacioSM</strong>. Comencemos con lo básico para ubicar tu proyecto."
-    </p>
+  <div class="bg-slate-900 p-5 flex items-start gap-4">
+    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-400 flex-shrink-0 flex items-center justify-center text-[10px] font-bold text-white tracking-tighter shadow-lg shadow-blue-500/20">
+      Aura
+    </div>
+    <div class="space-y-1">
+      <p class="text-[11px] text-blue-400 font-bold uppercase tracking-widest">Aura SM · Consultora</p>
+      <p class="text-[13px] text-slate-300 italic leading-relaxed">
+        "Definamos el alcance técnico. La situación legal es el primer paso para proteger tu patrimonio."
+      </p>
+    </div>
   </div>
 
   <div class="p-8 space-y-8">
-    <div class="space-y-6">
-      <div class="group">
-        <label class="block text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2 group-focus-within:text-blue-600 transition">Nombre Completo</label>
-        <input type="text" placeholder="Ej. Juan Pérez" class="w-full border-b border-slate-200 py-2 focus:outline-none focus:border-blue-600 transition text-lg font-light italic">
-      </div>
-
-      <div class="group">
-        <label class="block text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2 group-focus-within:text-blue-600 transition">Correo Electrónico</label>
-        <input type="email" placeholder="juan@ejemplo.com" class="w-full border-b border-slate-200 py-2 focus:outline-none focus:border-blue-600 transition text-lg font-light">
-      </div>
-
-      <div class="group">
-        <label class="block text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2 group-focus-within:text-blue-600 transition">Ubicación del Proyecto</label>
-        <input type="text" placeholder="Colonia, Ciudad o Coordenadas" class="w-full border-b border-slate-200 py-2 focus:outline-none focus:border-blue-600 transition text-lg font-light italic">
-        <p class="text-[11px] text-slate-400 mt-2">La ubicación nos permite analizar normativas locales automáticamente.</p>
+    
+    <div>
+      <label class="block text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold mb-4 italic">01. Naturaleza del Proyecto</label>
+      <div class="grid grid-cols-1 gap-3">
+        <button class="flex items-center justify-between p-4 border border-slate-200 rounded-2xl hover:border-blue-500 hover:bg-blue-50 transition group">
+          <span class="text-sm font-semibold text-slate-700">Obra Nueva (Desde cero)</span>
+          <span class="text-slate-300 group-hover:text-blue-500">🏗️</span>
+        </button>
+        <button class="flex items-center justify-between p-4 border border-slate-200 rounded-2xl hover:border-blue-500 hover:bg-blue-50 transition group">
+          <span class="text-sm font-semibold text-slate-700">Ampliación / Remodelación</span>
+          <span class="text-slate-300 group-hover:text-blue-500">🏠</span>
+        </button>
+        <button class="flex items-center justify-between p-4 border border-slate-200 rounded-2xl hover:border-blue-500 hover:bg-blue-50 transition group">
+          <span class="text-sm font-semibold text-slate-700">Mantenimiento Preventivo o Correctivo</span>
+          <span class="text-slate-300 group-hover:text-blue-500">🔧</span>
+        </button>
       </div>
     </div>
 
-    <div class="pt-4 text-center">
-      <button class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold tracking-tight hover:bg-blue-600 transition-all shadow-lg active:scale-[0.98]">
-        Siguiente: Definir Proyecto →
+    <div>
+      <label class="block text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold mb-4 italic">02. Estatus Legal</label>
+      <div class="space-y-3">
+        <button class="w-full p-4 text-left border border-slate-200 rounded-2xl hover:border-blue-500 transition flex items-center gap-3">
+          <div class="w-2 h-2 rounded-full bg-slate-200"></div>
+          <span class="text-sm font-medium text-slate-700">Cuento con Licencia Vigente</span>
+        </button>
+        <button class="w-full p-4 text-left border border-slate-200 rounded-2xl hover:border-blue-500 transition flex items-center gap-3">
+          <div class="w-2 h-2 rounded-full bg-slate-200"></div>
+          <span class="text-sm font-medium text-slate-700">Requiere Gestión Integral (espacioSM)</span>
+        </button>
+        <button class="w-full p-4 text-left border border-blue-200 bg-blue-50/30 rounded-2xl hover:border-blue-500 transition flex items-center gap-3">
+          <div class="w-2 h-2 rounded-full bg-blue-500 shadow-sm animate-pulse"></div>
+          <span class="text-sm font-medium text-blue-800 italic">Consultar Estrategia (Tiempo / Regularización)</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="bg-amber-50/50 p-4 rounded-2xl border border-amber-100 flex gap-3 items-center">
+      <span class="text-lg">⚖️</span>
+      <p class="text-[11px] text-amber-900 leading-snug">
+        <strong>Aura SM:</strong> "Iniciar obra sin licencia agiliza el arranque, pero requiere una ruta de regularización técnica para evitar multas. Daniel revisará tu caso específico."
+      </p>
+    </div>
+
+    <div class="pt-4">
+      <button class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold tracking-tight hover:bg-slate-900 transition-all shadow-lg shadow-blue-100">
+        Generar Análisis y Reporte SM →
       </button>
-      <p class="text-[10px] text-slate-300 mt-4 uppercase tracking-[0.2em]">Paso 1 de 3: Identificación</p>
+      <p class="text-[10px] text-center text-slate-300 mt-4 uppercase tracking-[0.2em]">Paso 2 de 3: Alcance Técnico</p>
     </div>
   </div>
 </div>
