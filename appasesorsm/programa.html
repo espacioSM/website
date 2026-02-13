@@ -1,86 +1,67 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aura SM Engine | espacioSM</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --cat: #FFCD00; --cat-dark: #E6B800; }
-        body { font-family: 'Inter', sans-serif; color: #000; background-color: #fff; }
-        .nav-scrolled { background-color: rgba(255, 255, 255, 0.98); border-bottom: 2px solid #000; }
+        :root { --cat: #FFCD00; }
+        body { font-family: 'Inter', sans-serif; background-color: #fff; color: #000; }
         .sm-card { border: 3px solid #000; box-shadow: 12px 12px 0px 0px var(--cat); }
-        .btn-cat { background-color: var(--cat); font-weight: 800; text-transform: uppercase; transition: 0.2s; border: 2px solid #000; }
-        .btn-cat:hover { background-color: #000; color: var(--cat); transform: translate(-2px, -2px); box-shadow: 4px 4px 0px 0px #000; }
-        .input-sm { border-bottom: 2px solid #000; width: 100%; padding: 12px 0; font-weight: 700; text-transform: uppercase; outline: none; background: transparent; }
-        .btn-opt { border: 2px solid #E5E7EB; padding: 12px; text-align: left; font-weight: 700; font-size: 11px; text-transform: uppercase; transition: 0.2s; width: 100%; }
+        .btn-cat { background-color: var(--cat); font-weight: 800; text-transform: uppercase; border: 2px solid #000; transition: 0.2s; }
+        .btn-cat:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0px 0px #000; }
+        .btn-opt { border: 2px solid #E5E7EB; padding: 12px; font-weight: 700; font-size: 11px; text-transform: uppercase; width: 100%; text-align: left; }
         .btn-opt.active, .btn-opt:hover { border-color: #000; background-color: var(--cat); }
+        .input-sm { border-bottom: 2px solid #000; width: 100%; padding: 10px 0; font-weight: 700; text-transform: uppercase; outline: none; }
         .fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased bg-gray-50">
 
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 nav-scrolled">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur shadow-sm py-4 border-b-2 border-black">
         <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-            <a href="https://www.espaciosm.art" class="flex items-center">
-                <span class="text-xl font-bold">espacio<span class="text-[#FFCD00]">SM</span></span>
-            </a>
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#" class="text-black hover:text-[#FFCD00] font-bold text-[11px] uppercase tracking-widest">Proyectos</a>
-                <a href="#" class="text-black hover:text-[#FFCD00] font-bold text-[11px] uppercase tracking-widest">Contacto</a>
-                <div class="bg-[#FFCD00] text-black px-4 py-2 border-2 border-black font-black text-[10px] uppercase tracking-widest italic">Aura SM Engine</div>
-            </div>
+            <a href="#" class="text-xl font-bold tracking-tighter">espacio<span class="text-[#FFCD00]">SM</span></a>
+            <div class="bg-[#FFCD00] px-3 py-1 border-2 border-black font-black text-[9px] uppercase tracking-widest italic hidden md:block">Aura SM Engine x DeepSeek</div>
         </div>
     </nav>
 
-    <section id="engine-container" class="pt-32 pb-20 px-6 bg-gray-50 min-h-screen relative">
-        
-        <button onclick="askAura()" class="fixed bottom-8 right-8 z-[100] bg-black text-[#FFCD00] p-4 rounded-full shadow-2xl border-2 border-[#FFCD00] hover:scale-110 transition-transform flex flex-col items-center">
-            <i class="fas fa-robot text-xl"></i>
-            <span class="text-[7px] font-black uppercase mt-1">Consultar</span>
-        </button>
-
+    <section class="pt-32 pb-20 px-6 min-h-screen">
         <div class="max-w-2xl mx-auto">
             
-            <div id="progress-container" class="hidden flex justify-between mb-12 relative px-4">
+            <div id="prog-bar" class="hidden flex justify-between mb-10 relative px-2">
                 <div class="absolute top-5 left-0 w-full h-[1px] bg-gray-200 z-0"></div>
                 <div id="prog-line" class="absolute top-5 left-0 h-[2px] bg-black z-0 transition-all duration-700" style="width: 0%;"></div>
-                <div class="relative z-10 flex flex-col items-center"><div id="d-1" class="w-8 h-8 rounded-full bg-black text-[#FFCD00] flex items-center justify-center border-2 border-[#FFCD00] text-[10px] font-bold">1</div></div>
-                <div class="relative z-10 flex flex-col items-center"><div id="d-2" class="w-8 h-8 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">2</div></div>
-                <div class="relative z-10 flex flex-col items-center"><div id="d-3" class="w-8 h-8 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">3</div></div>
-                <div class="relative z-10 flex flex-col items-center"><div id="d-4" class="w-8 h-8 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">4</div></div>
+                <div class="relative z-10"><div id="d-1" class="w-8 h-8 rounded-full bg-black text-[#FFCD00] flex items-center justify-center border-2 border-[#FFCD00] text-[10px] font-bold">1</div></div>
+                <div class="relative z-10"><div id="d-2" class="w-8 h-8 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">2</div></div>
+                <div class="relative z-10"><div id="d-3" class="w-8 h-8 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">3</div></div>
+                <div class="relative z-10"><div id="d-4" class="w-8 h-8 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">4</div></div>
             </div>
 
             <div class="bg-white sm-card rounded-sm overflow-hidden relative">
                 <div class="bg-black p-4 flex justify-between items-center text-white border-b-4 border-[#FFCD00]">
-                    <span class="text-[9px] font-black uppercase tracking-[0.3em]">Aura SM Engine v1.0</span>
-                    <div class="flex items-center gap-2"><div class="w-2 h-2 bg-[#FFCD00] rounded-full animate-pulse"></div><span class="text-[8px] font-bold">SISTEMA ACTIVO</span></div>
+                    <span class="text-[9px] font-black uppercase tracking-[0.3em]">IA Interactiva de Autor</span>
+                    <button onclick="askAura()" class="text-[#FFCD00] text-[9px] font-bold border border-[#FFCD00] px-2 py-1 uppercase"><i class="fas fa-robot mr-1"></i> Ayuda</button>
                 </div>
 
-                <div id="render-area" class="p-8 md:p-12 min-h-[450px] flex flex-col justify-center">
+                <div id="render-area" class="p-8 md:p-12 min-h-[480px] flex flex-col justify-center">
                     <div class="fade-in space-y-6">
-                        <h2 class="text-2xl font-black uppercase italic leading-tight">Instrucciones de Diagnóstico</h2>
-                        <ul class="space-y-4 text-xs font-bold uppercase tracking-tight text-gray-600">
-                            <li class="flex gap-3"><i class="fas fa-check text-[#FFCD00]"></i> Responde con sinceridad para un cálculo exacto.</li>
-                            <li class="flex gap-3"><i class="fas fa-robot text-[#FFCD00]"></i> Aura SM es interactiva: pide su ayuda en cualquier momento.</li>
-                            <li class="flex gap-3"><i class="fas fa-shield-alt text-[#FFCD00]"></i> Tus datos están protegidos por nuestro aviso de privacidad.</li>
-                        </ul>
-                        <div class="bg-gray-50 p-4 border-l-4 border-black text-[10px] italic font-medium">
-                            * Al continuar, aceptas que espacioSM procese tu información para fines de consultoría técnica.
-                        </div>
-                        <button onclick="startQuiz()" class="btn-cat w-full py-5 text-sm">Comenzar Diagnóstico</button>
+                        <h2 class="text-2xl font-black uppercase italic italic">Instrucciones de Diagnóstico</h2>
+                        <p class="text-[11px] font-bold text-gray-600 uppercase tracking-tight">Este formulario es interactivo. Aura SM (DeepSeek) analizará cada respuesta en tiempo real para brindarte consejos técnicos exclusivos de espacioSM.</p>
+                        <div class="bg-gray-50 p-4 border-l-4 border-black text-[9px] font-bold">AL CONTINUAR, ACEPTAS NUESTRO AVISO DE PRIVACIDAD.</div>
+                        <button onclick="start()" class="btn-cat w-full py-5 text-sm">Comenzar</button>
                     </div>
                 </div>
 
                 <div id="tip-box" class="hidden bg-gray-50 border-t-2 border-black p-6 fade-in">
                     <div class="flex gap-4 items-center">
-                        <div class="w-10 h-10 rounded-full bg-[#FFCD00] flex items-center justify-center text-[10px] font-black italic border-2 border-black">SM</div>
+                        <div class="w-10 h-10 rounded-full bg-[#FFCD00] border-2 border-black flex items-center justify-center text-[10px] font-black italic">SM</div>
                         <div class="space-y-1">
-                            <p class="text-[8px] font-black uppercase text-white bg-black px-2 py-0.5 inline-block">Tip de espacioSM</p>
-                            <p id="tip-text" class="text-[11px] font-bold italic text-gray-800 leading-relaxed uppercase tracking-tight"></p>
+                            <p class="text-[8px] font-black uppercase text-white bg-black px-2 py-0.5 inline-block tracking-widest">Aura SM Engine Insight</p>
+                            <p id="tip-text" class="text-[11px] font-bold italic text-gray-700 leading-relaxed uppercase tracking-tight italic">Analizando respuesta...</p>
                         </div>
                     </div>
                 </div>
@@ -88,62 +69,43 @@
         </div>
     </section>
 
-    <footer class="bg-black text-white/50 py-12 px-6 border-t-4 border-[#FFCD00]">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-                <h3 class="text-white font-bold uppercase text-xs mb-4 tracking-widest">espacioSM</h3>
-                <p class="text-[10px] leading-relaxed">Ingeniería estructural y arquitectura de autor. Traducimos la complejidad en seguridad técnica.</p>
-            </div>
-            <div>
-                <h3 class="text-white font-bold uppercase text-xs mb-4 tracking-widest">Legal</h3>
-                <a href="#" class="block text-[10px] hover:text-[#FFCD00] mb-2">Aviso de Privacidad</a>
-                <a href="#" class="block text-[10px] hover:text-[#FFCD00]">Términos de Consultoría</a>
-            </div>
-            <div class="text-right">
-                <span class="text-2xl font-bold">espacio<span class="text-[#FFCD00]">SM</span></span>
-            </div>
+    <footer class="bg-black text-white/40 py-10 px-6 border-t-4 border-[#FFCD00] text-center md:text-left">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <span class="text-xl font-bold text-white tracking-tighter italic">espacio<span class="text-[#FFCD00] not-italic">SM</span></span>
+            <p class="text-[9px] uppercase tracking-widest">Aviso de Privacidad | Ingeniería y Arquitectura de Autor | 2026</p>
         </div>
     </footer>
 
     <script>
+        // CONFIGURACIÓN: CAMBIA ESTO POR LA URL DE TU APPS SCRIPT PUBLICADO
+        const GAS_URL = "URL_DE_TU_GOOGLE_APPS_SCRIPT_AQUI";
+
         const quizData = [
-            { step: 1, q: "Identidad del Proyecto", fields: ["Nombre", "Email", "Ocupación"], type: "multi", tip: "Conocer tu perfil nos ayuda a priorizar áreas de trabajo o descanso en el diseño." },
-            { step: 1, q: "¿Ubicación y M2 del terreno?", fields: ["Ubicación (Ciudad/Colonia)", "M2 Aproximados"], type: "multi", tip: "Los M2 definen el potencial de construcción legal según el C.U.S. local." },
-            { step: 1, q: "¿Cuentas con licencia?", field: "licencia", type: "opt", options: ["Sí", "No", "Tratar con Arq. San Miguel"], tip: "La licencia es el blindaje legal de tu obra. espacioSM puede gestionarla por ti." },
-            { step: 2, q: "¿Número exacto de habitantes?", field: "habitantes_num", type: "opt", options: ["1", "2", "3", "4", "5", "6+"], tip: "El número de habitantes dicta la demanda de servicios e instalaciones." },
-            { step: 2, q: "Tipo de habitantes (Multiselección)", field: "habitantes_tipo", type: "multi-opt", options: ["Infante", "Joven", "Adulto", "Adulto Mayor"], tip: "La ergonomía de espacioSM se adapta a cada etapa del ciclo de vida." },
-            { step: 3, q: "¿Número de vehículos?", field: "autos_num", type: "opt", options: ["0", "1", "2", "3", "4+"], tip: "Calculamos claros estructurales amplios para maniobras de cochera sin columnas estorbosas." },
-            { step: 3, q: "¿Tipo de vehículo? (Multiselección)", field: "autos_tipo", type: "multi-opt", options: ["Sedán", "SUV", "PickUp", "Moto", "Eléctrico", "Otro"], hasOther: true, tip: "Los autos eléctricos requieren instalaciones de carga de alta eficiencia." },
-            { step: 3, q: "¿Espacios especiales?", field: "especiales", type: "multi-opt", options: ["Estudio", "Taller", "Gimnasio", "Piano", "Pecera", "Otro"], hasOther: true, tip: "Un piano o una pecera de gran formato requieren refuerzo de carga muerta en losas." },
-            { step: 4, q: "¿Estilo Arquitectónico predilecto?", field: "estilo", type: "visual", options: [
-                { name: "Minimalista", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400" },
-                { name: "Moderno", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400" },
-                { name: "Industrial", img: "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=400" },
-                { name: "Mexicano", img: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=400" }
-            ], tip: "El Arq. San Miguel utilizará este estilo como base para tu propuesta de autor." },
-            { step: 4, q: "Aura SM Chat: Consultas finales", type: "chat", tip: "Aura SM consolidará tus datos para el reporte final." }
+            { step: 1, q: "Identificación del Cliente", fields: ["Nombre", "Email", "Ocupación"], type: "multi" },
+            { step: 1, q: "¿Ubicación y M2 del terreno?", fields: ["Ubicación", "M2 Aproximados"], type: "multi" },
+            { step: 1, q: "¿Cuentas con licencia?", field: "licencia", type: "opt", options: ["Sí", "No", "Tratar con Arq. San Miguel"] },
+            { step: 2, q: "¿Número de habitantes?", field: "habitantes", type: "opt", options: ["1", "2", "3", "4", "5", "6+"] },
+            { step: 2, q: "Tipo de habitantes (Multiselección)", field: "tipos_h", type: "multi-opt", options: ["Infante", "Joven", "Adulto", "Adulto Mayor"] },
+            { step: 3, q: "¿Cuántos vehículos?", field: "autos_n", type: "opt", options: ["0", "1", "2", "3", "4+"] },
+            { step: 3, q: "¿Tipo de vehículo?", field: "autos_t", type: "multi-opt", options: ["Sedán", "SUV", "PickUp", "Moto", "Eléctrico", "Otro"], hasOther: true },
+            { step: 3, q: "¿Espacios especiales?", field: "especiales", type: "multi-opt", options: ["Estudio", "Taller", "Gimnasio", "Piano", "Pecera", "Otro"], hasOther: true },
+            { step: 4, q: "¿Estilo arquitectónico?", field: "estilo", type: "visual", options: [
+                { name: "Minimalista", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=300" },
+                { name: "Moderno", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=300" },
+                { name: "Industrial", img: "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=300" },
+                { name: "Mexicano", img: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=300" }
+            ]},
+            { step: 4, q: "Aura SM Chat: Dudas Finales", field: "chat", type: "chat" }
         ];
 
-        let current = 0;
-        let responses = {};
-        let selected = [];
-        let bitacora = [];
+        let current = 0, responses = {}, selected = [], log = [];
 
-        function startQuiz() {
-            document.getElementById('progress-container').classList.remove('hidden');
-            render();
-        }
+        function start() { document.getElementById('prog-bar').classList.remove('hidden'); render(); }
 
         function render() {
-            const q = quizData[current];
-            const area = document.getElementById('render-area');
-            document.getElementById('tip-box').classList.remove('hidden');
-            document.getElementById('tip-text').innerText = q.tip;
-            updateProg();
-
-            let html = `<div class="fade-in space-y-6">
-                <p class="text-[9px] font-black text-gray-400 uppercase tracking-[0.3em]">Fase ${current + 1} de ${quizData.length}</p>
-                <h2 class="text-xl font-black uppercase italic border-l-8 border-black pl-4 leading-tight">${q.q}</h2>`;
+            const q = quizData[current], area = document.getElementById('render-area');
+            updateProgress();
+            let html = `<div class="fade-in space-y-6"><h2 class="text-xl font-black uppercase italic border-l-8 border-black pl-4 leading-tight">${q.q}</h2>`;
 
             if (q.type === "multi") {
                 q.fields.forEach(f => html += `<input type="text" id="${f}" placeholder="${f.toUpperCase()}" class="input-sm mb-4">`);
@@ -161,11 +123,11 @@
                 q.options.forEach(o => html += `<div onclick="saveAndNext('${o.name}')" class="border-2 p-1 cursor-pointer bg-white hover:border-black"><img src="${o.img}" class="w-full h-20 object-cover grayscale hover:grayscale-0 transition"><p class="text-[8px] font-bold text-center mt-1 uppercase">${o.name}</p></div>`);
                 html += `</div>`;
             } else if (q.type === "chat") {
-                html += `<div class="bg-gray-100 p-4 border-l-4 border-[#FFCD00] text-[10px] font-bold mb-4">Aura: "He analizado tus respuestas. Todo indica un proyecto de alto impacto. ¿Tienes alguna duda técnica final?"</div><textarea id="chat" class="w-full border-4 border-black p-4 text-xs font-bold h-32 uppercase" placeholder="Escribe aquí..."></textarea>`;
+                html += `<textarea id="msg" class="w-full border-4 border-black p-4 text-xs font-bold h-32 uppercase" placeholder="¿ALGUNA DUDA FINAL?"></textarea>`;
             }
 
             if(q.type !== "opt" && q.type !== "visual") {
-                html += `<button onclick="handleNext()" class="btn-cat w-full py-4 mt-8">Validar y Continuar</button>`;
+                html += `<button onclick="handleNext()" class="btn-cat w-full py-4 mt-8">Validar y Avanzar</button>`;
             }
             area.innerHTML = html;
         }
@@ -176,33 +138,57 @@
             render();
         }
 
-        function handleNext() {
-            const q = quizData[current];
-            let val = "";
+        async function handleNext() {
+            const q = quizData[current]; let val = "";
             if(q.type === "multi") {
-                const empty = q.fields.some(f => !document.getElementById(f).value);
-                if(empty) return alert("Arq. San Miguel: Todos los campos son obligatorios.");
+                if(q.fields.some(f => !document.getElementById(f).value)) return alert("Completa todos los campos.");
                 val = q.fields.map(f => document.getElementById(f).value).join(" | ");
             } else if(q.type === "multi-opt") {
                 if(selected.length === 0) return alert("Selecciona al menos una opción.");
-                const other = document.getElementById('other')?.value;
-                val = selected.join(", ") + (other ? " (" + other + ")" : "");
-                selected = [];
+                val = selected.join(", ") + (document.getElementById('other')?.value ? " (" + document.getElementById('other').value + ")" : "");
             } else if(q.type === "chat") {
-                val = document.getElementById('chat').value || "Sin comentarios adicionales.";
+                val = document.getElementById('msg').value || "Sin dudas.";
             }
             saveAndNext(val);
         }
 
-        function saveAndNext(v) {
+        async function saveAndNext(v) {
             const q = quizData[current];
-            responses[q.field || "data_" + current] = v;
-            bitacora.push({p: q.q, r: v, tip: q.tip});
-            if(current < quizData.length - 1) { current++; render(); }
+            responses[q.field || "data"] = v;
+            
+            // LLAMADA A DEEPSEEK (A TRAVÉS DE GAS)
+            document.getElementById('tip-box').classList.remove('hidden');
+            document.getElementById('tip-text').innerText = "Aura está razonando...";
+            
+            try {
+                const res = await fetch(GAS_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({action: "get_tip", question: q.q, answer: v, userName: responses.Nombre || "Usuario"})
+                });
+                const json = await res.json();
+                document.getElementById('tip-text').innerText = json.tip;
+                log.push({q: q.q, a: v, tip: json.tip});
+            } catch (e) {
+                document.getElementById('tip-text').innerText = "Tip espacioSM: La normativa técnica asegura la plusvalía de tu obra.";
+            }
+
+            if(current < quizData.length - 1) { current++; setTimeout(render, 1500); }
             else { finish(); }
         }
 
-        function updateProg() {
+        function finish() {
+            const msg = `Hola Arq. San Miguel, nuevo reporte Aura SM.\n\nNombre: ${responses.Nombre}\nUbicación: ${responses.Ubicación}\n\nInteractuó con Aura SM y cada paso quedó registrado en tu Google Sheets.`;
+            document.getElementById('render-area').innerHTML = `
+                <div class="text-center space-y-8 fade-in">
+                    <h2 class="text-3xl font-black italic uppercase tracking-tighter italic">Diagnóstico <span class="text-[#FFCD00]">espacioSM</span> Generado</h2>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-8">BITÁCORA GUARDADA EN GOOGLE SHEETS Y ENVIADA A DEEPSEEK.</p>
+                    <a href="https://wa.me/525613870288?text=${encodeURIComponent(msg)}" target="_blank" class="btn-cat block w-full py-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">Enviar al Arq. San Miguel</a>
+                </div>`;
+            // Envío final de bitácora
+            fetch(GAS_URL, {method: 'POST', body: JSON.stringify({action: "submit_final", name: responses.Nombre, fullLog: log})});
+        }
+
+        function updateProgress() {
             const p = (current / (quizData.length - 1)) * 100;
             document.getElementById('prog-line').style.width = p + "%";
             for(let i=1; i<=4; i++) {
@@ -211,26 +197,7 @@
             }
         }
 
-        function askAura() {
-            alert("Aura SM: Estoy aquí para darte certidumbre técnica. No dejes campos vacíos para que mi diagnóstico sea preciso.");
-        }
-
-        function finish() {
-            const waMsg = `Hola Arq. San Miguel, nuevo diagnóstico Aura SM.\n\nNombre: ${responses.Nombre}\nUbicación: ${responses.Ubicación}\nNotas: ${responses.data_9}`;
-            document.getElementById('render-area').innerHTML = `
-                <div class="text-center space-y-8 fade-in">
-                    <h2 class="text-3xl font-black italic uppercase tracking-tighter">Análisis <span class="text-[#FFCD00]">espacioSM</span> Generado</h2>
-                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-8">La bitácora de Aura SM ha sido consolidada. Estás a un paso de la cita técnica.</p>
-                    <a href="https://wa.me/525613870288?text=${encodeURIComponent(waMsg)}" target="_blank" class="btn-cat block w-full py-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">Enviar al Arq. San Miguel</a>
-                </div>
-            `;
-            document.getElementById('tip-box').classList.add('hidden');
-        }
-
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if(window.scrollY > 50) nav.classList.add('nav-scrolled'); else nav.classList.remove('nav-scrolled');
-        });
+        function askAura() { alert("Aura SM Engine: Mi inteligencia está procesando tus respuestas para darte el mejor consejo técnico basado en los estándares del Arq. San Miguel."); }
     </script>
 </body>
 </html>
