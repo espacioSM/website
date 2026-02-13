@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aura SM Engine | espacioSM</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root { --primary-color: #FFCD00; --primary-dark: #E6B800; }
@@ -18,7 +18,7 @@
         .btn-option { border: 2px solid #E5E7EB; padding: 14px; text-align: left; font-weight: 700; font-size: 11px; text-transform: uppercase; transition: 0.2s; width: 100%; }
         .btn-option:hover, .btn-option.active { border-color: #000; background-color: var(--primary-color); }
         .visual-card { border: 2px solid #E5E7EB; cursor: pointer; transition: 0.3s; }
-        .visual-card:hover, .visual-card.active { border-color: #000; box-shadow: 5px 5px 0px 0px var(--primary-color); }
+        .visual-card.active { border-color: #000; box-shadow: 5px 5px 0px 0px var(--primary-color); }
         .aura-bubble { animation: float 3s ease-in-out infinite; z-index: 1000; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         .fade-in { animation: fadeIn 0.4s ease-out forwards; }
@@ -61,17 +61,16 @@
                     <div class="w-8 h-8 rounded-full bg-black flex-shrink-0 flex items-center justify-center border border-[#FFCD00]">
                         <i class="fas fa-robot text-[#FFCD00] text-xs"></i>
                     </div>
-                    <div class="bg-white p-3 border-2 border-black text-[11px] font-bold leading-relaxed max-w-[85%] sm-shadow-small">
-                        Aura SM: Bienvenido. Soy el cerebro técnico de espacioSM. Explícame tu duda sobre la fase actual y te daré un insight basado en los estándares del Arq. San Miguel.
+                    <div class="bg-white p-3 border-2 border-black text-[11px] font-bold leading-relaxed max-w-[85%]">
+                        Aura SM: Estoy analizando tu proyecto. ¿Tienes alguna duda específica sobre la fase en la que te encuentras?
                     </div>
                 </div>
             </div>
             <div class="p-4 border-t-2 border-black bg-white">
                 <div class="flex gap-2">
                     <input type="text" id="auraChatInput" placeholder="PREGUNTA A AURA SOBRE TU PROYECTO..." class="flex-1 border-2 border-black p-3 text-[10px] font-bold uppercase outline-none focus:border-[#FFCD00]" onkeypress="if(event.key==='Enter') sendAuraMessage()">
-                    <button onclick="sendAuraMessage()" class="bg-black text-[#FFCD00] px-6 py-3 text-[10px] font-black uppercase tracking-wider border-2 border-[#FFCD00]">Consultar</button>
+                    <button onclick="sendAuraMessage()" id="auraSendBtn" class="bg-black text-[#FFCD00] px-6 py-3 text-[10px] font-black uppercase tracking-wider border-2 border-[#FFCD00]">Consultar</button>
                 </div>
-                <p class="text-[7px] text-gray-500 mt-2 font-bold uppercase tracking-widest text-center">IA de Autor · espacioSM · Datos Protegidos</p>
             </div>
         </div>
     </div>
@@ -90,7 +89,7 @@
             <div class="bg-white sm-card rounded-sm overflow-hidden">
                 <div class="bg-black p-4 flex justify-between items-center text-white border-b-4 border-[#FFCD00]">
                     <span class="text-[10px] font-black uppercase tracking-[0.3em]">Aura SM Engine</span>
-                    <div class="flex items-center gap-2"><div class="w-2 h-2 bg-[#FFCD00] rounded-full animate-pulse"></div><span class="text-[8px] font-bold">ANALIZANDO</span></div>
+                    <div class="flex items-center gap-2"><div class="w-2 h-2 bg-[#FFCD00] rounded-full animate-pulse"></div><span id="aura-status" class="text-[8px] font-bold uppercase">Sistema Activo</span></div>
                 </div>
 
                 <div id="main-render" class="p-8 md:p-12 min-h-[460px] flex flex-col justify-center">
@@ -98,11 +97,8 @@
                         <h2 class="text-3xl font-black uppercase italic tracking-tighter">Consultoría de Autor</h2>
                         <p class="text-[11px] font-bold text-gray-600 uppercase leading-relaxed">
                             Bienvenido al motor de diagnóstico de <strong>espacioSM</strong>. <br><br>
-                            Definiremos los parámetros técnicos de tu proyecto. Durante el proceso, <strong>Aura SM</strong> te brindará tips exclusivos para asegurar la plusvalía y seguridad estructural de tu inversión.
+                            Definiremos los parámetros técnicos de tu proyecto. Durante el proceso, <strong>Aura SM</strong> te brindará tips exclusivos para asegurar la seguridad estructural de tu inversión.
                         </p>
-                        <div class="bg-yellow-50 p-4 border-l-4 border-black text-[10px] font-bold uppercase">
-                            * Aura SM utiliza razonamiento avanzado para explicarte el "por qué" de cada requerimiento técnico.
-                        </div>
                         <button onclick="initQuiz()" class="btn-primary-sm w-full py-5 text-sm">Iniciar Diagnóstico</button>
                     </div>
                 </div>
@@ -120,159 +116,124 @@
         </div>
     </section>
 
-    <footer class="bg-black text-gray-300 py-12 px-6 md:px-12 border-t-4 border-[#FFCD00]">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
-                <div>
-                    <h3 class="text-white text-lg font-semibold mb-4">Contacto</h3>
-                    <p class="text-[12px] mb-2 font-bold uppercase tracking-widest text-gray-500">CDMX, México</p>
-                    <a href="mailto:contacto@espaciosm.art" class="block mb-2 hover:text-[#FFCD00] text-[12px]">contacto@espaciosm.art</a>
-                    <a href="tel:+525613870288" class="block hover:text-[#FFCD00] text-[12px] font-bold">+52 56 1387 0288</a>
-                </div>
-                <div>
-                    <h3 class="text-white text-lg font-semibold mb-4 italic">Servicios</h3>
-                    <a href="#" class="block mb-2 hover:text-[#FFCD00] text-[11px] uppercase font-bold">Ingeniería Estructural</a>
-                    <a href="#" class="block mb-2 hover:text-[#FFCD00] text-[11px] uppercase font-bold">Diseño Arquitectónico</a>
-                    <a href="#" class="block hover:text-[#FFCD00] text-[11px] uppercase font-bold">Aura SM Engine</a>
-                </div>
-                <div>
-                    <h3 class="text-white text-lg font-semibold mb-4 italic italic">Social</h3>
-                    <div class="flex justify-center md:justify-start space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#FFCD00] transition-all"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#FFCD00] transition-all"><i class="fab fa-pinterest"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 pt-8 text-center text-[10px] uppercase tracking-widest font-bold">
-                <p>&copy; 2026 espacio<span class="text-[#FFCD00]">SM</span>. Ingeniería de Autor. Todos los derechos reservados.</p>
-            </div>
+    <footer class="bg-black text-gray-300 py-12 px-6 border-t-4 border-[#FFCD00]">
+        <div class="max-w-6xl mx-auto text-center">
+            <span class="text-2xl font-bold text-white">espacio<span class="text-[#FFCD00]">SM</span></span>
+            <p class="text-[10px] uppercase tracking-widest font-bold mt-4 opacity-50">&copy; 2026 Ingeniería de Autor</p>
         </div>
     </footer>
 
     <script>
-        const GAS_URL = "URL_DE_TU_SCRIPT_AQUI"; // Conectar aquí con DeepSeek
-        let projectLog = { responses: {}, tips: [], auraInteractions: [] };
+        // CONFIGURACIÓN BACKEND
+        const GAS_URL = "URL_DE_TU_GOOGLE_APPS_SCRIPT_AQUI"; 
 
-        const questions = [
-            { step: 1, q: "Identificación del Cliente", fields: ["Nombre", "Email", "Ocupación"], type: "multi", tipBase: "Un diagnóstico de autor inicia conociendo quién habitará el diseño." },
-            { step: 1, q: "Ubicación y M2 del Terreno", fields: ["Ubicación", "M2 Aproximados"], type: "multi", tipBase: "Los m² definen el potencial de construcción legal y estructural." },
-            { step: 1, q: "¿Cuentas con licencia?", field: "licencia", type: "opt", options: ["Sí", "No", "Tratar con Arq. San Miguel"], tipBase: "La licencia es el blindaje legal de tu obra." },
-            { step: 2, q: "¿Número de habitantes?", field: "habitantes", type: "opt", options: ["1", "2", "3", "4", "5", "6+"], tipBase: "Más personas requieren instalaciones más robustas." },
-            { step: 2, q: "Tipo de habitantes", field: "tipos", type: "multi-opt", options: ["Infante", "Joven", "Adulto", "Adulto Mayor"], tipBase: "Cada edad tiene necesidades distintas de ergonomía." },
-            { step: 3, q: "¿Cuántos vehículos?", field: "autos_n", type: "opt", options: ["0", "1", "2", "3", "4+"], tipBase: "Cocheras libres de columnas mejoran la maniobrabilidad." },
-            { step: 3, q: "¿Tipo de vehículo?", field: "autos_t", type: "multi-opt", options: ["Sedán", "SUV", "Moto", "Eléctrico", "Otro"], hasOther: true, tipBase: "Vehículos pesados o eléctricos requieren preinstalaciones específicas." },
-            { step: 3, q: "Equipamiento especial", field: "especiales", type: "multi-opt", options: ["Estudio", "Taller", "Gimnasio", "Piano", "Otro"], hasOther: true, tipBase: "Ciertos equipos requieren refuerzos de losa específicos." },
-            { step: 4, q: "Estilo Arquitectónico", field: "estilo", type: "visual", options: [
+        const quizData = [
+            { step: 1, id: "perfil", q: "Identificación del Cliente", fields: ["Nombre", "Email", "Ocupación"], type: "multi", tip: "Conocer quién habitará el diseño define la ergonomía del proyecto." },
+            { step: 1, id: "ubicacion", q: "Contexto del Terreno", fields: ["Ubicación", "M2 Totales"], type: "multi", tip: "Los m² dictan el potencial legal de construcción (C.U.S.)." },
+            { step: 1, id: "licencia", q: "¿Cuentas con licencia?", field: "licencia", type: "opt", options: ["Sí", "No", "Tratar con Arq. San Miguel"], tip: "La licencia es el blindaje legal de tu obra." },
+            { step: 2, id: "hab_num", q: "¿Número de habitantes?", field: "hab_num", type: "opt", options: ["1", "2", "3", "4", "5", "6+"], tip: "Determina la demanda de instalaciones hidrosanitarias." },
+            { step: 2, id: "hab_tipo", q: "Tipo de habitantes", field: "hab_tipo", type: "multi-opt", options: ["Infante", "Joven", "Adulto", "Adulto Mayor"], tip: "La ergonomía de espacioSM se adapta a cada etapa del ciclo de vida." },
+            { step: 3, id: "autos", q: "¿Cuántos vehículos posee?", field: "autos", type: "opt", options: ["0", "1", "2", "3", "4+"], tip: "Calculamos claros amplios para cocheras libres de columnas." },
+            { step: 3, id: "especiales", q: "Equipamiento especial", field: "especiales", type: "multi-opt", options: ["Estudio", "Taller", "Gimnasio", "Piano", "Otro"], hasOther: true, tip: "Objetos pesados requieren refuerzos de carga muerta en losas." },
+            { step: 4, id: "estilo", q: "Estilo Arquitectónico", field: "estilo", type: "visual", options: [
                 { name: "Minimalista", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400" },
                 { name: "Moderno", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400" },
                 { name: "Industrial", img: "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=400" },
                 { name: "Mexicano", img: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=400" }
-            ], tipBase: "Tu estilo define los acabados y la atmósfera estructural." },
-            { step: 4, q: "Aura SM Chat Final", field: "chat", type: "chat", tipBase: "Consolidando tu visión con los estándares de espacioSM." }
+            ], tip: "El estilo define los acabados estructurales y la atmósfera." },
+            { step: 4, id: "final", q: "Notas finales para Arq. SM", field: "final", type: "chat", tip: "Consolidando datos para el reporte final." }
         ];
 
-        let current = 0, selected = [];
+        let current = 0, responses = {}, selected = [];
 
         function initQuiz() { document.getElementById('tracker').classList.remove('hidden'); render(); }
 
         function render() {
-            const q = questions[current];
-            const area = document.getElementById('main-render');
+            const q = quizData[current], area = document.getElementById('main-render');
             updateProg();
+            document.getElementById('tip-box').classList.remove('hidden');
+            document.getElementById('tip-text').innerText = q.tip;
 
-            let html = `<div class="fade-in space-y-6"><p class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic">Paso ${current + 1}/${questions.length}</p><h2 class="text-xl font-black uppercase italic border-l-8 border-black pl-4 leading-tight">${q.q}</h2>`;
+            let html = `<div class="fade-in space-y-6"><p class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic">Fase ${current + 1}/${quizData.length}</p><h2 class="text-xl font-black uppercase italic border-l-8 border-black pl-4 leading-tight">${q.q}</h2>`;
 
             if (q.type === "multi") {
-                q.fields.forEach(f => {
-                    let val = projectLog.responses[f] || "";
-                    html += `<input type="text" id="${f}" placeholder="${f.toUpperCase()}" value="${val}" class="input-underline mb-4">`;
-                });
-                html += `<button onclick="handleMultiNext()" class="btn-primary-sm w-full py-4 mt-8">Siguiente Paso</button>`;
+                q.fields.forEach(f => html += `<input type="text" id="${f}" placeholder="${f.toUpperCase()}" value="${responses[f] || ''}" class="input-underline mb-4">`);
+                html += `<button onclick="handleMulti()" class="btn-primary-sm w-full py-4 mt-8">Continuar</button>`;
             } 
             else if (q.type === "opt") {
                 html += `<div class="grid grid-cols-2 gap-2">`;
-                q.options.forEach(o => {
-                    let active = projectLog.responses[q.field] === o ? 'active' : '';
-                    html += `<button onclick="saveAndNext('${o}')" class="btn-option ${active}">${o}</button>`;
-                });
+                q.options.forEach(o => html += `<button onclick="saveAndNext('${o}')" class="btn-option ${responses[q.id] === o ? 'active' : ''}">${o}</button>`);
                 html += `</div>`;
             } 
             else if (q.type === "multi-opt") {
-                selected = projectLog.responses[q.field] ? projectLog.responses[q.field].split(", ").map(x => x.split(" (")[0]) : [];
+                // RESET SELECT O RECUPERAR
+                selected = responses[q.id] ? responses[q.id].split(", ").filter(x => !x.includes("(")) : [];
                 html += `<div class="grid grid-cols-2 gap-2">`;
-                q.options.forEach(o => {
-                    let active = selected.includes(o) ? 'active' : '';
-                    html += `<button onclick="toggleM('${o}')" class="btn-option ${active}">${o}</button>`;
-                });
+                q.options.forEach(o => html += `<button onclick="toggleM('${o}')" class="btn-option ${selected.includes(o) ? 'active' : ''}">${o}</button>`);
                 html += `</div>`;
-                if(q.hasOther && selected.includes("Otro")) {
-                    let otherVal = projectLog.responses[q.field]?.match(/\(([^)]+)\)/)?.[1] || "";
-                    html += `<input type="text" id="other-val" placeholder="ESPECIFICA..." value="${otherVal}" class="input-underline mt-4 text-xs">`;
-                }
-                html += `<button onclick="handleMultiOptNext()" class="btn-primary-sm w-full py-4 mt-8">Siguiente Paso</button>`;
+                if(q.hasOther && selected.includes("Otro")) html += `<input type="text" id="other-val" placeholder="ESPECIFICA..." class="input-underline mt-4 text-xs">`;
+                html += `<button onclick="handleMultiOpt()" class="btn-primary-sm w-full py-4 mt-8">Siguiente</button>`;
             }
             else if (q.type === "visual") {
                 html += `<div class="grid grid-cols-2 gap-3">`;
-                q.options.forEach(o => {
-                    let active = projectLog.responses.estilo === o.name ? 'active' : '';
-                    html += `<div onclick="saveAndNext('${o.name}')" class="visual-card p-1 bg-white ${active}"><img src="${o.img}" class="w-full h-20 object-cover grayscale hover:grayscale-0 transition"><p class="text-[8px] font-black text-center mt-1 uppercase">${o.name}</p></div>`;
-                });
+                q.options.forEach(o => html += `<div onclick="saveAndNext('${o.name}')" class="visual-card p-1 bg-white ${responses.estilo === o.name ? 'active' : ''}"><img src="${o.img}" class="w-full h-20 object-cover grayscale hover:grayscale-0 transition"><p class="text-[8px] font-bold text-center mt-1 uppercase">${o.name}</p></div>`);
                 html += `</div>`;
             }
             else if (q.type === "chat") {
-                html += `<div class="bg-gray-100 p-4 border-l-4 border-[#FFCD00] text-[10px] font-bold mb-4 italic">Aura: "He analizado tus respuestas. Todo indica un proyecto sólido. ¿Alguna nota extra para el Arq. San Miguel?"</div><textarea id="chat-val" class="w-full border-4 border-black p-4 text-xs font-bold uppercase h-32" placeholder="EJ: ME PREOCUPA EL TIEMPO DE OBRA...">${projectLog.responses.chat || ''}</textarea><button onclick="handleChatNext()" class="btn-primary-sm w-full py-4 mt-8">Finalizar Diagnóstico</button>`;
+                html += `<textarea id="chat-final" class="w-full border-4 border-black p-4 text-xs font-bold uppercase h-32" placeholder="DUDAS O NOTAS EXTRA...">${responses.final || ''}</textarea><button onclick="handleFinal()" class="btn-primary-sm w-full py-4 mt-8">Finalizar</button>`;
             }
 
             area.innerHTML = html;
-            document.getElementById('tip-box').classList.remove('hidden');
-            document.getElementById('tip-text').innerText = q.tipBase;
         }
 
+        // CORRECCIÓN BUG PREGUNTA 5 / MULTI-OPT
         function toggleM(v) {
             const i = selected.indexOf(v);
             if(i > -1) selected.splice(i, 1); else selected.push(v);
-            render();
+            
+            // Re-renderizar solo botones para feedback visual inmediato
+            const btns = document.querySelectorAll('.btn-option');
+            btns.forEach(b => {
+                if(selected.includes(b.innerText)) b.classList.add('active');
+                else b.classList.remove('active');
+            });
+
+            // Si es "Otro", necesitamos re-renderizar para mostrar el input
+            if(v === "Otro") render();
         }
 
-        function handleMultiNext() {
-            const q = questions[current];
-            if(q.fields.some(f => !document.getElementById(f).value)) return alert("Completa todos los campos.");
-            q.fields.forEach(f => projectLog.responses[f] = document.getElementById(f).value);
-            saveAndNext(q.fields.map(f => projectLog.responses[f]).join(" | "));
+        function handleMulti() {
+            const q = quizData[current];
+            if(q.fields.some(f => !document.getElementById(f).value)) return alert("Favor de llenar todos los campos.");
+            q.fields.forEach(f => responses[f] = document.getElementById(f).value);
+            saveAndNext(q.fields.map(f => responses[f]).join(" | "));
         }
 
-        function handleMultiOptNext() {
+        function handleMultiOpt() {
             if(selected.length === 0) return alert("Selecciona al menos una opción.");
             const other = document.getElementById('other-val')?.value;
-            if(selected.includes("Otro") && !other) return alert("Especifica el campo 'Otro'.");
-            saveAndNext(selected.join(", ") + (other ? ` (${other})` : ""));
-        }
-
-        function handleChatNext() {
-            const val = document.getElementById('chat-val').value || "Sin comentarios adicionales.";
+            let val = selected.join(", ");
+            if(other) val += ` (${other})`;
             saveAndNext(val);
         }
 
+        function handleFinal() { saveAndNext(document.getElementById('chat-final').value || "Ninguna"); }
+
         function saveAndNext(v) {
-            const q = questions[current];
-            projectLog.responses[q.field || "data_" + current] = v;
-            if(current < questions.length - 1) { current++; render(); }
+            responses[quizData[current].id] = v;
+            if(current < quizData.length - 1) { current++; render(); }
             else { finish(); }
         }
 
         function updateProg() {
-            const p = (current / (questions.length - 1)) * 100;
-            document.getElementById('prog-line').style.width = p + "%";
+            document.getElementById('prog-line').style.width = (current / (quizData.length - 1) * 100) + "%";
             for(let i=1; i<=4; i++) {
-                const dot = document.getElementById(`d-${i}`);
-                if (dot && i <= questions[current].step) {
-                    dot.classList.replace('bg-white', 'bg-black');
-                    dot.classList.replace('text-gray-300', 'text-[#FFCD00]');
-                    dot.classList.add('border-[#FFCD00]');
-                }
+                const d = document.getElementById(`d-${i}`);
+                if(i <= quizData[current].step) d.classList.replace('bg-white', 'bg-black'), d.classList.replace('text-gray-300', 'text-[#FFCD00]');
             }
         }
 
+        // AURA MODAL & CHAT COHERENTE
         function openAuraModal() { document.getElementById('auraModal').classList.remove('hidden'); document.getElementById('auraModal').classList.add('flex'); }
         function closeAuraModal() { document.getElementById('auraModal').classList.add('hidden'); document.getElementById('auraModal').classList.remove('flex'); }
 
@@ -282,23 +243,33 @@
             if (!msg) return;
 
             const chat = document.getElementById('auraChatMessages');
-            chat.innerHTML += `<div class="flex gap-3 items-start justify-end"><div class="bg-black text-white p-3 border-2 border-[#FFCD00] text-[11px] font-bold max-w-[80%]">${msg}</div><div class="w-8 h-8 rounded-full bg-[#FFCD00] flex-shrink-0 flex items-center justify-center border-2 border-black"><i class="fas fa-user text-black text-xs"></i></div></div>`;
+            chat.innerHTML += `<div class="flex gap-3 items-start justify-end"><div class="bg-black text-white p-3 border-2 border-[#FFCD00] text-[11px] font-bold max-w-[80%]">${msg}</div></div>`;
             input.value = "";
             chat.scrollTop = chat.scrollHeight;
 
-            // Simulación de DeepSeek Coherente (En producción usar GAS_URL)
-            setTimeout(() => {
-                let resp = "Aura SM: Entiendo perfectamente. El Arq. San Miguel siempre prioriza la seguridad estructural y la optimización del presupuesto en estos casos. Mi diagnóstico guardará esta observación.";
-                if(msg.toLowerCase().includes("costo") || msg.toLowerCase().includes("precio")) resp = "Aura SM: Los costos se calculan tras el levantamiento. Sin embargo, para tu proyecto, la eficiencia en cimentación será clave para mantener el presupuesto bajo control.";
-                chat.innerHTML += `<div class="flex gap-3 items-start"><div class="w-8 h-8 rounded-full bg-black flex-shrink-0 flex items-center justify-center border border-[#FFCD00]"><i class="fas fa-robot text-[#FFCD00] text-xs"></i></div><div class="bg-white p-3 border-2 border-black text-[11px] font-bold leading-relaxed max-w-[80%]">${resp}</div></div>`;
-                chat.scrollTop = chat.scrollHeight;
-                projectLog.auraInteractions.push({user: msg, aura: resp});
-            }, 800);
+            // LLAMADA A BACKEND (SIMULADA CON LÓGICA COHERENTE SI NO HAY API)
+            document.getElementById('aura-status').innerText = "Aura Pensando...";
+            
+            try {
+                // AQUÍ SE ACTIVARÍA EL FETCH REAL:
+                // const res = await fetch(GAS_URL, { method: 'POST', body: JSON.stringify({q: quizData[current].q, msg: msg}) });
+                
+                // Lógica de respuesta coherente temporal:
+                setTimeout(() => {
+                    let resp = "Aura SM: Entiendo. El Arq. San Miguel prioriza la eficiencia en este punto. ";
+                    if(msg.toLowerCase().includes("licencia")) resp = "Aura SM: La licencia es el documento legal que avala que tu proyecto cumple con las normas de desarrollo urbano. Sin ella, la obra puede ser clausurada.";
+                    else if(msg.toLowerCase().includes("costo") || msg.toLowerCase().includes("cuanto")) resp = "Aura SM: El costo exacto se define tras el levantamiento técnico. Sin embargo, este diagnóstico nos ayuda a optimizar el presupuesto inicial.";
+                    
+                    chat.innerHTML += `<div class="flex gap-3 items-start"><div class="w-8 h-8 rounded-full bg-black flex-shrink-0 flex items-center justify-center border border-[#FFCD00]"><i class="fas fa-robot text-[#FFCD00] text-xs"></i></div><div class="bg-white p-3 border-2 border-black text-[11px] font-bold max-w-[85%]">${resp}</div></div>`;
+                    chat.scrollTop = chat.scrollHeight;
+                    document.getElementById('aura-status').innerText = "Sistema Activo";
+                }, 1000);
+            } catch(e) { console.error(e); }
         }
 
         function finish() {
-            const waMsg = `Hola Arq. San Miguel, nuevo diagnóstico completo.\n\nNombre: ${projectLog.responses.Nombre || "Ver Bitácora"}\nResumen: ${JSON.stringify(projectLog.responses)}`;
-            document.getElementById('main-render').innerHTML = `<div class="text-center space-y-8 fade-in"><h2 class="text-3xl font-black italic uppercase tracking-tighter">Diagnóstico <span class="text-[#FFCD00]">espacioSM</span> Finalizado</h2><p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-8 leading-relaxed">Toda la bitácora ha sido consolidada. El Arq. San Miguel te espera para la revisión técnica.</p><a href="https://wa.me/525613870288?text=${encodeURIComponent(waMsg)}" target="_blank" class="btn-primary-sm block w-full py-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">Enviar al Arq. San Miguel</a></div>`;
+            const waMsg = `Hola Arq. San Miguel, nuevo diagnóstico completo.\n\nNombre: ${responses.Nombre || "Ver Bitácora"}\nUbicación: ${responses.Ubicación || "No definida"}\nNotas: ${responses.final}`;
+            document.getElementById('main-render').innerHTML = `<div class="text-center space-y-8 fade-in"><h2 class="text-3xl font-black italic uppercase tracking-tighter">Diagnóstico <span class="text-[#FFCD00]">espacioSM</span> Listo</h2><p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-8">La bitácora ha sido consolidada. El Arq. San Miguel te espera.</p><a href="https://wa.me/525613870288?text=${encodeURIComponent(waMsg)}" target="_blank" class="btn-primary-sm block w-full py-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">Enviar al Arq. San Miguel</a></div>`;
             document.getElementById('tip-box').classList.add('hidden');
         }
     </script>
