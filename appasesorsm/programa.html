@@ -10,13 +10,11 @@
     <style>
         :root { --cat: #FFCD00; --black: #000000; }
         body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: var(--black); }
-        .bg-cat { background-color: var(--cat); }
-        .border-cat { border-color: var(--cat); }
-        .sm-shadow { border: 3px solid var(--black); box-shadow: 10px 10px 0px 0px var(--cat); }
-        .btn-sm { border: 2px solid #e5e7eb; transition: 0.2s; padding: 0.8rem; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; text-align: left; }
-        .btn-sm:hover, .btn-sm.active { border-color: var(--black); background-color: var(--cat); }
-        .input-line { border-bottom: 3px solid var(--black); width: 100%; padding: 10px 0; font-weight: 800; font-size: 1.2rem; text-transform: uppercase; outline: none; }
-        .input-line:focus { border-color: var(--cat); }
+        .sm-shadow { border: 3px solid var(--black); box-shadow: 12px 12px 0px 0px var(--cat); }
+        .btn-sm-opt { border: 2px solid #e5e7eb; transition: 0.2s; padding: 0.8rem; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; text-align: left; width: 100%; }
+        .btn-sm-opt:hover, .btn-sm-opt.active { border-color: var(--black); background-color: var(--cat); }
+        .style-card { border: 2px solid #e5e7eb; transition: 0.3s; cursor: pointer; overflow: hidden; }
+        .style-card.active { border-color: var(--black); box-shadow: 5px 5px 0px 0px var(--cat); }
         .nav-scrolled { background-color: rgba(255, 255, 255, 0.98); border-bottom: 2px solid var(--black); }
         .fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -30,9 +28,9 @@
                 <span class="text-xl font-black italic tracking-tighter">espacio<span class="text-cat not-italic">SM</span></span>
             </a>
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#" class="text-[10px] font-black uppercase tracking-widest hover:text-cat">Proyectos</a>
-                <a href="#" class="text-[10px] font-black uppercase tracking-widest hover:text-cat">Contacto</a>
-                <div class="bg-cat px-3 py-1 text-[9px] font-black uppercase tracking-widest italic border border-black">Aura Engine</div>
+                <a href="#" class="text-[10px] font-black uppercase tracking-widest">Proyectos</a>
+                <a href="#" class="text-[10px] font-black uppercase tracking-widest">Contacto</a>
+                <div class="bg-cat px-3 py-1 text-[9px] font-black uppercase tracking-widest italic border border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">Aura SM Engine</div>
             </div>
         </div>
     </nav>
@@ -49,16 +47,16 @@
                     <span class="text-[8px] font-black uppercase mt-2 italic">Contexto</span>
                 </div>
                 <div class="relative z-10 flex flex-col items-center">
-                    <div id="d-2" class="w-10 h-10 rounded-full bg-white border-2 border-gray-100 text-gray-300 flex items-center justify-center"><i class="fas fa-users text-xs"></i></div>
-                    <span class="text-[8px] font-black uppercase mt-2">Usuarios</span>
+                    <div id="d-2" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center"><i class="fas fa-users text-xs"></i></div>
+                    <span class="text-[8px] font-black uppercase mt-2">Gente</span>
                 </div>
                 <div class="relative z-10 flex flex-col items-center">
                     <div id="d-3" class="w-10 h-10 rounded-full bg-white border-2 border-gray-100 text-gray-300 flex items-center justify-center"><i class="fas fa-tools text-xs"></i></div>
                     <span class="text-[8px] font-black uppercase mt-2">Equipo</span>
                 </div>
                 <div class="relative z-10 flex flex-col items-center">
-                    <div id="d-4" class="w-10 h-10 rounded-full bg-white border-2 border-gray-100 text-gray-300 flex items-center justify-center"><i class="fas fa-check-double text-xs"></i></div>
-                    <span class="text-[8px] font-black uppercase mt-2">Aura Chat</span>
+                    <div id="d-4" class="w-10 h-10 rounded-full bg-white border-2 border-gray-100 text-gray-300 flex items-center justify-center"><i class="fas fa-palette text-xs"></i></div>
+                    <span class="text-[8px] font-black uppercase mt-2">Estética</span>
                 </div>
             </div>
 
@@ -68,17 +66,20 @@
                         <div class="w-2 h-2 bg-cat rounded-full animate-pulse"></div>
                         <span class="text-[10px] font-black uppercase tracking-[0.3em]">Aura SM Engine</span>
                     </div>
+                    <button onclick="askAura()" class="bg-cat text-black px-4 py-2 text-[9px] font-black uppercase tracking-tighter hover:bg-white transition-all shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
+                        <i class="fas fa-robot mr-1"></i> CONSULTAR A AURA SM
+                    </button>
                 </div>
 
-                <div id="quiz-area" class="p-8 md:p-12 min-h-[460px] flex flex-col justify-center">
+                <div id="quiz-area" class="p-8 md:p-12 min-h-[500px] flex flex-col justify-center">
                     </div>
 
-                <div id="tip-box" class="bg-gray-50 border-t-2 border-black p-6 fade-in">
+                <div id="aura-tip-box" class="bg-gray-50 border-t-2 border-black p-6 fade-in">
                     <div class="flex gap-4 items-center">
                         <div class="w-10 h-10 rounded-full bg-cat flex items-center justify-center text-xs shadow-sm flex-shrink-0 font-black italic border border-black">SM</div>
                         <div class="space-y-1">
                             <p class="text-[9px] font-black uppercase text-white bg-black px-2 py-0.5 inline-block">Aura Insight</p>
-                            <p id="tip-text" class="text-[11px] font-bold italic text-gray-700 leading-relaxed uppercase tracking-tight">Iniciando motor técnico...</p>
+                            <p id="tip-text" class="text-[11px] font-bold italic text-gray-700 leading-relaxed uppercase tracking-tight">Iniciando motor...</p>
                         </div>
                     </div>
                 </div>
@@ -88,28 +89,38 @@
 
     <script>
         const questions = [
-            // FASE 1
-            { step: 1, q: "Nombre completo y ocupación", field: "id", type: "multi-input", fields: ["Nombre", "Ocupación"], tip: "Identificar tu perfil nos ayuda a diseñar espacios que potencien tu productividad." },
-            { step: 1, q: "¿Ubicación del terreno?", field: "ubicacion", type: "text", tip: "La ubicación geográfica dicta el cálculo de cimentación y normativa local." },
-            { step: 1, q: "¿Cuentas con licencia?", field: "licencia", type: "options", options: ["Sí", "No", "Tratar con Arq. San Miguel"], tip: "La licencia es la base legal. Sin ella, el Arq. San Miguel validará tu estrategia de regularización." },
+            // FASE 1: CONTEXTO
+            { step: 1, q: "¿Identificación del Proyecto?", fields: ["Nombre", "Email", "Ocupación"], type: "id", help: "Aura necesita tu perfil para ajustar los parámetros de diseño funcional.", tip: "El Arq. San Miguel revisará personalmente tu perfil ocupacional." },
+            { step: 1, q: "¿Ubicación del terreno?", field: "ubicacion", type: "text", help: "Define la sismicidad, normativa local y orientación solar.", tip: "La ubicación es la base del cálculo de ingeniería estructural." },
+            { step: 1, q: "¿Cuentas con licencia?", field: "licencia", type: "options", options: ["Sí", "No", "Tratar con Arq. San Miguel"], help: "La licencia es la garantía legal de tu inversión.", tip: "La legalidad previene multas que elevan el costo de obra." },
             
-            // FASE 2
-            { step: 2, q: "¿Cuántos usuarios habitarán la casa? (Mínimo 1)", field: "habitantes_num", type: "number", min: 1, tip: "El número de habitantes determina el volumen de agua y carga eléctrica necesaria." },
-            { step: 2, q: "Tipo de habitantes (Multiselección)", field: "habitantes_tipo", type: "multiple", options: ["Infante", "Joven", "Adulto", "Adulto Mayor"], tip: "Diseñamos accesibilidad universal basada en la edad de los usuarios." },
+            // FASE 2: GENTE
+            { step: 2, q: "¿Cuántos usuarios habitarán? (Mínimo 1)", field: "num_users", type: "number", min: 1, help: "Determina la capacidad de las instalaciones sanitarias y eléctricas.", tip: "Diseñamos pensando en la evolución de tu familia a 10 años." },
+            { step: 2, q: "Tipo de habitantes (Multiselección)", field: "tipos_user", type: "multiple", options: ["Infante", "Joven", "Adulto", "Adulto Mayor"], help: "La ergonomía cambia según la edad de los usuarios.", tip: "Garantizamos accesibilidad universal en cada nivel." },
+            { step: 2, q: "¿Recibe visitas constantemente?", field: "visitas", type: "options", options: ["Sí", "No"], help: "Define si las áreas sociales deben ser abiertas o privadas.", tip: "Las casas sociales requieren un volumen de aire mayor para confort." },
             
-            // FASE 3
-            { step: 3, q: "¿Cuántos vehículos posee?", field: "autos_num", type: "number", min: 0, tip: "Calculamos el radio de giro para maniobras seguras en tu cochera." },
-            { step: 3, q: "Tipo de vehículo (Multiselección)", field: "autos_tipo", type: "multiple", options: ["Sedán", "SUV", "PickUp", "Moto", "Eléctrico"], tip: "Los autos eléctricos requieren preparación de carga especializada." },
-            { step: 3, q: "¿Posees mascotas?", field: "mascotas", type: "options-plus", options: ["Perro", "Gato", "Otro"], tip: "Las mascotas influyen en la durabilidad y tipo de pisos seleccionados." },
-            { step: 3, q: "¿Requieres equipamiento especial?", field: "especiales", type: "multiple-plus", options: ["Estudio", "Taller", "Gimnasio", "Piano", "Pecera", "Otro"], tip: "Equipos pesados o específicos requieren refuerzos de carga en losas." },
+            // FASE 3: EQUIPO
+            { step: 3, q: "¿Número de vehículos y tipo?", field: "autos", type: "multi-input", fields: ["Cantidad", "Tipo (SUV, Sedán, Eléctrico)"], help: "Calculamos radios de giro y preparación eléctrica.", tip: "Un garaje eficiente evita maniobras complejas diarias." },
+            { step: 3, q: "¿Tienes mascotas?", field: "mascotas", type: "options-plus", options: ["Perro", "Gato", "Otro"], help: "Influye en la durabilidad y tipo de pisos seleccionados.", tip: "Diseñamos áreas de aseo específicas para tus mascotas." },
+            { step: 3, q: "¿Espacios especiales? (Piano, Taller, Pecera, Taller...)", field: "especiales", type: "options-plus", options: ["Estudio", "Gimnasio", "Piano", "Taller", "Otro"], help: "Equipos pesados o específicos requieren refuerzos de carga en losas.", tip: "Tu hobby merece una ingeniería de soporte dedicada." },
             
-            // FASE 4: AURA CHAT
-            { step: 4, q: "Aura SM Chat: ¿Alguna duda o ajuste final?", field: "final_chat", type: "chat", tip: "Esta es tu oportunidad de afinar detalles directamente con Aura antes del reporte." }
+            // FASE 4: ESTÉTICA
+            { step: 4, q: "¿Qué tonalidades predilectas buscas?", field: "tonos", type: "options", options: ["Neutras", "Oscuras", "Tierra", "Tendencia"], help: "Los colores influyen en la temperatura percibida y el estado de ánimo.", tip: "La psicología del color es clave en el diseño de autor." },
+            { step: 4, q: "¿Qué materiales en piso te gustan?", field: "pisos", type: "multiple-plus", options: ["Loseta", "Madera", "Mármol", "Concreto", "Otro"], help: "El piso define la inercia térmica de tu hogar.", tip: "Elige materiales que envejezcan con dignidad estructural." },
+            { step: 4, q: "¿Estilo Arquitectónico?", field: "estilo", type: "visual", options: [
+                { name: "Minimalista", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=300" },
+                { name: "Moderno", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=300" },
+                { name: "Mexicano", img: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=300" }
+            ], tip: "Tu estilo es la base que el Arq. San Miguel refinará." },
+            { step: 4, q: "¿Implementar ecotecnología?", field: "eco", type: "multiple", options: ["Paneles Solares", "Captación Pluvial", "Calentador Solar", "Biodigestor"], help: "Reduce tus gastos fijos hasta un 80% y aumenta la plusvalía.", tip: "La ingeniería verde es una inversión, no un gasto." },
+            
+            // FASE FINAL: CHAT
+            { step: 4, q: "Aura SM Chat: ¿Alguna duda o ajuste final?", field: "final_chat", type: "chat", help: "Es tu oportunidad de afinar detalles con Aura antes del reporte.", tip: "Aura consolidará tu visión con la del Arq. San Miguel." }
         ];
 
         let current = 0;
         let data = {};
-        let selectedMultiple = [];
+        let selectedM = [];
         let log = [];
 
         function render() {
@@ -119,69 +130,77 @@
             updateProgress();
 
             let html = `<div class="fade-in space-y-6">
-                <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Pregunta ${current + 1}</p>
-                <h2 class="text-xl font-black uppercase italic border-l-8 border-black pl-4">${q.q}</h2>`;
+                <p class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Pregunta ${current + 1}</p>
+                <h2 class="text-xl font-black uppercase italic border-l-8 border-black pl-4 leading-tight">${q.q}</h2>`;
 
-            if (q.type === "multi-input") {
-                q.fields.forEach(f => {
-                    html += `<input type="text" id="${f}" placeholder="${f.toUpperCase()}" class="input-line mb-4">`;
-                });
+            if (q.type === "id" || q.type === "multi-input") {
+                const fields = q.fields || ["Cantidad", "Tipo"];
+                fields.forEach(f => html += `<input type="text" id="${f}" placeholder="${f.toUpperCase()}" class="w-full border-b-4 border-black py-3 text-lg font-black focus:border-cat outline-none mb-4 uppercase">`);
             } else if (q.type === "text") {
-                html += `<input type="text" id="ans" class="input-line" placeholder="ESCRIBE AQUÍ...">`;
+                html += `<input type="text" id="ans" class="w-full border-b-4 border-black py-4 text-xl font-black focus:border-cat outline-none uppercase" placeholder="ESCRIBE AQUÍ...">`;
             } else if (q.type === "number") {
-                html += `<input type="number" id="ans" min="${q.min}" class="input-line text-4xl" value="${q.min}">`;
+                html += `<input type="number" id="ans" min="${q.min}" class="w-full border-b-4 border-black py-4 text-4xl font-black focus:outline-none" value="${q.min}">`;
             } else if (q.type === "options" || q.type === "options-plus") {
-                html += `<div class="grid grid-cols-1 gap-3">`;
-                q.options.forEach(opt => html += `<button onclick="saveNext('${opt}')" class="btn-sm">${opt}</button>`);
+                html += `<div class="grid grid-cols-1 gap-2">`;
+                q.options.forEach(opt => html += `<button onclick="saveAndNext('${opt}')" class="btn-sm-opt">${opt} <i class="fas fa-chevron-right text-gray-200"></i></button>`);
                 html += `</div>`;
-                if(q.type === "options-plus") html += `<input type="text" id="other-val" class="input-line mt-4 text-sm" placeholder="ESPECIFICA OTRO...">`;
+                if(q.type === "options-plus") html += `<input type="text" id="other-val" class="w-full border-b-2 border-black py-2 text-xs font-bold mt-4 uppercase outline-none" placeholder="SI ES OTRO, ESPECIFICA...">`;
             } else if (q.type === "multiple" || q.type === "multiple-plus") {
-                html += `<div class="grid grid-cols-2 gap-3">`;
+                html += `<div class="grid grid-cols-2 gap-2">`;
                 q.options.forEach(opt => {
-                    const act = selectedMultiple.includes(opt) ? 'active' : '';
-                    html += `<button onclick="toggleM('${opt}')" class="btn-sm ${act}">${opt}</button>`;
+                    const active = selectedM.includes(opt) ? 'active' : '';
+                    html += `<button onclick="toggleM('${opt}')" class="btn-sm-opt ${active}">${opt}</button>`;
                 });
                 html += `</div>`;
-                if(q.type === "multiple-plus") html += `<input type="text" id="other-val" class="input-line mt-4 text-sm" placeholder="ESPECIFICA OTRO...">`;
+                if(q.type === "multiple-plus") html += `<input type="text" id="other-val" class="w-full border-b-2 border-black py-2 text-xs font-bold mt-4 uppercase outline-none" placeholder="SI ES OTRO, ESPECIFICA...">`;
+            } else if (q.type === "visual") {
+                html += `<div class="grid grid-cols-2 gap-4">`;
+                q.options.forEach(opt => html += `
+                    <div onclick="saveAndNext('${opt.name}')" class="style-card bg-white rounded">
+                        <img src="${opt.img}" class="w-full h-24 object-cover grayscale hover:grayscale-0 transition">
+                        <p class="p-2 text-[9px] font-black text-center uppercase tracking-tighter">${opt.name}</p>
+                    </div>`);
+                html += `</div>`;
             } else if (q.type === "chat") {
-                html += `<div class="bg-gray-100 p-4 rounded text-xs italic mb-4 border-l-4 border-cat">Aura: "He analizado tus respuestas. Todo indica un proyecto de alta eficiencia. ¿Hay algo más que deba saber el Arq. San Miguel?"</div>
-                         <textarea id="ans" class="w-full border-2 border-black p-4 font-bold text-xs uppercase" rows="4" placeholder="EJ: ME PREOCUPA EL TIEMPO DE OBRA..."></textarea>`;
+                html += `<div class="bg-gray-100 p-4 rounded text-xs italic mb-4 border-l-4 border-cat">Aura: "He analizado tus respuestas y el perfil técnico es sólido. ¿Hay algún detalle final que debamos considerar antes de que el Arq. San Miguel tome el proyecto?"</div>
+                         <textarea id="ans" class="w-full border-4 border-black p-4 font-bold text-xs uppercase" rows="4" placeholder="EJ: ME PREOCUPA LA ILUMINACIÓN EN EL ESTUDIO..."></textarea>`;
             }
 
-            if(q.type !== "options") {
+            if (q.type !== "options" && q.type !== "visual") {
                 html += `<button onclick="handleNext()" class="w-full bg-black text-white py-5 font-black uppercase text-xs mt-8 hover:bg-cat hover:text-black transition-all">Siguiente Paso</button>`;
             }
             area.innerHTML = html;
         }
 
         function toggleM(v) {
-            const i = selectedMultiple.indexOf(v);
-            if(i > -1) selectedMultiple.splice(i, 1); else selectedMultiple.push(v);
+            const idx = selectedM.indexOf(v);
+            if(idx > -1) selectedM.splice(idx, 1); else selectedM.push(v);
             render();
         }
 
         function handleNext() {
             const q = questions[current];
             let val = "";
-            if(q.type === "multi-input") {
-                val = q.fields.map(f => document.getElementById(f).value).join(" | ");
-            } else if(q.type === "multiple" || q.type === "multiple-plus") {
+            if (q.type === "id" || q.type === "multi-input") {
+                const flds = q.fields || ["Cantidad", "Tipo"];
+                val = flds.map(f => document.getElementById(f).value).join(" | ");
+            } else if (q.type === "multiple" || q.type === "multiple-plus") {
                 const other = document.getElementById('other-val')?.value;
-                val = selectedMultiple.join(", ") + (other ? ", OTRO: " + other : "");
-                selectedMultiple = [];
+                val = selectedM.join(", ") + (other ? " | OTRO: " + other : "");
+                selectedM = [];
             } else {
                 val = document.getElementById('ans').value;
                 const other = document.getElementById('other-val')?.value;
-                if(other) val += " (OTRO: " + other + ")";
+                if(other) val += " | OTRO: " + other;
             }
-            saveNext(val);
+            saveAndNext(val);
         }
 
-        function saveNext(v) {
+        function saveAndNext(v) {
             const q = questions[current];
             data[q.field || "id"] = v;
-            log.push({p: q.q, r: v});
-            if(current < questions.length - 1) { current++; render(); }
+            log.push({pregunta: q.q, respuesta: v, tip: q.tip});
+            if (current < questions.length - 1) { current++; render(); }
             else { finish(); }
         }
 
@@ -194,15 +213,22 @@
             }
         }
 
+        function askAura() {
+            const q = questions[current];
+            alert(`AURA SM EXPLICA:\n\n"${q.help}"\n\nConsejo: ${q.tip}`);
+        }
+
         function finish() {
-            const waMsg = `Hola Arq. San Miguel, Aura SM me entregó mi diagnóstico.\n\nNombre: ${data.id}\nProyecto: ${data.tipo_trabajo}\nNotas Aura: ${data.final_chat}`;
+            const report = log.map(i => `${i.pregunta}: ${i.respuesta}`).join('\n');
+            const waMsg = `Hola Arq. San Miguel, Aura SM me entregó mi diagnóstico.\n\nNombre: ${data.id}\nBitácora:\n${report}`;
             document.getElementById('quiz-area').innerHTML = `
                 <div class="text-center space-y-8 fade-in">
                     <h2 class="text-3xl font-black italic uppercase tracking-tighter italic">Diagnóstico <span class="text-cat">espacioSM</span> Generado</h2>
-                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-6 leading-relaxed">Tu programa de necesidades ha sido filtrado por Aura SM Engine y está listo para la revisión del Arq. San Miguel.</p>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-6 leading-relaxed">Tu visión técnica ha sido procesada por Aura SM Engine y está lista para la revisión del Arq. San Miguel.</p>
                     <a href="https://wa.me/525613870288?text=${encodeURIComponent(waMsg)}" target="_blank" class="block w-full bg-cat text-black py-6 font-black uppercase tracking-[0.2em] text-xs shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] hover:scale-[1.05] transition-transform">Enviar al Arq. San Miguel</a>
                 </div>
             `;
+            document.getElementById('aura-tip-box').classList.add('hidden');
         }
 
         render();
