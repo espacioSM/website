@@ -3,45 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diagnóstico Integral Aura SM | espacioSM</title>
+    <title>Aura SM Engine | Diagnóstico espacioSM</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;1,400;1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --cat: #FFCD00; }
-        body { font-family: 'Inter', sans-serif; background-color: #fcfcfc; }
-        .bg-cat { background-color: var(--cat); }
-        .border-cat { border-color: var(--cat); }
-        .shadow-sm { shadow: 10px 10px 0px 0px rgba(0,0,0,1); }
+        :root { --primary: #FFCD00; }
+        body { font-family: 'Inter', sans-serif; background-color: #FFFFFF; color: #000; }
+        .text-primary { color: var(--primary); }
+        .bg-primary { background-color: var(--primary); }
+        .border-primary { border-color: var(--primary); }
         .nav-scrolled { background-color: rgba(255, 255, 255, 0.98); border-bottom: 1px solid #eee; }
-        .btn-multiple { border: 2px solid #f3f4f6; transition: all 0.2s; padding: 0.8rem; border-radius: 4px; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; text-align: left; width: 100%; }
-        .btn-multiple.active { border-color: black; background-color: var(--cat); color: black; }
+        
+        /* Botones estilo Ingeniería Caterpillar */
+        .btn-sm-option { border: 2px solid #E5E7EB; transition: all 0.2s; padding: 1rem; border-radius: 2px; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; text-align: left; width: 100%; }
+        .btn-sm-option:hover, .btn-sm-option.active { border-color: #000; background-color: var(--primary); }
+        
         .fade-in { animation: fadeIn 0.3s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="antialiased text-black">
+<body class="antialiased">
 
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 nav-scrolled">
         <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-            <a href="#" class="text-xl font-bold italic tracking-tighter">espacio<span class="text-cat not-italic">SM</span></a>
-            <div class="hidden md:flex space-x-8">
-                <a href="#" class="text-[10px] font-black uppercase tracking-widest">Proyectos</a>
-                <a href="#" class="text-[10px] font-black uppercase tracking-widest">Contacto</a>
-                <div class="bg-cat px-2 py-1 text-[9px] font-black uppercase tracking-widest italic">Aura SM Engine</div>
+            <a href="https://www.espaciosm.art" class="flex items-center">
+                <span class="text-xl font-bold text-gray-800">espacio<span class="text-primary">SM</span></span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#" class="text-gray-800 hover:text-primary transition-colors text-[11px] font-bold uppercase tracking-widest">Proyectos</a>
+                <a href="#" class="text-gray-800 hover:text-primary transition-colors text-[11px] font-bold uppercase tracking-widest">Contacto</a>
+                <a href="#engine" class="bg-primary text-black px-4 py-2 rounded-sm text-[10px] font-black uppercase tracking-widest">Consultar Proyecto</a>
             </div>
         </div>
     </nav>
 
-    <main class="pt-32 pb-20 px-6">
+    <main id="engine" class="pt-32 pb-20 px-6">
         <div class="max-w-2xl mx-auto">
             
-            <div class="flex justify-between mb-12 relative px-2">
+            <div class="flex justify-between mb-16 relative px-2">
                 <div class="absolute top-5 left-0 w-full h-[1px] bg-gray-100 z-0"></div>
-                <div id="progress-line" class="absolute top-5 left-0 h-[2px] bg-cat z-0 transition-all duration-500" style="width: 0%;"></div>
+                <div id="progress-line" class="absolute top-5 left-0 h-[2px] bg-black z-0 transition-all duration-500" style="width: 0%;"></div>
                 
                 <div class="relative z-10 flex flex-col items-center">
-                    <div id="dot-1" class="w-10 h-10 rounded-full bg-black text-cat flex items-center justify-center border-2 border-cat shadow-lg"><i class="fas fa-id-card text-xs"></i></div>
+                    <div id="dot-1" class="w-10 h-10 rounded-full bg-black text-primary flex items-center justify-center border-2 border-primary shadow-lg"><i class="fas fa-id-card text-xs"></i></div>
                     <span class="text-[8px] font-black uppercase mt-2 italic">Identidad</span>
                 </div>
                 <div class="relative z-10 flex flex-col items-center">
@@ -49,7 +54,7 @@
                     <span class="text-[8px] font-black uppercase mt-2 text-gray-400">Habitantes</span>
                 </div>
                 <div class="relative z-10 flex flex-col items-center">
-                    <div id="dot-3" class="w-10 h-10 rounded-full bg-white border-2 border-gray-100 text-gray-300 flex items-center justify-center transition-all"><i class="fas fa-car text-xs"></i></div>
+                    <div id="dot-3" class="w-10 h-10 rounded-full bg-white border-2 border-gray-100 text-gray-300 flex items-center justify-center transition-all"><i class="fas fa-tools text-xs"></i></div>
                     <span class="text-[8px] font-black uppercase mt-2 text-gray-400">Equipamiento</span>
                 </div>
                 <div class="relative z-10 flex flex-col items-center">
@@ -58,24 +63,27 @@
                 </div>
             </div>
 
-            <div class="bg-white border-[3px] border-black shadow-[12px_12px_0px_0px_rgba(255,205,0,1)] rounded-sm overflow-hidden">
-                <div class="bg-black p-4 flex justify-between items-center text-white">
+            <div class="bg-white border-[3px] border-black shadow-[15px_15px_0px_0px_rgba(255,205,0,1)] rounded-sm overflow-hidden">
+                <div class="bg-black p-5 flex justify-between items-center text-white">
                     <div class="flex items-center gap-2">
-                        <div class="w-2 h-2 bg-cat rounded-full animate-pulse"></div>
-                        <span class="text-[9px] font-black uppercase tracking-[0.3em]">Aura SM Consultoría</span>
+                        <div class="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                        <span class="text-[10px] font-black uppercase tracking-[0.3em]">Aura SM Engine</span>
                     </div>
-                    <button onclick="intervenirAura()" class="text-cat text-[9px] font-bold border border-cat px-3 py-1 uppercase hover:bg-cat hover:text-black transition-all">
-                        <i class="fas fa-brain"></i> Intervención Aura
+                    <button onclick="askAura()" class="bg-primary text-black px-4 py-2 text-[10px] font-black uppercase tracking-tighter hover:bg-white transition-all">
+                        <i class="fas fa-robot"></i> CONSULTAR A AURA
                     </button>
                 </div>
 
-                <div id="quiz-area" class="p-8 min-h-[450px] flex flex-col justify-between">
+                <div id="quiz-container" class="p-8 md:p-12 min-h-[400px] flex flex-col justify-between">
                     </div>
 
-                <div id="tip-box" class="hidden bg-gray-50 border-t-2 border-black p-6 fade-in">
+                <div id="aura-interaction-box" class="hidden bg-gray-50 border-t-2 border-black p-6 fade-in">
                     <div class="flex gap-4">
-                        <span class="text-3xl text-cat font-black italic">“</span>
-                        <p id="tip-text" class="text-[11px] font-bold italic text-gray-800 leading-relaxed uppercase tracking-tight"></p>
+                        <span class="text-3xl text-primary font-black italic">“</span>
+                        <div class="space-y-2">
+                            <p id="aura-explanation" class="text-[11px] font-bold italic text-gray-800 leading-relaxed uppercase tracking-tight"></p>
+                            <p id="aura-tip" class="text-[10px] font-medium text-blue-700 bg-blue-50 px-2 py-1 rounded border border-blue-100"></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,141 +91,154 @@
     </main>
 
     <script>
-        const sections = [
-            { name: "Identidad", steps: [0, 1, 2, 3, 4] },
-            { name: "Habitantes", steps: [5, 6, 7, 8, 9] },
-            { name: "Equipamiento", steps: [10, 11, 12, 13, 14, 15] },
-            { name: "Estética", steps: [16, 17, 18, 19, 20] }
-        ];
-
         const questions = [
-            // SECCIÓN 1: IDENTIDAD
-            { q: "¿Nombre completo del cliente?", field: "nombre", type: "text", tip: "Un diagnóstico de autor empieza por un trato personal. Bienvenido a espacioSM." },
-            { q: "Estado civil y ocupación", field: "perfil", type: "text", tip: "Diseñamos para tu realidad. Tu ocupación define la ergonomía de tu estudio o áreas de descanso." },
-            { q: "¿Ubicación del terreno a construir?", field: "ubicacion", type: "text", tip: "La ubicación define el comportamiento estructural ante sismos y la incidencia solar." },
-            { q: "¿Cuentas con licencia de construcción?", field: "licencia", type: "options", options: ["Si", "No, pero pretendo", "No y no tengo contemplado"], tip: "La licencia es vital. Si no la tienes, el Arq. San Miguel debe validar tu ruta estratégica." },
-            { q: "¿Tipo de trabajo a realizar?", field: "tipo", type: "options", options: ["Obra Nueva", "Remodelación", "Ampliación"], tip: "En remodelaciones, Aura SM prioriza la integridad de la estructura original." },
+            // FASE 1: IDENTIDAD
+            { q: "¿Nombre completo y correo del cliente?", field: "id", type: "text-double", fields: ["nombre", "email"], help: "Necesito estos datos para personalizar tu reporte y enviártelo al finalizar.", tip: "Tip: Un nombre claro ayuda a organizar la ficha técnica en el despacho." },
+            { q: "Estado civil y ocupación actual", field: "perfil", type: "text-double", fields: ["edo_civil", "ocupacion"], help: "Tu estilo de vida define el programa de necesidades. Un soltero tiene requerimientos distintos a una familia numerosa.", tip: "Tip: Si trabajas desde casa, Aura SM priorizará la iluminación en tu futuro estudio." },
+            { q: "¿Ubicación del terreno a construir?", field: "ubicacion", type: "text", help: "La ubicación nos indica el tipo de suelo (sismicidad) y la normativa local (COS/CUS) que debemos respetar.", tip: "Tip: Con el C.P. podemos ver la orientación solar ideal." },
+            { q: "¿Cuentas con licencia de construcción?", field: "licencia", type: "options", options: ["Sí", "No, pero pretendo", "No y no tengo contemplado"], help: "La licencia es la base legal. Si no la tienes, espacioSM te ayuda a tramitarla para evitar multas.", tip: "Tip: Construir con permiso aumenta la plusvalía de tu propiedad." },
+            { q: "¿Tipo de trabajo a realizar?", field: "tipo", type: "options", options: ["Obra Nueva", "Remodelación", "Ampliación"], help: "Esto define si empezamos con cimentación de cero o si reforzamos estructuras existentes.", tip: "Tip: Las ampliaciones requieren un análisis estructural de 'costura' entre lo viejo y lo nuevo." },
             
-            // SECCIÓN 2: HABITANTES
-            { q: "¿Número de usuarios para la casa?", field: "num_users", type: "number", tip: "El espacio debe ser eficiente para todos. Evitemos m² desperdiciados." },
-            { q: "¿Qué tipo de usuarios habitarán? (Multiselección)", field: "users_types", type: "multiple", options: ["Infante", "Adolescente", "Adulto Joven", "Adulto", "Adulto Mayor"], tip: "Cada etapa de vida requiere una accesibilidad diferente." },
-            { q: "¿Recibe muchas visitas?", field: "visitas", type: "options", options: ["Sí", "No"], tip: "Si recibes visitas, diseñaremos áreas sociales con flujos independientes." },
-            { q: "¿En qué lugar pasas la mayor parte del tiempo?", field: "tiempo_lugar", type: "multiple", options: ["Dormitorio", "Cocina", "Sala", "Estudio", "Jardín"], tip: "Priorizaremos la iluminación y ventilación en estas zonas críticas." },
-            { q: "¿Qué cosas te molestan de otras casas?", field: "molestias", type: "text", tip: "Evitar errores comunes de diseño es nuestra especialidad." },
-
-            // SECCIÓN 3: EQUIPAMIENTO
-            { q: "¿Cuántos vehículos posee? (Cero o más)", field: "autos_num", type: "number", tip: "Calculamos radios de giro para que estacionar no sea un problema diario." },
-            { q: "¿Tipo de auto?", field: "autos_tipo", type: "multiple", options: ["Sedán", "SUV", "PickUp", "Moto", "Eléctrico"], tip: "Los autos eléctricos requieren preparación de carga especial en la ingeniería." },
-            { q: "¿Posee mascotas?", field: "mascotas", type: "options", options: ["Sí", "No"], tip: "Diseñamos pensando en la durabilidad de pisos y áreas de aseo para ellos." },
-            { q: "¿Deseas integrar un Piano o instrumento de gran tamaño?", field: "instrumento", type: "options", options: ["Sí", "No"], tip: "Un piano requiere refuerzo en losa y un estudio acústico previo." },
-            { q: "¿Planeas adquirir más vehículos a futuro?", field: "autos_futuro", type: "options", options: ["Sí", "No"], tip: "Dejar preparaciones de crecimiento te ahorrará demoliciones futuras." },
-
-            // SECCIÓN 4: ESTÉTICA Y ECO
-            { q: "¿Qué tonalidades predilectas buscas?", field: "tonos", type: "options", options: ["Neutras", "Oscuras", "Tierra", "Tendencia"], tip: "Los colores influyen en la temperatura percibida y el estado de ánimo." },
-            { q: "¿Qué materiales en piso te gustan?", field: "pisos", type: "multiple", options: ["Loseta", "Madera", "Mármol", "Concreto", "Laminado"], tip: "La inercia térmica del piso ayuda a mantener la casa fresca o cálida." },
-            { q: "¿Estilo arquitectónico favorito?", field: "estilo", type: "options", options: ["Clásico", "Moderno", "Contemporáneo", "Minimalista", "Mexicano"], tip: "Tu estilo es la base estética que el Arq. San Miguel perfeccionará." },
-            { q: "¿Te gustaría implementar ecotecnología?", field: "eco", type: "multiple", options: ["Paneles Solares", "Calentador Solar", "Captación Pluvial", "Biodigestor"], tip: "La ecotecnología reduce costos operativos y aumenta el valor de tu propiedad." }
+            // FASE 2: HABITANTES
+            { q: "¿Cuántos usuarios habitarán la casa?", field: "num_users", type: "number", help: "El número de personas determina la capacidad de las instalaciones (agua, drenaje, electricidad).", tip: "Tip: Bloqueamos números negativos porque cada m² debe ser habitable." },
+            { q: "Seleccione tipos de habitantes:", field: "users_types", type: "multiple", options: ["Infante", "Adolescente", "Adulto Joven", "Adulto", "Adulto Mayor"], help: "Diseñamos accesibilidad universal. Si hay adultos mayores, evitamos escalones innecesarios.", tip: "Tip: La multiselección nos ayuda a entender la evolución de tu familia." },
+            { q: "¿Recibe visitas constantemente?", field: "visitas", type: "options", options: ["Sí", "No"], help: "Si recibes visitas, es mejor diseñar un baño social cerca de la entrada y áreas abiertas.", tip: "Tip: Una casa social requiere una sala con mayor volumen acústico." },
+            
+            // FASE 3: EQUIPAMIENTO (INCLUYE ESPACIOS ESPECIALES)
+            { q: "¿Cuántos vehículos posee?", field: "autos_num", type: "number", help: "Calculamos el radio de giro y el ancho de portones. No queremos que golpees tu auto al estacionar.", tip: "Tip: Deja espacio para un auto extra si planeas crecer." },
+            { q: "¿Posee mascotas?", field: "mascotas", type: "options", options: ["Sí", "No"], help: "Las mascotas influyen en la elección de materiales de piso (que sean fáciles de limpiar y no se rayen).", tip: "Tip: El diseño 'Pet-Friendly' es tendencia en espacioSM." },
+            { q: "¿Requieres espacios especiales? (Piano, estudio, taller, pecera, gimnasio...)", field: "especiales", type: "text", help: "Aquí es donde personalizamos tu hobby. Un piano o una pecera gigante requieren refuerzos de peso en la losa.", tip: "Tip: Describe lo que sea, espacioSM lo hace realidad estructuralmente." },
+            
+            // FASE 4: ESTÉTICA
+            { q: "¿Qué materiales en piso te gustan?", field: "pisos", type: "multiple", options: ["Loseta", "Madera", "Mármol", "Concreto", "Laminado"], help: "El piso es la superficie de mayor contacto. Buscamos equilibrio entre estética y confort térmico.", tip: "Tip: La madera es cálida, el mármol es fresco. Elige según tu clima." },
+            { q: "¿Estilo arquitectónico favorito?", field: "estilo", type: "options", options: ["Clásico", "Moderno", "Contemporáneo", "Minimalista", "Mexicano"], help: "Esto define la volumetría y los acabados finales de la fachada.", tip: "Tip: El estilo Contemporáneo de espacioSM es el que mejor envejece con el tiempo." },
+            { q: "¿Implementar ecotecnología?", field: "eco", type: "multiple", options: ["Paneles Solares", "Captación Pluvial", "Biodigestor", "Calentador Solar"], help: "Ser sustentable no solo ayuda al planeta, reduce tus recibos de luz y agua hasta un 70%.", tip: "Tip: Estas tecnologías se pagan solas con el ahorro en 3 años." }
         ];
 
-        let currentIdx = 0;
-        let data = {};
+        let current = 0;
+        let answers = {};
         let selectedMultiple = [];
 
-        function render() {
-            const container = document.getElementById('quiz-area');
-            const q = questions[currentIdx];
+        function renderQuestion() {
+            const container = document.getElementById('quiz-container');
+            const q = questions[current];
+            const interaction = document.getElementById('aura-interaction-box');
+            interaction.classList.add('hidden'); // Reset Ayuda
             
             updateProgress();
 
             let html = `<div class="fade-in space-y-6">
-                <p class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic">Análisis Paso ${currentIdx + 1}</p>
-                <h2 class="text-xl font-extrabold uppercase italic leading-tight border-l-8 border-cat pl-4">${q.q}</h2>`;
+                <p class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic">Análisis SM - Pregunta ${current + 1}</p>
+                <h2 class="text-xl font-extrabold uppercase italic leading-tight border-l-8 border-primary pl-4">${q.q}</h2>`;
 
-            if (q.type === "text" || q.type === "email") {
-                html += `<input type="${q.type}" id="input-val" class="w-full border-b-4 border-black py-4 text-lg font-bold focus:outline-none placeholder-gray-200 uppercase" placeholder="Escribe aquí...">`;
+            if (q.type === "text") {
+                html += `<input type="text" id="input-val" class="w-full border-b-4 border-black py-4 text-lg font-bold focus:outline-none uppercase" placeholder="Respuesta...">`;
+            } else if (q.type === "text-double") {
+                html += `<input type="text" id="input-val-1" class="w-full border-b-2 border-gray-200 py-3 text-sm font-bold focus:outline-none uppercase mb-2" placeholder="${q.fields[0]}">
+                         <input type="text" id="input-val-2" class="w-full border-b-2 border-gray-200 py-3 text-sm font-bold focus:outline-none uppercase" placeholder="${q.fields[1]}">`;
             } else if (q.type === "number") {
                 html += `<input type="number" id="input-val" min="0" onkeypress="return event.charCode >= 48" class="w-full border-b-4 border-black py-4 text-2xl font-bold focus:outline-none" value="0">`;
             } else if (q.type === "options") {
                 html += `<div class="grid grid-cols-1 gap-3">`;
                 q.options.forEach(opt => {
-                    html += `<button onclick="saveAndNext('${opt}')" class="btn-option bg-white border-2 border-gray-100 p-4 font-bold text-xs uppercase hover:border-cat hover:bg-yellow-50 text-left transition-all">${opt}</button>`;
+                    html += `<button onclick="saveOption('${opt}')" class="btn-sm-option">${opt}</button>`;
                 });
                 html += `</div>`;
             } else if (q.type === "multiple") {
                 html += `<div class="grid grid-cols-1 gap-2">`;
                 q.options.forEach(opt => {
                     const active = selectedMultiple.includes(opt) ? 'active' : '';
-                    html += `<button onclick="toggleMultiple('${opt}')" class="btn-multiple ${active}">${opt}</button>`;
+                    html += `<button onclick="toggleMultiple('${opt}')" class="btn-sm-option ${active}">${opt}</button>`;
                 });
                 html += `</div>`;
             }
 
             if(q.type !== "options") {
-                html += `<button onclick="handleNext()" class="w-full bg-black text-white py-5 font-black uppercase tracking-[0.2em] text-xs mt-8 hover:bg-cat hover:text-black transition-all">Siguiente Paso</button>`;
+                html += `<button onclick="handleNext()" class="w-full bg-black text-white py-5 font-black uppercase tracking-[0.2em] text-xs mt-8 hover:bg-primary hover:text-black transition-all">Siguiente Paso</button>`;
             }
 
             html += `</div>`;
             container.innerHTML = html;
-            setTip(q.tip);
         }
 
         function toggleMultiple(val) {
             const idx = selectedMultiple.indexOf(val);
             if(idx > -1) selectedMultiple.splice(idx, 1);
             else selectedMultiple.push(val);
-            render();
+            renderQuestion();
         }
 
-        function saveAndNext(val) {
-            data[questions[currentIdx].field] = val;
+        function saveOption(val) {
+            answers[questions[current].field] = val;
             advance();
         }
 
         function handleNext() {
-            const q = questions[currentIdx];
-            if (q.type === "multiple") {
-                data[q.field] = selectedMultiple.join(", ");
+            const q = questions[current];
+            if (q.type === "text-double") {
+                answers[q.fields[0]] = document.getElementById('input-val-1').value;
+                answers[q.fields[1]] = document.getElementById('input-val-2').value;
+            } else if (q.type === "multiple") {
+                answers[q.field] = selectedMultiple.join(", ");
                 selectedMultiple = [];
             } else {
-                const val = document.getElementById('input-val').value;
-                if(!val && currentIdx < 3) return alert("Este dato es crucial para el Arq. San Miguel.");
-                data[q.field] = val;
+                answers[q.field] = document.getElementById('input-val').value;
             }
             advance();
         }
 
         function advance() {
-            if (currentIdx < questions.length - 1) {
-                currentIdx++;
-                render();
+            if (current < questions.length - 1) {
+                current++;
+                renderQuestion();
             } else {
                 finish();
             }
         }
 
-        function setTip(txt) {
-            document.getElementById('tip-box').classList.remove('hidden');
-            document.getElementById('tip-text').innerText = "Aura SM: " + txt;
+        function updateProgress() {
+            const prog = (current / (questions.length - 1)) * 100;
+            document.getElementById('progress-line').style.width = prog + "%";
+            
+            const phase = Math.floor((current / questions.length) * 4) + 1;
+            for(let i=1; i<=4; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if(i <= phase) {
+                    dot.classList.add('bg-black', 'text-primary', 'border-primary');
+                    dot.classList.remove('text-gray-300', 'border-gray-100');
+                }
+            }
         }
 
-        function updateProgress() {
-            const total = questions.length;
-            const prog = (currentIdx / (total - 1)) * 100;
-            document.getElementById('progress-line').style.width = prog + "%";
-
-            // Actualizar estados de los puntos
-            sections.forEach((sec, i) => {
-                const dot = document.getElementById(`dot-${i+1}`);
-                if (sec.steps.includes(currentIdx) || currentIdx > sec.steps[sec.steps.length-1]) {
-                    dot.classList.add('bg-black', 'text-cat', 'border-cat');
-                    dot.nextElementSibling?.classList.add('text-black', 'font-black');
-                }
-            });
+        function askAura() {
+            const q = questions[current];
+            const box = document.getElementById('aura-interaction-box');
+            const exp = document.getElementById('aura-explanation');
+            const tip = document.getElementById('aura-tip');
+            
+            box.classList.remove('hidden');
+            exp.innerText = q.help;
+            tip.innerText = q.tip;
         }
 
         function finish() {
-            const msg = `Hola Arq. San Miguel, Aura SM me entregó mi diagnóstico.\n\nNombre: ${data.nombre}\nUbicación: ${data.ubicacion}\nProyecto: ${data.tipo}\nLicencia: ${data.licencia}\nEstilo: ${data.estilo}`;
-            document.getElementById('quiz-area').innerHTML = `
+            const container = document.getElementById('quiz-container');
+            const msg = `Hola Arq. San Miguel, Aura SM me entregó mi diagnóstico.\n\nNombre: ${answers.nombre}\nProyecto: ${answers.tipo}\nEspeciales: ${answers.especiales}`;
+            
+            container.innerHTML = `
+                <div class="text-center space-y-8 fade-in">
+                    <h2 class="text-3xl font-black italic uppercase tracking-tighter">Reporte <span class="text-primary">espacioSM</span> Generado</h2>
+                    <p class="text-sm font-bold text-gray-500 uppercase tracking-widest">Diagnóstico de necesidades consolidado con éxito. El Arq. San Miguel validará la viabilidad de tu proyecto.</p>
+                    <a href="https://wa.me/525613870288?text=${encodeURIComponent(msg)}" class="block w-full bg-primary text-black py-6 font-black uppercase tracking-[0.2em] text-xs shadow-xl">Enviar Diagnóstico y Agendar Cita</a>
+                </div>
+            `;
+            document.getElementById('aura-interaction-box').classList.add('hidden');
+        }
+
+        renderQuestion();
+    </script>
+</body>
+</html>
                 <div class="text-center space-y-8 fade-in">
                     <h2 class="text-3xl font-black italic uppercase tracking-tighter">Reporte <span class="text-cat">espacioSM</span> Generado</h2>
                     <p class="text-sm font-bold text-gray-500 uppercase">Se ha consolidado tu programa de necesidades. El Arq. San Miguel revisará la viabilidad técnica.</p>
