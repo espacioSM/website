@@ -3,69 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diagnóstico Integral Aura SM | espacioSM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Aura SM | Diagnóstico espacioSM</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary-color: #FFCD00; --primary-dark: #E6B800; --dark-bg: #000000; }
-        body { font-family: 'Inter', sans-serif; color: #000000; background-color: #FFFFFF; }
-        .nav-scrolled { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .btn-primary { background-color: var(--primary-color); color: #000000; transition: all 0.3s ease; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; }
-        .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-2px); }
-        .input-sm { border-bottom: 2px solid #E5E7EB; width: 100%; padding: 10px 0; font-weight: 600; text-transform: uppercase; font-size: 13px; }
-        .input-sm:focus { outline: none; border-color: var(--primary-color); }
-        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        :root { --cat: #FFCD00; --cat-dark: #E6B800; }
+        body { font-family: 'Inter', sans-serif; background-color: #FFFFFF; }
+        .bg-cat { background-color: var(--cat); }
+        .text-cat { color: var(--cat); }
+        .border-cat { border-color: var(--cat); }
+        .nav-scrolled { background-color: rgba(255, 255, 255, 0.98); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .btn-option { border: 2px solid #f3f4f6; transition: all 0.2s; text-align: left; padding: 1rem; border-radius: 4px; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .btn-option:hover { border-color: var(--cat); background-color: #fffbeb; }
+        .fade-in { animation: fadeIn 0.3s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="antialiased bg-gray-50">
+<body class="antialiased text-black">
 
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 nav-scrolled">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="flex justify-between items-center">
                 <a href="https://www.espaciosm.art" class="flex items-center">
-                    <span class="text-xl font-bold text-gray-800">espacio<span class="text-[#FFCD00]">SM</span></span>
+                    <span class="text-xl font-bold italic">espacio<span class="text-cat not-italic">SM</span></span>
                 </a>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="/casa-del-arbol/del-arbol.html" class="text-gray-800 hover:text-[#FFCD00] font-bold text-[11px] uppercase tracking-widest">Proyectos</a>
-                    <a href="/contacto.html" class="text-gray-800 hover:text-[#FFCD00] font-bold text-[11px] uppercase tracking-widest">Contacto</a>
-                    <a href="#diagnostico" class="bg-[#FFCD00] text-black px-4 py-2 rounded-sm font-black text-[10px] uppercase tracking-widest">Consultar Proyecto</a>
+                    <a href="#" class="text-[10px] font-black uppercase tracking-[0.2em] hover:text-cat">Proyectos</a>
+                    <a href="#" class="text-[10px] font-black uppercase tracking-[0.2em] hover:text-cat">Contacto</a>
+                    <div class="bg-cat px-3 py-1 text-[10px] font-black uppercase tracking-widest">Diagnóstico Aura</div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <section id="diagnostico" class="pt-32 pb-20 px-6">
-        <div class="max-w-3xl mx-auto">
+    <section class="pt-32 pb-20 px-6 min-h-screen">
+        <div class="max-w-xl mx-auto">
             
-            <div class="flex justify-between mb-12 relative px-4">
-                <div class="absolute top-5 left-0 w-full h-[1px] bg-gray-200 z-0"></div>
-                <div id="progress-line" class="absolute top-5 left-0 h-[2px] bg-[#FFCD00] z-0 transition-all duration-700" style="width: 0%;"></div>
+            <div class="flex justify-between mb-10 relative px-2">
+                <div class="absolute top-5 left-0 w-full h-[1px] bg-gray-100 z-0"></div>
+                <div id="progress-bar" class="absolute top-5 left-0 h-[2px] bg-cat z-0 transition-all duration-500" style="width: 0%;"></div>
                 
-                <div class="relative z-10 flex flex-col items-center"><div id="step-1" class="w-10 h-10 rounded-full bg-black text-[#FFCD00] flex items-center justify-center border-2 border-[#FFCD00]"><i class="fas fa-id-badge"></i></div><span class="text-[8px] font-black uppercase mt-2">ID</span></div>
-                <div class="relative z-10 flex flex-col items-center"><div id="step-2" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center"><i class="fas fa-users"></i></div><span class="text-[8px] font-black uppercase mt-2">Habitantes</span></div>
-                <div class="relative z-10 flex flex-col items-center"><div id="step-3" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center"><i class="fas fa-car"></i></div><span class="text-[8px] font-black uppercase mt-2">Equipamiento</span></div>
-                <div class="relative z-10 flex flex-col items-center"><div id="step-4" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center"><i class="fas fa-palette"></i></div><span class="text-[8px] font-black uppercase mt-2">Estética</span></div>
-                <div class="relative z-10 flex flex-col items-center"><div id="step-5" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center"><i class="fas fa-leaf"></i></div><span class="text-[8px] font-black uppercase mt-2">Eco</span></div>
+                <div class="relative z-10"><div id="dot-1" class="w-10 h-10 rounded-full bg-black text-cat flex items-center justify-center border-2 border-cat shadow-xl"><i class="fas fa-id-card text-xs"></i></div></div>
+                <div class="relative z-10"><div id="dot-2" class="w-10 h-10 rounded-full bg-white border-2 border-gray-100 text-gray-300 flex items-center justify-center transition-all"><i class="fas fa-users text-xs"></i></div></div>
+                <div class="relative z-10"><div id="dot-3" class="w-10 h-10 rounded-full bg-white border-2 border-gray-100 text-gray-300 flex items-center justify-center transition-all"><i class="fas fa-car text-xs"></i></div></div>
+                <div class="relative z-10"><div id="dot-4" class="w-10 h-10 rounded-full bg-white border-2 border-gray-100 text-gray-300 flex items-center justify-center transition-all"><i class="fas fa-palette text-xs"></i></div></div>
             </div>
 
-            <div class="bg-white border-[3px] border-black rounded-sm overflow-hidden shadow-[15px_15px_0px_0px_rgba(255,205,0,1)]">
-                <div class="bg-black p-5 flex justify-between items-center text-white">
-                    <div class="flex items-center gap-3">
-                        <div class="w-2 h-2 bg-[#FFCD00] rounded-full animate-pulse"></div>
-                        <span class="text-[10px] font-black uppercase tracking-[0.3em]">Aura SM Consultora</span>
+            <div class="bg-white border-[3px] border-black shadow-[10px_10px_0px_0px_rgba(255,205,0,1)] rounded-sm overflow-hidden">
+                
+                <div class="bg-black p-4 flex justify-between items-center text-white">
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-cat rounded-full animate-pulse"></div>
+                        <span class="text-[9px] font-black uppercase tracking-[0.3em]">Aura SM</span>
                     </div>
-                    <button onclick="auraHelp()" class="text-[#FFCD00] text-[10px] font-bold border border-[#FFCD00] px-3 py-1 hover:bg-[#FFCD00] hover:text-black transition-all">CONSULTA RÁPIDA</button>
+                    <button onclick="alert('Aura SM te ayuda a pre-configurar tu proyecto para la cita técnica con el Arq. San Miguel.')" class="text-cat text-[9px] font-bold border border-cat px-2 py-1 uppercase">Ayuda</button>
                 </div>
 
-                <div id="form-container" class="p-8 md:p-12 min-h-[450px] flex flex-col justify-between">
+                <div id="quiz-container" class="p-8 min-h-[400px] flex flex-col justify-center">
                     </div>
 
-                <div id="aura-tip" class="hidden bg-gray-50 border-t-2 border-black p-6 fade-in">
-                    <div class="flex gap-4">
-                        <span class="text-3xl text-[#FFCD00] font-black italic">“</span>
-                        <p id="aura-text" class="text-[12px] italic text-gray-700 leading-relaxed font-semibold"></p>
+                <div id="aura-tip-container" class="hidden bg-gray-50 border-t-2 border-black p-6 fade-in">
+                    <div class="flex gap-3">
+                        <span class="text-2xl text-cat font-black italic">“</span>
+                        <p id="aura-tip-text" class="text-[11px] font-bold italic text-gray-700 leading-relaxed uppercase tracking-tight"></p>
                     </div>
                 </div>
             </div>
@@ -73,201 +74,175 @@
     </section>
 
     <script>
-        // DATOS DEL PDF GOOGLE FORM 
-        const state = {
-            current: 1,
-            data: {
-                email: '', nombre: '', edoCivil: '', ocupacion: '', ubicacion: '',
-                licencia: '', tipoTrabajo: '', descAmpliacion: '',
-                numUsuarios: '', tipoUsuarios: [], visitas: '',
-                numAutos: 0, tipoAutos: [], planesAutos: '', tipoAutoFuturo: '',
-                mascotas: '', tipoMascota: '',
-                habitaciones: '', dimensiones: '', piano: '', pianoDesc: '',
-                tiempoSitio: [], hobbies: '', molestias: '',
-                tonalidades: '', pisos: '', elementosNat: '',
-                estilo: '', estiloOtro: '', ecotec: []
+        const questions = [
+            // FASE 1: IDENTIDAD
+            { q: "¿Cuál es tu nombre completo?", field: "nombre", type: "text", tip: "Un gusto saludarte. El Arq. San Miguel revisará personalmente este reporte." },
+            { q: "¿Tu correo electrónico?", field: "email", type: "email", tip: "Te enviaremos el resumen de nuestro análisis por este medio." },
+            { q: "¿Cuál es tu ocupación?", field: "ocupacion", type: "text", tip: "Entender tu ritmo de vida nos ayuda a diseñar espacios funcionales." },
+            { q: "¿Ubicación del terreno a construir?", field: "ubicacion", type: "text", tip: "La ubicación define la normativa y el comportamiento estructural del suelo." },
+            { 
+                q: "¿Cuentas con licencia de construcción?", 
+                field: "licencia", 
+                type: "options", 
+                options: ["Si, tengo licencia", "No, pretendo sacar una", "Tratar legalidad con Arq. San Miguel"],
+                tip: "La licencia es la única forma de garantizar legalmente tu patrimonio. El Arq. San Miguel te asesorará en la ruta técnica."
+            },
+            // FASE 2: PROGRAMA
+            { 
+                q: "Seleccione tipo de trabajo a realizar:", 
+                field: "tipoTrabajo", 
+                type: "options", 
+                options: ["Obra Nueva", "Remodelación", "Ampliación"],
+                tip: "En ampliaciones, Aura SM recomienda un análisis de carga previo para no comprometer lo existente."
+            },
+            { q: "Número de usuarios para la Casa Habitación:", field: "numUsuarios", type: "number", tip: "El espacio debe crecer con la familia. Consideramos proyecciones a 5 y 10 años." },
+            { 
+                q: "Seleccione tipo de usuario:", 
+                field: "tipoUsuario", 
+                type: "options", 
+                options: ["Infante/Adolescente", "Adulto Joven", "Adulto Mayor", "Varios"],
+                tip: "Diseñamos ergonomía específica para cada etapa de la vida."
+            },
+            { 
+                q: "¿Recibe muchas visitas?", 
+                field: "visitas", 
+                type: "options", 
+                options: ["Si, constantemente", "No, es privado"],
+                tip: "Si recibes visitas, priorizaremos áreas sociales abiertas y accesos independientes."
+            },
+            // FASE 3: EQUIPAMIENTO
+            { q: "¿Cuántos vehículos posee?", field: "numAutos", type: "number", tip: "El garaje debe ser amplio para maniobras seguras y posible transición a vehículos eléctricos." },
+            { 
+                q: "¿Tiene o planea tener mascotas?", 
+                field: "mascotas", 
+                type: "options", 
+                options: ["Si", "No"],
+                tip: "Las mascotas son parte de la familia; integramos áreas de aseo y descanso específicas."
+            },
+            { 
+                q: "¿Deseas integrar un piano o instrumento grande?", 
+                field: "piano", 
+                type: "options", 
+                options: ["Si", "No"],
+                tip: "La acústica y el peso de un piano requieren refuerzos estructurales y aislamiento sonoro."
+            },
+            // FASE 4: ESTÉTICA Y CIERRE
+            { 
+                q: "¿Qué tonalidades prefieres?", 
+                field: "tonos", 
+                type: "options", 
+                options: ["Neutras", "Oscuras", "Tierra", "Tendencia"],
+                tip: "La psicología del color en la arquitectura influye directamente en tu descanso y productividad."
+            },
+            { 
+                q: "¿Qué materiales en piso te gustan?", 
+                field: "pisos", 
+                type: "options", 
+                options: ["Loseta", "Madera", "Mármol", "Concreto Aparente"],
+                tip: "El material del piso define la inercia térmica de tu casa. Elegiremos lo mejor para tu clima."
+            },
+            { 
+                q: "¿Qué estilo arquitectónico te gusta más?", 
+                field: "estilo", 
+                type: "options", 
+                options: ["Clásico", "Moderno", "Contemporáneo", "Minimalista", "Mexicano"],
+                tip: "Tu estilo es la firma del proyecto. El Arq. San Miguel lo traducirá en formas y volúmenes."
+            },
+            { 
+                q: "¿Implementar ecotecnología?", 
+                field: "ecotech", 
+                type: "options", 
+                options: ["Si, es prioridad", "No por ahora"],
+                tip: "Paneles solares y captación pluvial pueden reducir tus costos operativos hasta en un 60%."
             }
-        };
+        ];
 
-        const auraTips = {
-            step1: "La ubicación geográfica define los parámetros de diseño bioclimático.",
-            licencia_no: "Construir sin licencia es un riesgo patrimonial. El Arq. San Miguel validará tu estrategia legal.",
-            mascotas: "Diseñar espacios para mascotas mejora la higiene y durabilidad de tus acabados.",
-            molestias: "Identificar qué te molesta nos ayuda a evitar errores de flujos en tu nuevo diseño.",
-            ecotec: "La inversión en ecotecnología se recupera en menos de 5 años por ahorro operativo."
-        };
+        let currentIdx = 0;
+        let data = {};
 
-        function setTip(text) {
-            const box = document.getElementById('aura-tip');
-            const p = document.getElementById('aura-text');
-            if(!text) { box.classList.add('hidden'); return; }
-            box.classList.remove('hidden');
-            p.innerText = text;
+        function renderQuestion() {
+            const container = document.getElementById('quiz-container');
+            const question = questions[currentIdx];
+            const tipBox = document.getElementById('aura-tip-container');
+            const tipText = document.getElementById('aura-tip-text');
+
+            // Actualizar Progreso
+            const progress = (currentIdx / (questions.length - 1)) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            updateDots();
+
+            // Inyectar Pregunta
+            let html = `<div class="fade-in space-y-6">
+                <p class="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em]">Pregunta ${currentIdx + 1} de ${questions.length}</p>
+                <h2 class="text-lg font-black uppercase italic leading-tight">${question.q}</h2>`;
+
+            if (question.type === "options") {
+                html += `<div class="grid grid-cols-1 gap-3">`;
+                question.options.forEach(opt => {
+                    html += `<button onclick="saveOption('${question.field}', '${opt}')" class="btn-option">${opt}</button>`;
+                });
+                html += `</div>`;
+            } else {
+                html += `<input type="${question.type}" id="input-val" class="w-full border-b-4 border-black py-4 text-xl font-bold focus:outline-none focus:border-cat placeholder-gray-200" placeholder="Escribe aquí...">
+                <button onclick="saveInput('${question.field}')" class="w-full bg-black text-white py-5 font-black uppercase tracking-widest text-xs mt-6 hover:bg-cat hover:text-black transition-all">Siguiente</button>`;
+            }
+
+            html += `</div>`;
+            container.innerHTML = html;
+
+            // Aura Tip
+            tipBox.classList.remove('hidden');
+            tipText.innerText = question.tip;
         }
 
-        function render() {
-            const container = document.getElementById('form-container');
-            container.innerHTML = '';
-            updateProgress();
+        function saveOption(field, val) {
+            data[field] = val;
+            next();
+        }
 
-            if (state.current === 1) {
-                container.innerHTML = `
-                    <div class="fade-in space-y-6">
-                        <h2 class="text-sm font-black uppercase tracking-widest border-l-4 border-[#FFCD00] pl-3 italic">01. Identidad y Ubicación [cite: 4, 6, 9]</h2>
-                        <input type="email" placeholder="Correo Electrónico *" value="${state.data.email}" onchange="state.data.email=this.value" class="input-sm">
-                        <input type="text" placeholder="Nombre Completo *" value="${state.data.nombre}" onchange="state.data.nombre=this.value" class="input-sm">
-                        <div class="grid grid-cols-2 gap-4">
-                            <input type="text" placeholder="Estado Civil" value="${state.data.edoCivil}" onchange="state.data.edoCivil=this.value" class="input-sm">
-                            <input type="text" placeholder="Ocupación" value="${state.data.ocupacion}" onchange="state.data.ocupacion=this.value" class="input-sm">
-                        </div>
-                        <input type="text" placeholder="Ubicación del Terreno *" value="${state.data.ubicacion}" onchange="state.data.ubicacion=this.value" class="input-sm">
-                        
-                        <p class="text-[10px] font-bold text-gray-400 mt-6 uppercase">¿Tienes Licencia de Construcción? [cite: 10]</p>
-                        <select onchange="state.data.licencia=this.value; setTip(this.value.includes('No') ? auraTips.licencia_no : '')" class="w-full border-2 border-gray-100 p-3 text-[11px] font-bold">
-                            <option value="">Selecciona una opción</option>
-                            <option value="Si, tengo">Si, tengo Licencia [cite: 15]</option>
-                            <option value="No, pretendo">No, pretendo sacar una [cite: 16]</option>
-                            <option value="No tengo contemplado">Tratar legalidad con Arq. San Miguel </option>
-                        </select>
-                    </div>
-                    <button onclick="validateStep1()" class="btn-primary w-full py-4 mt-8">Siguiente Paso</button>
-                `;
-                setTip(auraTips.step1);
-            } 
+        function saveInput(field) {
+            const val = document.getElementById('input-val').value;
+            if(!val) return alert("Por favor, llena este campo.");
+            data[field] = val;
+            next();
+        }
 
-            else if (state.current === 2) {
-                container.innerHTML = `
-                    <div class="fade-in space-y-6">
-                        <h2 class="text-sm font-black uppercase tracking-widest border-l-4 border-[#FFCD00] pl-3 italic">02. Programa y Usuarios [cite: 19, 27, 28]</h2>
-                        <select onchange="state.data.tipoTrabajo=this.value" class="w-full border-2 border-gray-100 p-3 text-[11px] font-bold">
-                            <option value="">Tipo de Obra: ${state.data.tipoTrabajo || 'Seleccionar'}</option>
-                            <option value="Obra Nueva">Obra Nueva [cite: 22]</option>
-                            <option value="Remodelación">Remodelación [cite: 23]</option>
-                            <option value="Ampliación">Ampliación [cite: 25]</option>
-                        </select>
-                        <input type="text" placeholder="Número de habitantes *" value="${state.data.numUsuarios}" onchange="state.data.numUsuarios=this.value" class="input-sm">
-                        
-                        <p class="text-[10px] font-bold text-gray-400 uppercase">Tipos de Usuario [cite: 28]</p>
-                        <div class="grid grid-cols-2 gap-2">
-                            ${['Infante', 'Adolescente', 'Adulto Joven', 'Adulto', 'Adulto Mayor'].map(t => `
-                                <label class="text-[10px] font-bold flex items-center gap-2 border p-2 cursor-pointer hover:bg-gray-50">
-                                    <input type="checkbox" onchange="toggleArray('tipoUsuarios', '${t}')" ${state.data.tipoUsuarios.includes(t) ? 'checked' : ''}> ${t.toUpperCase()}
-                                </label>
-                            `).join('')}
-                        </div>
-                        <input type="text" placeholder="¿Recibe muchas visitas? (Si/No)" onchange="state.data.visitas=this.value" class="input-sm">
-                    </div>
-                    <div class="flex gap-2 mt-8"><button onclick="state.current--" class="w-1/3 border-2 border-black py-4 font-bold text-xs uppercase">Atrás</button>
-                    <button onclick="state.current++" class="btn-primary flex-1 py-4">Siguiente</button></div>
-                `;
-            }
-
-            else if (state.current === 3) {
-                container.innerHTML = `
-                    <div class="fade-in space-y-6">
-                        <h2 class="text-sm font-black uppercase tracking-widest border-l-4 border-[#FFCD00] pl-3 italic">03. Estacionamiento y Mascotas [cite: 45, 79]</h2>
-                        <input type="number" placeholder="¿Cuántos vehículos posee? *" value="${state.data.numAutos}" onchange="state.data.numAutos=this.value" class="input-sm">
-                        <input type="text" placeholder="Tipos de auto (Sedán, SUV, PickUp, Moto) [cite: 56]" onchange="state.data.tipoAutos=this.value" class="input-sm">
-                        
-                        <p class="text-[10px] font-bold text-gray-400 uppercase mt-4">¿Tiene o planea adquirir mascotas? [cite: 79]</p>
-                        <div class="flex gap-4">
-                            <button onclick="state.data.mascotas='Si'; setTip(auraTips.mascotas)" class="flex-1 p-3 border-2 border-gray-100 hover:border-black font-bold text-xs">SÍ</button>
-                            <button onclick="state.data.mascotas='No'" class="flex-1 p-3 border-2 border-gray-100 hover:border-black font-bold text-xs">NO</button>
-                        </div>
-                        <input type="text" placeholder="Intereses y pasatiempos en el proyecto [cite: 107]" onchange="state.data.hobbies=this.value" class="input-sm">
-                    </div>
-                    <div class="flex gap-2 mt-8"><button onclick="state.current--" class="w-1/3 border-2 border-black py-4 font-bold text-xs uppercase">Atrás</button>
-                    <button onclick="state.current++" class="btn-primary flex-1 py-4">Siguiente</button></div>
-                `;
-            }
-
-            else if (state.current === 4) {
-                container.innerHTML = `
-                    <div class="fade-in space-y-4">
-                        <h2 class="text-sm font-black uppercase tracking-widest border-l-4 border-[#FFCD00] pl-3 italic italic">04. Diseño y Preferencias [cite: 108, 110, 118, 128]</h2>
-                        <textarea placeholder="¿Qué cosas le molestan de otras casas? (Ej. Cocina expuesta) [cite: 108]" onchange="state.data.molestias=this.value; setTip(auraTips.molestias)" class="w-full border-2 p-3 text-xs font-bold uppercase" rows="2"></textarea>
-                        
-                        <p class="text-[10px] font-bold text-gray-400 uppercase italic">Tonalidades Predilectas [cite: 110]</p>
-                        <select onchange="state.data.tonalidades=this.value" class="w-full border p-2 text-[10px] font-bold uppercase tracking-widest">
-                            <option>Neutras [cite: 113]</option><option>Oscuras [cite: 114]</option><option>Tierra [cite: 115]</option><option>Tendencia [cite: 117]</option>
-                        </select>
-
-                        <p class="text-[10px] font-bold text-gray-400 uppercase italic">Materiales en Piso [cite: 118]</p>
-                        <div class="grid grid-cols-2 gap-2">
-                            ${['Loseta', 'Madera', 'Mármol', 'Concreto Aparente', 'Laminado'].map(p => `
-                                <button onclick="state.data.pisos='${p}'" class="p-2 border text-[9px] font-bold uppercase hover:bg-gray-100">${p}</button>
-                            `).join('')}
-                        </div>
-                    </div>
-                    <div class="flex gap-2 mt-8"><button onclick="state.current--" class="w-1/3 border-2 border-black py-4 font-bold text-xs uppercase">Atrás</button>
-                    <button onclick="state.current++" class="btn-primary flex-1 py-4">Siguiente</button></div>
-                `;
-            }
-
-            else if (state.current === 5) {
-                container.innerHTML = `
-                    <div class="fade-in space-y-6">
-                        <h2 class="text-sm font-black uppercase tracking-widest border-l-4 border-[#FFCD00] pl-3 italic italic">05. Estilo y Sostenibilidad [cite: 128, 138]</h2>
-                        <p class="text-[10px] font-bold text-gray-400 uppercase">Estilo Arquitectónico [cite: 128]</p>
-                        <div class="grid grid-cols-3 gap-2">
-                            ${['Clásico', 'Moderno', 'Contemporáneo', 'Minimalista', 'Mexicano'].map(s => `
-                                <button onclick="state.data.estilo='${s}'" class="p-2 border text-[8px] font-black uppercase hover:bg-[#FFCD00]">${s}</button>
-                            `).join('')}
-                        </div>
-
-                        <p class="text-[10px] font-bold text-gray-400 uppercase mt-4">Implementar Ecotecnología [cite: 138]</p>
-                        <div class="grid grid-cols-2 gap-2">
-                            ${['Paneles solares', 'Captación Pluvial', 'Biodigestor', 'Calentador Solar'].map(e => `
-                                <label class="text-[9px] font-bold flex items-center gap-2 border p-2">
-                                    <input type="checkbox" onchange="toggleArray('ecotec', '${e}'); setTip(auraTips.ecotec)"> ${e.toUpperCase()}
-                                </label>
-                            `).join('')}
-                        </div>
-                    </div>
-                    <div class="flex gap-2 mt-8"><button onclick="state.current--" class="w-1/3 border-2 border-black py-4 font-bold text-xs uppercase">Atrás</button>
-                    <button onclick="finish()" class="btn-primary flex-1 py-4 animate-pulse">Generar Reporte SM</button></div>
-                `;
+        function next() {
+            if (currentIdx < questions.length - 1) {
+                currentIdx++;
+                renderQuestion();
+            } else {
+                finish();
             }
         }
 
-        function validateStep1() {
-            if(!state.data.nombre || !state.data.email || !state.data.ubicacion) return alert("Arq. San Miguel requiere los campos obligatorios para el diagnóstico técnico.");
-            state.current++; render();
-        }
-
-        function toggleArray(key, val) {
-            const arr = state.data[key];
-            const idx = arr.indexOf(val);
-            if(idx > -1) arr.splice(idx, 1);
-            else arr.push(val);
-        }
-
-        function updateProgress() {
-            const line = document.getElementById('progress-line');
-            line.style.width = ((state.current - 1) * 25) + '%';
-            for(let i=1; i<=5; i++) {
-                const el = document.getElementById(`step-${i}`);
-                if(i <= state.current) {
-                    el.classList.replace('bg-white', 'bg-black');
-                    el.classList.replace('text-gray-300', 'text-[#FFCD00]');
-                    el.classList.add('border-[#FFCD00]');
+        function updateDots() {
+            const phase = Math.floor((currentIdx / questions.length) * 4) + 1;
+            for(let i=1; i<=4; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if(i <= phase) {
+                    dot.classList.add('bg-black', 'text-cat', 'border-cat');
+                    dot.classList.remove('text-gray-300', 'border-gray-100');
                 }
             }
         }
 
         function finish() {
-            const waMsg = `Hola Arq. San Miguel, Aura SM me entregó mi diagnóstico estructural.\n\nNombre: ${state.data.nombre}\nUbicación: ${state.data.ubicacion}\nObra: ${state.data.tipoTrabajo}\nEstilo: ${state.data.estilo}\nLicencia: ${state.data.licencia}`;
-            window.location.href = `https://wa.me/525613870288?text=${encodeURIComponent(waMsg)}`;
+            const container = document.getElementById('quiz-container');
+            const waMsg = `Hola Arq. San Miguel, Aura SM me entregó mi diagnóstico.\n\nNombre: ${data.nombre}\nUbicación: ${data.ubicacion}\nObra: ${data.tipoTrabajo}\nLicencia: ${data.licencia}\nEstilo: ${data.estilo}`;
+            
+            container.innerHTML = `
+                <div class="text-center space-y-8 fade-in">
+                    <h2 class="text-3xl font-black italic uppercase italic tracking-tighter">Análisis <span class="text-cat">espacioSM</span> listo</h2>
+                    <p class="text-sm font-bold text-gray-600">Se ha generado tu reporte de necesidades. El Arq. San Miguel te espera para la validación técnica.</p>
+                    <a href="https://wa.me/525613870288?text=${encodeURIComponent(waMsg)}" target="_blank" class="block w-full bg-cat text-black py-6 font-black uppercase tracking-widest text-xs shadow-xl hover:scale-[1.02] transition-transform">Enviar al Arq. San Miguel y Agendar</a>
+                </div>
+            `;
+            document.getElementById('aura-tip-text').innerText = "Diagnóstico completado. Tu información ha sido procesada bajo los estándares de espacioSM.";
         }
 
-        function auraHelp() { alert("Aura SM Asesoría:\n1. La mecánica de suelos es vital en zonas de sismo.\n2. La orientación solar reduce el consumo eléctrico.\n3. El Arq. San Miguel optimiza tu presupuesto mediante ingeniería de precisión."); }
-
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if(window.scrollY > 50) nav.classList.add('nav-scrolled'); else nav.classList.remove('nav-scrolled');
-        });
-
-        render();
+        // INIT
+        renderQuestion();
     </script>
 </body>
 </html>
