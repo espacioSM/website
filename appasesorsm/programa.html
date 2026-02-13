@@ -29,8 +29,6 @@
         
         .fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .aura-chat { background-color: #000; border-left: 6px solid #FFCD00; }
     </style>
 </head>
 <body class="antialiased">
@@ -64,13 +62,13 @@
                         <i class="fas fa-robot text-[#FFCD00] text-xs"></i>
                     </div>
                     <div class="bg-white p-3 border-2 border-black text-[11px] font-bold leading-relaxed max-w-[80%]">
-                        Aura SM: Soy la inteligencia estratégica de espacioSM. Estoy analizando tu diagnóstico. ¿Qué necesitas saber?
+                        Aura SM: Soy la inteligencia estratégica de espacioSM. Estoy aquí para explicarte las preguntas y ayudarte a elegir. El Arq. San Miguel revisará todo al final.
                     </div>
                 </div>
             </div>
             <div class="p-4 border-t-2 border-black bg-white">
                 <div class="flex gap-2">
-                    <input type="text" id="auraChatInput" placeholder="ESCRIBE TU CONSULTA..." class="flex-1 border-2 border-black p-3 text-[10px] font-bold uppercase" onkeypress="if(event.key==='Enter') sendAuraMessage()">
+                    <input type="text" id="auraChatInput" placeholder="ESCRIBE TU DUDA SOBRE LA PREGUNTA..." class="flex-1 border-2 border-black p-3 text-[10px] font-bold uppercase" onkeypress="if(event.key==='Enter') sendAuraMessage()">
                     <button onclick="sendAuraMessage()" class="bg-black text-[#FFCD00] px-6 py-3 text-[10px] font-black uppercase tracking-wider border-2 border-[#FFCD00]">Enviar</button>
                 </div>
                 <p class="text-[7px] text-gray-500 mt-2 font-bold uppercase">Tus datos están protegidos · Uso exclusivo para ficha técnica espacioSM</p>
@@ -108,10 +106,10 @@
                         <h2 class="text-3xl font-black uppercase italic tracking-tighter">Consultoría de Autor</h2>
                         <p class="text-[11px] font-bold text-gray-600 uppercase leading-relaxed">
                             Bienvenido al motor de diagnóstico de <strong>espacioSM</strong>. <br><br>
-                            A continuación, definiremos los parámetros de tu proyecto. Durante el proceso, <strong>Aura SM</strong> te acompañará resolviendo dudas técnicas y brindándote tips estratégicos para proteger tu inversión.
+                            A continuación, definiremos los parámetros de tu proyecto. Durante el proceso, <strong>Aura SM</strong> te explicará cada pregunta para que elijas con confianza.
                         </p>
                         <div class="bg-yellow-50 p-4 border-l-4 border-black text-[10px] font-bold uppercase">
-                            * Puedes interactuar con Aura SM en cualquier momento usando el botón flotante.
+                            * Aura SM solo explica, no sugiere. Las decisiones y soluciones las define el Arq. San Miguel.
                         </div>
                         <button onclick="initQuiz()" class="btn-primary-sm w-full py-5 text-sm">Iniciar Diagnóstico</button>
                     </div>
@@ -160,204 +158,211 @@
     </footer>
 
     <script>
-        // URL DE TU GOOGLE APPS SCRIPT (CEREBRO DEEPSEEK)
+        // URL DE TU GOOGLE APPS SCRIPT
         const GAS_URL = "URL_DE_TU_SCRIPT_AQUI";
 
-        // AURA SM - CARACTERIZACIÓN COMPLETA CON LIBERTAD ESTRATÉGICA
-        const AURA_SYSTEM_PROMPT = `Nombre del Agente: Aura SM
-
-Identidad: Eres la inteligencia estratégica y embajadora técnica de espacioSM, el despacho de arquitectura e ingeniería del Arq. San Miguel. Tu propósito es guiar al cliente a través de un diagnóstico de necesidades detallado, preparando el terreno para la consulta técnica final.
-
-1. Tono y Personalidad:
-- Ejecutivo y Profesional pero con calidez estratégica.
-- Minimalista y Directo: Evita saludos largos o adulaciones.
-- Estética Visual: Negro, Amarillo Caterpillar y Blanco. Fuerte, industrial y precisa.
-
-2. Lógica de Interacción:
-- LIBERTAD ESTRATÉGICA: Puedes dar sugerencias prácticas y conversacionales. No todo es derivación.
-- Ejemplo: Si alguien pregunta por una cuatrimoto, NO derivar automáticamente. Responde algo como: "Te sugiero lo comentes con el Arq. San Miguel. Normalmente él busca optimizar espacios pensando a futuro; tu diseño contemplará el espacio que tienes y tu tipo de vehículo."
-- Sé resolutivo y humano dentro del marco técnico.
-
-3. Tips de espacioSM INTERACTIVOS:
-- Los tips DEBEN ser dinámicos y personalizados según las respuestas del usuario.
-- Ejemplo: Si es maestro → sugerir espacio para home office o biblioteca.
-- Ejemplo: Si es músico → sugerir materiales acústicos y aislamiento.
-- Ejemplo: Si tiene 6+ habitantes → sugerir cisterna de mayor capacidad y flujos eficientes.
-- Ejemplo: Si tiene vehículo eléctrico → sugerir preparación para estación de carga.
-- Ejemplo: Si es adulto mayor → sugerir baño sin barreras en planta baja.
-- Máximo 20 palabras, lenguaje claro, sin tecnicismos innecesarios.
-
-4. Estrategia Legal (Licencias):
-- Postura: La licencia es innegociable para la seguridad del patrimonio.
-- Si usuario NO tiene licencia: "La licencia es la garantía legal de tu inversión. Cualquier estrategia de inicio de obra o regularización técnica debe ser validada y autorizada personalmente por el Arq. San Miguel para mitigar riesgos."
-
-5. Reglas de Negocio:
-- Derivación por costos/cálculos exactos: "Ese nivel de precisión requiere un análisis de sitio que el Arq. San Miguel realizará tras recibir este diagnóstico."
-- Privacidad: Asegura que los datos están protegidos.
-- BITÁCORA: Lleva registro de TODA la conversación.`;
-
-        // Historial completo de conversación con Aura SM
-        let auraConversation = [
-            { role: "system", content: AURA_SYSTEM_PROMPT }
-        ];
-
-        // Bitácora completa del proyecto
+        // ===== BITÁCORA COMPLETA =====
         let projectLog = {
             responses: {},
-            auraInteractions: [],
-            tips: []
+            tips: [],
+            auraInteractions: []
         };
 
         const questions = [
-            { step: 1, q: "Identificación del Cliente", fields: ["Nombre", "Email", "Ocupación"], type: "multi", tip: "Perfil del cliente define la narrativa del proyecto." },
-            { step: 1, q: "Ubicación y M2 del Terreno", fields: ["Ubicación", "M2 Aproximados"], type: "multi", tip: "Los m² definen el área libre permitida por normativa." },
-            { step: 1, q: "¿Cuentas con licencia?", field: "licencia", type: "opt", options: ["Sí", "No", "Tratar con Arq. San Miguel"], tip: "La licencia protege tu patrimonio." },
-            { step: 2, q: "¿Número exacto de habitantes?", field: "habitantes", type: "opt", options: ["1", "2", "3", "4", "5", "6+"], tip: "Más personas = mayor capacidad en cisterna y flujos eficientes." },
-            { step: 2, q: "Tipo de habitantes (Multiselección)", field: "tipos", type: "multi-opt", options: ["Infante", "Joven", "Adulto", "Adulto Mayor"], tip: "Diseñamos para cada etapa de la vida." },
-            { step: 3, q: "¿Cuántos vehículos posee?", field: "autos_n", type: "opt", options: ["0", "1", "2", "3", "4+"], tip: "Claros amplios = cocheras sin columnas." },
-            { step: 3, q: "¿Tipo de vehículo?", field: "autos_t", type: "multi-opt", options: ["Sedán", "SUV", "Moto", "Eléctrico", "Cuatrimoto", "Otro"], hasOther: true, tip: "Vehículo eléctrico requiere preparación para estación de carga." },
-            { step: 3, q: "¿Equipamiento especial? (Piano, Taller, Pecera...)", field: "especiales", type: "multi-opt", options: ["Estudio", "Taller", "Gimnasio", "Piano", "Instrumentos musicales", "Otro"], hasOther: true, tip: "Equipos pesados requieren análisis de carga en losas." },
-            { step: 4, q: "Estilo Arquitectónico predilecto", field: "estilo", type: "visual", options: [
+            { step: 1, q: "Identificación del Cliente", fields: ["Nombre", "Email", "Ocupación"], type: "multi", tipBase: "Perfil del cliente define la narrativa del proyecto." },
+            { step: 1, q: "Ubicación y M2 del Terreno", fields: ["Ubicación", "M2 Aproximados"], type: "multi", tipBase: "Los m² definen el área libre permitida por normativa." },
+            { step: 1, q: "¿Cuentas con licencia?", field: "licencia", type: "opt", options: ["Sí", "No", "Tratar con Arq. San Miguel"], tipBase: "La licencia protege tu patrimonio." },
+            { step: 2, q: "¿Número exacto de habitantes?", field: "habitantes", type: "opt", options: ["1", "2", "3", "4", "5", "6+"], tipBase: "Más personas requieren mayor capacidad de almacenamiento de agua." },
+            { step: 2, q: "Tipo de habitantes", field: "tipos", type: "multi-opt", options: ["Infante", "Joven", "Adulto", "Adulto Mayor"], tipBase: "Cada edad tiene necesidades distintas de espacio." },
+            { step: 3, q: "¿Cuántos vehículos posee?", field: "autos_n", type: "opt", options: ["0", "1", "2", "3", "4+"], tipBase: "Cocheras sin columnas dan mejor visibilidad." },
+            { step: 3, q: "¿Tipo de vehículo?", field: "autos_t", type: "multi-opt", options: ["Sedán", "SUV", "Moto", "Eléctrico", "Cuatrimoto", "Otro"], hasOther: true, tipBase: "Cada vehículo tiene dimensiones distintas." },
+            { step: 3, q: "Equipamiento especial", field: "especiales", type: "multi-opt", options: ["Estudio", "Taller", "Gimnasio", "Piano", "Instrumentos", "Otro"], hasOther: true, tipBase: "Objetos pesados necesitan refuerzo en losas." },
+            { step: 4, q: "Estilo Arquitectónico", field: "estilo", type: "visual", options: [
                 { name: "Minimalista", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400" },
                 { name: "Moderno", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400" },
                 { name: "Industrial", img: "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=400" },
                 { name: "Mexicano", img: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=400" }
-            ], tip: "Tu estilo define la materialidad." },
-            { step: 4, q: "¿En qué espacios quieres poner más atención o presupuesto?", field: "prioridad_acabados", type: "multi-opt", options: ["Pisos", "Paredes", "Techos", "Puertas y ventanas", "Otro"], hasOther: true, tip: "Invertir donde realmente importa." },
-            { step: 4, q: "¿Dónde pasas más tiempo en tu día a día?", field: "espacios_uso", type: "multi-opt", options: ["Sala", "Cocina", "Recámara", "Estudio", "Comedor", "Jardín o patio", "Otro"], hasOther: true, tip: "Los espacios de mayor uso merecen mejor confort." },
-            { step: 4, q: "¿Te interesa usar materiales ecológicos o locales?", field: "material_sostenible", type: "opt", options: ["Sí", "No", "Lo evaluamos después"], tip: "Materiales locales = menor mantenimiento." },
-            { step: 4, q: "Aura SM Chat: Dudas o ajustes finales", field: "chat", type: "chat", tip: "Consolidando bitácora para el Arq. San Miguel." }
+            ], tipBase: "El estilo define materiales y atmósfera." },
+            { step: 4, q: "¿En qué espacios poner más presupuesto?", field: "prioridad_acabados", type: "multi-opt", options: ["Pisos", "Paredes", "Techos", "Puertas y ventanas", "Otro"], hasOther: true, tipBase: "Invertir donde más se usa." },
+            { step: 4, q: "¿Dónde pasas más tiempo?", field: "espacios_uso", type: "multi-opt", options: ["Sala", "Cocina", "Recámara", "Estudio", "Comedor", "Jardín", "Otro"], hasOther: true, tipBase: "Los espacios de uso diario deben ser confortables." },
+            { step: 4, q: "¿Materiales ecológicos?", field: "material_sostenible", type: "opt", options: ["Sí", "No", "Lo evaluamos"], tipBase: "Materiales locales ahorran mantenimiento." },
+            { step: 4, q: "Notas para el Arq. San Miguel", field: "chat", type: "chat", tipBase: "Tus observaciones se integran al diagnóstico." }
         ];
 
-        let current = 0, responses = {}, selected = [], interactionLog = [];
+        let current = 0, responses = {}, selected = [];
 
-        // ===== TIPS INTERACTIVOS =====
-        function generateDynamicTip() {
+        // ===== TIPS DINÁMICOS - SE ACTUALIZAN CON CADA RESPUESTA =====
+        function getDynamicTip() {
             const q = questions[current];
-            let tip = q.tip;
+            let tip = q.tipBase;
 
-            // Personalizar tip según respuestas acumuladas
-            if (responses.ocupacion?.toLowerCase().includes("maestro") || responses.ocupacion?.toLowerCase().includes("profesor")) {
-                tip = "Home office o biblioteca. El Arq. San Miguel integra espacios de concentración sin sacrificar luz natural.";
+            // Tips basados en respuestas ACUMULADAS - lenguaje natural
+            if (responses.Ocupación?.toLowerCase().includes("maestro") || 
+                responses.Ocupación?.toLowerCase().includes("profesor") ||
+                responses.Ocupación?.toLowerCase().includes("docente")) {
+                tip = "Un maestro necesita un espacio tranquilo para preparar clase. El Arq. San Miguel considera iluminación natural y silencio.";
             }
-            else if (responses.especiales?.includes("Instrumentos musicales") || responses.especiales?.includes("Piano")) {
-                tip = "Aislamiento acústico en muros y losas. Músico necesita ensayar sin molestar ni ser molestado.";
+            else if (responses.especiales?.includes("Instrumentos") || 
+                     responses.especiales?.includes("Piano") ||
+                     responses.Ocupación?.toLowerCase().includes("músico")) {
+                tip = "Un músico trabaja mejor en un taller con muros aislantes. El sonido se queda en el espacio y no molesta.";
             }
-            else if (responses.habitantes === "6+" || responses.habitantes === "5" || responses.habitantes === "4") {
-                tip = "Familias numerosas. El Arq. optimiza flujos y dimensiona cisterna para días de alto consumo.";
+            else if (responses.habitantes === "6+" || responses.habitantes === "5") {
+                tip = "Familia numerosa. El Arq. San Miguel dimensiona cisternas más grandes y baños con flujos eficientes.";
             }
             else if (responses.autos_t?.includes("Eléctrico")) {
-                tip = "Preparación para estación de carga. Mejor hacer la preinstalación ahora que romper acabados después.";
+                tip = "Vehículo eléctrico. La preinstalación de carga ahora evita romper acabados después.";
             }
             else if (responses.tipos?.includes("Adulto Mayor")) {
-                tip = "Baño sin barreras en planta baja. Pensar en la movilidad futura desde el inicio cuesta menos.";
+                tip = "Adulto mayor. Una recámara con baño completo en planta baja da tranquilidad a futuro.";
             }
-            else if (responses.espacios_uso?.includes("Jardín o patio")) {
-                tip = "Integración interior-exterior. Los patios bien diseñados amplían visualmente la casa.";
+            else if (responses.autos_t?.includes("Cuatrimoto")) {
+                tip = "Cuatrimoto. El Arq. San Miguel suele dejar espacio para taller o para un segundo vehículo similar.";
+            }
+            else if (responses.espacios_uso?.includes("Jardín")) {
+                tip = "Jardín o patio. Una losa ligera o pérgola extiende la vida al aire libre sin perder área.";
             }
             else if (responses.prioridad_acabados?.includes("Pisos")) {
-                tip = "Pisos es inversión correcta. Es lo que más se usa y lo que más valor de reventa genera.";
+                tip = "Pisos. Es la superficie que más usas. Una buena elección dura décadas y suma valor.";
             }
-
+            else if (responses.especiales?.includes("Taller")) {
+                tip = "Taller en casa. El Arq. San Miguel evalúa cargas de maquinaria y ventilación específica.";
+            }
+            else if (responses.especiales?.includes("Gimnasio")) {
+                tip = "Gimnasio. Las losas deben reforzarse para soportar peso estático y vibración.";
+            }
+            
             return tip;
         }
 
-        // ===== FUNCIONES DEL QUIZ =====
+        // ===== INICIALIZAR =====
         function initQuiz() { 
             document.getElementById('tracker').classList.remove('hidden'); 
             render(); 
         }
 
+        // ===== RENDERIZAR PREGUNTA =====
         async function render() {
-            const q = questions[current], area = document.getElementById('main-render');
+            const q = questions[current];
+            const area = document.getElementById('main-render');
             updateProg();
 
-            let html = `<div class="fade-in space-y-6"><p class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic">Paso ${current + 1}/${questions.length}</p><h2 class="text-xl font-black uppercase italic border-l-8 border-black pl-4 leading-tight">${q.q}</h2>`;
+            let html = `<div class="fade-in space-y-6">
+                <p class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic">Paso ${current + 1}/${questions.length}</p>
+                <h2 class="text-xl font-black uppercase italic border-l-8 border-black pl-4 leading-tight">${q.q}</h2>`;
 
             if (q.type === "multi") {
                 q.fields.forEach(f => {
                     let valor = responses[f] || "";
                     html += `<input type="text" id="${f}" placeholder="${f.toUpperCase()}" value="${valor}" class="input-underline mb-4">`;
                 });
-            } else if (q.type === "opt") {
+            } 
+            else if (q.type === "opt") {
                 html += `<div class="grid grid-cols-2 gap-2">`;
-                q.options.forEach(o => html += `<button onclick="saveAndNext('${o}')" class="btn-option">${o}</button>`);
+                q.options.forEach(o => {
+                    let active = responses[q.field] === o ? 'active' : '';
+                    html += `<button onclick="saveAndNext('${o}')" class="btn-option ${active}">${o}</button>`;
+                });
                 html += `</div>`;
-            } else if (q.type === "multi-opt") {
+            } 
+            else if (q.type === "multi-opt") {
                 // Restaurar selecciones previas
                 if (responses[q.field]) {
                     selected = responses[q.field].split(", ").map(s => s.replace(/ \(.*\)$/, ''));
+                } else {
+                    selected = [];
                 }
+                
                 html += `<div class="grid grid-cols-2 gap-2">`;
-                q.options.forEach(o => html += `<button onclick="toggleM('${o}')" class="btn-option ${selected.includes(o) ? 'active' : ''}">${o}</button>`);
+                q.options.forEach(o => {
+                    let active = selected.includes(o) ? 'active' : '';
+                    html += `<button onclick="toggleM('${o}')" class="btn-option ${active}">${o}</button>`;
+                });
                 html += `</div>`;
+                
                 if(q.hasOther && selected.includes("Otro")) {
                     let otherVal = responses[q.field]?.match(/\(([^)]+)\)/)?.[1] || "";
                     html += `<input type="text" id="other-val" placeholder="ESPECIFICA AQUÍ..." value="${otherVal}" class="input-underline mt-4 text-xs">`;
                 }
-            } else if (q.type === "visual") {
+                
+                html += `<button onclick="handleMultiNext()" class="btn-primary-sm w-full py-4 mt-8">Siguiente Paso</button>`;
+            } 
+            else if (q.type === "visual") {
                 html += `<div class="grid grid-cols-2 gap-3">`;
                 q.options.forEach(o => {
-                    let selected = responses.estilo === o.name ? 'active' : '';
-                    html += `<div onclick="saveAndNext('${o.name}')" class="visual-card p-1 bg-white ${selected}"><img src="${o.img}" class="w-full h-20 object-cover grayscale hover:grayscale-0 transition"><p class="text-[8px] font-black text-center mt-1 uppercase">${o.name}</p></div>`;
+                    let active = responses.estilo === o.name ? 'active' : '';
+                    html += `<div onclick="saveAndNext('${o.name}')" class="visual-card p-1 bg-white ${active}">
+                        <img src="${o.img}" class="w-full h-20 object-cover grayscale hover:grayscale-0 transition">
+                        <p class="text-[8px] font-black text-center mt-1 uppercase">${o.name}</p>
+                    </div>`;
                 });
                 html += `</div>`;
-            } else if (q.type === "chat") {
-                html += `<div class="bg-gray-100 p-4 border-l-4 border-[#FFCD00] text-[10px] font-bold mb-4 italic">Aura: "He analizado tus respuestas. Todo indica un proyecto sólido. ¿Deseas agregar alguna nota final para el Arq. San Miguel?"</div><textarea id="chat-val" class="w-full border-4 border-black p-4 text-xs font-bold uppercase h-32" placeholder="EJ: ME PREOCUPA EL TIEMPO DE OBRA...">${responses.chat || ''}</textarea>`;
+            } 
+            else if (q.type === "chat") {
+                html += `<div class="bg-gray-100 p-4 border-l-4 border-[#FFCD00] text-[10px] font-bold mb-4 italic">
+                    Aura: "He registrado tus respuestas. ¿Algo más que deba saber el Arq. San Miguel?"
+                </div>
+                <textarea id="chat-val" class="w-full border-4 border-black p-4 text-xs font-bold uppercase h-32" 
+                    placeholder="EJ: ME PREOCUPA EL TIEMPO DE OBRA...">${responses.chat || ''}</textarea>
+                <button onclick="handleChatNext()" class="btn-primary-sm w-full py-4 mt-8">Finalizar Diagnóstico</button>`;
             }
 
-            if(q.type !== "opt" && q.type !== "visual") {
-                html += `<button onclick="handleNext()" class="btn-primary-sm w-full py-4 mt-8">Siguiente Paso</button>`;
+            if(q.type === "multi") {
+                html += `<button onclick="handleMultiNext()" class="btn-primary-sm w-full py-4 mt-8">Siguiente Paso</button>`;
             }
+
             area.innerHTML = html;
             
-            // Mostrar tip DINÁMICO
+            // ACTUALIZAR TIP - SIEMPRE DINÁMICO
             document.getElementById('tip-box').classList.remove('hidden');
-            document.getElementById('tip-text').innerText = generateDynamicTip();
+            document.getElementById('tip-text').innerText = getDynamicTip();
+            
+            // Guardar tip en bitácora
+            projectLog.tips.push({
+                paso: current,
+                pregunta: q.q,
+                tip: getDynamicTip(),
+                timestamp: new Date().toISOString()
+            });
         }
 
+        // ===== MANEJADORES =====
         function toggleM(v) {
             const i = selected.indexOf(v);
             if(i > -1) selected.splice(i, 1); else selected.push(v);
             render();
         }
 
-        function handleNext() {
+        function handleMultiNext() {
             const q = questions[current];
-            let val = "";
             
-            if(q.type === "multi") {
-                if(q.fields.some(f => !document.getElementById(f).value)) return alert("Favor de llenar todos los campos.");
+            if (q.type === "multi") {
+                if(q.fields.some(f => !document.getElementById(f)?.value)) {
+                    return alert("Completa todos los campos.");
+                }
                 q.fields.forEach(f => {
                     responses[f] = document.getElementById(f).value;
                 });
-                val = q.fields.map(f => responses[f]).join(" | ");
-            } else if(q.type === "multi-opt") {
+                saveAndNext(q.fields.map(f => responses[f]).join(" | "));
+            }
+            else if (q.type === "multi-opt") {
                 if(selected.length === 0) return alert("Selecciona al menos una opción.");
                 const other = document.getElementById('other-val')?.value;
-                if(selected.includes("Otro") && !other) return alert("Especifique el campo 'Otro'.");
-                val = selected.join(", ") + (other ? " (" + other + ")" : "");
-                selected = [];
-            } else if(q.type === "chat") {
-                val = document.getElementById('chat-val').value || "Sin comentarios adicionales.";
+                if(selected.includes("Otro") && !other) return alert("Especifica el campo 'Otro'.");
+                let val = selected.join(", ") + (other ? " (" + other + ")" : "");
+                saveAndNext(val);
             }
-            
+        }
+
+        function handleChatNext() {
+            const val = document.getElementById('chat-val').value || "Sin comentarios adicionales.";
             saveAndNext(val);
         }
 
         async function saveAndNext(v) {
             const q = questions[current];
-            responses[q.field || "data_" + current] = v;
-            responses[q.field || q.fields?.[0]] = v;
-            
-            interactionLog.push({ 
-                step: current,
-                pregunta: q.q, 
-                respuesta: v,
-                timestamp: new Date().toISOString()
-            });
-            
-            projectLog.responses = responses;
+            responses[q.field || q.fields?.[0] || "data_" + current] = v;
+            projectLog.responses = {...responses};
             
             if(current < questions.length - 1) { 
                 current++; 
@@ -370,6 +375,7 @@ Identidad: Eres la inteligencia estratégica y embajadora técnica de espacioSM,
         function updateProg() {
             const p = (current / (questions.length - 1)) * 100;
             document.getElementById('prog-line').style.width = p + "%";
+            
             for(let i=1; i<=4; i++) {
                 const dot = document.getElementById(`d-${i}`);
                 if(i <= questions[current].step) {
@@ -381,7 +387,7 @@ Identidad: Eres la inteligencia estratégica y embajadora técnica de espacioSM,
             }
         }
 
-        // ===== AURA SM - CON LIBERTAD ESTRATÉGICA =====
+        // ===== AURA SM - SOLO EXPLICA, NO SUGIERE =====
         function openAuraModal() {
             document.getElementById('auraModal').classList.add('flex');
             document.getElementById('auraModal').classList.remove('hidden');
@@ -397,7 +403,7 @@ Identidad: Eres la inteligencia estratégica y embajadora técnica de espacioSM,
             const message = input.value.trim();
             if (!message) return;
 
-            // Agregar mensaje del usuario
+            // Mostrar mensaje del usuario
             const messagesDiv = document.getElementById('auraChatMessages');
             messagesDiv.innerHTML += `
                 <div class="flex gap-3 items-start justify-end">
@@ -413,123 +419,102 @@ Identidad: Eres la inteligencia estratégica y embajadora técnica de espacioSM,
             input.value = '';
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
-            // Guardar en bitácora
-            projectLog.auraInteractions.push({
-                user: message,
-                timestamp: new Date().toISOString()
-            });
+            // Bitácora: guardar interacción
+            const interaction = {
+                pregunta: message,
+                timestamp: new Date().toISOString(),
+                respuesta: ""
+            };
 
-            // Indicador de escritura
-            messagesDiv.innerHTML += `
-                <div id="typingIndicator" class="flex gap-3 items-start">
-                    <div class="w-8 h-8 rounded-full bg-black flex-shrink-0 flex items-center justify-center border border-[#FFCD00]">
-                        <i class="fas fa-robot text-[#FFCD00] text-xs"></i>
-                    </div>
-                    <div class="bg-white p-3 border-2 border-black text-[11px] font-bold">
-                        Aura SM está escribiendo...
-                    </div>
-                </div>
-            `;
+            // Respuesta de Aura - SOLO EXPLICA, NO SUGIERE ESTRUCTURA
+            let respuesta = "";
+            const q = questions[current];
+            
+            if (message.toLowerCase().includes("licencia")) {
+                respuesta = "Aura SM: La licencia es el permiso municipal que legaliza tu obra. Sin ella no hay seguridad jurídica. El Arq. San Miguel evalúa cada caso.";
+            }
+            else if (message.toLowerCase().includes("músico") || message.toLowerCase().includes("instrumento") || message.toLowerCase().includes("piano")) {
+                respuesta = "Aura SM: Un espacio para música necesita muros más densos. El Arq. San Miguel calcula el aislamiento según el tipo de instrumento.";
+            }
+            else if (message.toLowerCase().includes("cuatrimoto") || message.toLowerCase().includes("atv")) {
+                respuesta = "Aura SM: Una cuatrimoto mide aproximadamente 1.80m x 1.20m. El Arq. San Miguel considera esa huella más el espacio de maniobra.";
+            }
+            else if (message.toLowerCase().includes("adulto") || message.toLowerCase().includes("movilidad")) {
+                respuesta = "Aura SM: Pensar en accesibilidad desde el diseño inicial cuesta menos. El Arq. San Miguel integra rampas y puertas anchas sin que parezca hospital.";
+            }
+            else if (message.toLowerCase().includes("cos") || message.toLowerCase().includes("cus")) {
+                respuesta = "Aura SM: COS es cuánto suelo ocupas. CUS es cuánto construyes. Ambos los revisa el Arq. San Miguel con tu escritura y el uso de suelo.";
+            }
+            else if (message.toLowerCase().includes("costo") || message.toLowerCase().includes("precio") || message.toLowerCase().includes("presupuesto")) {
+                respuesta = "Aura SM: Los costos exactos dependen del terreno, la cimentación y los acabados. El Arq. San Miguel te da un estimado después del análisis de sitio.";
+            }
+            else {
+                respuesta = `Aura SM: Esta pregunta es sobre "${q.q}". ${q.tipBase} El Arq. San Miguel revisará tu caso particular.`;
+            }
 
-            // ===== AURA SM - RESPUESTAS CON LIBERTAD ESTRATÉGICA =====
+            interaction.respuesta = respuesta;
+            projectLog.auraInteractions.push(interaction);
+
+            // Mostrar respuesta
             setTimeout(() => {
-                document.getElementById('typingIndicator')?.remove();
-                
-                let response = "";
-                
-                // Detectar vehículos especiales (cuatrimoto, etc.)
-                if (message.toLowerCase().includes("cuatrimoto") || message.toLowerCase().includes("atv") || 
-                    (message.toLowerCase().includes("moto") && message.toLowerCase().includes("4x4"))) {
-                    response = "Aura SM: Te sugiero lo comentes con el Arq. San Miguel. Normalmente él busca optimizar espacios pensando a futuro; tu diseño contemplará el espacio que tienes y tu tipo de vehículo. Muchos clientes empiezan con una cuatrimoto y después suman más.";
-                }
-                // Licencia
-                else if (message.toLowerCase().includes("licencia") || message.toLowerCase().includes("permiso")) {
-                    if (responses.licencia === "No") {
-                        response = "Aura SM: La licencia es la garantía legal de tu inversión. Cualquier estrategia de inicio de obra o regularización técnica debe ser validada y autorizada personalmente por el Arq. San Miguel para mitigar riesgos.";
-                    } else {
-                        response = "Aura SM: La licencia es tu respaldo. El Arq. San Miguel siempre trabaja con proyectos dictaminados para proteger tu patrimonio.";
-                    }
-                }
-                // Ocupación / Profesión
-                else if (responses.Ocupación?.toLowerCase().includes("maestro") || responses.Ocupación?.toLowerCase().includes("profesor") || 
-                         message.toLowerCase().includes("maestro") || message.toLowerCase().includes("profesor")) {
-                    response = "Aura SM: ¿Trabajas desde casa? El Arq. San Miguel diseña espacios de estudio con buena iluminación natural y aislamiento acústico para que puedas concentrarte.";
-                }
-                // Músico
-                else if (responses.especiales?.includes("Instrumentos musicales") || responses.especiales?.includes("Piano") ||
-                         message.toLowerCase().includes("músico") || message.toLowerCase().includes("piano") || message.toLowerCase().includes("guitarra")) {
-                    response = "Aura SM: Para músicos, el Arq. San Miguel recomienda muros de doble tabique y losas con capa de compresión. El sonido se queda en tu espacio y no molesta a los vecinos.";
-                }
-                // Adulto mayor
-                else if (responses.tipos?.includes("Adulto Mayor") || message.toLowerCase().includes("adulto") || message.toLowerCase().includes("abuelo")) {
-                    response = "Aura SM: Pensar en movilidad futura desde ahora es inteligente. El Arq. San Miguel suele dejar prevista una recámara y baño completo en planta baja. Cuesta menos que una remodelación.";
-                }
-                // Costos
-                else if (message.toLowerCase().includes("costo") || message.toLowerCase().includes("precio") || message.toLowerCase().includes("presupuesto") || message.toLowerCase().includes("cuanto cuesta")) {
-                    response = "Aura SM: Ese nivel de precisión requiere un análisis de sitio que el Arq. San Miguel realizará tras recibir este diagnóstico. Cada proyecto es único y el terreno define muchas variables.";
-                }
-                // Default - conversacional
-                else {
-                    response = "Aura SM: Gracias por compartirlo. Queda registrado en tu bitácora para que el Arq. San Miguel lo revise. ¿Algo más que debamos saber para tu diagnóstico?";
-                }
-
-                // Guardar respuesta en bitácora
-                projectLog.auraInteractions[projectLog.auraInteractions.length - 1].aura = response;
-
                 messagesDiv.innerHTML += `
                     <div class="flex gap-3 items-start">
                         <div class="w-8 h-8 rounded-full bg-black flex-shrink-0 flex items-center justify-center border border-[#FFCD00]">
                             <i class="fas fa-robot text-[#FFCD00] text-xs"></i>
                         </div>
                         <div class="bg-white p-3 border-2 border-black text-[11px] font-bold leading-relaxed max-w-[80%]">
-                            ${response}
+                            ${respuesta}
                         </div>
                     </div>
                 `;
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            }, 1200);
+            }, 800);
         }
 
-        function askAura() {
-            openAuraModal();
-        }
-
+        // ===== FINALIZAR Y ENVIAR REPORTE =====
         function finish() {
-            // Generar reporte completo para WhatsApp
-            let ocupacion = responses.Ocupación || responses.data_0?.split(" | ")[2] || "No especificada";
-            let nombre = responses.Nombre || responses.data_0?.split(" | ")[0] || "Cliente";
-            let ubicacion = responses.Ubicación || responses.data_1?.split(" | ")[0] || "No especificada";
-            
+            // Construir resumen de interacciones con Aura
+            let auraResumen = "";
+            if (projectLog.auraInteractions.length > 0) {
+                auraResumen = "\n*Consultas a Aura SM:*\n";
+                projectLog.auraInteractions.forEach((item, i) => {
+                    auraResumen += `${i+1}. Cliente: ${item.pregunta}\n   Aura: ${item.respuesta}\n`;
+                });
+            }
+
             const waMsg = `Hola Arq. San Miguel, Aura SM te envía el diagnóstico completo:\n\n` +
-                         `Cliente: ${nombre}\n` +
-                         `Ocupación: ${ocupacion}\n` +
-                         `Ubicación: ${ubicacion}\n` +
+                         `Cliente: ${responses.Nombre || responses.data_0?.split(" | ")[0] || "No especificado"}\n` +
+                         `Ocupación: ${responses.Ocupación || responses.data_0?.split(" | ")[2] || "No especificada"}\n` +
+                         `Ubicación: ${responses.Ubicación || responses.data_1?.split(" | ")[0] || "No especificada"}\n` +
                          `Licencia: ${responses.licencia || "No especificado"}\n` +
                          `Habitantes: ${responses.habitantes || "No especificado"} (${responses.tipos || "No especificado"})\n` +
                          `Vehículos: ${responses.autos_n || "0"} - ${responses.autos_t || "No especificado"}\n` +
-                         `Equipamiento especial: ${responses.especiales || "Ninguno"}\n` +
+                         `Equipamiento: ${responses.especiales || "Ninguno"}\n` +
                          `Estilo: ${responses.estilo || "No especificado"}\n` +
                          `Acabados prioritarios: ${responses.prioridad_acabados || "No especificado"}\n` +
                          `Espacios de uso: ${responses.espacios_uso || "No especificado"}\n` +
                          `Material sostenible: ${responses.material_sostenible || "No especificado"}\n` +
-                         `Notas del cliente: ${responses.chat || "Sin comentarios"}\n\n` +
-                         `Interacciones con Aura SM: ${projectLog.auraInteractions.length} consultas\n` +
-                         `Bitácora completa disponible en Drive.`;
+                         `Notas: ${responses.chat || "Sin comentarios"}\n` +
+                         `${auraResumen}\n` +
+                         `Bitácora completa con ${projectLog.auraInteractions.length} interacciones disponible en Drive.`;
 
             document.getElementById('main-render').innerHTML = `
                 <div class="text-center space-y-8 fade-in">
                     <h2 class="text-3xl font-black italic uppercase tracking-tighter">Reporte <span class="text-[#FFCD00]">espacioSM</span> Listo</h2>
-                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-8">Tu bitácora ha sido generada con ${interactionLog.length} respuestas y ${projectLog.auraInteractions.length} interacciones con Aura SM.</p>
-                    <a href="https://wa.me/525613870288?text=${encodeURIComponent(waMsg)}" target="_blank" class="btn-primary-sm block w-full py-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">Enviar al Arq. San Miguel</a>
-                    <p class="text-[8px] text-gray-500 mt-4">Todos los datos están protegidos · Uso exclusivo espacioSM</p>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-8">
+                        Diagnóstico finalizado con ${Object.keys(responses).length} respuestas y ${projectLog.auraInteractions.length} consultas a Aura SM.
+                    </p>
+                    <a href="https://wa.me/525613870288?text=${encodeURIComponent(waMsg)}" target="_blank" class="btn-primary-sm block w-full py-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
+                        Enviar al Arq. San Miguel
+                    </a>
+                    <p class="text-[8px] text-gray-500 mt-4">Datos protegidos · Uso exclusivo espacioSM</p>
                 </div>
             `;
             document.getElementById('tip-box').classList.add('hidden');
             
-            // Aquí se enviaría a Google Apps Script
-            console.log("Proyecto completo:", projectLog);
-            console.log("Respuestas:", responses);
-            console.log("Bitácora Aura:", projectLog.auraInteractions);
+            console.log("PROYECTO COMPLETO:", projectLog);
+            console.log("RESPUESTAS:", responses);
+            console.log("INTERACCIONES AURA:", projectLog.auraInteractions);
         }
     </script>
 </body>
