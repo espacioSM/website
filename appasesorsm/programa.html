@@ -21,7 +21,6 @@
             padding: 16px;
         }
 
-        /* Contenedor principal - tamaño fijo tipo ventana de mensajería */
         .chat-container {
             width: 100%;
             max-width: 420px;
@@ -37,7 +36,6 @@
             backdrop-filter: blur(2px);
         }
 
-        /* Header estilo app con ESPACIOS */
         .app-header {
             background: #1a2639;
             color: white;
@@ -77,7 +75,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Sección de bienvenida - sutil */
         .welcome-section {
             padding: 18px 20px 8px 20px;
             background: #ffffff;
@@ -100,7 +97,6 @@
             font-weight: 600;
         }
 
-        /* Área de mensajes y preguntas con scroll */
         .questions-area {
             flex: 1;
             overflow-y: auto;
@@ -112,14 +108,12 @@
             scroll-behavior: smooth;
         }
 
-        /* Estilo cada bloque de pregunta + burbujas */
         .question-block {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
-        /* Mensaje de pregunta estilo "bubble" del usuario */
         .user-question-bubble {
             background: #1a2639;
             color: white;
@@ -136,7 +130,6 @@
             margin-left: auto;
         }
 
-        /* Respuesta tipo "Aura SM" */
         .aura-response-bubble {
             background: #f0f4fe;
             color: #1d2b3f;
@@ -156,7 +149,6 @@
             font-weight: 600;
         }
 
-        /* Contenedor de burbujas de preguntas (flotantes) */
         .bubble-questions-container {
             display: flex;
             flex-wrap: wrap;
@@ -195,7 +187,6 @@
             border-color: #1a2639;
         }
 
-        /* Burbujas de respuesta (inicialmente ocultas) */
         .bubble-answer {
             background: #eef2f7;
             border: 1px solid #cbd5e1;
@@ -211,6 +202,7 @@
             transform: translateY(5px);
             transition: opacity 0.25s ease, transform 0.2s ease;
             pointer-events: none;
+            cursor: pointer;
         }
 
         .bubble-answer.visible {
@@ -219,7 +211,6 @@
             pointer-events: auto;
         }
 
-        /* Input fijo en la parte inferior */
         .chat-input-area {
             background: #ffffff;
             border-top: 1px solid #e2e8f0;
@@ -278,7 +269,6 @@
             transform: scale(1.03);
         }
 
-        /* Disclaimer de protección */
         .footer-note {
             font-size: 10px;
             text-align: center;
@@ -290,7 +280,6 @@
             padding-top: 12px;
         }
 
-        /* Scroll personalizado */
         .questions-area::-webkit-scrollbar {
             width: 5px;
         }
@@ -307,7 +296,6 @@
 </head>
 <body>
     <div class="chat-container">
-        <!-- Header con nombre fijo -->
         <div class="app-header">
             <h1>
                 # espacio
@@ -316,19 +304,16 @@
             <div class="estrategia-badge">ESTRATEGIA · asesoría digital</div>
         </div>
 
-        <!-- Subtítulo y breve intro (preguntas y ayuda) -->
         <div class="welcome-section">
             <div class="welcome-text">
                 <strong>preguntas y ayudarte a elegir.</strong> El Arq. San Miguel revisará todo al final.
             </div>
         </div>
 
-        <!-- Área donde aparecen preguntas y respuestas dinámicas -->
         <div class="questions-area" id="questionsArea">
             <!-- Las preguntas y respuestas se generan con JS -->
         </div>
 
-        <!-- Input fijo inferior + datos protegidos -->
         <div class="chat-input-area">
             <div class="input-container">
                 <input type="text" placeholder="ESCRIBE TU DUDA SOBRE LA PREGUNTA..." id="messageInput">
@@ -342,45 +327,63 @@
 
     <script>
         (function() {
-            // Estado de la burbuja activa
             let activeBubbleQuestionId = null;
+            let deepseekAPI = 'https://api.deepseek.com/v1/chat/completions';
+            let apiKey = 'TU_API_KEY_DEEPSEEK'; // Reemplazar con la API key real
 
-            // Función para agregar un bloque de pregunta + respuesta al área
             function addQuestionBlock(questionText, answerHTML, questionId) {
                 const area = document.getElementById('questionsArea');
                 const block = document.createElement('div');
                 block.className = 'question-block';
                 block.dataset.blockId = questionId;
 
-                // Burbuja de pregunta (usuario)
                 const userBubble = document.createElement('div');
                 userBubble.className = 'user-question-bubble';
                 userBubble.textContent = questionText;
                 block.appendChild(userBubble);
 
-                // Burbuja de respuesta (Aura)
                 const auraBubble = document.createElement('div');
                 auraBubble.className = 'aura-response-bubble';
                 auraBubble.innerHTML = answerHTML;
                 block.appendChild(auraBubble);
 
                 area.appendChild(block);
-                // Scroll automático al final
                 area.scrollTop = area.scrollHeight;
             }
 
-            // Función para manejar clic en burbuja de pregunta
+            async function getDeepSeekResponse(question) {
+                try {
+                    const response = await fetch(deepseekAPI, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${apiKey}`
+                        },
+                        body: JSON.stringify({
+                            model: 'deepseek-chat',
+                            messages: [
+                                {role: 'system', content: 'Eres Aura SM, asistente especializado en licencias de construcción, COS y CUS. Respuestas breves y profesionales.'},
+                                {role: 'user', content: question}
+                            ],
+                            temperature: 0.7,
+                            max_tokens: 150
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    return data.choices[0].message.content;
+                } catch (error) {
+                    console.error('Error:', error);
+                    return 'Aura SM: Lo siento, no pude procesar tu pregunta. Intenta de nuevo.';
+                }
+            }
+
             function handleBubbleQuestion(questionId, questionText) {
-                // Cerrar burbuja de pregunta si está abierta
                 if (activeBubbleQuestionId === questionId) {
                     activeBubbleQuestionId = null;
-                    
-                    // Ocultar todas las burbujas de respuesta
                     document.querySelectorAll('.bubble-answer').forEach(answer => {
                         answer.classList.remove('visible');
                     });
-                    
-                    // Desactivar clase active de las burbujas de pregunta
                     document.querySelectorAll('.bubble-question').forEach(q => {
                         q.classList.remove('active');
                     });
@@ -389,7 +392,6 @@
                 
                 activeBubbleQuestionId = questionId;
                 
-                // Actualizar clase active en las burbujas de pregunta
                 document.querySelectorAll('.bubble-question').forEach(q => {
                     if (q.dataset.questionId === questionId) {
                         q.classList.add('active');
@@ -398,7 +400,6 @@
                     }
                 });
                 
-                // Mostrar SOLO las burbujas de respuesta de ESTA pregunta específica
                 document.querySelectorAll('.bubble-answer').forEach(answer => {
                     if (answer.dataset.questionId === questionId) {
                         answer.classList.add('visible');
@@ -406,35 +407,28 @@
                         answer.classList.remove('visible');
                     }
                 });
-                
-                console.log('Pregunta seleccionada:', questionText);
             }
 
-            // Inicialización: cargar preguntas predeterminadas y burbujas
             window.addEventListener('load', function() {
                 const area = document.getElementById('questionsArea');
                 
-                // 1. Insertar preguntas fijas (simula el historial)
-                // Pregunta 1
+                // Preguntas iniciales
                 addQuestionBlock(
                     'para que se necesita una licencia?',
                     'Aura SM: La licencia es el permiso municipal que legaliza tu obra. Sin ella no hay seguridad jurídica. El Arq. San Miguel evalúa cada caso.',
                     'q1'
                 );
 
-                // Pregunta 2
                 addQuestionBlock(
                     'es costosa?',
                     'Aura SM: COS es cuánto suelo ocupa. CUS es cuánto construyes. Ambos los revisa el Arq. San Miguel con tu escritura y el uso de suelo.',
                     'q2'
                 );
 
-                // 2. Crear contenedor de burbujas de preguntas (flotantes)
+                // Burbujas de preguntas
                 const bubbleContainer = document.createElement('div');
                 bubbleContainer.className = 'bubble-questions-container';
-                bubbleContainer.id = 'bubbleQuestionsContainer';
 
-                // Lista de preguntas para burbujas
                 const bubbleQuestions = [
                     { id: 'b1', text: '📋 ¿Qué documentos necesito?' },
                     { id: 'b2', text: '💰 ¿Costos aproximados?' },
@@ -454,21 +448,30 @@
 
                 area.appendChild(bubbleContainer);
 
-                // 3. Crear burbujas de respuestas (inicialmente ocultas) para cada pregunta
+                // Burbujas de respuestas
                 const answersData = [
-                    { questionId: 'b1', text: 'Escrituras', keywords: 'documentos' },
-                    { questionId: 'b1', text: 'Identificación oficial', keywords: 'ine' },
-                    { questionId: 'b1', text: 'Comprobante de domicilio', keywords: 'luz agua' },
-                    { questionId: 'b2', text: 'Entre $8,000 - $15,000', keywords: 'presupuesto' },
-                    { questionId: 'b2', text: 'Depende del uso de suelo', keywords: 'costo variable' },
-                    { questionId: 'b2', text: 'Honorarios arquitecto', keywords: 'adicional' },
-                    { questionId: 'b3', text: 'De 2 a 4 semanas', keywords: 'plazo' },
-                    { questionId: 'b3', text: 'Puede variar por municipio', keywords: 'demora' },
-                    { questionId: 'b4', text: 'Debe estar en área urbana', keywords: 'ubicación' },
-                    { questionId: 'b4', text: 'Revisar uso de suelo', keywords: 'permisos' },
-                    { questionId: 'b5', text: 'COS = Coeficiente de Ocupación del Suelo', keywords: 'definición' },
-                    { questionId: 'b5', text: 'CUS = Coeficiente de Utilización del Suelo', keywords: 'definición' },
-                    { questionId: 'b5', text: 'Determinan cuánto puedes construir', keywords: 'explicación' }
+                    // Pregunta 1
+                    { questionId: 'b1', text: 'Escrituras', response: 'Necesitas escrituras originales y copia.' },
+                    { questionId: 'b1', text: 'Identificación oficial', response: 'INE o pasaporte vigente.' },
+                    { questionId: 'b1', text: 'Comprobante de domicilio', response: 'Recibo de luz, agua o teléfono reciente.' },
+                    
+                    // Pregunta 2
+                    { questionId: 'b2', text: 'Entre $8,000 - $15,000', response: 'El costo base depende del municipio.' },
+                    { questionId: 'b2', text: 'Depende del uso de suelo', response: 'Uso de suelo comercial es más caro.' },
+                    { questionId: 'b2', text: 'Honorarios arquitecto', response: 'Aprox $3,000 - $5,000 adicionales.' },
+                    
+                    // Pregunta 3
+                    { questionId: 'b3', text: 'De 2 a 4 semanas', response: 'Si todo está en orden, puede ser rápido.' },
+                    { questionId: 'b3', text: 'Puede variar por municipio', response: 'Algunos municipios tardan hasta 2 meses.' },
+                    
+                    // Pregunta 4
+                    { questionId: 'b4', text: 'Debe estar en área urbana', response: 'Revisamos el uso de suelo primero.' },
+                    { questionId: 'b4', text: 'Revisar uso de suelo', response: 'El Arq. San Miguel hace el análisis.' },
+                    
+                    // Pregunta 5 - CORREGIDA: ahora tiene respuestas coherentes
+                    { questionId: 'b5', text: 'COS = Coeficiente de Ocupación del Suelo', response: 'Indica el porcentaje del terreno que puedes ocupar con construcción.' },
+                    { questionId: 'b5', text: 'CUS = Coeficiente de Utilización del Suelo', response: 'Determina los metros cuadrados totales que puedes construir.' },
+                    { questionId: 'b5', text: 'Determinan cuánto puedes construir', response: 'Ambos definen el potencial constructivo de tu terreno.' }
                 ];
 
                 answersData.forEach(ans => {
@@ -476,56 +479,54 @@
                     answerBubble.className = 'bubble-answer';
                     answerBubble.dataset.questionId = ans.questionId;
                     answerBubble.textContent = ans.text;
-                    answerBubble.setAttribute('data-keywords', ans.keywords || '');
+                    answerBubble.dataset.response = ans.response;
                     
-                    // Evento para insertar respuesta como pregunta del usuario
-                    answerBubble.addEventListener('click', function(e) {
+                    answerBubble.addEventListener('click', async function(e) {
                         const text = e.target.textContent;
+                        const response = e.target.dataset.response;
                         document.getElementById('messageInput').value = text;
+                        
+                        // Agregar pregunta del usuario
+                        addQuestionBlock(text, `Aura SM: ${response}`, 'respuesta-' + Date.now());
+                        
+                        // Consultar a Deep Seek para más detalles
+                        const deepseekResponse = await getDeepSeekResponse(text);
+                        if (deepseekResponse) {
+                            addQuestionBlock('Deep Seek: ' + text, deepseekResponse, 'deepseek-' + Date.now());
+                        }
                     });
                     
                     area.appendChild(answerBubble);
                 });
 
-                // 4. Botón de envío
-                document.getElementById('sendButton').addEventListener('click', function() {
+                // Botón de envío
+                document.getElementById('sendButton').addEventListener('click', async function() {
                     const input = document.getElementById('messageInput');
                     const text = input.value.trim();
                     if (text === '') return;
 
-                    // Agregar como pregunta del usuario (simulación)
-                    addQuestionBlock(text, 'Aura SM: Gracias por tu pregunta. El Arq. San Miguel revisará los detalles y te dará una respuesta personalizada.', 'custom-' + Date.now());
+                    addQuestionBlock(text, 'Aura SM: Procesando tu consulta...', 'custom-' + Date.now());
 
-                    input.value = ''; // Limpiar
+                    // Consultar a Deep Seek
+                    const deepseekResponse = await getDeepSeekResponse(text);
+                    
+                    // Actualizar la última respuesta con la de Deep Seek
+                    const lastBlock = document.querySelector('.question-block:last-child .aura-response-bubble');
+                    if (lastBlock) {
+                        lastBlock.innerHTML = `Aura SM vía Deep Seek: ${deepseekResponse}`;
+                    }
 
-                    // Ocultar burbujas al enviar (opcional, para limpiar UI)
-                    activeBubbleQuestionId = null;
-                    document.querySelectorAll('.bubble-answer').forEach(b => b.classList.remove('visible'));
-                    document.querySelectorAll('.bubble-question').forEach(q => q.classList.remove('active'));
+                    input.value = '';
                 });
 
-                // También enviar con Enter
                 document.getElementById('messageInput').addEventListener('keypress', function(e) {
                     if (e.key === 'Enter') {
                         e.preventDefault();
                         document.getElementById('sendButton').click();
                     }
                 });
-
-                // Click en cualquier parte para cerrar burbujas (opcional)
-                document.addEventListener('click', function(e) {
-                    if (!e.target.closest('.bubble-question') && !e.target.closest('.bubble-answer')) {
-                        activeBubbleQuestionId = null;
-                        document.querySelectorAll('.bubble-answer').forEach(b => b.classList.remove('visible'));
-                        document.querySelectorAll('.bubble-question').forEach(q => q.classList.remove('active'));
-                    }
-                });
             });
         })();
-    </script>
-</body>
-</html>
-        }
     </script>
 </body>
 </html>
