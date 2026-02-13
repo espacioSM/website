@@ -1,28 +1,55 @@
-<div class="max-w-md mx-auto bg-white min-h-[500px] flex flex-col shadow-lg rounded-3xl overflow-hidden border border-slate-200">
+<div class="max-w-md mx-auto bg-white border border-slate-200 rounded-[2.5rem] shadow-2xl overflow-hidden my-10">
   
-  <div class="p-6 bg-slate-900 text-white">
-    <p class="text-[10px] uppercase tracking-widest opacity-60">Consultor Virtual</p>
-    <h2 class="text-xl font-light italic">espacio<span class="font-bold">SM</span></h2>
+  <div class="p-8 text-center border-b border-slate-50">
+    <h1 class="text-2xl tracking-tighter font-light">espacio<span class="font-bold text-slate-900">SM</span></h1>
+    <div class="h-1 w-12 bg-blue-600 mx-auto mt-2 rounded-full"></div>
   </div>
 
-  <div class="flex-1 p-6 space-y-4 bg-slate-50">
+  <div class="p-6 space-y-6 min-h-[400px]">
     
-    <div class="flex gap-2">
-      <div class="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-none shadow-sm">
-        <p class="text-sm text-slate-700 font-medium italic italic">"Selecciona el tipo de requerimiento para iniciar el diagnóstico:"</p>
+    <div class="flex items-start gap-3">
+      <div class="flex-1 bg-slate-50 p-4 rounded-2xl rounded-tl-none border border-slate-100">
+        <p class="text-sm text-slate-600 leading-tight">
+          Para tu **Ampliación**, ¿qué área es la prioridad?
+        </p>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 gap-2 mt-4">
-      <button class="w-full text-left p-3 border border-slate-300 rounded-xl bg-white hover:border-blue-500 hover:bg-blue-50 transition text-sm font-semibold">
-        🏗️ Obra Nueva
+    <div class="space-y-2">
+      <button class="w-full p-4 text-left rounded-2xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition-all flex justify-between items-center group">
+        <span class="text-sm font-semibold text-slate-700">Recámara Principal</span>
+        <span class="text-slate-300 group-hover:text-blue-500">→</span>
       </button>
-      <button class="w-full text-left p-3 border border-slate-300 rounded-xl bg-white hover:border-blue-500 hover:bg-blue-50 transition text-sm font-semibold">
-        🏠 Ampliación / Remodelación
+      
+      <button class="w-full p-4 text-left rounded-2xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition-all flex justify-between items-center group">
+        <span class="text-sm font-semibold text-slate-700">Área Social / Terraza</span>
+        <span class="text-slate-300 group-hover:text-blue-500">→</span>
       </button>
-      <button class="w-full text-left p-3 border border-slate-300 rounded-xl bg-white hover:border-blue-500 hover:bg-blue-50 transition text-sm font-semibold">
-        🔧 Mantenimiento (Preventivo/Correctivo)
+
+      <button class="w-full p-4 text-left rounded-2xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition-all flex justify-between items-center group">
+        <span class="text-sm font-semibold text-slate-700">Cocina o Comedor</span>
+        <span class="text-slate-300 group-hover:text-blue-500">→</span>
       </button>
+    </div>
+
+    <div class="p-4 bg-amber-50 rounded-2xl border border-amber-100 flex gap-3 items-center">
+      <span class="text-lg">💡</span>
+      <p class="text-[12px] text-amber-800 leading-snug">
+        <strong>Tip SM:</strong> Las ampliaciones sociales requieren revisar ventilación cruzada para no calentar la casa original.
+      </p>
+    </div>
+  </div>
+
+  <div class="px-8 pb-8 pt-2">
+    <div class="flex justify-between items-center mb-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+      <span>Progreso</span>
+      <span>40%</span>
+    </div>
+    <div class="h-1.5 w-full bg-slate-100 rounded-full">
+      <div class="h-full bg-blue-600 rounded-full transition-all duration-500" style="width: 40%"></div>
+    </div>
+  </div>
+</div>
     </div>
 
   </div>
