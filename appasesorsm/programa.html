@@ -1,61 +1,36 @@
-<div class="max-w-md mx-auto bg-white border border-slate-200 rounded-[2.5rem] shadow-2xl overflow-hidden my-10">
+<div class="max-w-xl mx-auto bg-white rounded-[2rem] shadow-2xl border border-slate-100 overflow-hidden font-sans">
   
-  <div class="p-8 text-center border-b border-slate-50">
-    <h1 class="text-2xl tracking-tighter font-light">espacio<span class="font-bold text-slate-900">SM</span></h1>
-    <div class="h-1 w-12 bg-blue-600 mx-auto mt-2 rounded-full"></div>
+  <div class="bg-slate-900 p-4 flex items-center gap-4">
+    <div class="w-8 h-8 rounded-full bg-blue-600 flex-shrink-0 flex items-center justify-center text-[10px] font-bold text-white tracking-tighter">SM</div>
+    <p class="text-[13px] text-slate-300 italic leading-snug">
+      "Hola, soy el asistente de <strong>espacioSM</strong>. Comencemos con lo básico para ubicar tu proyecto."
+    </p>
   </div>
 
-  <div class="p-6 space-y-6 min-h-[400px]">
-    
-    <div class="flex items-start gap-3">
-      <div class="flex-1 bg-slate-50 p-4 rounded-2xl rounded-tl-none border border-slate-100">
-        <p class="text-sm text-slate-600 leading-tight">
-          Para tu **Ampliación**, ¿qué área es la prioridad?
-        </p>
+  <div class="p-8 space-y-8">
+    <div class="space-y-6">
+      <div class="group">
+        <label class="block text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2 group-focus-within:text-blue-600 transition">Nombre Completo</label>
+        <input type="text" placeholder="Ej. Juan Pérez" class="w-full border-b border-slate-200 py-2 focus:outline-none focus:border-blue-600 transition text-lg font-light italic">
+      </div>
+
+      <div class="group">
+        <label class="block text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2 group-focus-within:text-blue-600 transition">Correo Electrónico</label>
+        <input type="email" placeholder="juan@ejemplo.com" class="w-full border-b border-slate-200 py-2 focus:outline-none focus:border-blue-600 transition text-lg font-light">
+      </div>
+
+      <div class="group">
+        <label class="block text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2 group-focus-within:text-blue-600 transition">Ubicación del Proyecto</label>
+        <input type="text" placeholder="Colonia, Ciudad o Coordenadas" class="w-full border-b border-slate-200 py-2 focus:outline-none focus:border-blue-600 transition text-lg font-light italic">
+        <p class="text-[11px] text-slate-400 mt-2">La ubicación nos permite analizar normativas locales automáticamente.</p>
       </div>
     </div>
 
-    <div class="space-y-2">
-      <button class="w-full p-4 text-left rounded-2xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition-all flex justify-between items-center group">
-        <span class="text-sm font-semibold text-slate-700">Recámara Principal</span>
-        <span class="text-slate-300 group-hover:text-blue-500">→</span>
+    <div class="pt-4 text-center">
+      <button class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold tracking-tight hover:bg-blue-600 transition-all shadow-lg active:scale-[0.98]">
+        Siguiente: Definir Proyecto →
       </button>
-      
-      <button class="w-full p-4 text-left rounded-2xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition-all flex justify-between items-center group">
-        <span class="text-sm font-semibold text-slate-700">Área Social / Terraza</span>
-        <span class="text-slate-300 group-hover:text-blue-500">→</span>
-      </button>
-
-      <button class="w-full p-4 text-left rounded-2xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition-all flex justify-between items-center group">
-        <span class="text-sm font-semibold text-slate-700">Cocina o Comedor</span>
-        <span class="text-slate-300 group-hover:text-blue-500">→</span>
-      </button>
+      <p class="text-[10px] text-slate-300 mt-4 uppercase tracking-[0.2em]">Paso 1 de 3: Identificación</p>
     </div>
-
-    <div class="p-4 bg-amber-50 rounded-2xl border border-amber-100 flex gap-3 items-center">
-      <span class="text-lg">💡</span>
-      <p class="text-[12px] text-amber-800 leading-snug">
-        <strong>Tip SM:</strong> Las ampliaciones sociales requieren revisar ventilación cruzada para no calentar la casa original.
-      </p>
-    </div>
-  </div>
-
-  <div class="px-8 pb-8 pt-2">
-    <div class="flex justify-between items-center mb-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-      <span>Progreso</span>
-      <span>40%</span>
-    </div>
-    <div class="h-1.5 w-full bg-slate-100 rounded-full">
-      <div class="h-full bg-blue-600 rounded-full transition-all duration-500" style="width: 40%"></div>
-    </div>
-  </div>
-</div>
-    </div>
-
-  </div>
-
-  <div class="p-4 bg-white border-t border-slate-100 opacity-40">
-    <p class="text-[10px] text-center mb-2 uppercase font-bold text-slate-400 italic italic">Habilitado para dudas específicas al final</p>
-    <div class="h-10 bg-slate-100 rounded-lg"></div>
   </div>
 </div>
