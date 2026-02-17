@@ -15,6 +15,8 @@
         .sm-card { border: 3px solid #000; box-shadow: 12px 12px 0px 0px var(--primary-color); }
         .btn-primary-sm { background-color: var(--primary-color); color: #000; font-weight: 800; text-transform: uppercase; transition: 0.3s; border: 2px solid #000; letter-spacing: 0.1em; }
         .btn-primary-sm:hover { background-color: #000; color: var(--primary-color); transform: translateY(-2px); }
+        .btn-secondary-sm { background-color: transparent; color: #000; font-weight: 700; text-transform: uppercase; transition: 0.3s; border: 2px solid #000; letter-spacing: 0.1em; }
+        .btn-secondary-sm:hover { background-color: #f0f0f0; transform: translateY(-2px); }
         
         .input-underline { border-bottom: 2px solid #000; width: 100%; padding: 12px 0; font-weight: 700; text-transform: uppercase; outline: none; background: transparent; }
         .btn-option { border: 2px solid #E5E7EB; padding: 14px; text-align: left; font-weight: 700; font-size: 11px; text-transform: uppercase; transition: 0.2s; width: 100%; }
@@ -30,6 +32,8 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
         textarea { resize: vertical; min-height: 80px; }
+        
+        .selected-image-preview { border: 4px solid var(--primary-color); transform: scale(1.02); }
     </style>
 </head>
 <body class="antialiased">
@@ -142,13 +146,13 @@
     </footer>
 
     <script>
-        // ===== TODAS LAS PREGUNTAS INTEGRADAS =====
+        // ===== TODAS LAS PREGUNTAS INTEGRADAS CON OPCIONES "OTRO" =====
         const quizData = [
             // I. PERFIL DEL CLIENTE Y UBICACIÓN (PASO 1)
             { step: 1, id: "perfil", q: "Perfil del Cliente y Ubicación", fields: [
                 "Correo electrónico", 
                 "Nombre del Cliente", 
-                "Estructura del núcleo familiar (¿Quiénes habitan?)", 
+                "Estructura del núcleo familiar (Ej: Pareja, 2 hijos, suegros)", 
                 "Ocupación"
             ], type: "multi", tip: "Conocer su perfil nos permite diseñar espacios que se adapten a su realidad y estilo de vida." },
             { step: 1, id: "ubicacion_maps", q: "Ubicación del terreno a construir", field: "ubicacion_maps", type: "text", placeholder: "Compartir enlace de Google Maps", tip: "La ubicación define el clima, la topografía y las normativas locales aplicables." },
@@ -196,7 +200,7 @@
                 "0", "1", "2", "3", "4+"
             ], tip: "La cantidad de vehículos define el dimensionamiento de cocheras y accesos." },
             { step: 4, id: "tipo_vehiculos", q: "Tipo de vehículos", field: "tipo_vehiculos", type: "multi-opt", options: [
-                "Sedán", "SUV", "Pick Up", "Motocicleta"
+                "Sedán", "SUV", "Pick Up", "Motocicleta", "Otro"
             ], hasOther: true, tip: "El tipo de vehículo determina alturas libres y anchos de circulación." },
             { step: 4, id: "proyeccion_vehiculos", q: "Proyección a futuro: ¿Tiene intenciones de adquirir uno o más vehículos y de qué tipo?", field: "proyeccion_vehiculos", type: "textarea", tip: "Proyectar a futuro evita tener que modificar estructuras más adelante." },
             { step: 4, id: "mascotas", q: "Integración de Mascotas: ¿Tiene o planea adquirir alguna mascota? Especificar cuál.", field: "mascotas", type: "textarea", tip: "Las mascotas requieren acabados resistentes y áreas específicas." },
@@ -206,8 +210,8 @@
                 "1", "2", "3", "4", "5+"
             ], tip: "El número de habitaciones define la distribución y los requerimientos estructurales." },
             { step: 5, id: "accesibilidad", q: "Necesidades de Accesibilidad", field: "accesibilidad", type: "multi-opt", options: [
-                "Rampas", "Puertas anchas", "Baño adaptado", "Elevador", "Ninguna"
-            ], tip: "La accesibilidad universal garantiza que todos puedan habitar el espacio en cualquier etapa." },
+                "Rampas", "Puertas anchas", "Baño adaptado", "Elevador", "Ninguna", "Otro"
+            ], hasOther: true, tip: "La accesibilidad universal garantiza que todos puedan habitar el espacio en cualquier etapa." },
             { step: 5, id: "privacidad_confort", q: "Privacidad y Confort: Dimensiones y elementos indispensables que le gustaría tener para su habitación", field: "privacidad_confort", type: "textarea", placeholder: "Ej. vestidor, tina, terraza", tip: "Los elementos de confort personalizan su experiencia diaria." },
             { step: 5, id: "requerimientos_especiales", q: "Requerimientos Especiales: ¿Cuenta con pertenencias o mobiliario que requieran un espacio especial? Favor de especificar.", field: "requerimientos_especiales", type: "textarea", tip: "Objetos de gran peso o dimensiones requieren refuerzos estructurales específicos." },
             { step: 5, id: "zonas_permanencia", q: "Zonas de Permanencia: Seleccione el lugar donde pasa la mayor parte del tiempo", field: "zonas_permanencia", type: "multi-opt", options: [
@@ -218,13 +222,13 @@
             
             // VI. ESTÉTICA, MATERIALES Y ENTORNO (PASO 6)
             { step: 6, id: "paleta_cromatica", q: "Paleta Cromática: ¿Qué tonalidades son sus predilectas?", field: "paleta_cromatica", type: "multi-opt", options: [
-                "Neutras", "Oscuras", "Tierra", "Tendencia"
+                "Neutras", "Oscuras", "Tierra", "Tendencia", "Otro"
             ], hasOther: true, tip: "La paleta cromática define la atmósfera y la percepción espacial." },
             { step: 6, id: "texturas_pisos", q: "Texturas y Pisos: ¿Qué materiales en piso son los que más le gustan?", field: "texturas_pisos", type: "multi-opt", options: [
-                "Loseta", "Madera", "Mármol", "Concreto aparente", "Laminado"
+                "Loseta", "Madera", "Mármol", "Concreto aparente", "Laminado", "Otro"
             ], hasOther: true, tip: "Cada material tiene diferentes propiedades térmicas, acústicas y de mantenimiento." },
             { step: 6, id: "conciencia_sitio", q: "Conciencia del Sitio: ¿Es importante para ti integrar los elementos naturales existentes del terreno? ¿Cuáles?", field: "conciencia_sitio", type: "textarea", tip: "Integrar elementos naturales reduce impacto ambiental y crea espacios únicos." },
-            { step: 6, id: "estilo_arquitectonico", q: "Estilo Arquitectónico: ¿Qué estilo le gusta más?", field: "estilo_arquitectonico", type: "visual", options: [
+            { step: 6, id: "estilo_arquitectonico", q: "Estilo Arquitectónico: ¿Qué estilo le gusta más? (Selecciona una opción)", field: "estilo_arquitectonico", type: "visual", options: [
                 { name: "Clásico", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400" },
                 { name: "Moderno", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400" },
                 { name: "Contemporáneo", img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400" },
@@ -236,7 +240,7 @@
             
             // VII. TECNOLOGÍA Y GESTIÓN (PASO 7)
             { step: 7, id: "sostenibilidad", q: "Sostenibilidad: ¿Te gustaría implementar ecotecnología?", field: "sostenibilidad", type: "multi-opt", options: [
-                "Paneles solares", "Captación pluvial", "Biodigestor", "Calentador solar"
+                "Paneles solares", "Captación pluvial", "Biodigestor", "Calentador solar", "Otro"
             ], hasOther: true, tip: "La ecotecnología reduce costos operativos y el impacto ambiental." },
             { step: 7, id: "involucramiento", q: "Involucramiento: ¿Cómo visualiza su participación durante el proceso de diseño y construcción?", field: "involucramiento", type: "opt", options: [
                 "Delegación total", 
@@ -259,6 +263,13 @@
             render(); 
         }
 
+        function goToPrevious() {
+            if (state.current > 0) {
+                state.current--;
+                render();
+            }
+        }
+
         function render() {
             const q = quizData[state.current];
             const area = document.getElementById('main-render');
@@ -269,7 +280,17 @@
                 document.getElementById('tip-text').innerText = q.tip;
             }
 
-            let html = `<div class="fade-in space-y-6"><p class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic">Paso ${state.current + 1}/${quizData.length}</p><h2 class="text-2xl font-black uppercase italic border-l-8 border-black pl-4 leading-tight">${q.q}</h2>`;
+            let html = `<div class="fade-in space-y-6">`;
+            
+            // Botón de regresar (excepto en primera pregunta)
+            if (state.current > 0) {
+                html += `<button onclick="goToPrevious()" class="btn-secondary-sm px-4 py-2 text-[9px] mb-4 flex items-center gap-2">
+                    <i class="fas fa-arrow-left"></i> REGRESAR
+                </button>`;
+            }
+            
+            html += `<p class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic">Paso ${state.current + 1}/${quizData.length}</p>
+                    <h2 class="text-2xl font-black uppercase italic border-l-8 border-black pl-4 leading-tight">${q.q}</h2>`;
 
             if (q.type === "multi") {
                 q.fields.forEach(f => {
@@ -313,9 +334,26 @@
                 html += `<div class="grid grid-cols-2 gap-3 mt-4">`;
                 q.options.forEach(o => {
                     const isActive = state.responses[q.id] === o.name;
-                    html += `<div onclick="saveAndNext('${o.name}')" class="visual-card p-1 bg-white ${isActive ? 'active' : ''}"><img src="${o.img}" class="w-full h-20 object-cover"><p class="text-[8px] font-bold text-center mt-1 uppercase">${o.name}</p></div>`;
+                    html += `<div onclick="selectVisual('${o.name}')" class="visual-card p-1 bg-white ${isActive ? 'active selected-image-preview' : ''}">
+                        <img src="${o.img}" class="w-full h-20 object-cover">
+                        <p class="text-[8px] font-bold text-center mt-1 uppercase">${o.name}</p>
+                    </div>`;
                 });
                 html += `</div>`;
+                
+                // Mostrar la imagen seleccionada actualmente
+                if (state.responses[q.id] && state.responses[q.id] !== "Otro") {
+                    const selectedOption = q.options.find(o => o.name === state.responses[q.id]);
+                    if (selectedOption) {
+                        html += `<div class="mt-6 p-4 bg-gray-100 border-2 border-black">
+                            <p class="text-[8px] font-black uppercase mb-2">ESTILO SELECCIONADO:</p>
+                            <div class="flex items-center gap-4">
+                                <img src="${selectedOption.img}" class="w-24 h-16 object-cover border-2 border-black">
+                                <p class="text-[10px] font-bold">${selectedOption.name}</p>
+                            </div>
+                        </div>`;
+                    }
+                }
             }
             else if (q.type === "chat") {
                 html += `<div class="bg-gray-100 p-4 border-l-4 border-[#FFCD00] text-[10px] font-bold mb-4">Aura: "He analizado todos tus datos y el perfil es sólido. ¿Algún comentario final para el Arq. San Miguel?"</div>`;
@@ -324,6 +362,12 @@
             }
 
             area.innerHTML = html;
+        }
+
+        function selectVisual(styleName) {
+            const q = quizData[state.current];
+            state.responses[q.id] = styleName;
+            render();
         }
 
         function toggleM(v) {
@@ -361,7 +405,7 @@
             const otherInput = document.getElementById('other-val');
             if(val.includes("Otro") && otherInput) {
                 if(!otherInput.value.trim()) return alert("Especifica el campo 'Otro'.");
-                val = val.replace("Otro", `Otro (${otherInput.value})`);
+                val = val.replace(/Otro/g, `Otro (${otherInput.value})`);
             }
             saveAndNext(val);
         }
@@ -387,7 +431,6 @@
             const progress = (state.current / totalSteps) * 100;
             document.getElementById('prog-line').style.width = progress + "%";
             
-            // Actualizar dots del tracker (7 pasos principales)
             const currentMainStep = quizData[state.current].step;
             for(let i=1; i<=7; i++) {
                 const d = document.getElementById(`d-${i}`);
@@ -423,7 +466,6 @@
             input.value = "";
             chat.scrollTop = chat.scrollHeight;
 
-            // Respuesta inteligente basada en el contexto
             setTimeout(() => {
                 let resp = "";
                 const currentQuestion = quizData[state.current].q;
@@ -456,30 +498,136 @@
         }
 
         function finish() {
-            // Preparar mensaje para WhatsApp con resumen
+            // Mapeo de IDs a nombres más amigables para el informe
+            const fieldNames = {
+                'Correo electrónico': '📧 Email',
+                'Nombre del Cliente': '👤 Cliente',
+                'Estructura del núcleo familiar (Ej: Pareja, 2 hijos, suegros)': '👪 Familia',
+                'Ocupación': '💼 Ocupación',
+                'ubicacion_maps': '📍 Ubicación',
+                'licencia': '📋 Licencia',
+                'tipo_trabajo': '🏗️ Tipo de trabajo',
+                'diagnostico_necesidades': '📝 Diagnóstico',
+                'prioridad_inversion': '💰 Prioridad de inversión',
+                'num_usuarios': '👥 Usuarios',
+                'perfil_habitantes': '👤 Perfil habitantes',
+                'vida_social': '🎉 Vida social',
+                'vision_estilo_vida': '✨ Visión de vida',
+                'vehiculos_actuales': '🚗 Vehículos actuales',
+                'tipo_vehiculos': '🚙 Tipo vehículos',
+                'proyeccion_vehiculos': '🔮 Proyección vehículos',
+                'mascotas': '🐾 Mascotas',
+                'habitaciones': '🛏️ Habitaciones',
+                'accesibilidad': '♿ Accesibilidad',
+                'privacidad_confort': '🛋️ Privacidad',
+                'requerimientos_especiales': '📦 Requerimientos especiales',
+                'zonas_permanencia': '⏱️ Zonas de permanencia',
+                'pasatiempos': '🎨 Pasatiempos',
+                'puntos_dolor': '😣 Puntos de dolor',
+                'paleta_cromatica': '🎨 Paleta cromática',
+                'texturas_pisos': '🏺 Texturas pisos',
+                'conciencia_sitio': '🌳 Conciencia sitio',
+                'estilo_arquitectonico': '🏛️ Estilo arquitectónico',
+                'referencias_visuales': '🔗 Referencias visuales',
+                'sostenibilidad': '♻️ Sostenibilidad',
+                'involucramiento': '🤝 Involucramiento',
+                'proposito_patrimonial': '🎯 Propósito'
+            };
+
+            // Construir resumen SOLO con respuestas relevantes
             let resumen = "📋 *NUEVO DIAGNÓSTICO COMPLETADO*\n\n";
-            for (let key in state.responses) {
-                if (state.responses[key] && typeof state.responses[key] === 'string' && state.responses[key].length > 0) {
-                    resumen += `• *${key}*: ${state.responses[key]}\n`;
-                }
+            resumen += "━━━━━━━━━━━━━━━━━━━━━\n\n";
+            
+            // 1. Datos de contacto (siempre primero)
+            if (state.responses['Correo electrónico']) {
+                resumen += `📧 *Email:* ${state.responses['Correo electrónico']}\n`;
             }
-            resumen += `\n💬 *Interacciones con Aura*: ${state.interactionLog.length} mensajes`;
+            if (state.responses['Nombre del Cliente']) {
+                resumen += `👤 *Cliente:* ${state.responses['Nombre del Cliente']}\n`;
+            }
+            if (state.responses['Estructura del núcleo familiar (Ej: Pareja, 2 hijos, suegros)']) {
+                resumen += `👪 *Familia:* ${state.responses['Estructura del núcleo familiar (Ej: Pareja, 2 hijos, suegros)']}\n`;
+            }
+            
+            resumen += "\n━━━━━━━━━━━━━━━━━━━━━\n\n";
+            resumen += "*RESPUESTAS PRINCIPALES*\n\n";
+            
+            // 2. Recorrer solo las respuestas importantes
+            const respuestasImportantes = [
+                'licencia', 'tipo_trabajo', 'prioridad_inversion', 'num_usuarios',
+                'perfil_habitantes', 'vida_social', 'vision_estilo_vida', 'vehiculos_actuales',
+                'tipo_vehiculos', 'mascotas', 'habitaciones', 'accesibilidad',
+                'estilo_arquitectonico', 'sostenibilidad', 'involucramiento', 'proposito_patrimonial'
+            ];
+            
+            respuestasImportantes.forEach(key => {
+                if (state.responses[key] && 
+                    typeof state.responses[key] === 'string' && 
+                    state.responses[key].length > 0 &&
+                    !state.responses[key].includes('[object Object]')) {
+                    
+                    const nombreAmigable = fieldNames[key] || key;
+                    resumen += `• ${nombreAmigable}: ${state.responses[key]}\n`;
+                }
+            });
+            
+            // 3. Agregar campos de texto libre importantes
+            const textosLibres = [
+                'diagnostico_necesidades', 'proyeccion_vehiculos', 'privacidad_confort',
+                'requerimientos_especiales', 'pasatiempos', 'puntos_dolor', 
+                'conciencia_sitio', 'referencias_visuales'
+            ];
+            
+            let tieneTextosLibres = false;
+            textosLibres.forEach(key => {
+                if (state.responses[key] && 
+                    typeof state.responses[key] === 'string' && 
+                    state.responses[key].length > 3) {
+                    
+                    if (!tieneTextosLibres) {
+                        resumen += "\n━━━━━━━━━━━━━━━━━━━━━\n\n";
+                        resumen += "*NOTAS Y COMENTARIOS*\n\n";
+                        tieneTextosLibres = true;
+                    }
+                    
+                    const nombreAmigable = fieldNames[key] || key;
+                    let valor = state.responses[key];
+                    if (valor.length > 100) {
+                        valor = valor.substring(0, 100) + "...";
+                    }
+                    resumen += `📝 *${nombreAmigable}:* ${valor}\n`;
+                }
+            });
+            
+            // 4. Estadísticas de interacción con Aura
+            resumen += "\n━━━━━━━━━━━━━━━━━━━━━\n\n";
+            resumen += `💬 *Interacciones con Aura:* ${state.interactionLog.length} mensajes\n`;
+            
+            // 5. Resumen ejecutivo
+            resumen += "\n━━━━━━━━━━━━━━━━━━━━━\n";
+            resumen += "✅ Diagnóstico listo para revisión del Arq. San Miguel";
 
             const waMsg = encodeURIComponent(resumen);
             
             document.getElementById('main-render').innerHTML = `
                 <div class="text-center space-y-8 fade-in">
-                    <h2 class="text-3xl font-black italic uppercase tracking-tighter italic">
+                    <div class="bg-[#FFCD00] p-4 inline-block mx-auto mb-4">
+                        <i class="fas fa-check-circle text-black text-4xl"></i>
+                    </div>
+                    <h2 class="text-3xl font-black uppercase italic tracking-tighter">
                         Análisis <span class="text-[#FFCD00]">espacioSM</span> Listo
                     </h2>
                     <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-8">
-                        Toda la bitácora ha sido consolidada. El Arq. San Miguel te espera.
+                        Se han registrado ${Object.keys(state.responses).filter(k => state.responses[k] && typeof state.responses[k] === 'string').length} respuestas y ${state.interactionLog.length} interacciones con Aura SM.
                     </p>
                     <a href="https://wa.me/525613870288?text=${waMsg}" target="_blank" 
-                       class="btn-primary-sm block w-full py-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
-                        Enviar al Arq. San Miguel
+                       class="btn-primary-sm block w-full py-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] 
+                              flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp text-lg"></i>
+                        Enviar Resumen al Arq. San Miguel
                     </a>
                 </div>`;
+            
             document.getElementById('tip-box').classList.add('hidden');
         }
     </script>
