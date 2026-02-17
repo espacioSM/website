@@ -28,6 +28,8 @@
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         .fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        textarea { resize: vertical; min-height: 80px; }
     </style>
 </head>
 <body class="antialiased">
@@ -82,10 +84,13 @@
             <div id="tracker" class="hidden flex justify-between mb-12 relative px-4">
                 <div class="absolute top-5 left-0 w-full h-[1px] bg-gray-200 z-0"></div>
                 <div id="prog-line" class="absolute top-5 left-0 h-[2px] bg-black z-0 transition-all duration-700"></div>
-                <div class="relative z-10 flex flex-col items-center"><div id="d-1" class="w-10 h-10 rounded-full bg-black text-[#FFCD00] flex items-center justify-center border-2 border-[#FFCD00] text-[10px] font-bold shadow-lg">1</div><span class="text-[7px] font-black mt-1 uppercase">Contexto</span></div>
-                <div class="relative z-10 flex flex-col items-center"><div id="d-2" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">2</div><span class="text-[7px] font-black mt-1 uppercase">Gente</span></div>
-                <div class="relative z-10 flex flex-col items-center"><div id="d-3" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">3</div><span class="text-[7px] font-black mt-1 uppercase">Equipo</span></div>
-                <div class="relative z-10 flex flex-col items-center"><div id="d-4" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">4</div><span class="text-[7px] font-black mt-1 uppercase">Estética</span></div>
+                <div class="relative z-10 flex flex-col items-center"><div id="d-1" class="w-10 h-10 rounded-full bg-black text-[#FFCD00] flex items-center justify-center border-2 border-[#FFCD00] text-[10px] font-bold shadow-lg">1</div><span class="text-[7px] font-black mt-1 uppercase">Perfil</span></div>
+                <div class="relative z-10 flex flex-col items-center"><div id="d-2" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">2</div><span class="text-[7px] font-black mt-1 uppercase">Alcance</span></div>
+                <div class="relative z-10 flex flex-col items-center"><div id="d-3" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">3</div><span class="text-[7px] font-black mt-1 uppercase">Estilo</span></div>
+                <div class="relative z-10 flex flex-col items-center"><div id="d-4" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">4</div><span class="text-[7px] font-black mt-1 uppercase">Movilidad</span></div>
+                <div class="relative z-10 flex flex-col items-center"><div id="d-5" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">5</div><span class="text-[7px] font-black mt-1 uppercase">Arquitectura</span></div>
+                <div class="relative z-10 flex flex-col items-center"><div id="d-6" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">6</div><span class="text-[7px] font-black mt-1 uppercase">Estética</span></div>
+                <div class="relative z-10 flex flex-col items-center"><div id="d-7" class="w-10 h-10 rounded-full bg-white border-2 border-gray-200 text-gray-300 flex items-center justify-center text-[10px] font-bold">7</div><span class="text-[7px] font-black mt-1 uppercase">Tecnología</span></div>
             </div>
 
             <div class="bg-white sm-card rounded-sm overflow-hidden">
@@ -137,53 +142,167 @@
     </footer>
 
     <script>
+        // ===== TODAS LAS PREGUNTAS INTEGRADAS =====
         const quizData = [
-            { step: 1, id: "id", q: "Identificación del Cliente", fields: ["Nombre", "Email", "Ocupación"], type: "multi", tip: "Diseñamos para su realidad. Su perfil define la ergonomía de su hogar." },
-            { step: 1, id: "ubicacion", q: "Contexto del Terreno", fields: ["Ubicación", "M2 Totales"], type: "multi", tip: "Los m² definen el potencial de construcción legal (C.U.S.) y el cálculo estructural." },
-            { step: 1, id: "licencia", q: "¿Cuentas con licencia de construcción?", field: "licencia", type: "opt", options: ["Sí", "No", "Tratar con Arq. San Miguel"], tip: "La licencia es el blindaje legal de tu obra. Evita riesgos de clausura." },
-            { step: 2, id: "habitantes", q: "¿Número exacto de habitantes?", field: "hab_n", type: "opt", options: ["1", "2", "3", "4", "5", "6+"], tip: "Esto determina la capacidad de instalaciones y el programa de áreas privadas." },
-            { step: 2, id: "tipos", q: "Tipo de habitantes", field: "hab_t", type: "multi-opt", options: ["Infante", "Joven", "Adulto", "Adulto Mayor"], tip: "Garantizamos accesibilidad universal según la etapa de vida de su familia." },
-            { step: 3, id: "autos", q: "¿Cuántos vehículos posee?", field: "autos_n", type: "opt", options: ["0", "1", "2", "3", "4+"], tip: "Calculamos claros estructurales para maniobras de cochera sin columnas." },
-            { step: 3, id: "especiales", q: "Equipamiento Especial", field: "esp_t", type: "multi-opt", options: ["Estudio", "Taller", "Gimnasio", "Piano", "Pecera", "Otro"], hasOther: true, tip: "Objetos de gran peso requieren refuerzos técnicos específicos en losas." },
-            { step: 4, id: "estilo", q: "Estilo Arquitectónico", field: "estilo", type: "visual", options: [
-                { name: "Minimalista", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400" },
+            // I. PERFIL DEL CLIENTE Y UBICACIÓN (PASO 1)
+            { step: 1, id: "perfil", q: "Perfil del Cliente y Ubicación", fields: [
+                "Correo electrónico", 
+                "Nombre del Cliente", 
+                "Estructura del núcleo familiar (¿Quiénes habitan?)", 
+                "Ocupación"
+            ], type: "multi", tip: "Conocer su perfil nos permite diseñar espacios que se adapten a su realidad y estilo de vida." },
+            { step: 1, id: "ubicacion_maps", q: "Ubicación del terreno a construir", field: "ubicacion_maps", type: "text", placeholder: "Compartir enlace de Google Maps", tip: "La ubicación define el clima, la topografía y las normativas locales aplicables." },
+            
+            // II. ALCANCE DEL PROYECTO (PASO 2)
+            { step: 2, id: "licencia", q: "Situación Legal: ¿Tienes Licencia de construcción o pretendes sacar una?", field: "licencia", type: "opt", options: [
+                "Sí", 
+                "No, pretendo sacarla", 
+                "Requiero asesoría técnica y legal"
+            ], tip: "La licencia es el blindaje legal de tu obra. Evita riesgos de clausura y multas." },
+            { step: 2, id: "tipo_trabajo", q: "Tipo de trabajo: Seleccione tipo de trabajo a realizar", field: "tipo_trabajo", type: "opt", options: [
+                "Obra Nueva", 
+                "Remodelación", 
+                "Ampliación"
+            ], tip: "Cada tipo de intervención requiere enfoques estructurales diferentes." },
+            { step: 2, id: "diagnostico_necesidades", q: "Diagnóstico de Necesidades: En caso de ampliación o remodelación, describe brevemente qué deseas hacer y qué áreas de tu vida actual ya no satisface tu espacio.", field: "diagnostico_necesidades", type: "textarea", tip: "Entender sus necesidades actuales nos ayuda a proyectar soluciones que mejoren su calidad de vida." },
+            { step: 2, id: "prioridad_inversion", q: "Inversión y Prioridades: ¿Cuál es su prioridad principal respecto a la inversión?", field: "prioridad_inversion", type: "opt", options: [
+                "Maximizar m²", 
+                "Equilibrio diseño-costo", 
+                "Lujo y exclusividad", 
+                "Sostenibilidad"
+            ], tip: "Su prioridad define dónde concentramos los recursos técnicos y económicos." },
+            
+            // III. USUARIOS Y ESTILO DE VIDA (PASO 3)
+            { step: 3, id: "num_usuarios", q: "Número de usuarios para la Casa Habitación", field: "num_usuarios", type: "opt", options: [
+                "1", "2", "3", "4", "5", "6+"
+            ], tip: "La cantidad de usuarios determina las dimensiones de instalaciones y espacios comunes." },
+            { step: 3, id: "perfil_habitantes", q: "Perfil de habitantes: Seleccione qué tipo de usuario habitará la casa", field: "perfil_habitantes", type: "multi-opt", options: [
+                "Infante", "Adolescente", "Adulto Joven", "Adulto", "Adulto Mayor"
+            ], tip: "Cada etapa de vida requiere consideraciones específicas de accesibilidad y confort." },
+            { step: 3, id: "vida_social", q: "Vida Social: ¿Recibe muchas visitas?", field: "vida_social", type: "opt", options: [
+                "Sí, frecuentemente", 
+                "Ocasionalmente", 
+                "Raramente"
+            ], tip: "La vida social define la necesidad de espacios de reunión y flujos de circulación." },
+            { step: 3, id: "vision_estilo_vida", q: "Visión del Estilo de Vida: Al imaginar su proyecto terminado, ¿cuál es la sensación principal que desea experimentar?", field: "vision_estilo_vida", type: "opt", options: [
+                "Refugio y calma", 
+                "Social y abierto", 
+                "Productividad y creatividad", 
+                "Conexión natural"
+            ], tip: "La sensación deseada guía las decisiones de iluminación, materiales y distribución." },
+            
+            // IV. MOVILIDAD Y MASCOTAS (PASO 4)
+            { step: 4, id: "vehiculos_actuales", q: "Vehículos actuales: ¿Cuántos vehículos posee?", field: "vehiculos_actuales", type: "opt", options: [
+                "0", "1", "2", "3", "4+"
+            ], tip: "La cantidad de vehículos define el dimensionamiento de cocheras y accesos." },
+            { step: 4, id: "tipo_vehiculos", q: "Tipo de vehículos", field: "tipo_vehiculos", type: "multi-opt", options: [
+                "Sedán", "SUV", "Pick Up", "Motocicleta"
+            ], hasOther: true, tip: "El tipo de vehículo determina alturas libres y anchos de circulación." },
+            { step: 4, id: "proyeccion_vehiculos", q: "Proyección a futuro: ¿Tiene intenciones de adquirir uno o más vehículos y de qué tipo?", field: "proyeccion_vehiculos", type: "textarea", tip: "Proyectar a futuro evita tener que modificar estructuras más adelante." },
+            { step: 4, id: "mascotas", q: "Integración de Mascotas: ¿Tiene o planea adquirir alguna mascota? Especificar cuál.", field: "mascotas", type: "textarea", tip: "Las mascotas requieren acabados resistentes y áreas específicas." },
+            
+            // V. PROGRAMA ARQUITECTÓNICO Y ESPACIOS (PASO 5)
+            { step: 5, id: "habitaciones", q: "Habitaciones: Número de habitaciones deseado", field: "habitaciones", type: "opt", options: [
+                "1", "2", "3", "4", "5+"
+            ], tip: "El número de habitaciones define la distribución y los requerimientos estructurales." },
+            { step: 5, id: "accesibilidad", q: "Necesidades de Accesibilidad", field: "accesibilidad", type: "multi-opt", options: [
+                "Rampas", "Puertas anchas", "Baño adaptado", "Elevador", "Ninguna"
+            ], tip: "La accesibilidad universal garantiza que todos puedan habitar el espacio en cualquier etapa." },
+            { step: 5, id: "privacidad_confort", q: "Privacidad y Confort: Dimensiones y elementos indispensables que le gustaría tener para su habitación", field: "privacidad_confort", type: "textarea", placeholder: "Ej. vestidor, tina, terraza", tip: "Los elementos de confort personalizan su experiencia diaria." },
+            { step: 5, id: "requerimientos_especiales", q: "Requerimientos Especiales: ¿Cuenta con pertenencias o mobiliario que requieran un espacio especial? Favor de especificar.", field: "requerimientos_especiales", type: "textarea", tip: "Objetos de gran peso o dimensiones requieren refuerzos estructurales específicos." },
+            { step: 5, id: "zonas_permanencia", q: "Zonas de Permanencia: Seleccione el lugar donde pasa la mayor parte del tiempo", field: "zonas_permanencia", type: "multi-opt", options: [
+                "Dormitorio", "Cocina", "Comedor", "Sala", "Estudio", "Terraza/Patio"
+            ], tip: "Las zonas de mayor permanencia merecen atención especial en confort y diseño." },
+            { step: 5, id: "pasatiempos", q: "Pasatiempos: Describa intereses y pasatiempos generales que desee realizar dentro de su proyecto.", field: "pasatiempos", type: "textarea", tip: "Sus pasatiempos pueden requerir espacios específicos (taller, estudio, gimnasio)." },
+            { step: 5, id: "puntos_dolor", q: "Puntos de Dolor: En base a su experiencia en otras casas, ¿qué cosas le molestan?", field: "puntos_dolor", type: "textarea", placeholder: "Ej. Cocina expuesta, falta de luz, ruidos", tip: "Identificar molestias previas nos ayuda a evitarlas en su nuevo proyecto." },
+            
+            // VI. ESTÉTICA, MATERIALES Y ENTORNO (PASO 6)
+            { step: 6, id: "paleta_cromatica", q: "Paleta Cromática: ¿Qué tonalidades son sus predilectas?", field: "paleta_cromatica", type: "multi-opt", options: [
+                "Neutras", "Oscuras", "Tierra", "Tendencia"
+            ], hasOther: true, tip: "La paleta cromática define la atmósfera y la percepción espacial." },
+            { step: 6, id: "texturas_pisos", q: "Texturas y Pisos: ¿Qué materiales en piso son los que más le gustan?", field: "texturas_pisos", type: "multi-opt", options: [
+                "Loseta", "Madera", "Mármol", "Concreto aparente", "Laminado"
+            ], hasOther: true, tip: "Cada material tiene diferentes propiedades térmicas, acústicas y de mantenimiento." },
+            { step: 6, id: "conciencia_sitio", q: "Conciencia del Sitio: ¿Es importante para ti integrar los elementos naturales existentes del terreno? ¿Cuáles?", field: "conciencia_sitio", type: "textarea", tip: "Integrar elementos naturales reduce impacto ambiental y crea espacios únicos." },
+            { step: 6, id: "estilo_arquitectonico", q: "Estilo Arquitectónico: ¿Qué estilo le gusta más?", field: "estilo_arquitectonico", type: "visual", options: [
+                { name: "Clásico", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400" },
                 { name: "Moderno", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400" },
-                { name: "Industrial", img: "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=400" },
-                { name: "Mexicano", img: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=400" }
-            ], tip: "Su estilo define la materialidad y la firma estética de espacioSM." },
-            { step: 4, id: "final", q: "Aura SM Chat Final", type: "chat", tip: "Consolidando su visión técnica con los estándares del Arq. San Miguel." }
+                { name: "Contemporáneo", img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400" },
+                { name: "Minimalista", img: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=400" },
+                { name: "Mexicano", img: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=400" },
+                { name: "Otro", img: "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=400" }
+            ], tip: "El estilo define la materialidad y la firma estética de espacioSM." },
+            { step: 6, id: "referencias_visuales", q: "Referencias Visuales: ¿Cuenta con un tablero de referentes (Pinterest/Instagram) que definan la estética que busca? (Compartir enlace)", field: "referencias_visuales", type: "text", placeholder: "https://pinterest.com/tu-tablero", tip: "Las referencias visuales nos ayudan a entender sus gustos con precisión." },
+            
+            // VII. TECNOLOGÍA Y GESTIÓN (PASO 7)
+            { step: 7, id: "sostenibilidad", q: "Sostenibilidad: ¿Te gustaría implementar ecotecnología?", field: "sostenibilidad", type: "multi-opt", options: [
+                "Paneles solares", "Captación pluvial", "Biodigestor", "Calentador solar"
+            ], hasOther: true, tip: "La ecotecnología reduce costos operativos y el impacto ambiental." },
+            { step: 7, id: "involucramiento", q: "Involucramiento: ¿Cómo visualiza su participación durante el proceso de diseño y construcción?", field: "involucramiento", type: "opt", options: [
+                "Delegación total", 
+                "Colaboración guiada", 
+                "Involucramiento activo"
+            ], tip: "Su nivel de involucramiento define la dinámica de trabajo y toma de decisiones." },
+            { step: 7, id: "proposito_patrimonial", q: "Propósito Patrimonial: ¿Cuál es el objetivo final de este proyecto?", field: "proposito_patrimonial", type: "opt", options: [
+                "Residencia definitiva", 
+                "Inversión y venta", 
+                "Segunda residencia", 
+                "Temporal"
+            ], tip: "El propósito define la durabilidad requerida y el retorno de inversión esperado." },
+            { step: 7, id: "final", q: "Aura SM Chat Final", type: "chat", tip: "Consolidando su visión técnica con los estándares del Arq. San Miguel." }
         ];
 
         let state = { current: 0, responses: {}, interactionLog: [] };
 
-        function initQuiz() { document.getElementById('tracker').classList.remove('hidden'); render(); }
+        function initQuiz() { 
+            document.getElementById('tracker').classList.remove('hidden'); 
+            render(); 
+        }
 
         function render() {
-            const q = quizData[state.current], area = document.getElementById('main-render');
+            const q = quizData[state.current];
+            const area = document.getElementById('main-render');
             updateProg();
-            document.getElementById('tip-box').classList.remove('hidden');
-            document.getElementById('tip-text').innerText = q.tip;
+            
+            if (q.tip) {
+                document.getElementById('tip-box').classList.remove('hidden');
+                document.getElementById('tip-text').innerText = q.tip;
+            }
 
             let html = `<div class="fade-in space-y-6"><p class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic">Paso ${state.current + 1}/${quizData.length}</p><h2 class="text-2xl font-black uppercase italic border-l-8 border-black pl-4 leading-tight">${q.q}</h2>`;
 
             if (q.type === "multi") {
-                q.fields.forEach(f => html += `<input type="text" id="${f}" placeholder="${f.toUpperCase()}" value="${state.responses[f] || ''}" class="input-underline mb-4">`);
+                q.fields.forEach(f => {
+                    const fieldId = f.toLowerCase().replace(/[^a-z0-9]/g, '_');
+                    html += `<input type="text" id="${fieldId}" placeholder="${f.toUpperCase()}" value="${state.responses[f] || ''}" class="input-underline mb-4">`;
+                });
                 html += `<button onclick="handleMulti()" class="btn-primary-sm w-full py-4 mt-8">Continuar</button>`;
             } 
+            else if (q.type === "text") {
+                html += `<input type="text" id="${q.id}" placeholder="${q.placeholder || q.q.toUpperCase()}" value="${state.responses[q.id] || ''}" class="input-underline mb-4">`;
+                html += `<button onclick="saveAndNext(document.getElementById('${q.id}').value)" class="btn-primary-sm w-full py-4 mt-8">Continuar</button>`;
+            }
+            else if (q.type === "textarea") {
+                html += `<textarea id="${q.id}" placeholder="${q.placeholder || q.q.toUpperCase()}" class="w-full border-2 border-black p-4 text-[11px] font-bold uppercase outline-none mt-4">${state.responses[q.id] || ''}</textarea>`;
+                html += `<button onclick="saveAndNext(document.getElementById('${q.id}').value)" class="btn-primary-sm w-full py-4 mt-8">Continuar</button>`;
+            }
             else if (q.type === "opt") {
-                html += `<div class="grid grid-cols-2 gap-2">`;
-                q.options.forEach(o => html += `<button onclick="saveAndNext('${o}')" class="btn-option ${state.responses[q.id] === o ? 'active' : ''}">${o}</button>`);
+                html += `<div class="grid grid-cols-2 gap-2 mt-4">`;
+                q.options.forEach(o => {
+                    const isActive = state.responses[q.id] === o;
+                    html += `<button onclick="saveAndNext('${o}')" class="btn-option ${isActive ? 'active' : ''}">${o}</button>`;
+                });
                 html += `</div>`;
             } 
             else if (q.type === "multi-opt") {
                 const currentVals = state.responses[q.id] ? state.responses[q.id].split(", ") : [];
-                html += `<div class="grid grid-cols-2 gap-2">`;
+                html += `<div class="grid grid-cols-2 gap-2 mt-4">`;
                 q.options.forEach(o => {
-                    // COMPARACIÓN EXACTA PARA EVITAR EL BUG DE "ADULTO" vs "ADULTO MAYOR"
                     const isActive = currentVals.some(v => v === o || v.startsWith(o + " ("));
                     html += `<button onclick="toggleM('${o}')" class="btn-option ${isActive ? 'active' : ''}">${o}</button>`;
                 });
                 html += `</div>`;
+                
                 if(q.hasOther && currentVals.some(v => v.startsWith("Otro"))) {
                     const otherVal = currentVals.find(v => v.startsWith("Otro"))?.match(/\((.*)\)/)?.[1] || "";
                     html += `<input type="text" id="other-val" placeholder="ESPECIFIQUE OTRO..." value="${otherVal}" class="input-underline mt-4 text-xs">`;
@@ -191,18 +310,22 @@
                 html += `<button onclick="handleMultiOpt()" class="btn-primary-sm w-full py-4 mt-8">Siguiente Paso</button>`;
             }
             else if (q.type === "visual") {
-                html += `<div class="grid grid-cols-2 gap-3">`;
-                q.options.forEach(o => html += `<div onclick="saveAndNext('${o.name}')" class="visual-card p-1 bg-white ${state.responses.estilo === o.name ? 'active' : ''}"><img src="${o.img}" class="w-full h-20 object-cover"><p class="text-[8px] font-bold text-center mt-1 uppercase">${o.name}</p></div>`);
+                html += `<div class="grid grid-cols-2 gap-3 mt-4">`;
+                q.options.forEach(o => {
+                    const isActive = state.responses[q.id] === o.name;
+                    html += `<div onclick="saveAndNext('${o.name}')" class="visual-card p-1 bg-white ${isActive ? 'active' : ''}"><img src="${o.img}" class="w-full h-20 object-cover"><p class="text-[8px] font-bold text-center mt-1 uppercase">${o.name}</p></div>`;
+                });
                 html += `</div>`;
             }
             else if (q.type === "chat") {
-                html += `<div class="bg-gray-100 p-4 border-l-4 border-[#FFCD00] text-[10px] font-bold mb-4">Aura: "He analizado tus datos y el perfil es sólido. ¿Algún comentario final para el Arq. San Miguel?"</div><textarea id="chat-final" class="w-full border-4 border-black p-4 text-xs font-bold uppercase h-32 outline-none" placeholder="DUDAS O NOTAS...">${state.responses.final || ''}</textarea><button onclick="handleFinal()" class="btn-primary-sm w-full py-4 mt-8">Finalizar</button>`;
+                html += `<div class="bg-gray-100 p-4 border-l-4 border-[#FFCD00] text-[10px] font-bold mb-4">Aura: "He analizado todos tus datos y el perfil es sólido. ¿Algún comentario final para el Arq. San Miguel?"</div>`;
+                html += `<textarea id="chat-final" class="w-full border-4 border-black p-4 text-xs font-bold uppercase h-32 outline-none" placeholder="DUDAS O NOTAS...">${state.responses.final || ''}</textarea>`;
+                html += `<button onclick="handleFinal()" class="btn-primary-sm w-full py-4 mt-8">Finalizar Diagnóstico</button>`;
             }
 
             area.innerHTML = html;
         }
 
-        // LÓGICA DE MULTISELECCIÓN CON COMPARACIÓN EXACTA (CORRECCIÓN DE ADULTO MAYOR)
         function toggleM(v) {
             let field = quizData[state.current].id;
             let currentVals = state.responses[field] ? state.responses[field].split(", ") : [];
@@ -217,41 +340,78 @@
 
         function handleMulti() {
             const q = quizData[state.current];
-            if(q.fields.some(f => !document.getElementById(f).value)) return alert("Completa todos los campos.");
-            q.fields.forEach(f => state.responses[f] = document.getElementById(f).value);
-            saveAndNext(q.fields.map(f => state.responses[f]).join(" | "));
+            let allFilled = true;
+            
+            q.fields.forEach(f => {
+                const fieldId = f.toLowerCase().replace(/[^a-z0-9]/g, '_');
+                const value = document.getElementById(fieldId)?.value;
+                if (!value) allFilled = false;
+                else state.responses[f] = value;
+            });
+            
+            if (!allFilled) return alert("Completa todos los campos.");
+            saveAndNext("Completado");
         }
 
         function handleMultiOpt() {
             const field = quizData[state.current].id;
             let val = state.responses[field];
             if(!val) return alert("Selecciona al menos una opción.");
-            if(val.includes("Otro")) {
-                const other = document.getElementById('other-val')?.value;
-                if(!other) return alert("Especifica el campo 'Otro'.");
-                val = val.replace("Otro", `Otro (${other})`);
+            
+            const otherInput = document.getElementById('other-val');
+            if(val.includes("Otro") && otherInput) {
+                if(!otherInput.value.trim()) return alert("Especifica el campo 'Otro'.");
+                val = val.replace("Otro", `Otro (${otherInput.value})`);
             }
             saveAndNext(val);
         }
 
-        function handleFinal() { saveAndNext(document.getElementById('chat-final').value || "Ninguna"); }
-
-        function saveAndNext(v) {
-            state.responses[quizData[state.current].id || "data"] = v;
-            if(state.current < quizData.length - 1) { state.current++; render(); }
-            else { finish(); }
+        function handleFinal() { 
+            saveAndNext(document.getElementById('chat-final').value || "Sin comentarios finales"); 
         }
 
-        function updateProg() {
-            document.getElementById('prog-line').style.width = (state.current / (quizData.length - 1) * 100) + "%";
-            for(let i=1; i<=4; i++) {
-                const d = document.getElementById(`d-${i}`);
-                if(i <= quizData[state.current].step) d.classList.replace('bg-white', 'bg-black'), d.classList.replace('text-gray-300', 'text-[#FFCD00]');
+        function saveAndNext(v) {
+            const currentQ = quizData[state.current];
+            state.responses[currentQ.id || "data"] = v;
+            
+            if(state.current < quizData.length - 1) { 
+                state.current++; 
+                render(); 
+            } else { 
+                finish(); 
             }
         }
 
-        function openAuraModal() { document.getElementById('auraModal').classList.remove('hidden'); document.getElementById('auraModal').classList.add('flex'); }
-        function closeAuraModal() { document.getElementById('auraModal').classList.add('hidden'); document.getElementById('auraModal').classList.remove('flex'); }
+        function updateProg() {
+            const totalSteps = quizData.length - 1;
+            const progress = (state.current / totalSteps) * 100;
+            document.getElementById('prog-line').style.width = progress + "%";
+            
+            // Actualizar dots del tracker (7 pasos principales)
+            const currentMainStep = quizData[state.current].step;
+            for(let i=1; i<=7; i++) {
+                const d = document.getElementById(`d-${i}`);
+                if (d) {
+                    if (i <= currentMainStep) {
+                        d.classList.remove('bg-white', 'border-gray-200', 'text-gray-300');
+                        d.classList.add('bg-black', 'border-[#FFCD00]', 'text-[#FFCD00]');
+                    } else {
+                        d.classList.remove('bg-black', 'border-[#FFCD00]', 'text-[#FFCD00]');
+                        d.classList.add('bg-white', 'border-gray-200', 'text-gray-300');
+                    }
+                }
+            }
+        }
+
+        function openAuraModal() { 
+            document.getElementById('auraModal').classList.remove('hidden'); 
+            document.getElementById('auraModal').classList.add('flex'); 
+        }
+        
+        function closeAuraModal() { 
+            document.getElementById('auraModal').classList.add('hidden'); 
+            document.getElementById('auraModal').classList.remove('flex'); 
+        }
 
         async function sendAuraMessage() {
             const input = document.getElementById('auraChatInput');
@@ -263,23 +423,63 @@
             input.value = "";
             chat.scrollTop = chat.scrollHeight;
 
-            // RESPUESTA DINÁMICA DE AURA BASADA EN DEEPSEEK (Lógica simulada mientras conectas API)
+            // Respuesta inteligente basada en el contexto
             setTimeout(() => {
                 let resp = "";
-                const q = quizData[state.current].q;
-                if(msg.toLowerCase().includes("licencia")) resp = "Aura SM: La licencia es el documento legal que avala que tu proyecto cumple con las normas de desarrollo urbano. Sin ella, la obra puede ser clausurada. El Arq. San Miguel siempre valida esto.";
-                else if(msg.toLowerCase().includes("habitantes")) resp = "Aura SM: El número de habitantes define el cálculo de la cisterna y el diámetro de las bajadas sanitarias. Es ingeniería básica para su confort.";
-                else resp = `Aura SM: Entiendo perfectamente su duda sobre "${q}". He registrado su comentario para que el Arq. San Miguel lo considere en el análisis estructural prioritario.`;
+                const currentQuestion = quizData[state.current].q;
+                
+                if (msg.toLowerCase().includes("licencia")) {
+                    resp = "Aura SM: La licencia de construcción es el permiso legal que avala que tu proyecto cumple con las normas urbanísticas. Sin ella, la obra puede ser clausurada y recibir multas. El Arq. San Miguel siempre recomienda regularizar este aspecto antes de iniciar.";
+                }
+                else if (msg.toLowerCase().includes("costo") || msg.toLowerCase().includes("presupuesto")) {
+                    resp = "Aura SM: El presupuesto debe considerar: proyecto ejecutivo (5-8% del total), licencias (2-5%), construcción (100%), y un 10% de imprevistos. ¿Te gustaría que profundice en algún aspecto?";
+                }
+                else if (msg.toLowerCase().includes("material")) {
+                    resp = "Aura SM: La elección de materiales impacta directamente en la estructura, el mantenimiento y la eficiencia energética. Por ejemplo, el concreto aparente es durable pero requiere buen control de calidad. ¿Sobre qué material tienes duda?";
+                }
+                else if (msg.toLowerCase().includes("tiempo") || msg.toLowerCase().includes("plazo")) {
+                    resp = "Aura SM: Los tiempos típicos: Proyecto ejecutivo (2-4 meses), Licencias (1-3 meses), Construcción (8-18 meses según tamaño). ¿Quieres una estimación más precisa para tu caso?";
+                }
+                else {
+                    resp = `Aura SM: Entiendo su consulta sobre "${currentQuestion}". He registrado su pregunta para que el Arq. San Miguel la considere en el análisis personalizado. Mientras tanto, ¿hay algún aspecto técnico específico en el que pueda ayudarle?`;
+                }
 
-                chat.innerHTML += `<div class="flex gap-3 items-start"><div class="w-8 h-8 rounded-full bg-black flex items-center justify-center border border-[#FFCD00]"><i class="fas fa-robot text-[#FFCD00] text-xs"></i></div><div class="bg-white p-3 border-2 border-black text-[11px] font-bold max-w-[85%]">${resp}</div></div>`;
+                chat.innerHTML += `<div class="flex gap-3 items-start">
+                    <div class="w-8 h-8 rounded-full bg-black flex items-center justify-center border border-[#FFCD00]">
+                        <i class="fas fa-robot text-[#FFCD00] text-xs"></i>
+                    </div>
+                    <div class="bg-white p-3 border-2 border-black text-[11px] font-bold max-w-[85%]">${resp}</div>
+                </div>`;
                 chat.scrollTop = chat.scrollHeight;
                 state.interactionLog.push({user: msg, aura: resp});
-            }, 1000);
+            }, 800);
         }
 
         function finish() {
-            const waMsg = `Hola Arq. San Miguel, nuevo diagnóstico completo.\n\nNombre: ${state.responses.Nombre || "Ver Bitácora"}\nNotas Aura: ${state.interactionLog.length} mensajes.`;
-            document.getElementById('main-render').innerHTML = `<div class="text-center space-y-8 fade-in"><h2 class="text-3xl font-black italic uppercase tracking-tighter italic">Análisis <span class="text-[#FFCD00]">espacioSM</span> Listo</h2><p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-8">Toda la bitácora ha sido consolidada. El Arq. San Miguel te espera.</p><a href="https://wa.me/525613870288?text=${encodeURIComponent(waMsg)}" target="_blank" class="btn-primary-sm block w-full py-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">Enviar al Arq. San Miguel</a></div>`;
+            // Preparar mensaje para WhatsApp con resumen
+            let resumen = "📋 *NUEVO DIAGNÓSTICO COMPLETADO*\n\n";
+            for (let key in state.responses) {
+                if (state.responses[key] && typeof state.responses[key] === 'string' && state.responses[key].length > 0) {
+                    resumen += `• *${key}*: ${state.responses[key]}\n`;
+                }
+            }
+            resumen += `\n💬 *Interacciones con Aura*: ${state.interactionLog.length} mensajes`;
+
+            const waMsg = encodeURIComponent(resumen);
+            
+            document.getElementById('main-render').innerHTML = `
+                <div class="text-center space-y-8 fade-in">
+                    <h2 class="text-3xl font-black italic uppercase tracking-tighter italic">
+                        Análisis <span class="text-[#FFCD00]">espacioSM</span> Listo
+                    </h2>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-8">
+                        Toda la bitácora ha sido consolidada. El Arq. San Miguel te espera.
+                    </p>
+                    <a href="https://wa.me/525613870288?text=${waMsg}" target="_blank" 
+                       class="btn-primary-sm block w-full py-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
+                        Enviar al Arq. San Miguel
+                    </a>
+                </div>`;
             document.getElementById('tip-box').classList.add('hidden');
         }
     </script>
