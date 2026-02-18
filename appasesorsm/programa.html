@@ -161,8 +161,8 @@
     </footer>
 
     <script>
-        // ===== CONFIGURACIÓN - URL ANTERIOR =====
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzLtd0p9t16aQeQ5sAq6DjwY1e6Q87k6pzWlJkq8T5m/exec";
+        // ===== CONFIGURACIÓN =====
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwYQLOOu1RxfbB2rFpXhSNoN2pj8rxAPYSq51VO7kD8lna3iHEr38mTCTjf7A39sv1HuQ/exec";
         const ARQUITECTO_WHATSAPP = "525613870288";
 
         // ===== FUNCIÓN DE VALIDACIÓN DE EMAIL =====
@@ -171,15 +171,28 @@
             return re.test(email.toLowerCase());
         }
 
+        // ===== FUNCIÓN PARA NORMALIZAR PAYLOAD =====
+        function normalizePayload(obj) {
+            const normalized = {};
+            Object.keys(obj).forEach(k => {
+                if (Array.isArray(obj[k])) {
+                    normalized[k] = obj[k].join(", ");
+                } else {
+                    normalized[k] = obj[k];
+                }
+            });
+            return normalized;
+        }
+
         // ===== FUNCIÓN PARA ENVIAR DATOS A GOOGLE SHEETS =====
         async function syncAllData(payload) {
-            console.log("📤 Enviando datos a Google Sheets:", payload);
+            const normalizedPayload = normalizePayload(payload);
+            console.log("📤 Enviando datos a Google Sheets:", normalizedPayload);
             
             try {
-                // Usar form data para mejor compatibilidad
                 const formData = new URLSearchParams();
-                Object.keys(payload).forEach(key => {
-                    formData.append(key, payload[key]);
+                Object.keys(normalizedPayload).forEach(key => {
+                    formData.append(key, normalizedPayload[key]);
                 });
                 
                 const response = await fetch(WEB_APP_URL, {
@@ -193,7 +206,6 @@
                 
                 console.log("✅ Datos enviados correctamente a la API");
                 
-                // Mostrar mensaje de éxito
                 const successMsg = document.createElement('div');
                 successMsg.className = 'fixed top-4 right-4 bg-green-500 text-white p-3 rounded shadow-lg z-50 text-[10px] font-bold';
                 successMsg.innerText = '✅ Datos guardados en Google Sheets';
@@ -205,7 +217,6 @@
             } catch (error) {
                 console.error("❌ Error enviando datos:", error);
                 
-                // Mostrar mensaje de error
                 const errorMsg = document.createElement('div');
                 errorMsg.className = 'fixed top-4 right-4 bg-red-500 text-white p-3 rounded shadow-lg z-50 text-[10px] font-bold';
                 errorMsg.innerText = '❌ Error al guardar en Google Sheets';
@@ -268,7 +279,7 @@
             { step: 5, id: "pasatiempos", q: "Pasatiempos e intereses", field: "pasatiempos", type: "textarea", placeholder: "Ejemplo: Leer, cocinar, pintar, tocar guitarra", tip: "Intereses generales dentro del proyecto." },
             { step: 5, id: "puntos_dolor", q: "Puntos de Dolor en viviendas anteriores", field: "puntos_dolor", type: "textarea", placeholder: "Ejemplo: Falta de luz natural, cocina expuesta a la sala, ruido entre habitaciones", tip: "Identificar molestias previas nos ayuda a evitarlas." },
             
-            // VI. ESTÉTICA, MATERIALES Y ENTORNO (PASO 6) - CORREGIDO PARA QUE CAMBIE DE COLOR
+            // VI. ESTÉTICA, MATERIALES Y ENTORNO (PASO 6)
             { step: 6, id: "paleta_cromatica", q: "Paleta Cromática preferida (puedes seleccionar varias)", field: "paleta_cromatica", type: "multi-opt", options: [
                 "Neutras (blanco, gris, beige)", 
                 "Oscuras (negro, gris oscuro)", 
@@ -394,18 +405,41 @@
                 html += `</div>`;
             } 
             else if (q.type === "multi-opt") {
-                const currentVals = state.responses[q.id] ? state.responses[q.id].split(", ") : [];
+                const selected = state.responses[q.id] || [];
+                
                 html += `<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3 sm:mt-4">`;
-                q.options.forEach(o => {
-                    const isActive = currentVals.some(v => v === o || v.startsWith(o + " ("));
-                    html += `<button onclick="toggleM('${o}')" class="btn-option ${isActive ? 'active' : ''}">${o}</button>`;
+                
+                q.options.forEach(opt => {
+                    const isActive = selected.includes(opt) ? 'active' : '';
+                    html += `
+                        <button 
+                            type="button"
+                            class="btn-option ${isActive}" 
+                            onclick="toggleMultiOption('${q.id}', '${opt.replace(/'/g, "\\'")}')">
+                            ${opt}
+                        </button>
+                    `;
                 });
-                html += `</div>`;
-                if(q.hasOther && currentVals.some(v => v.startsWith("Otro"))) {
-                    const otherVal = currentVals.find(v => v.startsWith("Otro"))?.match(/\((.*)\)/)?.[1] || "";
-                    html += `<input type="text" id="other-val" placeholder="ESPECIFIQUE OTRO..." value="${otherVal}" class="input-underline mt-3 sm:mt-4 text-[9px] sm:text-xs">`;
+                
+                if (q.hasOther) {
+                    html += `
+                        <input 
+                            type="text" 
+                            id="${q.id}_other" 
+                            placeholder="OTRO..." 
+                            value="${state.responses[q.id + '_other'] || ''}"
+                            class="input-underline mt-3">
+                    `;
                 }
-                html += `<button onclick="handleMultiOpt()" class="btn-primary-sm w-full py-3 sm:py-4 mt-4 sm:mt-8">Siguiente Paso</button>`;
+                
+                html += `</div>`;
+                
+                html += `
+                    <button onclick="saveMultiOpt('${q.id}')" 
+                    class="btn-primary-sm w-full py-3 sm:py-4 mt-6">
+                    Continuar
+                    </button>
+                `;
             }
             else if (q.type === "visual") {
                 html += `<div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 mt-3 sm:mt-4">`;
@@ -431,6 +465,34 @@
             area.innerHTML = html;
         }
 
+        // ===== NUEVAS FUNCIONES PARA MULTI-OPT =====
+        function toggleMultiOption(questionId, option) {
+            if (!state.responses[questionId]) {
+                state.responses[questionId] = [];
+            }
+
+            const index = state.responses[questionId].indexOf(option);
+
+            if (index > -1) {
+                state.responses[questionId].splice(index, 1);
+            } else {
+                state.responses[questionId].push(option);
+            }
+
+            console.log(`✅ Opciones seleccionadas para ${questionId}:`, state.responses[questionId]);
+            render();
+        }
+
+        function saveMultiOpt(questionId) {
+            const otherInput = document.getElementById(questionId + "_other");
+
+            if (otherInput && otherInput.value.trim() !== "") {
+                state.responses[questionId + "_other"] = otherInput.value.trim();
+            }
+
+            saveAndNext(state.responses[questionId]);
+        }
+
         function selectVisual(styleName) {
             const currentQ = quizData[state.current];
             state.responses[currentQ.id] = styleName;
@@ -438,28 +500,11 @@
             render();
         }
 
-        function toggleM(v) {
-            let field = quizData[state.current].id;
-            let currentVals = state.responses[field] ? state.responses[field].split(", ") : [];
-            const idx = currentVals.indexOf(v);
-            if (idx > -1) currentVals.splice(idx, 1);
-            else currentVals.push(v);
-            state.responses[field] = currentVals.join(", ");
-            console.log(`✅ Opciones seleccionadas para ${field}:`, state.responses[field]);
-            render(); 
-        }
-
         function handleMultiOpt() {
+            // Esta función ya no se usa - reemplazada por saveMultiOpt
+            console.warn("handleMultiOpt está obsoleta, usando saveMultiOpt en su lugar");
             const field = quizData[state.current].id;
-            let val = state.responses[field];
-            if(!val) return alert("Selecciona al menos una opción.");
-            const otherInput = document.getElementById('other-val');
-            if(val.includes("Otro") && otherInput) {
-                if(!otherInput.value.trim()) return alert("Especifica el campo 'Otro'.");
-                val = val.replace(/Otro/g, `Otro (${otherInput.value})`);
-                state.responses[field] = val;
-            }
-            saveAndNext(val);
+            saveMultiOpt(field);
         }
 
         function handleFinal() { 
