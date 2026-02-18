@@ -171,28 +171,47 @@
             return re.test(email.toLowerCase());
         }
 
-        // ===== FUNCIÓN PARA ENVIAR DATOS A GOOGLE SHEETS =====
+        // ===== FUNCIÓN PARA ENVIAR DATOS A GOOGLE SHEETS (CORREGIDA) =====
         async function syncAllData(payload) {
             console.log("📤 Enviando datos a Google Sheets:", payload);
             
             try {
+                // Usar JSONP o form data como alternativa para evitar problemas de CORS
+                const formData = new URLSearchParams();
+                Object.keys(payload).forEach(key => {
+                    formData.append(key, payload[key]);
+                });
+                
                 const response = await fetch(WEB_APP_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: JSON.stringify(payload)
+                    body: formData.toString()
                 });
                 
                 console.log("✅ Datos enviados correctamente a la API");
+                
+                // Mostrar mensaje de éxito al usuario
+                const successMsg = document.createElement('div');
+                successMsg.className = 'fixed top-4 right-4 bg-green-500 text-white p-3 rounded shadow-lg z-50 text-[10px] font-bold';
+                successMsg.innerText = '✅ Datos guardados en Google Sheets';
+                document.body.appendChild(successMsg);
+                setTimeout(() => successMsg.remove(), 3000);
+                
                 return true;
                 
             } catch (error) {
                 console.error("❌ Error enviando datos:", error);
-                if (error.message.includes('Failed to fetch')) {
-                    alert("⚠️ No se pudo conectar con el servidor. Verifica tu conexión a internet.");
-                }
+                
+                // Mostrar mensaje de error al usuario
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'fixed top-4 right-4 bg-red-500 text-white p-3 rounded shadow-lg z-50 text-[10px] font-bold';
+                errorMsg.innerText = '❌ Error al guardar en Google Sheets';
+                document.body.appendChild(errorMsg);
+                setTimeout(() => errorMsg.remove(), 3000);
+                
                 return false;
             }
         }
@@ -207,11 +226,11 @@
             };
             
             console.log("🔍 Probando conexión con API...");
-            await syncAllData(testPayload);
-            console.log("🔍 Prueba completada. Revisa Google Sheets.");
+            const result = await syncAllData(testPayload);
+            console.log("🔍 Prueba completada. Resultado:", result ? "Éxito" : "Fallo");
         }
 
-        // ===== QUestIONS DATA CON EJEMPLOS MEJORADOS =====
+        // ===== DATOS DEL CUESTIONARIO =====
         const quizData = [
             // I. PERFIL DEL CLIENTE Y UBICACIÓN (PASO 1)
             { step: 1, id: "perfil", q: "Perfil del Cliente y Ubicación", fields: [
@@ -407,7 +426,9 @@
         }
 
         function selectVisual(styleName) {
-            state.responses[quizData[state.current].id] = styleName;
+            const currentQ = quizData[state.current];
+            state.responses[currentQ.id] = styleName;
+            console.log(`✅ Estilo seleccionado: ${styleName} para ${currentQ.id}`);
             render();
         }
 
@@ -418,6 +439,7 @@
             if (idx > -1) currentVals.splice(idx, 1);
             else currentVals.push(v);
             state.responses[field] = currentVals.join(", ");
+            console.log(`✅ Opciones seleccionadas para ${field}:`, state.responses[field]);
             render(); 
         }
 
@@ -446,6 +468,8 @@
             } else {
                 state.responses[currentQ.id || "data"] = v;
             }
+            
+            console.log(`💾 Respuesta guardada - ${currentQ.id}:`, v);
             
             if(state.current < quizData.length - 1) { 
                 state.current++; 
@@ -572,12 +596,16 @@
                         <i class="fab fa-whatsapp text-base sm:text-lg"></i>
                         ENVIAR AL ARQ. SAN MIGUEL
                     </a>
+                    <button onclick="window.testAPI()" class="text-[8px] sm:text-[9px] underline mt-4">
+                        Probar conexión con Google Sheets
+                    </button>
                 </div>`;
             document.getElementById('tip-box').classList.add('hidden');
         }
 
-        // Exponer testAPI globalmente para pruebas en consola
+        // Exponer funciones globalmente para debugging
         window.testAPI = testAPI;
+        window.state = state;
     </script>
 </body>
 </html>
