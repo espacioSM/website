@@ -19,7 +19,7 @@
         .btn-secondary-sm:hover { background-color: #f0f0f0; transform: translateY(-2px); }
         
         .input-underline { border-bottom: 2px solid #000; width: 100%; padding: 12px 0; font-weight: 700; text-transform: uppercase; outline: none; background: transparent; transition: all 0.3s; font-size: clamp(10px, 3vw, 14px); }
-        .btn-option { border: 2px solid #E5E7EB; padding: 12px 8px; text-align: left; font-weight: 700; font-size: clamp(9px, 2.5vw, 11px); text-transform: uppercase; transition: 0.2s; width: 100%; word-break: break-word; line-height: 1.3; }
+        .btn-option { border: 2px solid #E5E7EB; padding: 12px 8px; text-align: left; font-weight: 700; font-size: clamp(9px, 2.5vw, 11px); text-transform: uppercase; transition: 0.2s; width: 100%; word-break: break-word; line-height: 1.3; cursor: pointer; }
         .btn-option:hover { border-color: #000; }
         .btn-option.active { border-color: #000; background-color: var(--primary-color); color: #000; }
 
@@ -161,8 +161,8 @@
     </footer>
 
     <script>
-        // ===== CONFIGURACIÓN =====
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwYQLOOu1RxfbB2rFpXhSNoN2pj8rxAPYSq51VO7kD8lna3iHEr38mTCTjf7A39sv1HuQ/exec";
+        // ===== CONFIGURACIÓN - URL ANTERIOR =====
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzLtd0p9t16aQeQ5sAq6DjwY1e6Q87k6pzWlJkq8T5m/exec";
         const ARQUITECTO_WHATSAPP = "525613870288";
 
         // ===== FUNCIÓN DE VALIDACIÓN DE EMAIL =====
@@ -171,12 +171,12 @@
             return re.test(email.toLowerCase());
         }
 
-        // ===== FUNCIÓN PARA ENVIAR DATOS A GOOGLE SHEETS (CORREGIDA) =====
+        // ===== FUNCIÓN PARA ENVIAR DATOS A GOOGLE SHEETS =====
         async function syncAllData(payload) {
             console.log("📤 Enviando datos a Google Sheets:", payload);
             
             try {
-                // Usar JSONP o form data como alternativa para evitar problemas de CORS
+                // Usar form data para mejor compatibilidad
                 const formData = new URLSearchParams();
                 Object.keys(payload).forEach(key => {
                     formData.append(key, payload[key]);
@@ -193,7 +193,7 @@
                 
                 console.log("✅ Datos enviados correctamente a la API");
                 
-                // Mostrar mensaje de éxito al usuario
+                // Mostrar mensaje de éxito
                 const successMsg = document.createElement('div');
                 successMsg.className = 'fixed top-4 right-4 bg-green-500 text-white p-3 rounded shadow-lg z-50 text-[10px] font-bold';
                 successMsg.innerText = '✅ Datos guardados en Google Sheets';
@@ -205,7 +205,7 @@
             } catch (error) {
                 console.error("❌ Error enviando datos:", error);
                 
-                // Mostrar mensaje de error al usuario
+                // Mostrar mensaje de error
                 const errorMsg = document.createElement('div');
                 errorMsg.className = 'fixed top-4 right-4 bg-red-500 text-white p-3 rounded shadow-lg z-50 text-[10px] font-bold';
                 errorMsg.innerText = '❌ Error al guardar en Google Sheets';
@@ -268,8 +268,14 @@
             { step: 5, id: "pasatiempos", q: "Pasatiempos e intereses", field: "pasatiempos", type: "textarea", placeholder: "Ejemplo: Leer, cocinar, pintar, tocar guitarra", tip: "Intereses generales dentro del proyecto." },
             { step: 5, id: "puntos_dolor", q: "Puntos de Dolor en viviendas anteriores", field: "puntos_dolor", type: "textarea", placeholder: "Ejemplo: Falta de luz natural, cocina expuesta a la sala, ruido entre habitaciones", tip: "Identificar molestias previas nos ayuda a evitarlas." },
             
-            // VI. ESTÉTICA, MATERIALES Y ENTORNO (PASO 6)
-            { step: 6, id: "paleta_cromatica", q: "Paleta Cromática preferida", field: "paleta_cromatica", type: "multi-opt", options: ["Neutras (blanco, gris, beige)", "Oscuras (negro, gris oscuro)", "Tierra (terracota, ocre, café)", "Tendencia (colores de moda)", "Otro"], hasOther: true, tip: "Define la atmósfera espacial." },
+            // VI. ESTÉTICA, MATERIALES Y ENTORNO (PASO 6) - CORREGIDO PARA QUE CAMBIE DE COLOR
+            { step: 6, id: "paleta_cromatica", q: "Paleta Cromática preferida (puedes seleccionar varias)", field: "paleta_cromatica", type: "multi-opt", options: [
+                "Neutras (blanco, gris, beige)", 
+                "Oscuras (negro, gris oscuro)", 
+                "Tierra (terracota, ocre, café)", 
+                "Tendencia (colores de moda)", 
+                "Otro"
+            ], hasOther: true, tip: "Define la atmósfera espacial." },
             { step: 6, id: "texturas_pisos", q: "Materiales preferidos para pisos", field: "texturas_pisos", type: "multi-opt", options: ["Loseta cerámica", "Madera natural", "Mármol", "Concreto aparente", "Laminado", "Porcelanato", "Otro"], hasOther: true, tip: "Impacto en mantenimiento y térmica." },
             { step: 6, id: "conciencia_sitio", q: "Conciencia del Sitio: Elementos naturales a integrar", field: "conciencia_sitio", type: "textarea", placeholder: "Ejemplo: Árboles existentes, pendiente natural, vistas", tip: "Integrar elementos naturales del terreno." },
             { step: 6, id: "estilo_arquitectonico", q: "Estilo Arquitectónico preferido", field: "estilo_arquitectonico", type: "visual", options: [
