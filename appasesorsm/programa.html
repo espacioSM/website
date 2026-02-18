@@ -342,7 +342,7 @@
                 html += `</div>`;
                 
                 // Mostrar la imagen seleccionada actualmente
-                if (state.responses[q.id] && state.responses[q.id] !== "Otro") {
+                if (state.responses[q.id]) {
                     const selectedOption = q.options.find(o => o.name === state.responses[q.id]);
                     if (selectedOption) {
                         html += `<div class="mt-6 p-4 bg-gray-100 border-2 border-black">
@@ -353,6 +353,13 @@
                             </div>
                         </div>`;
                     }
+                }
+                
+                // Botón para continuar (solo si hay una selección)
+                if (state.responses[q.id]) {
+                    html += `<button onclick="saveAndNext(state.responses['${q.id}'])" class="btn-primary-sm w-full py-4 mt-8">Continuar</button>`;
+                } else {
+                    html += `<p class="text-[8px] font-bold text-red-500 mt-4 text-center">Selecciona un estilo para continuar</p>`;
                 }
             }
             else if (q.type === "chat") {
@@ -367,7 +374,7 @@
         function selectVisual(styleName) {
             const q = quizData[state.current];
             state.responses[q.id] = styleName;
-            render();
+            render(); // Solo actualiza la vista, NO avanza automáticamente
         }
 
         function toggleM(v) {
@@ -406,6 +413,7 @@
             if(val.includes("Otro") && otherInput) {
                 if(!otherInput.value.trim()) return alert("Especifica el campo 'Otro'.");
                 val = val.replace(/Otro/g, `Otro (${otherInput.value})`);
+                state.responses[field] = val; // Actualizar con el valor modificado
             }
             saveAndNext(val);
         }
