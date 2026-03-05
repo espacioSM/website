@@ -66,34 +66,31 @@
         </div>
     </nav>
 
-    <div onclick="openAuraModal()" class="aura-bubble fixed bottom-4 right-4 sm:bottom-8 sm:right-8 cursor-pointer flex flex-col items-center z-50">
+    <!-- Burbuja de Aura SM (ahora abre explicación) -->
+    <div onclick="openAuraExplicacion()" class="aura-bubble fixed bottom-4 right-4 sm:bottom-8 sm:right-8 cursor-pointer flex flex-col items-center z-50">
         <div class="bg-black text-[#FFCD00] w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-2xl border-2 border-[#FFCD00]">
             <i class="fas fa-robot text-xl sm:text-2xl"></i>
         </div>
-        <span class="bg-black text-white text-[6px] sm:text-[7px] font-black px-2 py-1 rounded mt-2 uppercase tracking-tighter">Consultar Aura SM</span>
+        <span class="bg-black text-white text-[6px] sm:text-[7px] font-black px-2 py-1 rounded mt-2 uppercase tracking-tighter">Explicación Aura</span>
     </div>
 
-    <div id="auraModal" class="fixed inset-0 bg-black/90 z-[1001] hidden items-center justify-center p-2 sm:p-4">
-        <div class="bg-white sm-card max-w-2xl w-full max-h-[90vh] sm:max-h-[85vh] flex flex-col">
+    <!-- Modal de explicación de Aura (sin chat) -->
+    <div id="auraExplicacionModal" class="fixed inset-0 bg-black/90 z-[1001] hidden items-center justify-center p-2 sm:p-4">
+        <div class="bg-white sm-card max-w-lg w-full max-h-[80vh] flex flex-col">
             <div class="bg-black p-3 sm:p-4 flex justify-between items-center border-b-4 border-[#FFCD00]">
                 <div class="flex items-center gap-2 sm:gap-3">
                     <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#FFCD00] flex items-center justify-center text-black font-black border-2 border-white text-[10px] sm:text-xs">SM</div>
-                    <span class="text-white text-[10px] sm:text-[12px] font-black uppercase tracking-widest">Aura SM · Consultoría</span>
+                    <span class="text-white text-[10px] sm:text-[12px] font-black uppercase tracking-widest">Aura SM · Explicación</span>
                 </div>
-                <button onclick="closeAuraModal()" class="text-white hover:text-[#FFCD00] text-2xl font-bold">&times;</button>
+                <button onclick="closeAuraExplicacion()" class="text-white hover:text-[#FFCD00] text-2xl font-bold">&times;</button>
             </div>
-            <div id="auraChatMessages" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 bg-gray-50">
-                <div class="flex gap-2 sm:gap-3 items-start">
-                    <div class="bg-white p-3 sm:p-4 border-2 border-black text-[10px] sm:text-[11px] font-bold leading-relaxed max-w-[90%]">
-                        Aura SM: Estoy aquí para apoyarte. ¿Deseas que te explique la importancia técnica de esta pregunta o tienes alguna duda para el Arq. San Miguel?
-                    </div>
+            <div class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 bg-gray-50">
+                <div id="auraExplicacionTexto" class="bg-white p-4 sm:p-5 border-2 border-black text-[10px] sm:text-[11px] font-bold leading-relaxed">
+                    <!-- Aquí se inyectará la explicación dinámica -->
                 </div>
             </div>
-            <div class="p-3 sm:p-4 border-t-2 border-black bg-white">
-                <div class="flex gap-2">
-                    <input type="text" id="auraChatInput" placeholder="PREGUNTA AQUÍ..." class="flex-1 border-2 border-black p-3 sm:p-4 text-[9px] sm:text-[10px] font-bold uppercase outline-none">
-                    <button onclick="sendAuraMessage()" class="bg-black text-[#FFCD00] px-4 sm:px-6 font-black uppercase text-[9px] sm:text-[10px] border-2 border-[#FFCD00] whitespace-nowrap">Enviar</button>
-                </div>
+            <div class="p-3 sm:p-4 border-t-2 border-black bg-white flex justify-end">
+                <button onclick="closeAuraExplicacion()" class="bg-black text-[#FFCD00] px-6 py-3 font-black uppercase text-[9px] sm:text-[10px] border-2 border-[#FFCD00]">Cerrar</button>
             </div>
         </div>
     </div>
@@ -164,8 +161,6 @@
         // ===== CONFIGURACIÓN =====
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwYQLOOu1RxfbB2rFpXhSNoN2pj8rxAPYSq51VO7kD8lna3iHEr38mTCTjf7A39sv1HuQ/exec";
         const ARQUITECTO_WHATSAPP = "525613870288";
-        // ===== CONEXIÓN CON AGENTE N8N =====
-        const N8N_WEBHOOK_URL = "TU_URL_DE_N8N_AQUI"; // Reemplaza con tu webhook de n8n
 
         // ===== FUNCIÓN DE VALIDACIÓN DE EMAIL =====
         function isValidEmail(email) {
@@ -309,6 +304,58 @@
         ];
 
         let state = { current: 0, responses: {}, interactionLog: [] };
+
+        // ===== FUNCIÓN PARA OBTENER EXPLICACIÓN + EJEMPLO DE LA PREGUNTA ACTUAL =====
+        function getExplicacionActual() {
+            const q = quizData[state.current];
+            if (!q) return "No hay pregunta activa.";
+
+            let explicacion = q.tip || "No hay explicación disponible para esta pregunta.";
+            let ejemplo = "";
+
+            // Generar ejemplo dinámico según el tipo de pregunta
+            if (q.type === "multi" && q.fields) {
+                // Tomar el primer campo como ejemplo
+                const primerCampo = q.fields[0];
+                if (primerCampo.includes("Ejemplo:")) {
+                    ejemplo = primerCampo.split("Ejemplo:")[1].trim();
+                } else {
+                    ejemplo = "Proporciona la información solicitada en cada campo.";
+                }
+            } else if (q.type === "text" && q.placeholder) {
+                ejemplo = q.placeholder.replace("Ejemplo:", "").trim();
+            } else if (q.type === "textarea" && q.placeholder) {
+                ejemplo = q.placeholder.replace("Ejemplo:", "").trim();
+            } else if (q.type === "opt" && q.options) {
+                ejemplo = "Por ejemplo: " + q.options[0];
+            } else if (q.type === "multi-opt" && q.options) {
+                ejemplo = "Puedes seleccionar, por ejemplo: " + q.options.slice(0, 2).join(" o ");
+            } else if (q.type === "visual" && q.options) {
+                ejemplo = "Por ejemplo, el estilo " + q.options[0].name;
+            } else if (q.type === "chat") {
+                ejemplo = "Puedes escribir cualquier duda o comentario final.";
+            }
+
+            if (ejemplo) {
+                explicacion += "<br><br><span class='text-[#FFCD00] font-black'>EJEMPLO:</span> " + ejemplo;
+            }
+
+            return explicacion;
+        }
+
+        // ===== FUNCIONES PARA EL MODAL DE EXPLICACIÓN =====
+        function openAuraExplicacion() {
+            const modal = document.getElementById('auraExplicacionModal');
+            const textoDiv = document.getElementById('auraExplicacionTexto');
+            textoDiv.innerHTML = getExplicacionActual();
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeAuraExplicacion() {
+            document.getElementById('auraExplicacionModal').classList.add('hidden');
+            document.getElementById('auraExplicacionModal').classList.remove('flex');
+        }
 
         // ===== FUNCIÓN MEJORADA PARA MANEJO DE PERFIL =====
         function handleMulti() {
@@ -547,77 +594,6 @@
                         d.classList.add('bg-white', 'text-gray-300'); 
                     }
                 }
-            }
-        }
-
-        function openAuraModal() { 
-            document.getElementById('auraModal').classList.remove('hidden'); 
-            document.getElementById('auraModal').classList.add('flex'); 
-        }
-        
-        function closeAuraModal() { 
-            document.getElementById('auraModal').classList.add('hidden'); 
-            document.getElementById('auraModal').classList.remove('flex'); 
-        }
-
-        // ===== CONEXIÓN CON AGENTE N8N =====
-        async function sendAuraMessage() {
-            const input = document.getElementById('auraChatInput');
-            const msg = input.value.trim();
-            if (!msg) return;
-
-            const chat = document.getElementById('auraChatMessages');
-            
-            // 1. Mostrar mensaje del usuario
-            chat.innerHTML += `
-                <div class="flex justify-end">
-                    <div class="bg-black text-white p-2 sm:p-3 border-2 border-[#FFCD00] text-[9px] sm:text-[10px] font-bold max-w-[80%]">
-                        ${msg}
-                    </div>
-                </div>`;
-            
-            input.value = "";
-            chat.scrollTop = chat.scrollHeight;
-
-            // 2. Mostrar indicador de "Escribiendo..."
-            const typingId = "aura-typing";
-            chat.innerHTML += `<div id="${typingId}" class="text-[8px] font-bold animate-pulse uppercase">Aura está analizando...</div>`;
-
-            try {
-                // 3. Petición a n8n enviando la duda + el contexto del cuestionario
-                const response = await fetch(N8N_WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        question: msg,
-                        context: state.responses, // Enviamos lo que ya contestó
-                        currentStep: state.current,
-                        clientName: state.responses['Nombre del Cliente'] || "Interesado"
-                    })
-                });
-
-                const data = await response.json();
-                document.getElementById(typingId).remove();
-
-                // 4. Renderizar respuesta de la IA
-                let respText = data.output || "Aura SM: Tuve un hipo en la conexión, pero el Arq. San Miguel puede revisar esto personalmente.";
-                
-                chat.innerHTML += `
-                    <div class="flex gap-2 sm:gap-3 items-start">
-                        <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-black flex items-center justify-center border border-[#FFCD00]">
-                            <i class="fas fa-robot text-[#FFCD00] text-[8px] sm:text-xs"></i>
-                        </div>
-                        <div class="bg-white p-2 sm:p-3 border-2 border-black text-[9px] sm:text-[11px] font-bold max-w-[85%]">
-                            Aura SM: ${respText}
-                        </div>
-                    </div>`;
-                
-                chat.scrollTop = chat.scrollHeight;
-                state.interactionLog.push({user: msg, aura: respText});
-
-            } catch (error) {
-                console.error("Error conectando con Aura SM:", error);
-                document.getElementById(typingId).innerText = "ERROR DE CONEXIÓN";
             }
         }
 
