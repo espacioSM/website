@@ -314,7 +314,10 @@
             let ejemplo = "";
 
             // Generar ejemplo dinámico según el tipo de pregunta
-            if (q.type === "multi" && q.fields) {
+            if (q.id === "licencia") {
+                // Ejemplo personalizado para la pregunta de licencia
+                ejemplo = "Si tienes dudas, selecciona: 'Requiero asesoría técnica y legal'";
+            } else if (q.type === "multi" && q.fields) {
                 // Tomar el primer campo como ejemplo
                 const primerCampo = q.fields[0];
                 if (primerCampo.includes("Ejemplo:")) {
