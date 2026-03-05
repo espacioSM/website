@@ -310,7 +310,9 @@
             const q = quizData[state.current];
             if (!q) return "No hay pregunta activa.";
 
-            let explicacion = q.tip || "No hay explicación disponible para esta pregunta.";
+            // Explicación base: una frase que contextualiza la pregunta y añade el tip
+            let explicacion = `Sobre "${q.q}": ${q.tip || 'considera tu situación particular para responder.'}`;
+
             let ejemplo = "";
 
             // Generar ejemplo dinámico según el tipo de pregunta
@@ -326,17 +328,25 @@
                     ejemplo = "Proporciona la información solicitada en cada campo.";
                 }
             } else if (q.type === "text" && q.placeholder) {
-                ejemplo = q.placeholder.replace("Ejemplo:", "").trim();
+                ejemplo = q.placeholder;
             } else if (q.type === "textarea" && q.placeholder) {
-                ejemplo = q.placeholder.replace("Ejemplo:", "").trim();
+                ejemplo = q.placeholder;
             } else if (q.type === "opt" && q.options) {
-                ejemplo = "Por ejemplo: " + q.options[0];
+                // Mostrar solo la primera opción como ejemplo, sin añadir "Por ejemplo:"
+                ejemplo = q.options[0];
             } else if (q.type === "multi-opt" && q.options) {
-                ejemplo = "Puedes seleccionar, por ejemplo: " + q.options.slice(0, 2).join(" o ");
+                // Mostrar dos opciones como ejemplo
+                ejemplo = q.options.slice(0, 2).join(" o ");
             } else if (q.type === "visual" && q.options) {
-                ejemplo = "Por ejemplo, el estilo " + q.options[0].name;
+                ejemplo = q.options[0].name;
             } else if (q.type === "chat") {
                 ejemplo = "Puedes escribir cualquier duda o comentario final.";
+            }
+
+            // Limpiar el ejemplo de frases como "Ejemplo:" o "Por ejemplo:" al inicio
+            if (ejemplo) {
+                // Eliminar patrones comunes como "Ejemplo:", "Por ejemplo:", "ejemplo:", etc. al inicio (case insensitive)
+                ejemplo = ejemplo.replace(/^(ejemplo:|por ejemplo:)\s*/i, '').trim();
             }
 
             if (ejemplo) {
