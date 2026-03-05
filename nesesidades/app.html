@@ -310,8 +310,64 @@
             const q = quizData[state.current];
             if (!q) return "No hay pregunta activa.";
 
-            // Explicación base: una frase que contextualiza la pregunta y añade el tip
-            let explicacion = `Sobre "${q.q}": ${q.tip || 'considera tu situación particular para responder.'}`;
+            // Generamos una explicación personalizada para cada pregunta, distinta del tip
+            let explicacion = "";
+
+            // Mapa de explicaciones personalizadas basadas en el id de la pregunta
+            const explicacionesMap = {
+                "perfil": "Esta sección recopila información básica sobre ti y tu familia. Es el punto de partida para que el diseño se ajuste a tu día a día.",
+                "ubicacion_maps": "Compartir la ubicación exacta nos permite estudiar el contexto: clima, asoleamiento, topografía y normativas municipales.",
+                "licencia": "La licencia de construcción es el permiso oficial que avala tu proyecto. Conocer tu situación actual nos ayuda a planificar los trámites necesarios.",
+                "tipo_trabajo": "Indica el alcance de la intervención: si es desde cero, una renovación o una ampliación. Cada una tiene implicaciones estructurales distintas.",
+                "diagnostico_necesidades": "Describe con honestidad lo que no funciona en tu espacio actual. Esto nos dará pistas claras sobre lo que debemos mejorar.",
+                "prioridad_inversion": "Elegir una prioridad ayuda a enfocar el presupuesto en lo que realmente valoras: más metros, diseño, lujo o sostenibilidad.",
+                "num_usuarios": "El número de personas que habitarán la vivienda define dimensiones de espacios, instalaciones y almacenamiento.",
+                "perfil_habitantes": "Las edades y condiciones de los habitantes influyen en la seguridad, accesibilidad y distribución de los espacios.",
+                "vida_social": "Tu frecuencia de reuniones determina si necesitas áreas sociales amplias o espacios más íntimos.",
+                "vision_estilo_vida": "La sensación que buscas en tu hogar guía la selección de materiales, colores y distribución.",
+                "vehiculos_actuales": "La cantidad de vehículos actuales es la base para dimensionar correctamente la cochera y los accesos.",
+                "tipo_vehiculos": "Cada tipo de vehículo requiere dimensiones específicas de altura y ancho. Selecciona todos los que aplican.",
+                "proyeccion_vehiculos": "Pensar en futuras adquisiciones evita tener que modificar la estructura más adelante.",
+                "mascotas": "Si tienes o planeas tener mascotas, debemos elegir acabados resistentes y considerar espacios para ellas.",
+                "habitaciones": "El número de habitaciones impacta directamente en la superficie construida y la estructura.",
+                "accesibilidad": "Pensar en la accesibilidad garantiza que todas las personas puedan moverse con libertad, hoy y en el futuro.",
+                "privacidad_confort": "Detalles como vestidor, baño privado o terraza hacen que las habitaciones sean verdaderos refugios.",
+                "requerimientos_especiales": "Objetos pesados o equipamiento especial necesitan refuerzos estructurales específicos.",
+                "zonas_permanencia": "Los lugares donde pasas más tiempo merecen atención extra en confort, iluminación y acústica.",
+                "pasatiempos": "Conocer tus hobbies nos permite integrar espacios pensados para ellos.",
+                "puntos_dolor": "Identificar molestias de viviendas anteriores es clave para no repetir errores.",
+                "paleta_cromatica": "Los colores definen la atmósfera. Puedes elegir varios para darle flexibilidad al diseño.",
+                "texturas_pisos": "El material del piso afecta la sensación térmica, el mantenimiento y la estética.",
+                "conciencia_sitio": "Integrar elementos naturales existentes (árboles, pendientes) enriquece el proyecto y reduce impacto.",
+                "estilo_arquitectonico": "El estilo es la firma visual de tu hogar. Selecciona el que más resuene contigo.",
+                "referencias_visuales": "Compartir referencias visuales acelera la comprensión de tus gustos estéticos.",
+                "sostenibilidad": "Las ecotecnologías reducen el consumo y el impacto ambiental. Elige las que se adapten a tu contexto.",
+                "involucramiento": "Define cómo quieres participar en el proceso: desde delegar hasta tomar decisiones activas.",
+                "proposito_patrimonial": "El propósito de la vivienda (permanente, inversión, etc.) define la durabilidad y flexibilidad requeridas.",
+                "final": "Este espacio es para cualquier duda o comentario que quieras hacer llegar al arquitecto."
+            };
+
+            // Usar explicación personalizada si existe, de lo contrario una genérica
+            if (explicacionesMap[q.id]) {
+                explicacion = explicacionesMap[q.id];
+            } else {
+                // Explicación genérica basada en el tipo
+                if (q.type === "multi") {
+                    explicacion = "Completa cada campo con la información solicitada. Esto ayuda a construir un perfil preciso.";
+                } else if (q.type === "opt") {
+                    explicacion = "Elige la opción que mejor describa tu situación actual.";
+                } else if (q.type === "multi-opt") {
+                    explicacion = "Puedes seleccionar una o varias opciones. Si ninguna aplica, elige 'Otro' y especifica.";
+                } else if (q.type === "text" || q.type === "textarea") {
+                    explicacion = "Responde brevemente, con tus palabras. Si no aplica, puedes indicarlo.";
+                } else if (q.type === "visual") {
+                    explicacion = "Selecciona la imagen que más se acerque al estilo que imaginas para tu proyecto.";
+                } else if (q.type === "chat") {
+                    explicacion = "Este es el momento de expresar cualquier inquietud, idea o comentario adicional.";
+                } else {
+                    explicacion = "Responde según tu criterio. No hay respuestas incorrectas.";
+                }
+            }
 
             let ejemplo = "";
 
