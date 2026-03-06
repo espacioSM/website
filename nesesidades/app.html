@@ -284,15 +284,22 @@
                 "Tendencia (colores de moda)", 
                 "Otro"
             ], hasOther: true, tip: "Define la atmósfera espacial." },
-            { step: 6, id: "texturas_pisos", q: "Materiales preferidos para pisos", field: "texturas_pisos", type: "multi-opt", options: ["Loseta cerámica", "Madera natural", "Mármol", "Concreto aparente", "Laminado", "Porcelanato", "Otro"], hasOther: true, tip: "Impacto en mantenimiento y térmica." },
+            { step: 6, id: "texturas_pisos", q: "Material preferido para pisos", field: "texturas_pisos", type: "visual", options: [
+                { name: "Loseta cerámica", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400" },
+                { name: "Madera natural", img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400" },
+                { name: "Mármol", img: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=400" },
+                { name: "Concreto aparente", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400" },
+                { name: "Laminado", img: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400" },
+                { name: "Porcelanato", img: "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=400" }
+            ], tip: "El material del piso afecta la sensación térmica, el mantenimiento y la estética." },
             { step: 6, id: "conciencia_sitio", q: "Conciencia del Sitio: Elementos naturales a integrar", field: "conciencia_sitio", type: "textarea", placeholder: "Ejemplo: Árboles existentes, pendiente natural, vistas", tip: "Integrar elementos naturales del terreno." },
             { step: 6, id: "estilo_arquitectonico", q: "Estilo Arquitectónico preferido", field: "estilo_arquitectonico", type: "visual", options: [
-                { name: "Brutalista (acabados simples, material expuesto)", img: "brutalistasm.png" },
-                { name: "Moderno (líneas puras, funcional)", img: "modernosm.jpeg" },
-                { name: "Contemporáneo (actual, versátil)", img: "contemporanea.png" },
-                { name: "Minimalista (menos es más)", img: "minimalistasm.jpeg" },
-                { name: "Mexicano (colores, texturas)", img: "mexicanosm.jpeg" },
-                { name: "Rústico (piedra, madera)", img: "rusticosm.jpeg" }
+                { name: "Clásico (columnas, simetría)", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400" },
+                { name: "Moderno (líneas puras, funcional)", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400" },
+                { name: "Contemporáneo (actual, versátil)", img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400" },
+                { name: "Minimalista (menos es más)", img: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=400" },
+                { name: "Mexicano (colores, texturas)", img: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=400" },
+                { name: "Rústico (piedra, madera)", img: "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=400" }
             ], tip: "Define la materialidad y la firma estética." },
             { step: 6, id: "referencias_visuales", q: "Referencias Visuales (Pinterest/Instagram)", field: "referencias_visuales", type: "text", placeholder: "Ejemplo: @arquitecto_moderno, pinterest.com/tabloid", tip: "Ayudan a entender sus gustos con precisión." },
             
@@ -337,7 +344,7 @@
                 "pasatiempos": "Conocer tus hobbies nos permite integrar espacios pensados para ellos.",
                 "puntos_dolor": "Identificar molestias de viviendas anteriores es clave para no repetir errores.",
                 "paleta_cromatica": "Los colores definen la atmósfera. Puedes elegir varios para darle flexibilidad al diseño.",
-                "texturas_pisos": "El material del piso afecta la sensación térmica, el mantenimiento y la estética.",
+                "texturas_pisos": "Observa las imágenes y elige el material que más te guste para los pisos. Cada uno tiene propiedades distintas de durabilidad, mantenimiento y estética.",
                 "conciencia_sitio": "Integrar elementos naturales existentes (árboles, pendientes) enriquece el proyecto y reduce impacto.",
                 "estilo_arquitectonico": "El estilo es la firma visual de tu hogar. Selecciona el que más resuene contigo.",
                 "referencias_visuales": "Compartir referencias visuales acelera la comprensión de tus gustos estéticos.",
@@ -361,7 +368,7 @@
                 } else if (q.type === "text" || q.type === "textarea") {
                     explicacion = "Responde brevemente, con tus palabras. Si no aplica, puedes indicarlo.";
                 } else if (q.type === "visual") {
-                    explicacion = "Selecciona la imagen que más se acerque al estilo que imaginas para tu proyecto.";
+                    explicacion = "Selecciona la imagen que más se acerque a lo que imaginas para tu proyecto.";
                 } else if (q.type === "chat") {
                     explicacion = "Este es el momento de expresar cualquier inquietud, idea o comentario adicional.";
                 } else {
@@ -572,7 +579,7 @@
                 if (state.responses[q.id]) {
                     html += `<button onclick="saveAndNext(state.responses['${q.id}'])" class="btn-primary-sm w-full py-3 sm:py-4 mt-4 sm:mt-8">Continuar</button>`;
                 } else {
-                    html += `<p class="text-[7px] sm:text-[8px] font-bold text-red-500 mt-3 sm:mt-4 text-center">Selecciona un estilo para continuar</p>`;
+                    html += `<p class="text-[7px] sm:text-[8px] font-bold text-red-500 mt-3 sm:mt-4 text-center">Selecciona una opción para continuar</p>`;
                 }
             }
             else if (q.type === "chat") {
@@ -614,7 +621,7 @@
         function selectVisual(styleName) {
             const currentQ = quizData[state.current];
             state.responses[currentQ.id] = styleName;
-            console.log(`✅ Estilo seleccionado: ${styleName} para ${currentQ.id}`);
+            console.log(`✅ Opción seleccionada: ${styleName} para ${currentQ.id}`);
             render();
         }
 
@@ -713,7 +720,8 @@
             resumen += `👤 *Cliente:* ${payload.Cliente || "No especificado"}\n`;
             resumen += `📧 *Email:* ${payload.Email || "No especificado"}\n`;
             resumen += `🏗️ *Tipo:* ${payload.Tipo_Trabajo || "No especificado"}\n`;
-            resumen += `🏛️ *Estilo:* ${payload.Estilo || "No especificado"}\n\n`;
+            resumen += `🏛️ *Estilo:* ${payload.Estilo || "No especificado"}\n`;
+            resumen += `🏛️ *Acabado piso:* ${payload.Texturas || "No especificado"}\n\n`;
             resumen += `✅ Datos sincronizados con espacioSM Engine.`;
 
             const waMsg = encodeURIComponent(resumen);
