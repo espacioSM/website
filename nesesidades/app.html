@@ -277,29 +277,21 @@
             { step: 5, id: "puntos_dolor", q: "Puntos de Dolor en viviendas anteriores", field: "puntos_dolor", type: "textarea", placeholder: "Ejemplo: Falta de luz natural, cocina expuesta a la sala, ruido entre habitaciones", tip: "Identificar molestias previas nos ayuda a evitarlas." },
             
             // VI. ESTÉTICA, MATERIALES Y ENTORNO (PASO 6)
-            { step: 6, id: "paleta_cromatica", q: "Paleta Cromática preferida (puedes seleccionar varias)", field: "paleta_cromatica", type: "multi-opt", options: [
-                "Neutras (blanco, gris, beige)", 
-                "Oscuras (negro, gris oscuro)", 
-                "Tierra (terracota, ocre, café)", 
-                "Tendencia (colores de moda)", 
-                "Otro"
-            ], hasOther: true, tip: "Define la atmósfera espacial." },
-            { step: 6, id: "texturas_pisos", q: "Material preferido para pisos", field: "texturas_pisos", type: "visual", options: [
-                { name: "Loseta cerámica", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400" },
-                { name: "Madera natural", img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400" },
-                { name: "Mármol", img: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=400" },
-                { name: "Concreto aparente", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400" },
-                { name: "Laminado", img: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400" },
-                { name: "Porcelanato", img: "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=400" }
-            ], tip: "El material del piso afecta la sensación térmica, el mantenimiento y la estética." },
+            { step: 6, id: "paleta_cromatica", q: "Paleta Cromática preferida", field: "paleta_cromatica", type: "visual", options: [
+                { name: "Neutras (blanco, gris, beige)", img: "paleta_neutras.jpg" },
+                { name: "Oscuras (negro, gris oscuro)", img: "paleta_oscuras.jpg" },
+                { name: "Tierra (terracota, ocre, café)", img: "paleta_tierra.jpg" },
+                { name: "Tendencia (colores de moda)", img: "paleta_tendencia.jpg" }
+            ], tip: "Define la atmósfera espacial." },
+            { step: 6, id: "texturas_pisos", q: "Materiales preferidos para pisos", field: "texturas_pisos", type: "multi-opt", options: ["Loseta cerámica", "Madera natural", "Mármol", "Concreto aparente", "Laminado", "Porcelanato", "Otro"], hasOther: true, tip: "Impacto en mantenimiento y térmica." },
             { step: 6, id: "conciencia_sitio", q: "Conciencia del Sitio: Elementos naturales a integrar", field: "conciencia_sitio", type: "textarea", placeholder: "Ejemplo: Árboles existentes, pendiente natural, vistas", tip: "Integrar elementos naturales del terreno." },
             { step: 6, id: "estilo_arquitectonico", q: "Estilo Arquitectónico preferido", field: "estilo_arquitectonico", type: "visual", options: [
-                { name: "Clásico (columnas, simetría)", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400" },
-                { name: "Moderno (líneas puras, funcional)", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400" },
-                { name: "Contemporáneo (actual, versátil)", img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400" },
-                { name: "Minimalista (menos es más)", img: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=400" },
-                { name: "Mexicano (colores, texturas)", img: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=400" },
-                { name: "Rústico (piedra, madera)", img: "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=400" }
+                { name: "Brutalista (acabados simples, material expuesto)", img: "brutalistasm.png" },
+                { name: "Moderno (líneas puras, funcional)", img: "modernosm.jpeg" },
+                { name: "Contemporáneo (actual, versátil)", img: "contemporanea.png" },
+                { name: "Minimalista (menos es más)", img: "minimalistasm.jpeg" },
+                { name: "Mexicano (colores, texturas)", img: "mexicanosm.jpeg" },
+                { name: "Rústico (piedra, madera)", img: "rusticosm.jpeg" }
             ], tip: "Define la materialidad y la firma estética." },
             { step: 6, id: "referencias_visuales", q: "Referencias Visuales (Pinterest/Instagram)", field: "referencias_visuales", type: "text", placeholder: "Ejemplo: @arquitecto_moderno, pinterest.com/tabloid", tip: "Ayudan a entender sus gustos con precisión." },
             
@@ -327,7 +319,7 @@
                 "licencia": "La licencia de construcción es el permiso oficial que avala tu proyecto. Conocer tu situación actual nos ayuda a planificar los trámites necesarios.",
                 "tipo_trabajo": "Indica el alcance de la intervención: si es desde cero, una renovación o una ampliación. Cada una tiene implicaciones estructurales distintas.",
                 "diagnostico_necesidades": "Describe con honestidad lo que no funciona en tu espacio actual. Esto nos dará pistas claras sobre lo que debemos mejorar.",
-                "prioridad_inversion": "Elegir una prioridad ayuda a enfocar el presupuesto en lo que realmente valoras: más metros, diseño, lujo o sostenibilidad.",
+                "prioridad_inversion": "Elegir una prioridad ayuda a enfocar el presupuesto en lo que realmente valoras. 'Maximizar m²' prioriza la superficie útil; 'Equilibrio diseño-costo' busca la mejor relación calidad-precio; 'Lujo y exclusividad' se centra en acabados y detalles premium; 'Sostenibilidad' orienta los recursos hacia sistemas ecológicos y eficiencia energética. Cada camino define la estrategia de diseño y materiales.",
                 "num_usuarios": "El número de personas que habitarán la vivienda define dimensiones de espacios, instalaciones y almacenamiento.",
                 "perfil_habitantes": "Las edades y condiciones de los habitantes influyen en la seguridad, accesibilidad y distribución de los espacios.",
                 "vida_social": "Tu frecuencia de reuniones determina si necesitas áreas sociales amplias o espacios más íntimos.",
@@ -343,8 +335,8 @@
                 "zonas_permanencia": "Los lugares donde pasas más tiempo merecen atención extra en confort, iluminación y acústica.",
                 "pasatiempos": "Conocer tus hobbies nos permite integrar espacios pensados para ellos.",
                 "puntos_dolor": "Identificar molestias de viviendas anteriores es clave para no repetir errores.",
-                "paleta_cromatica": "Los colores definen la atmósfera. Puedes elegir varios para darle flexibilidad al diseño.",
-                "texturas_pisos": "Observa las imágenes y elige el material que más te guste para los pisos. Cada uno tiene propiedades distintas de durabilidad, mantenimiento y estética.",
+                "paleta_cromatica": "Los colores definen la atmósfera. Elige la paleta que más te inspire; podemos adaptarla después.",
+                "texturas_pisos": "El material del piso afecta la sensación térmica, el mantenimiento y la estética.",
                 "conciencia_sitio": "Integrar elementos naturales existentes (árboles, pendientes) enriquece el proyecto y reduce impacto.",
                 "estilo_arquitectonico": "El estilo es la firma visual de tu hogar. Selecciona el que más resuene contigo.",
                 "referencias_visuales": "Compartir referencias visuales acelera la comprensión de tus gustos estéticos.",
@@ -368,7 +360,7 @@
                 } else if (q.type === "text" || q.type === "textarea") {
                     explicacion = "Responde brevemente, con tus palabras. Si no aplica, puedes indicarlo.";
                 } else if (q.type === "visual") {
-                    explicacion = "Selecciona la imagen que más se acerque a lo que imaginas para tu proyecto.";
+                    explicacion = "Selecciona la imagen que más se acerque al estilo que imaginas para tu proyecto.";
                 } else if (q.type === "chat") {
                     explicacion = "Este es el momento de expresar cualquier inquietud, idea o comentario adicional.";
                 } else {
@@ -579,7 +571,7 @@
                 if (state.responses[q.id]) {
                     html += `<button onclick="saveAndNext(state.responses['${q.id}'])" class="btn-primary-sm w-full py-3 sm:py-4 mt-4 sm:mt-8">Continuar</button>`;
                 } else {
-                    html += `<p class="text-[7px] sm:text-[8px] font-bold text-red-500 mt-3 sm:mt-4 text-center">Selecciona una opción para continuar</p>`;
+                    html += `<p class="text-[7px] sm:text-[8px] font-bold text-red-500 mt-3 sm:mt-4 text-center">Selecciona un estilo para continuar</p>`;
                 }
             }
             else if (q.type === "chat") {
@@ -621,7 +613,7 @@
         function selectVisual(styleName) {
             const currentQ = quizData[state.current];
             state.responses[currentQ.id] = styleName;
-            console.log(`✅ Opción seleccionada: ${styleName} para ${currentQ.id}`);
+            console.log(`✅ Estilo seleccionado: ${styleName} para ${currentQ.id}`);
             render();
         }
 
@@ -720,8 +712,7 @@
             resumen += `👤 *Cliente:* ${payload.Cliente || "No especificado"}\n`;
             resumen += `📧 *Email:* ${payload.Email || "No especificado"}\n`;
             resumen += `🏗️ *Tipo:* ${payload.Tipo_Trabajo || "No especificado"}\n`;
-            resumen += `🏛️ *Estilo:* ${payload.Estilo || "No especificado"}\n`;
-            resumen += `🏛️ *Acabado piso:* ${payload.Texturas || "No especificado"}\n\n`;
+            resumen += `🏛️ *Estilo:* ${payload.Estilo || "No especificado"}\n\n`;
             resumen += `✅ Datos sincronizados con espacioSM Engine.`;
 
             const waMsg = encodeURIComponent(resumen);
