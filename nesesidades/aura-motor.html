@@ -1,0 +1,226 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagnóstico de Autor · espacioSM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --amarillo: #FFCD00; }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; font-family: 'Inter', sans-serif; color: #000; background: #fff; }
+  .barra { background: #000; color: #fff; position: sticky; top: 0; z-index: 20; }
+  .barra-int { max-width: 1120px; margin: 0 auto; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; }
+  .marca { font-weight: 800; font-size: 16px; letter-spacing: .02em; }
+  .marca span { color: var(--amarillo); }
+  .marca em { font-style: normal; font-weight: 500; font-size: 10px; text-transform: uppercase; letter-spacing: .18em; color: #9a9a9a; margin-left: 10px; }
+  .btn-texto { background: none; border: 1px solid #444; color: #bbb; font-size: 10px; text-transform: uppercase; letter-spacing: .15em; padding: 7px 12px; cursor: pointer; font-family: inherit; }
+  .btn-texto:hover { border-color: var(--amarillo); color: var(--amarillo); }
+  .contenedor { max-width: 1120px; margin: 0 auto; padding: 36px 20px 80px; }
+  .etiqueta { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .2em; color: #6b6b6b; margin: 0 0 10px; }
+  .titulo-grande { font-size: clamp(30px, 5vw, 52px); line-height: .95; font-weight: 900; text-transform: uppercase; letter-spacing: -.03em; margin: 0 0 18px; }
+  .entradilla { font-size: 16px; line-height: 1.6; color: #333; max-width: 640px; }
+  .puntos-clave { list-style: none; padding: 0; margin: 22px 0; display: grid; gap: 8px; max-width: 640px; }
+  .puntos-clave li { border-left: 4px solid var(--amarillo); padding: 6px 0 6px 12px; font-size: 14px; color: #333; }
+  .consentimiento { max-width: 640px; margin: 20px 0; border: 2px solid #000; padding: 14px; }
+  .consentimiento label { display: flex; gap: 10px; font-size: 13px; line-height: 1.5; cursor: pointer; }
+  .consentimiento input { width: 18px; height: 18px; margin-top: 2px; accent-color: #000; }
+  .acciones-inicio { margin-top: 6px; }
+  .continuar { margin-top: 26px; border-top: 1px solid #ddd; padding-top: 18px; }
+  .continuar p { font-size: 13px; color: #555; }
+  .rejilla { display: grid; grid-template-columns: 1.55fr 1fr; gap: 26px; align-items: start; }
+  .tarjeta { border: 3px solid #000; box-shadow: 10px 10px 0 0 var(--amarillo); padding: 30px; background: #fff; }
+  .titulo-pregunta { font-size: clamp(20px, 2.6vw, 30px); line-height: 1.15; font-weight: 900; text-transform: uppercase; letter-spacing: -.02em; margin: 6px 0 12px; }
+  .ayuda { font-size: 13px; color: #555; margin: 0 0 18px; line-height: 1.5; }
+  .campo { margin: 6px 0; }
+  .entrada { width: 100%; border: 0; border-bottom: 2px solid #000; padding: 12px 0; font-size: 18px; font-weight: 600; font-family: inherit; outline: none; background: transparent; }
+  .entrada:focus { border-color: var(--amarillo); }
+  .entrada-parrafo { border: 2px solid #000; padding: 12px; min-height: 130px; font-size: 15px; font-weight: 500; line-height: 1.5; resize: vertical; }
+  .opciones { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .opcion { border: 2px solid #ddd; background: #fff; padding: 14px 12px; text-align: left; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; line-height: 1.25; }
+  .opcion:hover { border-color: #000; }
+  .opcion.activa { border-color: #000; background: var(--amarillo); }
+  .visuales { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .visual { border: 2px solid #ddd; background: #fff; padding: 0; cursor: pointer; font-family: inherit; transition: transform .2s ease, border-color .2s ease; }
+  .visual img { width: 100%; height: 84px; object-fit: cover; display: block; filter: grayscale(100%); opacity: .75; transition: .2s; }
+  .visual span { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 6px; line-height: 1.2; }
+  .visual:hover img, .visual.activa img { filter: grayscale(0); opacity: 1; }
+  .visual.activa { border-color: #000; box-shadow: 4px 4px 0 0 var(--amarillo); transform: scale(1.03); }
+  .acciones { display: flex; gap: 10px; justify-content: flex-end; margin-top: 26px; flex-wrap: wrap; }
+  .btn-primario { background: var(--amarillo); border: 2px solid #000; color: #000; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; font-size: 12px; padding: 14px 22px; cursor: pointer; font-family: inherit; }
+  .btn-primario:hover { background: #000; color: var(--amarillo); }
+  .btn-fantasma { background: #fff; border: 2px solid #000; color: #000; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; font-size: 12px; padding: 13px 18px; cursor: pointer; font-family: inherit; }
+  .btn-fantasma:hover { background: #f2f2f2; }
+  .btn-fantasma:disabled { opacity: .3; cursor: not-allowed; }
+  .btn-mini { background: #fff; border: 1px solid #000; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; padding: 8px 10px; cursor: pointer; font-family: inherit; width: 100%; margin-top: 6px; }
+  .puntos { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+  .punto { width: 28px; height: 28px; border: 2px solid #ddd; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: #bbb; background: #fff; }
+  .punto.hecho { background: #000; border-color: #000; color: var(--amarillo); }
+  .punto.actual { border-color: #000; color: #000; box-shadow: 0 0 0 3px var(--amarillo); }
+  .meta { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; color: #666; margin: 0 0 14px; }
+  .aura { border: 2px solid #000; background: #fafafa; padding: 20px; position: sticky; top: 80px; }
+  .aura-cabecera { display: flex; gap: 10px; align-items: center; margin-bottom: 14px; }
+  .aura-avatar { width: 38px; height: 38px; background: #000; color: var(--amarillo); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 12px; border: 2px solid var(--amarillo); }
+  .aura-cabecera strong { display: block; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; }
+  .aura-cabecera span { font-size: 10px; color: #777; text-transform: uppercase; letter-spacing: .1em; }
+  .aura-titulo { font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: .18em; color: #000; background: var(--amarillo); display: inline-block; padding: 3px 7px; margin: 14px 0 6px; }
+  .aura-texto { font-size: 13px; line-height: 1.55; color: #333; margin: 0 0 4px; }
+  .aura-alt { font-size: 12px; font-style: italic; color: #555; margin: 8px 0 0; }
+  .aura-nota { font-size: 10px; color: #888; line-height: 1.5; margin-top: 14px; border-top: 1px solid #ddd; padding-top: 10px; }
+  .error { color: #b00020; font-size: 12px; font-weight: 700; margin: 10px 0 0; }
+  .programa-acciones { display: flex; gap: 10px; justify-content: flex-end; margin-bottom: 18px; flex-wrap: wrap; }
+  .aviso { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: 10px 12px; border: 2px solid #ddd; margin: 0 0 16px; }
+  .aviso.ok { border-color: #0b7a3b; background: #effaf3; color: #0b7a3b; }
+  .aviso.error { border-color: #b00020; background: #fff1f3; color: #b00020; }
+  .programa { border: 3px solid #000; padding: 34px; box-shadow: 10px 10px 0 0 var(--amarillo); max-width: 820px; }
+  .programa h1 { font-size: 30px; text-transform: uppercase; letter-spacing: -.02em; margin: 0 0 4px; font-weight: 900; }
+  .programa-meta { font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: #666; margin: 0 0 22px; }
+  .programa-resumen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 0 0 26px; }
+  .programa-resumen div { border: 2px solid #000; padding: 10px; }
+  .programa-resumen span { display: block; font-size: 9px; text-transform: uppercase; letter-spacing: .14em; color: #777; }
+  .programa-resumen strong { display: block; font-size: 18px; margin-top: 2px; }
+  .programa h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .14em; margin: 26px 0 8px; border-bottom: 2px solid #000; padding-bottom: 4px; }
+  .tabla { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .tabla td { padding: 6px 0; border-bottom: 1px solid #e5e5e5; }
+  .tabla .num { text-align: right; font-weight: 700; white-space: nowrap; }
+  .tabla .total td { font-weight: 900; border-top: 2px solid #000; border-bottom: none; }
+  .lista { margin: 0; padding-left: 18px; font-size: 13px; line-height: 1.6; }
+  .lista.alerta li { color: #8a1c1c; }
+  .chat { position: fixed; inset: 0; background: rgba(0,0,0,.8); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 50; }
+  .chat-caja { background: #fff; border: 3px solid #000; max-width: 480px; width: 100%; display: flex; flex-direction: column; max-height: 80vh; box-shadow: 10px 10px 0 0 var(--amarillo); }
+  .chat-cabecera { background: #000; color: #fff; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; text-transform: uppercase; letter-spacing: .12em; }
+  .chat-cabecera button { background: none; border: 0; color: #fff; font-size: 22px; cursor: pointer; line-height: 1; }
+  .chat-mensajes { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 8px; background: #fafafa; }
+  .burbuja { max-width: 85%; padding: 9px 11px; font-size: 12px; line-height: 1.45; border: 2px solid #000; }
+  .burbuja.cliente { align-self: flex-end; background: #000; color: #fff; }
+  .burbuja.aura { align-self: flex-start; background: #fff; }
+  .chat-form { display: flex; gap: 8px; padding: 10px; border-top: 2px solid #000; }
+  .chat-form input { flex: 1; border: 2px solid #000; padding: 10px; font-size: 12px; font-family: inherit; outline: none; }
+  .chat-nota { font-size: 10px; color: #777; padding: 0 12px 10px; margin: 0; }
+  @media (max-width: 860px) {
+    .rejilla { grid-template-columns: 1fr; }
+    .aura { position: static; }
+    .visuales { grid-template-columns: repeat(2, 1fr); }
+    .opciones { grid-template-columns: 1fr; }
+    .programa-resumen { grid-template-columns: repeat(2, 1fr); }
+    .contenedor { padding: 22px 14px 60px; }
+    .tarjeta { padding: 20px; box-shadow: 6px 6px 0 0 var(--amarillo); }
+    .programa { padding: 20px; }
+  }
+  @media print {
+    .no-print, .barra, .chat { display: none !important; }
+    body { background: #fff; }
+    .contenedor { padding: 0; max-width: none; }
+    .programa { border: 0; box-shadow: none; padding: 0; max-width: none; }
+    .programa h2 { break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header class="barra no-print">
+  <div class="barra-int">
+    <div class="marca">espacio<span>SM</span><em>Motor de Diagnóstico</em></div>
+    <button id="btn-reiniciar" class="btn-texto">Reiniciar</button>
+  </div>
+</header>
+
+<main class="contenedor">
+
+  <section id="vista-inicio">
+    <p class="etiqueta">Uso interno · espacioSM</p>
+    <h1 class="titulo-grande">Diagnóstico de Autor</h1>
+    <p class="entradilla">Una conversación guiada para construir el <strong>Programa de Necesidades</strong>. Toma unos 15 minutos. Aura te explica cada pregunta y puedes responder “No lo sé” cuando no tengas el dato: queda anotado para la junta.</p>
+
+    <ul class="puntos-clave">
+      <li><strong>33 preguntas</strong> en 7 bloques, una por pantalla.</li>
+      <li><strong>Aura te guía</strong>: por qué preguntamos, un ejemplo y otra forma de preguntarlo.</li>
+      <li><strong>No se cotiza nada.</strong> Este ejercicio escucha; los números se ven en la junta.</li>
+      <li>Al final se arma el <strong>programa con cuadro de áreas, tensiones y pendientes</strong>.</li>
+    </ul>
+
+    <div class="consentimiento">
+      <label>
+        <input type="checkbox" id="consentimiento">
+        <span>Entiendo que estos datos se guardan en la hoja interna del despacho y se usan solo para el expediente de este proyecto.</span>
+      </label>
+      <p id="inicio-aviso" class="error"></p>
+    </div>
+
+    <div class="acciones-inicio">
+      <button id="btn-empezar" class="btn-primario">Empezar diagnóstico</button>
+    </div>
+
+    <div id="inicio-continuar" class="continuar" hidden>
+      <p id="inicio-continuar-texto"></p>
+      <button id="btn-continuar-avance" class="btn-fantasma">Continuar donde iba</button>
+    </div>
+  </section>
+
+  <section id="vista-pregunta" hidden>
+    <div class="rejilla">
+      <div class="principal">
+        <div class="progreso">
+          <div id="puntos" class="puntos"></div>
+          <p id="meta" class="meta"></p>
+        </div>
+        <article class="tarjeta">
+          <p id="etiqueta-bloque" class="etiqueta"></p>
+          <h2 id="titulo" class="titulo-pregunta"></h2>
+          <p id="ayuda" class="ayuda"></p>
+          <div id="campo" class="campo"></div>
+          <p id="error" class="error"></p>
+          <div class="acciones">
+            <button id="btn-atras" class="btn-fantasma">Regresar</button>
+            <button id="btn-nose" class="btn-fantasma">No lo sé</button>
+            <button id="btn-siguiente" class="btn-primario">Continuar</button>
+          </div>
+        </article>
+      </div>
+      <aside class="aura no-print">
+        <div class="aura-cabecera">
+          <div class="aura-avatar">SM</div>
+          <div><strong>Aura SM</strong><span>Te acompaña</span></div>
+        </div>
+        <p class="aura-titulo">Por qué te pregunto esto</p>
+        <p id="aura-porque" class="aura-texto"></p>
+        <p class="aura-titulo">Un ejemplo</p>
+        <p id="aura-ejemplo" class="aura-texto"></p>
+        <button id="btn-reformular" class="btn-mini" hidden>Otra forma de preguntarlo</button>
+        <p id="aura-alt" class="aura-alt"></p>
+        <button id="btn-duda" class="btn-mini">Tengo una duda</button>
+        <p class="aura-nota">Aura no cotiza ni propone diseño. Si no sabe algo, lo anota para el Arq.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section id="vista-programa" hidden>
+    <div class="programa-acciones no-print">
+      <button id="btn-volver-editar" class="btn-fantasma">Volver a editar</button>
+      <button id="btn-copiar" class="btn-fantasma">Copiar resumen</button>
+      <button id="btn-imprimir" class="btn-primario">Imprimir</button>
+    </div>
+    <p id="estado-guardado" class="aviso"></p>
+    <div id="programa-cuerpo" class="programa"></div>
+  </section>
+
+</main>
+
+<div id="chat" class="chat" hidden>
+  <div class="chat-caja">
+    <div class="chat-cabecera"><strong>Aura SM</strong><button id="chat-cerrar" aria-label="Cerrar">×</button></div>
+    <div id="chat-mensajes" class="chat-mensajes"></div>
+    <form id="chat-form" class="chat-form">
+      <input id="chat-input" placeholder="Escribe tu duda…" autocomplete="off">
+      <button class="btn-primario">Enviar</button>
+    </form>
+    <p class="chat-nota">Aura no cotiza ni propone diseño. Las dudas quedan anotadas para el Arq.</p>
+  </div>
+</div>
+
+<script src="aura-motor.js"></script>
+</body>
+</html>
