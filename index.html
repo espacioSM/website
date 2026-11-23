@@ -9,9 +9,33 @@
     <meta property="og:description" content="Estudio de arquitectura especializado en diseños únicos y sostenibles">
     <meta property="og:type" content="website">
     <title>espacioSM | Estudio de Arquitectura</title>
+    <link rel="canonical" href="https://espaciosm.art/">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "espacioSM",
+        "url": "https://espaciosm.art",
+        "logo": "https://espaciosm.art/logo.png.png",
+        "description": "espacioSM es un estudio de arquitectura e ingeniería estructural en Ciudad de México que fusiona arte y funcionalidad para crear espacios únicos y sostenibles.",
+        "telephone": "+52 56 1387 0288",
+        "email": "contacto@espaciosm.art",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Ciudad de México",
+            "addressRegion": "CDMX",
+            "addressCountry": "MX"
+        },
+        "sameAs": [
+            "https://www.instagram.com/espaciosm.art/",
+            "https://www.facebook.com/EspacioSMok",
+            "https://www.linkedin.com/in/daniel-san-miguel-huerta-0a25509b/"
+        ]
+    }
+    </script>
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;500;700&display=swap"></noscript>
-    <link rel="preload" href="hero1.jpg" as="image">
+    <link rel="preload" href="hero1.webp" as="image" type="image/webp">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;500;700&display=swap');
         
@@ -96,6 +120,14 @@
             max-height: 65%;
             object-fit: contain;
             object-position: center;
+        }
+
+        .hero-title {
+            font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+            text-align: center;
+            margin: 24px auto 0;
+            letter-spacing: 0.5px;
+            color: var(--text-color);
         }
 
         /* CATEGORÍAS ESTILIZADAS */
@@ -638,7 +670,7 @@
 <body>
     <div class="page-container">
         <header>
-            <img src="logo.png.png" alt="Logo espacioSM - Estudio de Arquitectura" class="logo" loading="eager">
+            <img src="logo.webp" alt="Logo espacioSM - Estudio de Arquitectura" width="500" height="428" class="logo" loading="eager">
             <button class="menu-icon" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">☰</button>
         </header>
 
@@ -646,14 +678,16 @@
             <a href="#portfolio">Portafolio</a>
             <a href="#team">Nuestro Equipo</a>
             <a href="#process">Proceso</a>
-            <a href="#contact">Contacto</a>
+            <a href="/contacto.html">Contacto</a>
         </div>
         <div class="menu-overlay" id="menu-overlay"></div>
 
         <main>
             <section class="hero-section">
-                <img src="hero1.jpg" alt="Proyecto destacado de espacioSM" class="hero-image" loading="eager" onerror="this.onerror=null;this.src='https://placehold.co/1200x800';">
+                <img src="hero1.webp" alt="Proyecto destacado de espacioSM" width="1400" height="980" class="hero-image" loading="eager" fetchpriority="high">
             </section>
+
+            <h1 class="hero-title">espacioSM · Estudio de Arquitectura e Ingeniería en México</h1>
 
             <div class="category-links">
                 <a href="huitzilac-sm.html">Casa Habitación</a>
@@ -667,32 +701,32 @@
                 <div class="grid-container">
                     
                     <a href="huitzilac-sm.html" class="grid-item" aria-label="Ver proyecto Huitzilac">
-                        <img src="casa-huitzilac.jpg" alt="Proyecto residencial Huitzilac" loading="lazy">
+                        <img src="casa-huitzilac.webp" alt="Proyecto residencial Huitzilac" width="1400" height="729" loading="lazy" decoding="async">
                         <div class="overlay"><div class="project-name">Huitzilac</div></div>
                     </a>
 
                     <a href="casajardin.html" class="grid-item" aria-label="Ver proyecto Casa Jardín">
-                        <img src="casa-jardin.jpg" alt="Proyecto Casa Jardín" loading="lazy">
+                        <img src="casa-jardin.webp" alt="Proyecto Casa Jardín" width="1024" height="1024" loading="lazy" decoding="async">
                         <div class="overlay"><div class="project-name">Casa Jardin</div></div>
                     </a>
 
                     <a href="https://espaciosm.art/casa-del-arbol/del-arbol.html" class="grid-item" aria-label="Ver proyecto Casa del Árbol">
-                        <img src="arbol-tultepec-sm2.png" alt="Proyecto Casa del Árbol" loading="lazy">
+                        <img src="casa-del-arbol/arbol-tultepec-sm2.webp" alt="Proyecto Casa del Árbol" width="1085" height="929" loading="lazy" decoding="async">
                         <div class="overlay"><div class="project-name">Casa del Árbol</div></div>
                     </a>
 
                     <a href="huixtoco/huixtoco-sm.html" class="grid-item" aria-label="Ver proyecto Departamentos Huixtoco">
-                        <img src="deptos-huixtoco.jpg" alt="Proyecto Departamentos Huixtoco" loading="lazy">
+                        <img src="huixtoco/deptos-huixtoco.webp" alt="Proyecto Departamentos Huixtoco" width="1400" height="1400" loading="lazy" decoding="async">
                         <div class="overlay"><div class="project-name">Departamentos Huixtoco</div></div>
                     </a>
 
                     <a href="coral/coral-sm.html" class="grid-item" aria-label="Ver proyecto Coral">
-                        <img src="jardin-coral-sm.png" alt="Proyecto Coral" loading="lazy">
+                        <img src="coral/jardin-coral-sm.webp" alt="Proyecto Coral" width="1024" height="1024" loading="lazy" decoding="async">
                         <div class="overlay"><div class="project-name">Coral</div></div>
                     </a>
 
                     <a href="lucernario/lucernario-sm.html" class="grid-item" aria-label="Ver proyecto Lucernario Xochimilco">
-                        <img src="lucernario-xochimilco.jpg" alt="Proyecto Lucernario Xochimilco" loading="lazy">
+                        <img src="lucernario-xochimilco.webp" alt="Proyecto Lucernario Xochimilco" width="1400" height="788" loading="lazy" decoding="async">
                         <div class="overlay"><div class="project-name">Lucernario Xochimilco</div></div>
                     </a>
 
@@ -702,7 +736,7 @@
             <section class="team-section" id="team">
                 <h2 class="section-title">Nuestro Equipo y Filosofía</h2>
                 <div class="team-content">
-                    <img src="IMG-20251203-WA0016.jpg" alt="Equipo de espacioSM trabajando" class="team-photo" loading="lazy">
+                    <img src="equipo-espaciosm.webp" alt="Equipo de espacioSM trabajando" width="972" height="1000" class="team-photo" loading="lazy" decoding="async">
                     <div class="team-description">
                         <p>Somos un colectivo de arquitectos, diseñadores y constructores apasionados por transformar ideas en realidad. Creemos en la colaboración, la innovación y en un proceso de diseño centrado en las personas que habitarán los espacios que creamos.</p>
                     </div>
@@ -726,9 +760,9 @@
 
     <div class="modal" id="imageModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle">
         <div class="modal-content">
-            <img class="modal-image" id="modalImage" src="" alt="" loading="lazy">
+            <img class="modal-image" id="modalImage" alt="Vista ampliada del proyecto espacioSM" width="1200" height="800" loading="lazy" decoding="async">
             <div class="modal-info">
-                <h2 class="modal-title" id="modalTitle"></h2>
+                <h2 class="modal-title" id="modalTitle">Vista previa del proyecto</h2>
                 <p class="modal-description" id="modalDescription"></p>
                 <button class="close-btn" onclick="closeModal()" aria-label="Cerrar modal">Cerrar</button>
             </div>
@@ -746,6 +780,7 @@
             <div class="footer-column">
                 <h4>Contacto</h4>
                 <p>Ciudad de México, México</p>
+                <a href="/contacto.html">Formulario de Contacto</a>
                 <a href="mailto:contacto@espaciosm.art">contacto@espaciosm.art</a>
                 <a href="tel:+525613870288">+52 56 1387 0288</a>
             </div>
@@ -765,7 +800,7 @@
     
     <div id="cookie-notice" role="dialog" aria-live="polite" aria-label="Consentimiento de cookies" class="shadow-xl">
         <p>
-            Utilizamos **cookies** propias y de terceros para mejorar su experiencia de navegación y evaluar el uso del sitio. 
+            Utilizamos <strong>cookies</strong> propias y de terceros para mejorar su experiencia de navegación y evaluar el uso del sitio. 
             Al continuar navegando, acepta su uso. Lea nuestro 
             <a href="/avisodeprivacidad.html" target="_blank">Aviso de Privacidad</a> para más información.
         </p>

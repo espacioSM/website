@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    espacioSM · Motor de Diagnóstico · v2
    Uso interno del despacho.
    Las preguntas, los textos de Aura y los consejos viven en
@@ -138,10 +138,10 @@ const PREGUNTAS = [
     ayuda: "Elige la que más se acerque; se puede ajustar después.",
     porQue: "Define la atmósfera del espacio.",
     opciones: [
-      { nombre: "Neutras (blanco, gris, beige)", img: "paleta_neutras-sm.jpg" },
-      { nombre: "Oscuras (negro, gris oscuro)", img: "paleta_oscuras-sm.jpg" },
-      { nombre: "Tierra (terracota, ocre, café)", img: "paleta_tierra-sm.jpg" },
-      { nombre: "Tendencia (colores de moda)", img: "paleta_tendencia-sm.jpg" }
+      { nombre: "Neutras (blanco, gris, beige)", img: "paleta_neutras-sm.webp", w: 480, h: 262 },
+      { nombre: "Oscuras (negro, gris oscuro)", img: "paleta_oscuras-sm.webp", w: 480, h: 262 },
+      { nombre: "Tierra (terracota, ocre, café)", img: "paleta_tierra-sm.webp", w: 480, h: 262 },
+      { nombre: "Tendencia (colores de moda)", img: "paleta_tendencia-sm.webp", w: 480, h: 262 }
     ] },
 
   { id: "Texturas_Pisos", bloque: 6, tipo: "multiple", titulo: "¿Qué materiales te gustan para el piso?",
@@ -155,12 +155,12 @@ const PREGUNTAS = [
   { id: "Estilo_Arquitectonico", bloque: 6, tipo: "visual", titulo: "¿Con qué estilo te identificas?",
     porQue: "Define la materialidad y la firma estética del proyecto.",
     opciones: [
-      { nombre: "Brutalista (acabados simples, material expuesto)", img: "brutalistasm-sm.jpg" },
-      { nombre: "Moderno (líneas puras, funcional)", img: "modernosm-sm.jpg" },
-      { nombre: "Contemporáneo (actual, versátil)", img: "contemporanea-sm.jpg" },
-      { nombre: "Minimalista (menos es más)", img: "minimalistasm-sm.jpg" },
-      { nombre: "Mexicano (colores, texturas)", img: "mexicanosm-sm.jpg" },
-      { nombre: "Rústico (piedra, madera)", img: "rusticosm-sm.jpg" }
+      { nombre: "Brutalista (acabados simples, material expuesto)", img: "brutalistasm-sm.webp", w: 320, h: 480 },
+      { nombre: "Moderno (líneas puras, funcional)", img: "modernosm-sm.webp", w: 480, h: 320 },
+      { nombre: "Contemporáneo (actual, versátil)", img: "contemporanea-sm.webp", w: 480, h: 320 },
+      { nombre: "Minimalista (menos es más)", img: "minimalistasm-sm.webp", w: 480, h: 320 },
+      { nombre: "Mexicano (colores, texturas)", img: "mexicanosm-sm.webp", w: 480, h: 320 },
+      { nombre: "Rústico (piedra, madera)", img: "rusticosm-sm.webp", w: 480, h: 320 }
     ] },
 
   { id: "Link_Referencias", bloque: 6, tipo: "texto", titulo: "¿Tienes referencias visuales?",
@@ -395,7 +395,10 @@ function renderCampo(q) {
       const img = document.createElement("img");
       img.src = op.img;
       img.alt = op.nombre;
+      if (op.w) img.width = op.w;
+      if (op.h) img.height = op.h;
       img.loading = "lazy";
+      img.decoding = "async";
       img.addEventListener("error", () => {
         img.remove();
         b.style.minHeight = "84px";

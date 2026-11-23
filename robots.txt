@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /_archivo_borradores/
+
+Sitemap: https://espaciosm.art/sitemap.xml
