@@ -490,9 +490,12 @@
                     </label>
                 </div>
                 
-                <button type="submit" class="btn-primary w-full py-3 px-6 rounded-md text-lg font-semibold">
-                    <i class="fas fa-paper-plane mr-2"></i> Enviar Mensaje
+                <button type="submit" class="btn-primary w-full py-3 px-6 rounded-md text-lg font-semibold flex items-center justify-center">
+                    <i class="fab fa-whatsapp mr-2 text-2xl"></i> Enviar Consulta por WhatsApp
                 </button>
+                <p class="text-xs text-gray-500 text-center mt-2">
+                    Te atenderemos de inmediato por el canal oficial de espacioSM (+52 56 1387 0288).
+                </p>
                 
                 <div id="form-message" class="hidden mt-4 text-center py-3 px-4 rounded"></div>
             </form>
@@ -616,79 +619,70 @@
                 });
             });
             
-            // --- INICIO DE LA LÓGICA DEL FORMULARIO CON GOOGLE SHEETS ---
+            // --- INICIO DE LA LÓGICA DEL FORMULARIO CON WHATSAPP DIRECTO ---
             const contactForm = document.getElementById('contact-form-google');
             const formMessage = document.getElementById('form-message');
-            
-            // URL de tu aplicación web de Google Apps Script.
-            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxYWB_hxyfWrh9uidWPq8_ERR7xCn9dnUsDsyouPmcb_vUIXlUFUSU2SDxFeMKUwn36qA/exec';
+            const WHATSAPP_PHONE = '525613870288';
 
             if (contactForm) {
-                contactForm.addEventListener('submit', async (e) => {
+                contactForm.addEventListener('submit', (e) => {
                     e.preventDefault();
                     
                     // Validar checkbox de privacidad
                     const privacyCheckbox = document.getElementById('privacy');
                     if (!privacyCheckbox.checked) {
                         formMessage.textContent = 'Debes aceptar la Política de Privacidad para enviar el formulario.';
-                        formMessage.className = 'text-center py-3 px-4 rounded bg-yellow-100 text-yellow-700';
+                        formMessage.className = 'text-center py-3 px-4 rounded bg-yellow-100 text-yellow-700 font-medium';
                         formMessage.classList.remove('hidden');
                         return;
                     }
                     
-                    const submitButton = contactForm.querySelector('button[type="submit"]');
-                    const originalButtonText = submitButton.innerHTML; // Usar innerHTML ya que incluye iconos
-                    
-                    // Deshabilitar botón y mostrar carga
-                    submitButton.disabled = true;
-                    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Enviando...';
-                    formMessage.classList.add('hidden');
-                    
-                    try {
-                        const formData = new FormData(contactForm);
-                        
-                        // Agregar fuente del formulario y timestamp
-                        formData.append('source', 'Página de Contacto');
-                        formData.append('timestamp', new Date().toISOString());
-                        
-                        const response = await fetch(GOOGLE_SCRIPT_URL, {
-                            method: 'POST',
-                            body: formData,
-                        });
-                        
-                        if (response.ok) {
-                            // Asumiendo que el script devuelve un JSON con {result: 'success'}
-                            const result = await response.json(); 
-                            if (result.result === 'success') {
-                                formMessage.textContent = '¡Mensaje enviado con éxito! Nos pondremos en contacto contigo en menos de 24 horas.';
-                                formMessage.className = 'text-center py-3 px-4 rounded bg-green-100 text-green-700';
-                                contactForm.reset();
-                                
-                                // Scroll suave al mensaje de éxito
-                                setTimeout(() => {
-                                    formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                }, 300);
-                            } else {
-                                throw new Error('El script de Google devolvió un error: ' + (result.message || 'Error desconocido'));
-                            }
-                        } else {
-                            throw new Error('Error de red al contactar el servidor de Google. Código: ' + response.status);
-                        }
+                    const name = (document.getElementById('name').value || '').trim();
+                    const email = (document.getElementById('email').value || '').trim();
+                    const phone = (document.getElementById('phone').value || '').trim();
+                    const serviceSelect = document.getElementById('service');
+                    const serviceText = serviceSelect && serviceSelect.selectedIndex > 0 ? serviceSelect.options[serviceSelect.selectedIndex].text : '';
+                    const projectSelect = document.getElementById('project-type');
+                    const projectText = projectSelect && projectSelect.selectedIndex > 0 ? projectSelect.options[projectSelect.selectedIndex].text : '';
+                    const message = (document.getElementById('message').value || '').trim();
 
-                    } catch (error) {
-                        console.error('Error en el envío:', error);
-                        formMessage.textContent = 'Hubo un error al enviar tu mensaje. Por favor, inténtalo de nuevo más tarde o contáctanos directamente por teléfono. (Detalle: ' + error.message + ')';
-                        formMessage.className = 'text-center py-3 px-4 rounded bg-red-100 text-red-700';
-                    } finally {
-                        formMessage.classList.remove('hidden');
-                        submitButton.disabled = false;
-                        submitButton.innerHTML = originalButtonText;
-
-                        // Ocultar mensaje después de 8 segundos (tanto éxito como error)
-                        setTimeout(() => {
-                            formMessage.classList.add('hidden');
-                        }, 8000);
+                    // Construcción del mensaje para WhatsApp
+                    let waMessage = '*Nuevo contacto desde el sitio web espacioSM*\n\n';
+                    waMessage += `• *Nombre:* ${name}\n`;
+                    waMessage += `• *Correo:* ${email}\n`;
+                    if (phone) {
+                        waMessage += `• *Teléfono:* ${phone}\n`;
                     }
+                    if (serviceText) {
+                        waMessage += `• *Servicio de interés:* ${serviceText}\n`;
+                    }
+                    if (projectText) {
+                        waMessage += `• *Tipo de proyecto:* ${projectText}\n`;
+                    }
+                    waMessage += `• *Mensaje:* ${message}`;
+
+                    const waUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(waMessage)}`;
+
+                    // Mostrar estado y botón de respaldo
+                    formMessage.innerHTML = `
+                        <div class="py-4 px-6 rounded-lg bg-green-50 border border-green-200 text-green-900 space-y-3">
+                            <p class="font-semibold text-base sm:text-lg flex items-center justify-center">
+                                <i class="fab fa-whatsapp text-green-600 text-2xl mr-2"></i> ¡Datos listos! Abriendo WhatsApp...
+                            </p>
+                            <p class="text-sm text-gray-700">
+                                Si la aplicación no se abre automáticamente, haz clic en el siguiente botón:
+                            </p>
+                            <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-2.5 bg-[#25D366] hover:bg-[#20ba5a] text-white font-semibold rounded-md shadow transition-all">
+                                <i class="fab fa-whatsapp mr-2 text-xl"></i> Continuar en WhatsApp
+                            </a>
+                        </div>
+                    `;
+                    formMessage.className = 'mt-6 text-center';
+                    formMessage.classList.remove('hidden');
+                    formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                    // Abrir WhatsApp en nueva pestaña
+                    window.open(waUrl, '_blank');
                 });
             }
             // --- FIN DE LA LÓGICA DEL FORMULARIO ---
