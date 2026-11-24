@@ -158,6 +158,114 @@
             }
         }
     </style>
+    <style>
+        /* Botón WhatsApp Flotante Discreto & Dinámico */
+        .whatsapp-float-wrapper {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+        }
+        .whatsapp-btn {
+            position: relative;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background-color: #25D366;
+            color: #ffffff !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 14px rgba(37, 211, 102, 0.45);
+            text-decoration: none;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .whatsapp-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.65);
+            color: #ffffff !important;
+        }
+        .whatsapp-btn:active {
+            transform: scale(0.94);
+        }
+        .whatsapp-svg {
+            width: 28px;
+            height: 28px;
+            transition: transform 0.3s ease;
+        }
+        .whatsapp-btn:hover .whatsapp-svg {
+            transform: rotate(-6deg);
+        }
+        .whatsapp-status-dot {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 11px;
+            height: 11px;
+            background-color: #34D399;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            z-index: 2;
+        }
+        .whatsapp-status-ping {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 11px;
+            height: 11px;
+            background-color: #34D399;
+            border-radius: 50%;
+            z-index: 1;
+            animation: wa-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        @keyframes wa-ping {
+            0% { transform: scale(1); opacity: 0.8; }
+            60%, 100% { transform: scale(2.2); opacity: 0; }
+        }
+        .whatsapp-tooltip {
+            position: absolute;
+            right: 64px;
+            background-color: rgba(17, 24, 39, 0.95);
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 500;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 6px 12px;
+            border-radius: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(8px);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            pointer-events: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .whatsapp-float-wrapper:hover .whatsapp-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+        @media (max-width: 768px) {
+            .whatsapp-float-wrapper {
+                bottom: 16px;
+                right: 16px;
+            }
+            .whatsapp-btn {
+                width: 46px;
+                height: 46px;
+            }
+            .whatsapp-svg {
+                width: 24px;
+                height: 24px;
+            }
+            .whatsapp-tooltip {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body class="antialiased">
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4">
@@ -586,5 +694,21 @@
             // --- FIN DE LA LÓGICA DEL FORMULARIO ---
         });
     </script>
+    <!-- Botón flotante WhatsApp discreto y dinámico -->
+    <div class="whatsapp-float-wrapper">
+        <div class="whatsapp-tooltip">¿Tienes un proyecto? Escríbenos &rarr;</div>
+        <a href="https://wa.me/525613870288?text=Hola%20espacioSM,%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto."
+           target="_blank"
+           rel="noopener noreferrer"
+           class="whatsapp-btn"
+           aria-label="Contactar por WhatsApp a espacioSM"
+           title="Chatea con nosotros por WhatsApp">
+            <span class="whatsapp-status-dot"></span>
+            <span class="whatsapp-status-ping"></span>
+            <svg class="whatsapp-svg" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+                <path d="M16 2a13.9 13.9 0 0 0-12 21L2 30l7.2-1.9A13.9 13.9 0 1 0 16 2zm0 25.5a11.6 11.6 0 0 1-5.9-1.6l-.4-.3-4.4 1.2 1.2-4.3-.3-.4A11.6 11.6 0 1 1 16 27.5zm6.4-8.6c-.3-.2-2-1-2.3-1.1s-.6-.2-.8.2-.9 1.1-1.1 1.3-.4.2-.7.1a9.2 9.2 0 0 1-2.7-1.7 10.1 10.1 0 0 1-1.9-2.3c-.2-.3 0-.5.1-.7s.3-.4.5-.6l.3-.5c.1-.2 0-.4 0-.5s-.8-2-1.1-2.7c-.3-.7-.6-.6-.8-.6h-.7a1.4 1.4 0 0 0-1 .5 4.3 4.3 0 0 0-1.3 3.2 7.5 7.5 0 0 0 1.6 4 17.2 17.2 0 0 0 6.6 5.8c.8.3 1.4.5 1.9.6a4.6 4.6 0 0 0 2.1.1 3.5 3.5 0 0 0 2.3-1.6 2.8 2.8 0 0 0 .2-1.6c-.1-.2-.3-.3-.6-.5z"/>
+            </svg>
+        </a>
+    </div>
 </body>
 </html>
